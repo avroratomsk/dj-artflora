@@ -1,0 +1,145 @@
+{% extends 'admin_base.html' %} {% block body %}
+<div class="page">
+  <div class="page__inner">
+    <h1 class="page__title">{{ product.name }}</h1>
+    <div class="page-edit">
+      <div class="page-edit__head">
+        <button type="button" data-name="basic" class="_active">Основные</button>
+        <button type="button" data-name="seo" class="_btn">SEO</button>
+        <button type="button" data-name="related" class="_btn">Связи товара</button>
+        <button type="button" data-name="image" class="_btn">Изображение</button>
+        <button type="button" data-name="char" class="_btn">Характеристики</button>
+      </div>
+      <form action="." method="POST" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="page-edit__body">
+          <!-- Основные настройки -->
+          <div class="page-edit__item _show" id="basic">
+            <div class="page-edit__form">
+              <div class="form__group">
+                <label for="{{ form.name.id_for_label }}" class="form__controls-label"><span>*</span>Название блюда</label>
+                {{ form.name }} {{ form.name.errors }}
+              </div>
+
+              <div class="form__group">
+                <label for="{{ form.short_description.id_for_label }}" class="form__controls-label"> Короткое описание </label>
+                {{ form.short_description }} {{ form.short_description.errors }}
+              </div>
+
+              <div class="form__group">
+                <label for="{{ form.description.id_for_label }}" class="form__controls-label"> Полное описание </label>
+                {{ form.description }} {{ form.description.errors }}
+              </div>
+
+              <div class="form__group">
+                <label for="{{ form.price.id_for_label }}" class="form__controls-label">
+                  <span>*</span>
+                  Цена
+                </label>
+                {{ form.price }} {{ form.price.errors }}
+              </div>
+
+              <div class="form__group">
+                <label for="{{ form.discount.id_for_label }}" class="form__controls-label"> Скидка в (<span>%</span>) </label>
+                {{ form.discount }} {{ form.discount.errors }}
+              </div>
+
+              <div class="form__group">
+                <label for="{{ form.weight.id_for_label }}" class="form__controls-label"> Грамовка </label>
+                {{ form.weight }} {{ form.weight.errors }}
+              </div>
+
+              <div class="form__group">
+                <label for="{{ form.slug.id_for_label }}" class="form__controls-label">
+                  <span>*</span>
+                  URL
+                </label>
+                {{ form.slug }} {{ form.slug.errors }}
+              </div>
+
+              <div class="form__group">
+                <label for="{{ form.slug.id_for_label }}" class="form__controls-label"> Количество </label>
+                {{ form.quantity }} {{ form.quantity.errors }}
+              </div>
+            </div>
+          </div>
+
+          <!-- SEO страницы -->
+          <div class="page-edit__item" id="seo">
+            <div class="page-edit__form">
+              <div class="form__group">
+                <label for="{{ form.meta_h1.id_for_label }}" class="form__controls-label"> Заголовок h1 </label>
+                {{ form.meta_h1 }} {{ form.meta_h1.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.meta_title.id_for_label }}" class="form__controls-label"> Мета заголовок </label>
+                {{ form.meta_title }} {{ form.meta_title.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Мета описание </label>
+                {{ form.meta_description }} {{ form.meta_description.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Мета keywords </label>
+                {{ form.meta_keywords }} {{ form.meta_keywords.errors }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Связи товара -->
+          <div class="page-edit__item" id="related">
+            <div class="page-edit__form">
+              <div class="form__group">
+                <label for="{{ form.category.id_for_label }}" class="form__controls-label"> Категория </label>
+                {{ form.category }} {{ form.category.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.day.id_for_label }}" class="form__controls-label"> День приготовления </label>
+                {{ form.day }} {{ form.day.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.subsidiary.id_for_label }}" class="form__controls-label"> Филлиал </label>
+                {{ form.subsidiary }} {{ form.subsidiary.errors }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Изображение товара -->
+          <div class="page-edit__item" id="image">
+            <div class="page-edit__form">
+              <div class="form__group">
+                <label for="{{ form.image.id_for_label }}">Изображение товара</label>
+                {{ form.image.src }} {{ form.image }} {{ form.image.errors }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Характеристики -->
+          <div class="page-edit__item" id="char">
+            <div class="page-edit__form">
+              <div class="form__group">
+                <label for="{{ form.calories.id_for_label }}" class="form__controls-label"> Каллорийность </label>
+                {{ form.calories }} {{ form.calories.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.proteins.id_for_label }}" class="form__controls-label"> Белки </label>
+                {{ form.proteins }} {{ form.proteins.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.fats.id_for_label }}" class="form__controls-label"> Жиры </label>
+                {{ form.fats }} {{ form.fats.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.carbonhydrates.id_for_label }}" class="form__controls-label"> Углеводы </label>
+                {{ form.carbonhydrates }} {{ form.carbonhydrates.errors }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="form__btn">Сохранить</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

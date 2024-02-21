@@ -1,0 +1,199 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<body>
+  <div class="wrapper">
+    {% include "components/header-single.html" %}
+    <main class="page">
+      <div class="single-banner" style="background-image: url({% static "theme/mb/images/stock.webp" %} )" data-speed="70">
+        <h1 class="stock__title _title">Скидки и Акции</h1>
+        <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
+            Главная
+            <meta itemprop="position" content="1" />
+          </a>
+          <span itemprop="name" class="breadcrumbs__item">
+            Акции
+            <meta itemprop="position" content="2" />
+          </span>
+        </div>
+      </div>
+      <section class="stock">
+        <div class="stock__container">
+          <div class="stock__inner">
+            {% if stocks.count > 0 %} {% for stock in stocks %}
+            <div class="stock__row">
+              <div class="stock__col">
+                <div class="stock__image">
+                  {% if stock.image %}
+                  <img src="{{ stock.image.url }}" alt="{{ stock.title }}" title="{{ stock.title }}" />
+                  {% else %}
+                  <img src="{% static 'theme/mb/images/noimage.webp' %}" alt="Нет изображения" title="Нет изображения" />
+                  {% endif %}
+                </div>
+              </div>
+              <div class="stock__col">
+                <div class="stock__col-content">
+                  <h3 class="stock__col-title">{{ stock.title }}</h3>
+                  <p class="stock__col-text">{{ stock.description | truncatechars:100 }}</p>
+                  <a href="{{ stock.get_absolute_url }}" class="stock__col-link">Подробнее</a>
+                </div>
+              </div>
+            </div>
+            {% endfor %} {% else %}
+            <div class="empty">Список акциий пуст</div>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      <section class="contact">
+        <div class="contact__container">
+          <h2 class="contact__title _title">Контакты</h2>
+          <div class="contact__row">
+            <div class="contact__col contact-info">
+              <div class="contact-info__row">
+                <div class="contact-info__icon">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div class="contact-info__content">
+                  г.Томск,<br />
+                  улица Ленина, дом 23а
+                </div>
+              </div>
+              <div class="contact-info__row">
+                <div class="contact-info__icon">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div class="contact-info__content">
+                  г.Томск,<br />
+                  проспект Фрунзе, дом 28в
+                </div>
+              </div>
+              <div class="contact-info__row">
+                <div class="contact-info__icon">
+                  <i class="fa-solid fa-phone-volume"></i>
+                </div>
+                <a href="#" class="contact-info__content"> 8(999) 999-99-99 </a>
+              </div>
+              <div class="contact-info__row">
+                <div class="contact-info__icon">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+                <a href="#" class="contact-info__content"> trapeza@mail.ru </a>
+              </div>
+            </div>
+            <div class="contact__col form">
+              <form action="" class="form__form">
+                <div class="form__group require">
+                  <label for="contact-name" class="require">Имя</label>
+                  <input type="text" name="contact-name" id="contact-name" placeholder="ФИО" class="form__controls" />
+                </div>
+                <div class="form__group">
+                  <label for="contact-phone" class="require">Телефон</label>
+                  <input type="text" name="contact-phone" id="contact-phone" placeholder="Телефон*" class="form__controls" />
+                </div>
+                <div class="form__group">
+                  <label for="contact-email" class="require">Email</label>
+                  <input type="text" name="contact-email" id="contact-email" placeholder="Email" class="form__controls" />
+                </div>
+                <div class="form__group">
+                  <label for="contact-message">Коментарий к заявке</label>
+                  <textarea type="text" rows="5" name="contact-message" id="contact-message" placeholder="Комментарий" class="form__controls"></textarea>
+                </div>
+                <div class="form__group">
+                  <button type="submit" class="form__btn">Отправить</button>
+                  <div class="form__agree">
+                    <input type="checkbox" id="agree-checkbox" checked />
+                    <label for="agree-checkbox">Даю согласие на обработку персональных данных</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="contact__map">
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3Aa514d171383ef2208b84f635ce68ef69fead16ae40de4d730cfddb8faf30a665&amp;source=constructor"
+              width="100%"
+              height="500"
+              frameborder="0"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer__container">
+        <div class="footer__grid">
+          <div class="footer__col">
+            <p class="footer__title">Контакты</p>
+            <div class="footer__item">
+              <span>Адрес: </span>
+              <span>г.Томск ул. Ленина 193</span>
+            </div>
+            <div class="footer__item">
+              <span>Телефон: </span>
+              <span>8(999) 999-99-99</span>
+            </div>
+            <div class="footer__item">
+              <span>Время работы: </span>
+              <span>пн-пт: 8:00-20:00, сб-вс: 10:00-20:00</span>
+            </div>
+            <div class="footer__item">
+              <span>Электронная почта: </span>
+              <span>trapeza@mail.ru</span>
+            </div>
+            <div class="footer__social">
+              <a href="#"><img src="img/icon/i-vk.svg" alt="" /></a>
+              <a href="#"><img src="img/icon/i-wa.svg" alt="" /></a>
+              <a href="#"><img src="img/icon/i-telegram.svg" alt="" /></a>
+            </div>
+          </div>
+          <div class="footer__col">
+            <p class="footer__title">Меню</p>
+            <nav class="footer__nav">
+              <a href="#">Горячее</a>
+              <a href="#">Салаты</a>
+              <a href="#">Выпечка</a>
+              <a href="#">Банкетное меню</a>
+              <a href="#">Поминальное меню</a>
+              <a href="#">Меню дня</a>
+            </nav>
+          </div>
+          <div class="footer__col">
+            <div class="footer__logo"><img src="img/logo-2-white.svg" alt="" /></div>
+            <nav class="footer__nav">
+              <a href="#">Политика конфиденциальности</a>
+              <a href="#">Статьи</a>
+              <a href="#">Отзывы</a>
+              <a href="#">Контакты</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <div class="author">
+      <div class="author__container">
+        <div class="author__inner">Разработка сайта | <a href="#">РА Аврора</a></div>
+      </div>
+    </div>
+  </div>
+  <div id="popup" aria-hidden="true" class="popup popup-view">
+    <div class="popup__wrapper">
+      <div class="popup__content">
+        <button data-close type="button" class="popup__close">X</button>
+        <div class="popup__grid">
+          <div class="popup__image">
+            <img src="" alt="" class="popup-image" />
+          </div>
+          <div class="popup__info">
+            <p class="popup__title"></p>
+            <p class="popup__price"></p>
+            <p class="popup__bjy"></p>
+            <p class="popup__descr"></p>
+          </div>
+          <button type="button" class="popup__btn">Позвонить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock %} {% include "../components/footer.html" %}

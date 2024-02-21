@@ -1,0 +1,34 @@
+{% extends 'admin_base.html' %} {% load shop_tags %} {% load static %} {% block body %}
+
+<div class="page">
+  <div class="page__inner">
+    <div class="page__add">
+      <h1 class="page__title">День подачи блюда</h1>
+      <a href="{% url 'product_add' %}">Добавить день</a>
+    </div>
+    <form action="." method="POST" class="form" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="page-edit__body">
+        <!-- Основные настройки -->
+        <div class="page-edit__item _show">
+          <div class="page-edit__form">
+            <div class="form__group">
+              <label for="{{ form.name.id_for_label }}" class="form__controls-label"><span>*</span>Название дня <span>:</span></label>
+              {{ form.name }} {{ form.name.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.slug.id_for_label }}" class="form__controls-label">
+                <span>*</span>
+                URL <span>:</span>
+              </label>
+              {{ form.slug }} {{ form.slug.errors }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="form__btn">Сохранить</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'admin_base.html' %} {% load shop_tags %} {% load static %} {% block body %}
+
+<div class="page">
+  <div class="page__inner">
+    <div class="page__add">
+      <h1 class="page__title">Товары</h1>
+      <form action="" method="POST" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        <input type="file" class="input" class="file" name="upload_file">
+        <button type="submit">Отправить</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

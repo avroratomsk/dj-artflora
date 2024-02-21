@@ -1,0 +1,26 @@
+<header class="header">
+  <div class="header__top top-header">
+    <div class="top-header__container">
+      <div class="top-header__inner">
+        <a href="/" class="top-header__logo">
+          <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.phone_one }}" />
+        </a>
+        <div class="top-header__nav nav">
+          <ul class="nav__list">
+            <li class="nav__item"><a href="{% url 'catalog' %}" class="nav__link">Меню</a></li>
+            <li class="nav__item"><a href="{% url 'service' %}" class="nav__link">Услуги</a></li>
+            <li class="nav__item"><a href="#" class="nav__link">О нас</a></li>
+            <li class="nav__item"><a href="{% url 'stock' %}" class="nav__link">Акции</a></li>
+            <li class="nav__item"><a href="#" class="nav__link">Вакансии</a></li>
+            <li class="nav__item"><a href="#" class="nav__link">Отзывы</a></li>
+            <li class="nav__item"><a href="{% url 'contact' %}" class="nav__link">Контакты</a></li>
+          </ul>
+        </div>
+        <div class="top-header__actions">
+          <a href="tel:{{ site_settings.phone_one }}" class="top-header__phone reg-num">{{ site_settings.phone_one }}</a>
+          <button type="button">Связаться с нами</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

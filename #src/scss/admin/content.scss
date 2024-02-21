@@ -1,0 +1,13 @@
+.content {
+  display: flex;
+  // height: 100vh;
+  overflow: hidden;
+
+  // .content__inner
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    width: 100%;
+  }
+}

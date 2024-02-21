@@ -1,0 +1,73 @@
+{% extends 'admin_base.html' %} {% load shop_tags %} {% load static %} {% block body %}
+
+<div class="page">
+  <div class="page__inner">
+    <div class="page__add">
+      <h1 class="page__title">Глобальные настройки сайта</h1>
+      <a href="javascript:history.back()"> Назад </a>
+    </div>
+    <form action="." method="POST" class="form" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="page-edit__body">
+        <!-- Основные настройки -->
+        <div class="page-edit__item _show">
+          <div class="page-edit__form">
+            <div class="form__group">
+              <label for="{{ form.logo.id_for_label }}" class="form__controls-label">Логотип <span>:</span></label>
+              {{ form.logo }} {{ form.logo.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.phone_one.id_for_label }}" class="form__controls-label">
+                <span>*</span>
+                Телефон<span>(пролетарская):</span>
+              </label>
+              {{ form.phone_one }} {{ form.phone_one.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.phone_two.id_for_label }}" class="form__controls-label">Телефон <span>(Ракетная):</span> </label>
+              {{ form.phone_two }} {{ form.phone_two.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.time_work.id_for_label }}" class="form__controls-label">Время работы <span>:</span> </label>
+              {{ form.time_work }} {{ form.time_work.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.email.id_for_label }}" class="form__controls-label">Email <span>:</span> </label>
+              {{ form.email }} {{ form.email.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.address_one.id_for_label }}" class="form__controls-label">Адрес <span>(Пролетарская):</span> </label>
+              {{ form.address_one }} {{ form.address_one.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.address_two.id_for_label }}" class="form__controls-label">Адрес<span>(Ракетная):</span> </label>
+              {{ form.address_two }} {{ form.address_two.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.meta_h1.id_for_label }}" class="form__controls-label">
+                <span>*</span>
+                Заголовок<span>:</span>
+              </label>
+              {{ form.meta_h1 }} {{ form.meta_h1.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.meta_title.id_for_label }}" class="form__controls-label"> Meta заголовок <span>:</span> </label>
+              {{ form.meta_title }} {{ form.meta_title.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Meta описание <span>:</span> </label>
+              {{ form.meta_description }} {{ form.meta_description.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.meta_keywords.id_for_label }}" class="form__controls-label"> Meta keywords <span>:</span> </label>
+              {{ form.meta_keywords }} {{ form.meta_keywords.errors }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="form__btn">Сохранить</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

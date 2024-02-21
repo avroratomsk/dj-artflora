@@ -1,0 +1,64 @@
+{% extends 'admin_base.html' %} {% block body %}
+<div class="page">
+  <div class="page__inner">
+    <h1 class="page__title">Категория - <span>{{ categorys.name }}</span></h1>
+    <div class="page-edit">
+      <form action="." method="POST" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="page-edit__body">
+          <!-- Основные настройки -->
+          <div class="page-edit__item _show">
+            <div class="page-edit__form">
+              <div class="form__group">
+                <label for="{{ form.name.id_for_label }}" class="form__controls-label"><span>*</span>Название категории
+                  <span>:</span></label>
+                {{ form.name }} {{ form.name.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.slug.id_for_label }}" class="form__controls-label">
+                  <span>*</span>
+                  URL <span>:</span>
+                </label>
+                {{ form.slug }} {{ form.slug.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.meta_h1.id_for_label }}" class="form__controls-label"> Заголовок h1
+                  <span>:</span></label>
+                {{ form.meta_h1 }} {{ form.meta_h1.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.meta_title.id_for_label }}" class="form__controls-label"> Мета заголовок
+                  <span>:</span>
+                  <p id="meta-title" class="meta-lenght"></p>
+                </label>
+                {{ form.meta_title }} {{ form.meta_title.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label">
+                  Мета описание <span>:</span>
+                  <p id="meta-title" class="meta-lenght"></p>
+                </label>
+                {{ form.meta_description }} {{ form.meta_description.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Мета keywords
+                  <span>:</span></label>
+                {{ form.meta_keywords }} {{ form.meta_keywords.errors }}
+              </div>
+              <div class="page-edit__form">
+                <div class="form__group">
+                  <label for="{{ form.image.id_for_label }}" class="form__controls-label">Изображение категории
+                    <span>:</span></label>
+                  {{ form.image }} {{ form.image.errors }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="form__btn">Сохранить</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

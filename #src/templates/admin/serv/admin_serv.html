@@ -1,0 +1,112 @@
+{% extends 'admin_base.html' %} {% load shop_tags %} {% load static %} {% block body %}
+
+<div class="page">
+  <div class="page__inner">
+    <div class="page__add">
+      <h1 class="page__title">Услуги</h1>
+      <a href="{% url 'service_add' %}" class="page__add-btn">Добавить услугу</a>
+      <a href="javascript:history.back()"> Назад </a>
+    </div>
+    {% if services.count > 0 %}
+    <div class="table-3">
+      <div class="head-table table-3__head">
+        <div class="head-table__image">Изображение</div>
+        <div class="head-table__name">Название</div>
+        <div class="head-table__action">Действия</div>
+      </div>
+      <div class="body-table table-3__body">
+        {% for service in services %}
+        <div class="body-table__row">
+          <div class="body-table__image">
+            {% if service.image %}
+            <img src="{{ service.image.url }}" alt="{{ service.name }}" title="{{ service.name }}" />
+            {% else%}
+            <img src="{% static 'admin/images/food.webp' %}" alt="" />
+            {% endif %}
+          </div>
+          <div class="body-table__name">
+            {% if service.slug %}
+            <a href="" class="">{{ service.name }}</a>
+            {% else %}
+            <p class="">{{ service.name }}</p>
+            {% endif %}
+          </div>
+          <div class="body-table__action">
+            <a href="{{ service.get_absolute_url }}" target="_blank" class="info">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 495.558 495.558" xml:space="preserve">
+                <g>
+                  <g>
+                    <path
+                      d="M492.538,242.716c-3.702-6.173-92.288-151.327-244.76-151.327c-152.476,0-241.063,145.154-244.76,151.327L0,247.774 l3.019,5.058c3.697,6.173,92.284,151.337,244.76,151.337c152.471,0,241.058-145.164,244.76-151.337l3.019-5.058L492.538,242.716z M247.779,384.476c-125.769,0-207.625-111.394-224.587-136.702c16.962-25.298,98.817-136.692,224.587-136.692 s207.625,111.394,224.587,136.692C455.404,273.082,373.548,384.476,247.779,384.476z"
+                    />
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <path
+                      d="M247.779,140.505c-59.149,0-107.274,48.125-107.274,107.269c0,59.154,48.125,107.279,107.274,107.279 c59.154,0,107.279-48.125,107.279-107.279C355.058,188.63,306.933,140.505,247.779,140.505z M247.779,335.361 c-48.293,0-87.582-39.288-87.582-87.587c0-48.288,39.288-87.577,87.582-87.577c48.298,0,87.587,39.288,87.587,87.577 C335.365,296.072,296.077,335.361,247.779,335.361z"
+                    />
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <path
+                      d="M247.779,207.438c-22.24,0-40.337,18.096-40.337,40.336c0,22.24,18.096,40.337,40.337,40.337 c22.24,0,40.337-18.096,40.337-40.337C288.115,225.534,270.019,207.438,247.779,207.438z M247.779,268.418 c-11.385,0-20.644-9.26-20.644-20.644c0-11.385,9.26-20.644,20.644-20.644c11.385,0,20.644,9.26,20.644,20.644 C268.423,259.159,259.163,268.418,247.779,268.418z"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </a>
+            <a href="{% url "service_edit" service.pk %}" class="edit">
+              <?xml version="1.0" ?><svg
+                id="Layer_1"
+                style="enable-background: new 0 0 24 24"
+                version="1.1"
+                viewBox="0 0 24 24"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <path
+                  d="M19.607,18.746c0,0.881-0.716,1.624-1.597,1.624H5.231c-0.881,0-1.597-0.743-1.597-1.624V5.967  c0-0.881,0.716-1.571,1.597-1.571h7.454V3.332H5.231c-1.468,0-2.662,1.168-2.662,2.636v12.778c0,1.468,1.194,2.688,2.662,2.688  h12.778c1.468,0,2.662-1.221,2.662-2.688v-7.428h-1.065V18.746z"
+                />
+                <path
+                  d="M20.807,3.17c-0.804-0.805-2.207-0.805-3.012,0l-7.143,7.143c-0.068,0.068-0.117,0.154-0.14,0.247L9.76,13.571  c-0.045,0.181,0.008,0.373,0.14,0.506c0.101,0.101,0.237,0.156,0.376,0.156c0.043,0,0.086-0.005,0.129-0.016l3.012-0.753  c0.094-0.023,0.179-0.072,0.247-0.14l7.143-7.143c0.402-0.402,0.624-0.937,0.624-1.506S21.21,3.572,20.807,3.17z M13.016,12.467  l-2.008,0.502l0.502-2.008l5.909-5.909l1.506,1.506L13.016,12.467z M20.054,5.428l-0.376,0.376l-1.506-1.506l0.376-0.376  c0.402-0.402,1.104-0.402,1.506,0c0.201,0.201,0.312,0.468,0.312,0.753C20.366,4.96,20.255,5.227,20.054,5.428z"
+                />
+              </svg>
+            </a>
+            <a href="{% url "service_delete" service.pk %}" class="remove" title="Удалить продукт">
+              <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <style>
+                    .cls-1 {
+                      fill: none;
+                      stroke: #fff;
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-width: 2px;
+                    }
+                  </style>
+                </defs>
+                <title />
+                <g id="trash">
+                  <rect class="cls-1" height="22" width="18" x="7" y="7" />
+                  <line class="cls-1" x1="3" x2="29" y1="7" y2="7" />
+                  <line class="cls-1" x1="13" x2="19" y1="3" y2="3" />
+                  <line class="cls-1" x1="13" x2="13" y1="12" y2="22" />
+                  <line class="cls-1" x1="19" x2="19" y1="12" y2="22" />
+                </g>
+              </svg>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <div class="empty">Список услуг пуст</div>
+    {% endif %}
+  </div>
+
+  {% endblock %}
+</div>

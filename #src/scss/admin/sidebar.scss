@@ -1,0 +1,118 @@
+.sidebar {
+  width: 400px;
+  height: calc(100vh - 0px);
+  box-shadow: 0 0 4px 0px rgba(37, 55, 70, 0.1);
+  border-right: 1px solid rgba(37, 55, 70, .1);
+  overflow-y: auto;
+  padding: 20px;
+
+  /* Работает в Chrome, Edge и Safari */
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(37, 55, 70, .1);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $orange;
+    border-radius: 20px;
+    border: 3px solid rgba(37, 55, 70, .1);
+  }
+
+  // .sidebar__logo
+  &__logo {
+    width: 150px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  // .sidebar__drop
+  &__drop {}
+
+  // .sidebar__item
+  &__item {
+    display: grid;
+    background-color: #fff;
+    cursor: pointer;
+    transition: .5s;
+
+    &:hover {
+      background-color: rgba(37, 55, 70, 0.03);
+      border-color: rgba(37, 55, 70, 0.2);
+    }
+
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    &._active {
+      .sidebar__title {
+        background-color: $orange;
+        color: #fff;
+
+        svg,
+        path {
+          fill: #fff;
+        }
+      }
+
+      .sidebar__subitem {
+        display: block;
+      }
+    }
+  }
+
+  // .sidebar__title
+  &__title {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 30px 1fr;
+    box-shadow: 0 0 4px 0px rgba(37, 55, 70, 0.1);
+    border: 1px solid rgba(37, 55, 70, 0.1);
+    padding: 15px 20px;
+    border-radius: 6px;
+
+    svg,
+    path {
+      fill: $orange;
+    }
+  }
+
+  // .sidebar__subitem
+  &__subitem {
+    display: none;
+    flex-direction: column;
+    padding-left: 20px;
+    transition: 4s;
+  }
+
+  // .sidebar__link
+  &__link {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 30px 1fr;
+    padding: 10px 20px;
+    font-size: 14px;
+    box-shadow: 0 0 4px 0px rgba(37, 55, 70, 0.1);
+    border: 1px solid rgba(37, 55, 70, 0.1);
+    border-radius: 4px;
+    margin-top: 15px;
+    background-color: #fff;
+    transition: .5s;
+
+    &:hover {
+      background-color: rgba(37, 55, 70, 0.03);
+      border-color: rgba(37, 55, 70, 0.2);
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.breadcrumbs__item {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbs__item:not(:last-child)::after {
+  content: "—";
+  display: block;
+  margin: 0 7px;
+}

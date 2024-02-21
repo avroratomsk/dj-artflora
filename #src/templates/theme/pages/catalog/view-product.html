@@ -1,0 +1,111 @@
+{% extends "base.html" %} {% load static %}{% block content %}
+
+<div class="wrapper">
+  {% include "components/header.html" %}
+  <main class="page">
+    <section class="product-page">
+      <div class="product-page__container">
+        <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+            class="breadcrumbs__item">
+            Главная
+            <meta itemprop="position" content="1" />
+          </a>
+          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+            class="breadcrumbs__item">
+            Продукция
+            <meta itemprop="position" content="2" />
+          </a>
+          <span itemprop="name" class="breadcrumbs__item">
+            {{ product.name }}
+            <meta itemprop="position" content="3" />
+          </span>
+        </div>
+        <div class="product-page__row">
+          <div class="product-page__image">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+            {% else %}
+            <img src="{% static 'admin/images/food.webp' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+            {% endif %}
+          </div>
+          <div class="product-page__content">
+            <h1 class="product-page__title _title">{{ product.name }}</h1>
+            {% comment %}
+            <div class="product-page__text">
+              <p class="product-page__label">Категория:</p>
+              <p class="product-page__category">{{ product.category }}</p>
+            </div>
+            {% endcomment %} {% if product.short_description %}
+            <div class="product-page__text">
+              <span class="product-page__label">Краткое описание блюда:</span>
+              <p>{{ product.short_description }}</p>
+            </div>
+            {% endif %}
+            <div class="product-page__price">
+              {% if product.price %}
+              <span class="product-page__label">Цена:</span>
+              <p>{{ product.price }} руб.</p>
+              {% endif %}
+            </div>
+            <div class="product-page__nutritional nutritional">
+              <span class="product-page__label">Пицевая ценность продукта на 100г :</span>
+              <div class="nutritional__grid">
+                {% if product.calories %}
+                <div class="nutritional__card">
+                  <p class="nutritional__meaning">{{ product.calories }}</p>
+                  <p class="nutritional__name">Калории</p>
+                </div>
+                {% endif %} {% if product.proteins%}
+                <div class="nutritional__card">
+                  <p class="nutritional__meaning">{{ product.proteins }}</p>
+                  <p class="nutritional__name">Белки</p>
+                </div>
+                {% endif %} {% if product.fats %}
+                <div class="nutritional__card">
+                  <p class="nutritional__meaning">{{ product.fats }}</p>
+                  <p class="nutritional__name">Жиры</p>
+                </div>
+                {% endif %} {% if product.carbonhydrates %}
+                <div class="nutritional__card">
+                  <p class="nutritional__meaning">{{ product.carbonhydrates }}</p>
+                  <p class="nutritional__name">Углеводы</p>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-page__text product-page__text-full">
+          {% if product.description %}
+          <p class="product-page__label">Полное описание:</p>
+          <p>{{ product.description }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    {% if products > 0 %}
+      <section class="product-related">
+        <div class="product-related__container">
+          <h2 class="product-related__title _title">Похожие товары</h2>
+          <div class="product-related__grid">
+            {% for product in products %} 
+              <div class="card-product" data-id="{{ product.display_id }}">
+                <a href="{{ product.get_absolute_url }}" class="card-product__image">
+                  <img src="{% static 'admin/images/food.webp' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+                </a>
+                <a href="#" class="card-product__name">{{ product.name }}</a>
+                <p class="card-product__price">{{ product.price }} руб.</p>
+                <div class="card-product__btns">
+                  <button class="card-product__btn">Корзина</button>
+                  <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  </main>
+</div>
+{% endblock content %}

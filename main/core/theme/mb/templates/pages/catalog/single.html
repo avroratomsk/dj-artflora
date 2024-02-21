@@ -1,0 +1,244 @@
+{% extends "base.html" %} {% load shop_tags %} {% load static %}{% block content %}
+
+
+<div class="wrapper">
+  {% include "components/header-single.html" %}
+  
+  <main class="page">
+    <section class="single">
+      <div class="single__container">
+        <div class="products__top title-page">
+          <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+            <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
+              Главная
+              <meta itemprop="position" content="1" />
+            </a>
+            <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
+              Продукция
+              <meta itemprop="position" content="2" />
+            </a>
+            <span itemprop="name" class="breadcrumbs__item">
+              Ежедневное меню
+              <meta itemprop="position" content="3" />
+            </span>
+          </div>
+          <h1 class="products__title title-page__title">{{ title }}</h1>
+        </div>
+        <section class="single__day day-single">
+          {% for t in test %}
+          {{ t.name }}
+        {% endfor %}
+          <div class="day-single__inner">
+            <button type="button" id="open-search" class="day-single__btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <div class="day-single__days">
+              {% for day in day_names %}
+                <a href="?day={{ day.slug }}" data-day="{{ day.slug }}" class="day-single__day {% if  request.GET.day  == day.slug %}_active{% endif %}">{{ day.name }}</a>
+              {% endfor %}
+              <div class="search" id="single-search">
+                <form action="{% url "search" %}" method="get">
+                  <input type="search" name="q" placeholder="Поиск" class="form-controls" />
+                  <button type="submit">Найти</button>
+                </form>
+              </div>
+            </div>
+            <button type="button" id="open-filter" class="day-single__btn">
+              <i class="fa-solid fa-sliders"></i>
+            </button>
+            <div class="filter-sort" id="filter-sort">
+              <input type="hidden" name="filter-value" id="filter-value" value="" />
+              <a href="#" class="filter-sort__value _active">По умолчанию</a>
+              <div class="filter-sort__value">По убыванию</div>
+              <div class="filter-sort__value">По возрастанию</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="single-content">
+          <aside class="single-content__aside aside">
+            <div class="aside__options" id="option-part">
+              <h5 class="aside__title">Раздел</h5>
+
+              <div class="aside__filter">
+                <input type="hidden" value="" class="aside__filter-hidden" />
+                <ul class="aside__list">
+                  {% for category in category %}
+                  <li class="aside__item">
+                    <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            <div class="aside__options" id="option-part">
+              <h5 class="aside__title">Цена</h5>
+              <div class="price-input">
+                <div class="price-input__fields">
+                  <div class="price-input__field">
+                    <input type="number" class="price-input__min" value="25" />
+                  </div>
+                  <div class="separator"></div>
+                  <div class="price-input__field">
+                    <input type="number" class="price-input__max" value="75" />
+                  </div>
+                </div>
+                <div class="price-input__slider">
+                  <div class="price-input__progress" id="prodgress"></div>
+                </div>
+                <div class="price-input__range">
+                  <input type="range" name="range-min" id="range-min" min="0" max="10000" class="price-input__range-min" value="2500" />
+                  <input type="range" name="range-max" id="range-max" min="0" max="10000" class="price-input__range-max" value="7500" />
+                </div>
+              </div>
+            </div>
+          </aside>
+          <div class="single-content__products products-single">
+            <div class="products-single__grid">
+              {% for product in products %}
+              <div class="card-product" data-id="{{ product.display_id }}">
+                <a href="#" class="card-product__image">
+                  {% if product.image %}
+                  <img src="{{ product.image.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+                  {% else %}
+                  <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+                  {% endif %}
+                </a>
+                <a href="#" class="card-product__name">{{ product.name }}</a>
+                <a href="#" class="card-product__name">{{ product.category.name }} -  {{ product.day}}</a>
+
+                {% if product.discount %}
+                <p class="card-product__price">{{ product.sell_price }}₽ | Скидка: {{ product.discount }} %</p>
+                {% else %}
+                <p class="card-product__price">{{ product.price }}₽</p>
+                {% endif %}
+                <div class="card-product__btns">
+                  <button class="card-product__btn">Корзина</button>
+                  <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="pagging">
+          <a
+            href="{% if products.has_previous %}?{% chenge_params page=products.previous_page_number %}{% else %}#{% endif %}"
+            class="pagging__arrow {% if not products.has_previous%}disabled{% endif %}"
+            >«</a
+          >
+          <ul class="pagging__list">
+            {% for page in products.paginator.page_range %} {% if page >= products.number|add:-2 and page <= products.number|add:2 %}
+            <li>
+              <a href="?{% chenge_params page=page %}" class="pagging__item {% if products.number == page %}_active{% endif %}">{{page}}</a>
+            </li>
+            {% endif %} {% endfor %}
+          </ul>
+          <a href="{% if products.has_next %}?{% chenge_params page=products.next_page_number %}{% else %}#{% endif %}" class="pagging__arrow">»</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__grid">
+        <div class="footer__col">
+          <p class="footer__title">Контакты</p>
+          <div class="footer__item">
+            <span>Адрес: </span>
+            <span>г.Томск ул. Ленина 193</span>
+          </div>
+          <div class="footer__item">
+            <span>Телефон: </span>
+            <span>8(999) 999-99-99</span>
+          </div>
+          <div class="footer__item">
+            <span>Время работы: </span>
+            <span>пн-пт: 8:00-20:00, сб-вс: 10:00-20:00</span>
+          </div>
+          <div class="footer__item">
+            <span>Электронная почта: </span>
+            <span>trapeza@mail.ru</span>
+          </div>
+          <div class="footer__social">
+            <a href="#"><img src="img/icon/i-vk.svg" alt="" /></a>
+            <a href="#"><img src="img/icon/i-wa.svg" alt="" /></a>
+            <a href="#"><img src="img/icon/i-telegram.svg" alt="" /></a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <p class="footer__title">Меню</p>
+          <nav class="footer__nav">
+            <a href="#">Горячее</a>
+            <a href="#">Салаты</a>
+            <a href="#">Выпечка</a>
+            <a href="#">Банкетное меню</a>
+            <a href="#">Поминальное меню</a>
+            <a href="#">Меню дня</a>
+          </nav>
+        </div>
+        <div class="footer__col">
+          <div class="footer__logo"><img src="img/logo-2-white.svg" alt="" /></div>
+          <nav class="footer__nav">
+            <a href="#">Политика конфиденциальности</a>
+            <a href="#">Статьи</a>
+            <a href="#">Отзывы</a>
+            <a href="#">Контакты</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div class="author">
+    <div class="author__container">
+      <div class="author__inner">Разработка сайта | <a href="#">РА Аврора</a></div>
+    </div>
+  </div>
+
+  <div class="popup-menu">
+    <button type="button" class="popup-menu__close"></button>
+    <nav class="popup-menu__nav">
+      <a href="#" class="popup-menu__link">О нас</a>
+      <a href="#" class="popup-menu__link">Банкетный зал</a>
+      <a href="#" class="popup-menu__link">Акции</a>
+      <a href="#" class="popup-menu__link">Фотогаллерея</a>
+      <a href="#" class="popup-menu__link">Новости</a>
+      <a href="#" class="popup-menu__link">Вакансии</a>
+      <a href="#" class="popup-menu__link">Контакты</a>
+    </nav>
+    <div class="popup-menu__socials">
+      <a href="" class="popup-menu__socials-link">
+        <i class="fa-brands fa-vk"></i>
+      </a>
+      <a href="" class="popup-menu__socials-link">
+        <i class="fa-brands fa-square-whatsapp"></i>
+      </a>
+      <a href="" class="popup-menu__socials-link">
+        <i class="fa-brands fa-telegram"></i>
+      </a>
+    </div>
+    <button type="button" class="popup-menu__btn">Позвонить</button>
+  </div>
+</div>
+<div id="popup" aria-hidden="true" class="popup popup-fulldescr">
+  <div class="popup__wrapper">
+    <div class="popup__content">
+      <button data-close type="button" class="popup__close">X</button>
+      <div class="popup__grid">
+        <div class="popup__image">
+          <img src="" alt="" class="popup-image" />
+        </div>
+        <div class="popup__info">
+          <p class="popup__title"></p>
+          <p class="popup__price"></p>
+          <p class="popup__bjy"></p>
+          <p class="popup__descr"></p>
+        </div>
+        <button type="button" class="popup__btn">Позвонить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

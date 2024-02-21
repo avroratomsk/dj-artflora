@@ -1,0 +1,39 @@
+{% extends 'admin_base.html' %} {% block body %}
+<div class="page__title">Настройки наценки</div>
+
+<div class="breadcrumb">
+  <div class="breadcrumb__inner">
+    <ol class="breadcrumb__list">
+      <li class="breadcrumb__item"><a class="breadcrumb__link" href="{% url 'admin' %}">Главная</a></li>
+
+      <li class="breadcrumb__item">Настройки наценки</li>
+    </ol>
+  </div>
+</div>
+
+{% for d in diapasones %}
+<div class="page">
+  <div class="pre-item">
+    <div class="pre-item__inner">
+      {{ d.start }} - {{ d.end }} <br />
+      Наценка: {{ d.persent }} %
+    </div>
+    <a href="{% url 'remove_api' d.id %}" class="remove">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path
+          d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"
+        ></path>
+      </svg>
+    </a>
+  </div>
+</div>
+{% endfor %}
+
+<div class="page">
+  <form action="" class="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %} {{ form.as_p }} {{ form.media }}
+    <button class="btn btn--primary">Сохранить</button>
+  </form>
+</div>
+
+{% endblock %}
