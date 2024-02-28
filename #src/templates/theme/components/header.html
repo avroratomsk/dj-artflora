@@ -1,3 +1,4 @@
+{% load static %}
 <header class="header">
   <div class="header__top top-header">
     <div class="header__container">
@@ -10,32 +11,18 @@
           <a href="">Контакты</a>
         </nav>
         <div class="top-header__socials">
-          <a href=""></a>
-          <picture>
-            <source srcset="img/vk.webp" type="image/webp" />
-            <img src="img/vk.png" alt="" />
-          </picture>
+          <a href="">
+            <img src="{% static 'theme/mb/images/vk.webp' %}" alt="" />
           </a>
           <a href="">
-            <picture>
-              <source srcset="img/viber.webp" type="image/webp" />
-              <img src="img/viber.png" alt="" />
-            </picture>
+            <img src="{% static 'theme/mb/images/vb.webp' %}" alt="" />
           </a>
           <a href="">
-            <picture>
-              <source srcset="img/whatsapp.webp" type="image/webp" />
-              <img src="img/whatsapp.png" alt="" />
-            </picture>
+            <img src="{% static 'theme/mb/images/wh.webp' %}" alt="" />
           </a>
-          <a href="">
-            <picture>
-              <source srcset="img/telegram.webp" type="image/webp" />
-              <img src="img/telegram.png" alt="" />
-            </picture>
-          </a>
+          <a href=""> <img src="{% static 'theme/mb/images/tg.webp' %}" alt="" /></a>
           <a href="#" class="top-header__login">
-            <img src="img/icon/i-login.svg" alt="" />
+            <img src="{% static 'theme/mb/images/icon/i-login.svg' %}" alt="" />
             <span>Войти / Регистрация</span>
           </a>
         </div>
@@ -48,15 +35,12 @@
         <div class="middle-header__logo logo">
           {% if site_settings.logo %}
           <img src="{{ site_settings.logo.url }}" alt="" />
-          {% else %}
-          Logotype
-          {% endif %}
-
+          {% else %} Logotype {% endif %}
         </div>
         <div class="middle-header__search">
           <input type="search" name="search" id="search" placeholder="Найти в каталоге" />
           <button type="submit">
-            <img src="img/icon/i-search.svg" alt="" />
+            <img src="{% static 'theme/mb/images/icon/i-search.svg' %}" alt="" />
           </button>
         </div>
         <button type="button" class="middle-header__btn">Заказать звонок</button>
@@ -67,27 +51,20 @@
         </div>
         <div class="middle-header__action">
           <button type="button" class="middle-header__favorit">
-            <img src="img/icon/i-favorits.svg" alt="" />
+            <img src="{% static 'theme/mb/images/icon/i-favorits.svg' %}" alt="" />
           </button>
           <button type="button" class="middle-header__cart">
-            <img src="img/icon/i-cart.svg" alt="" />
+            <img src="{% static 'theme/mb/images/icon/i-cart.svg' %}" alt="" />
           </button>
         </div>
       </div>
     </div>
   </div>
+  {% if mainmenu.count > 0 %}
   <div class="header__bottom bottom-header">
     <div class="header__container">
-      <div class="bottom-header__nav">
-        <a href="#">Акции</a>
-        <a href="#">Розы</a>
-        <a href="#">Букеты</a>
-        <a href="#">Повод</a>
-        <a href="#">Тип букета</a>
-        <a href="#">Игрушки</a>
-        <a href="#">Подарки</a>
-        <a href="#">Каталог</a>
-      </div>
+      <div class="bottom-header__nav">{% for menu in mainmenu %} <a href="{{ menu.get_absolute_url }}">{{ menu }}</a> {% endfor %}</div>
     </div>
   </div>
+  {% endif %}
 </header>

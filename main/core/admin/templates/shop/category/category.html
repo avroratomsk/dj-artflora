@@ -37,7 +37,7 @@
             {% if category.image %}
             <img src="{{ category.image.url }}" alt="{{ category.name }}" title="{{ category.name }}" />
             {% else%}
-            <img src="{% static 'admin/images/food.webp' %}" alt="" />
+            <img src="{% static 'admin/images/noimage.webp' %}" alt="" />
             {% endif %}
           </div>
           <div class="body-table__name">

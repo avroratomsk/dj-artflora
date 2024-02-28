@@ -10,10 +10,16 @@ from .models import *
 
 def catalog(request):
   category = Categories.objects.all()
+  product =  Product.objects.all()
+  
+  for pr in product:
+    print(pr.__dict__)
   
   context = {
+    "pr":pr,
     "title": "Заголовок категорий",
     "category": category,
+    "product": product
   }
 
   return render(request, "pages/catalog/products.html", context)
@@ -51,6 +57,7 @@ def category_detail(request, slug=None):
 def product(request, slug):
   
   product = get_object_or_404(Product, slug=slug)
+  
   # products = Product.objects.filter(~Q(slug=slug), category__pk=product.category.id)
   products = Product.objects.filter(category__pk=product.category.id).exclude(slug=slug)
   

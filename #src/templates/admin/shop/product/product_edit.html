@@ -11,6 +11,7 @@
         <button type="button" data-name="char" class="_btn">Характеристики</button>
       </div>
       <form action="." method="POST" class="form" enctype="multipart/form-data">
+        <button type="submit" class="form__btn">Сохранить</button>
         {% csrf_token %}
         <div class="page-edit__body">
           <!-- Основные настройки -->
@@ -136,7 +137,6 @@
             </div>
           </div>
         </div>
-        <button type="submit" class="form__btn">Сохранить</button>
       </form>
     </div>
   </div>

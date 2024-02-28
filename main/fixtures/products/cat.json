@@ -1,6 +1,0 @@
-[
-  { "model": "shop.categories", "pk": 1, "fields": { "name": "Все товары", "slug": "all", "image": "category_image/IMG_4300.webp" } },
-  { "model": "shop.categories", "pk": 2, "fields": { "name": "Первые блюда", "slug": "pervye-blyuda", "image": "category_image/y-_211-of-254_-_1_.webp" } },
-  { "model": "shop.categories", "pk": 3, "fields": { "name": "Вторые блюда", "slug": "vtorye-blyuda", "image": "category_image/a7001b41_2f6b_4c29_89bb_38a95a06953b-_1_.webp" } },
-  { "model": "shop.categories", "pk": 4, "fields": { "name": "Выпечка", "slug": "vypechka", "image": "category_image/y-_40-of-116_-_1_.webp" } }
-]

@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from home.models import BaseSettings, HomeTemplate, Stock
-from shop.models import Product
+from shop.models import Product, Categories
 from reviews.models import Reviews
 
 
@@ -18,10 +18,14 @@ def index(request):
         settings = BaseSettings.objects.all()
         home_page = HomeTemplate.objects.all()
         
+    stock = Stock.objects.filter(status=True)
+    link_category_main = Categories.objects.filter(add_banner=True).order_by("-id")[0:2]
     product = Product.objects.all()
     reviews = Reviews.objects.filter(status=True)
     
     context = {
+        "stock": stock,
+        "link_category_main": link_category_main,
         "home_page": home_page,
         "products": product,
         "settings": settings,

@@ -29,6 +29,12 @@
       import Swiper from "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs";
 
       const swiper = new Swiper(".swiper", {});
+      const populate_slider = new Swiper(".section__slider", {
+        slidesPerView: 4,
+        spaceBetween: 30,
+        autoHeight: false,
+        speed: 800,
+      });
     </script>
     <script src="{% static 'theme/mb/js/index.js' %}"></script>
   </body>

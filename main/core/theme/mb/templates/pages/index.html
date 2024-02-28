@@ -3,34 +3,33 @@
   <div class="index-slider">
     <div class="index-slider__container">
       <div class="index-slider__grid">
+        {% if link_category_main.count > 0 %}
         <div class="index-slider__grid-col">
-          <a href="#" class="index-slider__item">
-            <picture
-              ><source srcset="img/banner.webp" type="image/webp" />
-              <img src="img/banner.jpg" alt="" title=""
-            /></picture>
-            <p class="index-slider__item-title">Розы</p>
+          {% for category in link_category_main %}
+          <a href="{{ category.get_absolute_url }} " class="index-slider__item">
+            {% if category.image %}
+            <img src="{{ category.image.url }}" alt="{{ category.name }} " title="{{ category.name }} " />
+            {% else %}
+            <img src="{% static 'theme/mb/images/noimage.webp' %}" alt="{{ category.name }} " title="{{ category.name }} " />
+            {% endif %}
+            <p class="index-slider__item-title">{{ category.name }}</p>
           </a>
-          <a href="#" class="index-slider__item">
-            <picture
-              ><source srcset="img/type-bouqets.webp" type="image/webp" />
-              <img src="img/type-bouqets.jpg" alt="" title=""
-            /></picture>
-            <p class="index-slider__item-title">Цветы по поводу</p>
-          </a>
+          {% endfor %}
         </div>
+        {% endif %}
         <div class="index-slider__slider swiper">
           <div class="index-slider__wrapper swiper-wrapper">
-            <div class="index-slider__slide swiper-slide" style="background-image: url(img/banner-ng.webp)">
-              <h1 class="index-slider__title">Цветы и букеты в Иркутске с доставкойasdasdasd</h1>
-              <p class="index-slider__subtitle">Всегда свежие цветы и букеты от салона цветов "ARTFLORA" с доставкой получателю в день заказ</p>
+            {% if stock.count > 0 %} {% for stock in stock %}
+            <div class="index-slider__slide swiper-slide" style="background-image: url({{ stock.image.url }})">
+              <h1 class="index-slider__title">{{ stock.title }}</h1>
+              <p class="index-slider__subtitle">{{ stock.description }}</p>
               <a href="#" class="index-slider__btn">Выбрать букет</a>
             </div>
-            <div class="index-slider__slide swiper-slide" style="background-image: url(img/slide-1.jpg)">
-              <h1 class="index-slider__title">Цветы и букеты в Иркутске с доставкой</h1>
-              <p class="index-slider__subtitle">Всегда свежие цветы и букеты от салона цветов "ARTFLORA" с доставкой получателю в день заказ</p>
-              <a href="#" class="index-slider__btn">Выбрать букет</a>
+            {% endfor %} {% else %}
+            <div class="index-slider__slide swiper-slide" style="background-image: url({%static "theme/mb/images/noimage.webp" %})">
+              <p>Не добавлены акции</p>
             </div>
+            {% endif %}
           </div>
           <div class="swiper-button-prev index-slider-prev"></div>
           <div class="swiper-button-next index-slider-next"></div>
@@ -39,34 +38,33 @@
       </div>
     </div>
   </div>
-
   <div class="advantage">
     <div class="advantage__container">
       <div class="advantage__grid">
         <div class="advantage__item">
           <div class="advantage__icon">
-            <img src="img/icon/i-car.svg" alt="" />
+            <img src="{% static 'theme/mb/images/icon/i-car.svg' %}" alt="" />
           </div>
           <p class="advantage__title">Быстрая доставка</p>
           <p class="advantage__subtitle">Оперативная доставка цветов и букетов в день обращения</p>
         </div>
         <div class="advantage__item">
           <div class="advantage__icon">
-            <img src="img/icon/i-flowers.svg" alt="" />
+            <img src="{% static 'theme/mb/images/icon/i-flowers.svg' %}" alt="" />
           </div>
           <p class="advantage__title">Свежие цветы</p>
           <p class="advantage__subtitle">В наших салонах всегда свежесрезанные цветы самого лучшего качества</p>
         </div>
         <div class="advantage__item">
           <div class="advantage__icon">
-            <img src="img/icon/i-florist.svg" alt="" />
+            <img src="{% static 'theme/mb/images/icon/i-florist.svg' %}" alt="" />
           </div>
           <p class="advantage__title">Опытные флористы</p>
           <p class="advantage__subtitle">Профессионально подберут букет или композицию</p>
         </div>
         <div class="advantage__item">
           <div class="advantage__icon">
-            <img src="img/icon/i-coin.svg" alt="" />
+            <img src="{% static 'theme/mb/images/icon/i-coin.svg' %}" alt="" />
           </div>
           <p class="advantage__title">Доступные цены</p>
           <p class="advantage__subtitle">Всегда доступные цены на весь ассортимент</p>

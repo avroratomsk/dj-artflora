@@ -22,6 +22,8 @@ class Categories(models.Model):
   meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="META заголовок")
   meta_description = models.TextField(null=True, blank=True, verbose_name="META описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="META keywords")
+  add_menu = models.BooleanField(default=False, verbose_name="Добавить в меню")
+  add_banner = models.BooleanField(default=False, verbose_name="Добавление вывода на главной странице в банер")
   
   class Meta:
     db_table = 'category' 
@@ -59,7 +61,6 @@ class Subsidiary(models.Model):
   def __str__(self):
     return f'{self.name}'
 
-     
 class Product(models.Model):
   name = models.CharField(max_length=150, db_index=True, verbose_name="Наименование продукта")
   slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
@@ -82,7 +83,6 @@ class Product(models.Model):
   fats = models.CharField(max_length=150, blank=True, null=True, verbose_name="Жиры")
   carbonhydrates = models.CharField(max_length=150, blank=True, null=True, verbose_name="Углеводы")
   status = models.BooleanField(default=True, verbose_name="Статус публикации")
-  
   
   class Meta:
     db_table = 'product' 

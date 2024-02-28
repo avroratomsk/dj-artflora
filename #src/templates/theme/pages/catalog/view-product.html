@@ -1,7 +1,4 @@
 {% extends "base.html" %} {% load static %}{% block content %}
-
-<div class="wrapper">
-  {% include "components/header.html" %}
   <main class="page">
     <section class="product-page">
       <div class="product-page__container">
@@ -21,6 +18,8 @@
             <meta itemprop="position" content="3" />
           </span>
         </div>
+        {{ product.name }}
+        {{ product.meta_title }}
         <div class="product-page__row">
           <div class="product-page__image">
             {% if product.image %}
@@ -107,5 +106,4 @@
       </section>
     {% endif %}
   </main>
-</div>
 {% endblock content %}

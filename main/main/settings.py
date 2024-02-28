@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "users",
     "reviews",
     "service",
+    "seo",
     'django_ckeditor_5',
 ]
 
@@ -80,6 +81,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "home.context_processors.load_settings",
+                "home.context_processors.get_main_menu",
             ],
         },
     },

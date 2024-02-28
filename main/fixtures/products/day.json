@@ -1,9 +1,0 @@
-[
-  { "model": "shop.day", "pk": 1, "fields": { "name": "Понедельник", "slug": "mon", "num_day": 1 } },
-  { "model": "shop.day", "pk": 2, "fields": { "name": "Вторник", "slug": "tue", "num_day": 2 } },
-  { "model": "shop.day", "pk": 3, "fields": { "name": "Среда", "slug": "wed", "num_day": 3 } },
-  { "model": "shop.day", "pk": 4, "fields": { "name": "Четверг", "slug": "thu", "num_day": 4 } },
-  { "model": "shop.day", "pk": 5, "fields": { "name": "Пятница", "slug": "fri", "num_day": 5 } },
-  { "model": "shop.day", "pk": 6, "fields": { "name": "Суббота", "slug": "sat", "num_day": 6 } },
-  { "model": "shop.day", "pk": 7, "fields": { "name": "Воскресенье", "slug": "sun", "num_day": 7 } }
-]
