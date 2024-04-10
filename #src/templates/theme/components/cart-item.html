@@ -1,0 +1,24 @@
+{% load static %} {% load carts_tag %}{% for cart in carts %}
+<div class="mini-cart__item">
+  <div class="mini-cart__thumb">
+    <img src="{% static 'theme/mb/images/no-image.png' %}" alt="" />
+  </div>
+  <div class="mini-cart__content">
+    <div class="mini-cart__info">
+      <a href="{{ cart.product.get_absolute_url }}" class="mini-cart__name">{{ cart.product.name }}</a>
+      <p class="mini-cart__price">{{ cart.product.sell_price }} руб.</p>
+    </div>
+    <div class="mini-cart__action">
+      <a href="{% url 'cart_remove' %}" aria-label="Удаления товара из корзины" id="delete-card" class="mini-cart__delete remove-from-cart" data-cart-id="{{ cart.id }}">
+        {% csrf_token %}
+        <span></span>
+      </a>
+      <div class="mini-cart__counter">
+        <button class="decrement" data-cart-id="{{ cart.id }}" data-cart-change-url="{% url 'cart_change' %}">{% csrf_token %}-</button>
+        <input type="text" id="quantity" class="number" name="quantity" value="{{ cart.quantity }}" readonly />
+        <button class="increment" data-cart-id="{{ cart.id }}" data-cart-change-url="{% url 'cart_change' %}">{% csrf_token %}+</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}

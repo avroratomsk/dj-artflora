@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}{% load static %}
+
+<main class="page">
+  <section class="index-category">
+    <div class="index-catalog__inner">
+      {% comment %}
+      <div class="advantages__border borderDotted"></div>
+      {% endcomment %}
+      <div class="index-category__grid">
+        {% if categorys %}{% for category in categorys %}
+        <a href="{{ category.get_absolute_url }}" class="index-category__item" style="background-image: url({% if category.image %}{{ category.image.url }}{% endif %})">
+          <div class="index-category__item-col">
+            <div class="index-category__item-top">
+              <span> {{ category.product_count }} </span>
+            </div>
+            <div class="item-catalog__content">
+              <span class="item-catalog__underline">Категория</span>
+              <h3 class="item-catalog__name">{{ category.name }}</h3>
+            </div>
+          </div>
+          <div class="index-category__item-col">
+            <div class="index-category__arrow">
+              <img src="{% static 'theme/mb/images/chevron-right.svg' %}" alt="" />
+            </div>
+          </div>
+        </a>
+        {% endfor %} {% endif %}
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}

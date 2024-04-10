@@ -1,0 +1,9 @@
+<div class="messages">
+  <div class="messages__container">
+    {% if messages %}
+    <!-- Вывод успешных сообщений -->
+    {% for message in messages %} {% if message.tags == "success" %} {{ message }} {% endif %}
+    <!-- Вывод предупреждающих сообщений -->
+    {% if message.tags == "warning" %} {{ message }} {% endif %} {% endfor %} {% endif %}
+  </div>
+</div>

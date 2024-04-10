@@ -1,0 +1,124 @@
+.order-create {
+  padding: 60px 60px;
+  // .order-create__row
+
+  &__row {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  // .order-create__col
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background-color: rgba($color: #fafafa, $alpha: 1.0);
+    padding: 25px;
+    border-radius: 10px;
+
+    flex: 1 1 50%;
+
+    &:last-child {
+      position: sticky;
+      top: 20px;
+      flex: 1 1 30%;
+      border: 1px solid rgba($color: $mainColor, $alpha: .7);
+    }
+  }
+
+  // .order-create__title
+
+  &__title {
+    font-size: 35px;
+    line-height: 150%;
+  }
+
+  // .order-create__item
+
+  &__item {
+    display: flex;
+    gap: 20px;
+    border-bottom: 2px dashed rgba($color: $mainColor, $alpha: .1);
+    padding: 15px 0px;
+  }
+
+  // .order-create__thumb
+
+  &__thumb {
+    width: 50px;
+    height: 50px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  // .order-create__info
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+  }
+
+  // .order-create__name
+
+  &__name {
+    flex: 1 1 auto;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  // .order-create__price
+
+  &__price {
+    font-size: 18px;
+
+    span {
+      font-weight: 600;
+    }
+  }
+
+  // .order-create__promocod
+
+  &__promocod {}
+
+  // .order-create__total
+
+  &__total {
+    font-size: 20px;
+
+    span {
+      font-size: 22px;
+      font-weight: 600;
+    }
+  }
+
+  // .order-create__info-order
+  &__info-order {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+}
+
+#contact-human {
+  display: none;
+
+  &._show {
+    display: flex;
+  }
+}
+
+
+#address-delivery {
+  &.hidden {
+    display: none;
+  }
+}

@@ -1,0 +1,126 @@
+{% extends "base.html" %} {% load shop_tags %} {% load thumbnail %}{% load static %}{% block content %}
+<main class="page">
+  <section class="category-details">
+    <h1 class="category-details__title _title">{{ title }}</h1>
+    <div class="category-details__row">
+      <div class="category-details__col">
+        <form action="" method="GET" class="filter form">
+          <div class="filter__body">
+            <p class="filter__label">Цена:</p>
+          </div>
+          <div class="filter__body">
+            <p class="filter__label">Состав букета:</p>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="rose" value="Розы" />
+              <label for="rose" class="form__boolean-label">Розы</label>
+            </div>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="hrizantema" value="Хризантема" />
+              <label for="hrizantema" class="form__boolean-label">Хризантема</label>
+            </div>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="kustovaya-rosa" value="Кустовая роза" />
+              <label for="kustovaya-rosa" class="form__boolean-label">Кустовая роза</label>
+            </div>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="tylpany" value="Тюльпаны" />
+              <label for="tylpany" class="form__boolean-label">Тюльпаны</label>
+            </div>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="orhidei" value="Орхидеи" />
+              <label for="orhidei" class="form__boolean-label">Орхидеи</label>
+            </div>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="iris" value="Ирисы" />
+              <label for="iris" class="form__boolean-label">Ирисы</label>
+            </div>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="gerbery" value="Герберы" />
+              <label for="gerbery" class="form__boolean-label">Герберы</label>
+            </div>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="eustomy" value="Эустомы" />
+              <label for="eustomy" class="form__boolean-label">Эустомы</label>
+            </div>
+          </div>
+          <div class="filter__body">
+            <p class="filter__label">Для кого:</p>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="for-whom" class="form__controls-checkbox" id="mame" value="Маме" />
+              <label for="mame" class="form__boolean-label">Маме</label>
+            </div>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="for-whom" class="form__controls-checkbox" id="babushke" value="Бабушке" />
+              <label for="babushke" class="form__boolean-label">Бабушке</label>
+            </div>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="for-whom" class="form__controls-checkbox" id="kollege" value="Коллеге" />
+              <label for="kollege" class="form__boolean-label">Коллеге</label>
+            </div>
+          </div>
+          <div class="filter__body">
+            <p class="filter__label">По цвету:</p>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="colors" class="form__controls-checkbox" id="jeltiy" value="Желтый" />
+              <label for="jeltiy" class="form__boolean-label">Желтый</label>
+            </div>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="colors" class="form__controls-checkbox" id="krasnyi" value="Красный" />
+              <label for="krasnyi" class="form__boolean-label">Красный</label>
+            </div>
+            <div class="form__group-boolean">
+              <input type="checkbox" name="colors" class="form__controls-checkbox" id="rozoviy" value="Розовый" />
+              <label for="rozoviy" class="form__boolean-label">Розовый</label>
+            </div>
+          </div>
+          <button type="submit" class="form__submit">Применить</button>
+        </form>
+      </div>
+      <div class="category-details__col">
+        <div class="index-catalog__cards cards-catalog">
+          {% if free_shipping_products %} {% for product in free_shipping_products %}
+          <div class="index-catalog__card card">
+            <div class="card__image">
+              {% if product.image %} {% thumbnail product.image "368x350" format="WEBP" crop="center" as im %}
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="product-click-image" />
+              {% endthumbnail %}
+              <img src="{% static 'theme/mb/images/product-2.jpeg' %}" alt="" class="product-click-image" />
+              {% else %}
+              <img src="{% static 'theme/mb/images/product-2.jpeg' %}" alt="" class="product-click-image" />
+              {% endif %}
+              <button type="button" class="card__click" id="one-click" data-id="{{ product.id }}">Купить в один клик</button>
+              {% if product.discount %}
+              <p class="card__stock">-{{ product.discount }}%</p>
+              {% endif %}
+            </div>
+            <div class="card__content">
+              <h3 class="card__title-h3">{{ product.name }}</h3>
+              <div class="card__content-bottom">
+                {% if product.sale_price %}
+                <span class="card__price"><s>{{ product.price }}</s> <b class="card__price-number">{{ product.sale_price }}</b> <span class="currency">₽</span></span>
+                {% else %}
+                <span class="card__price">{{ product.price }} <span class="currency">₽</span></span>
+                {% endif %}
+                <a href="{% url 'cart_add' %}" class="card__cart add-to-cart" data-product-id="{{ product.id }}">
+                  {% csrf_token %}
+                  <img src="{% static 'theme/mb/images/cart.svg' %}" alt="" />
+                </a>
+                {% if product.quantity_purchase > 10 %}
+                <button type="button" class="card__hit">
+                  <img src="{% static 'theme/mb/images/hit.svg' %}" alt="" />
+                </button>
+                {% endif %}
+
+                <button type="button" class="card__favorit">
+                  <img src="{% static 'theme/mb/images/favorit.svg' %}" alt="" />
+                </button>
+              </div>
+            </div>
+          </div>
+          {% endfor %} {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock content %}

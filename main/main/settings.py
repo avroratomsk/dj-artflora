@@ -42,13 +42,15 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     
     "debug_toolbar",
-    
+    'sorl.thumbnail',
     "home",
     "shop",
     "users",
     "reviews",
     "service",
-    "seo",
+    "cart",
+    "order",
+    "payment",
     'django_ckeditor_5',
 ]
 
@@ -81,7 +83,9 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "home.context_processors.load_settings",
-                "home.context_processors.get_main_menu",
+                # "home.context_processors.get_main_menu",
+                "home.context_processors.header_menu",
+                "home.context_processors.category",
             ],
         },
     },

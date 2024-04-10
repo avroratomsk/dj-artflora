@@ -1,0 +1,30 @@
+.products {
+
+  // .products__container
+
+  &__container {}
+
+  // .products__top
+
+  &__top {}
+
+  // .products__title
+
+  &__title {
+    font-size: clamp(35px, 5.5vw, 80px);
+    font-weight: 600;
+    line-height: 120%;
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  // .products__subtitle
+
+  &__subtitle {
+    max-width: 600px;
+    text-wrap: balance;
+    text-align: center;
+    line-height: 150%;
+    color: rgba($color: $mainColor, $alpha: .8);
+  }
+}

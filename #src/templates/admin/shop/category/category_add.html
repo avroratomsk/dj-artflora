@@ -21,14 +21,6 @@
                 {{ form.slug }} {{ form.slug.errors }}
               </div>
               <div class="form__group">
-                <label for="{{ form.add_menu.id_for_label }}" class="form__controls-label"> Выводить в главное меню ? <span>:</span> </label>
-                {{ form.add_menu }} {{ form.add_menu.errors }}
-              </div>
-              <div class="form__group">
-                <label for="{{ form.add_banner.id_for_label }}" class="form__controls-label"> Выводить в банер ссылку на категорию <span>:</span> </label>
-                {{ form.add_banner }} {{ form.add_banner.errors }}
-              </div>
-              <div class="form__group">
                 <label for="{{ form.meta_h1.id_for_label }}" class="form__controls-label"> Заголовок h1 <span>:</span></label>
                 {{ form.meta_h1 }} {{ form.meta_h1.errors }}
               </div>
@@ -43,6 +35,10 @@
               <div class="form__group">
                 <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Мета keywords <span>:</span></label>
                 {{ form.meta_keywords }} {{ form.meta_keywords.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.header_show.id_for_label }}" class="form__controls-label"> Отображать в меню сайта? <span>:</span></label>
+                {{ form.header_show }} {{ form.header_show.errors }}
               </div>
               <div class="page-edit__form">
                 <div class="form__group">

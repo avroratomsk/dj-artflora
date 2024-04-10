@@ -1,0 +1,23 @@
+{% load static %}
+<div class="popup" id="popup-one-click">
+  <div class="popup__content">
+    <button type="button" class="popup__close close-btn"></button>
+    <div class="popup__body">
+      <h3 class="popup__title">Заказ в один клик</h3>
+      <div class="popup__product">
+        <div class="popup__product-image">
+          <img src="{% static 'theme/mb/images/no-image.png' %}" alt="" title="" class="popup__product-img">
+        </div>
+        <div class="popup__product-info">
+          <p class="popup__product-name">Товар номер 1</p>
+          <p class="popup__product-total"><span>Сумма: </span><span class="product__price-text">1990₽</span></p>
+        </div>
+      </div>
+      <form action="" method="POST" class="popup__product-form form">
+        <input type="text" placeholder="Имя" class="form__controls">
+        <input type="text" placeholder="Номер телефона" class="form__controls">
+        <button type="submit" class="form__submit">Отправить</button>
+      </form>
+    </div>
+  </div>
+</div>

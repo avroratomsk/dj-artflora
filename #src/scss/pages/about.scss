@@ -1,0 +1,53 @@
+.about {
+
+  // .about__container
+
+  &__container {}
+
+  // .about__row
+
+  &__row {
+    display: flex;
+    gap: 30px;
+  }
+
+  // .about__col
+
+  &__col {
+    flex: 1 1 50%;
+  }
+
+  // .about__title
+
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  // .about__subtitle
+
+  &__subtitle {
+    font-size: 20px;
+    line-height: 140%;
+    max-width: 550px;
+    text-wrap: balance;
+    color: rgba($color: $mainColor, $alpha: .7)
+  }
+
+  // .about__text
+
+  &__text {
+    p+p {
+      margin-top: 20px;
+    }
+  }
+
+  .body-service__row {
+    padding: 120px 0px 60px;
+  }
+}
+
+.text {
+  font-size: 17px;
+  line-height: 150%;
+  color: rgba($color: $mainColor, $alpha: .8);
+}

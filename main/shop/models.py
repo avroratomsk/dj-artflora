@@ -13,17 +13,17 @@ DAY_NAMES = (
     ('sun', 'Воскресенье')
 )
 
-
-class Categories(models.Model):
+# Категория
+class Category(models.Model):
   name = models.CharField(max_length=150, db_index=True, unique=True, verbose_name="Название категории")
   slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
   image = models.ImageField(upload_to="category_image", blank=True, null=True, verbose_name="Изображение категории")
+  parent = models.ForeignKey('self', related_name='children', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Дочерняя категория")
+  header_show = models.BooleanField(default=False, verbose_name="Отображать в шапке ?")
   meta_h1 = models.CharField(max_length=350, null=True, blank=True, verbose_name="Заголовок первого уровня")
   meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="META заголовок")
   meta_description = models.TextField(null=True, blank=True, verbose_name="META описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="META keywords")
-  add_menu = models.BooleanField(default=False, verbose_name="Добавить в меню")
-  add_banner = models.BooleanField(default=False, verbose_name="Добавление вывода на главной странице в банер")
   
   class Meta:
     db_table = 'category' 
@@ -36,53 +36,37 @@ class Categories(models.Model):
   def get_absolute_url(self):
         return reverse("category_detail", kwargs={"slug": self.slug})
 
-
-class Day(models.Model):
-  name = models.CharField(max_length=50, db_index=True, blank=True, null=True, unique=True, verbose_name="Названия дня недел")
-  slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL day")
-  num_day = models.PositiveIntegerField(default=0, verbose_name="Номер дня")
-  
-  class Meta:
-    db_table = 'day'
-    verbose_name = "День"
-    verbose_name_plural = "Дня"
-    ordering = ("id",)
-  
-  
-  def __str__(self):
-    return self.name
-  
-class Subsidiary(models.Model):
-  name = models.CharField(max_length=150, blank=True, null=True, unique=True, verbose_name="Название филлиала")
-  address_fillial = models.CharField(max_length=255, blank=True, null=True, verbose_name="Адрес филлиала")
-  slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
-  image = models.ImageField(upload_to="fillial", blank=True, null=True, verbose_name="Фотографии залов")
-  
-  def __str__(self):
-    return f'{self.name}'
-
+# Продукт 
 class Product(models.Model):
   name = models.CharField(max_length=150, db_index=True, verbose_name="Наименование продукта")
   slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
-  short_description = models.TextField(null=True, blank=True, verbose_name="Краткое описание")
   description = models.TextField(blank=True, null=True, verbose_name="Описание")
   meta_h1 = models.CharField(max_length=350, null=True, blank=True, verbose_name="Заголовок первого уровня")
   meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="Мета заголовок")
   meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
   image = models.ImageField(upload_to="product_iamge", blank=True, null=True, verbose_name="Изображение товара")
-  price = models.DecimalField(default=0, max_digits=7, decimal_places=2, verbose_name="Цена товра")
-  discount = models.DecimalField(default=0, max_digits=4, decimal_places=2, verbose_name="Скидака в %")
+  price = models.DecimalField(default=0, max_digits=10, decimal_places=2, verbose_name="Цена товра")
+  sale_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name="Цена со скидкой")
+  discount = models.DecimalField(default=0, max_digits=10, decimal_places=2, verbose_name="Скидака в %")
   quantity = models.PositiveIntegerField(default=0, verbose_name="Количество")
-  category = models.ForeignKey("Categories", on_delete=models.CASCADE, null=True, default=None, verbose_name='День недели')
-  day = models.ManyToManyField(Day, blank=True, verbose_name='День недели')
-  subsidiary = models.ManyToManyField(Subsidiary, blank=True, verbose_name='Филлиал')
-  weight = models.CharField(max_length=150, blank=True, null=True, verbose_name="Вес в граммах")
-  calories = models.CharField(max_length=150, blank=True, null=True, verbose_name="Каллории")
-  proteins = models.CharField(max_length=50, blank=True, null=True, verbose_name="Белки")
-  fats = models.CharField(max_length=150, blank=True, null=True, verbose_name="Жиры")
-  carbonhydrates = models.CharField(max_length=150, blank=True, null=True, verbose_name="Углеводы")
-  status = models.BooleanField(default=True, verbose_name="Статус публикации")
+  category = models.ForeignKey("Category", on_delete=models.CASCADE, null=True, default=None, verbose_name='День недели')
+  composition = models.CharField(max_length=255, blank=True, null=True, verbose_name="Состав")
+  diameter = models.CharField(max_length=250, blank=True, null=True, verbose_name="Диаметр")
+  width = models.CharField(max_length=150, blank=True, null=True, verbose_name="Ширина")
+  height = models.CharField(max_length=150, blank=True, null=True, verbose_name="Высота")
+  quantity_flower = models.CharField(max_length=250, blank=True, null=True, verbose_name="Количество цветков в букете")
+  quantity_purchase = models.IntegerField(default=0, verbose_name="Количество покупок")
+  free_shipping = models.BooleanField(default=False, null=True, blank=True, verbose_name="Бесплатная доставка ?")
+  latest = models.BooleanField(default=False, verbose_name="Новинка ?")
+  status = models.BooleanField(default=True, verbose_name="Опубликовать ?")
+  
+  def serialize(self):
+    return {
+        'id': self.id,
+        'name': str(self.name),
+        'price': str(self.price)
+    }
   
   class Meta:
     db_table = 'product' 
@@ -114,7 +98,20 @@ class Product(models.Model):
   
   def get_absolute_url(self):
         return reverse("product", kwargs={"slug": self.slug})
+    
+class CharName(models.Model):
+  char_name = models.CharField(max_length=250, verbose_name="Название характеристки")
+
+class ProductSpecification(models.Model):
+  product = models.ManyToManyField(Product, related_name='character', verbose_name="Связь с продуктом")
+  char_name = models.ForeignKey(CharName, on_delete=models.CASCADE, related_name='chars', null=True, blank=True)
+  value = models.CharField(max_length=100, verbose_name="Значение")
   
+  class Meta:
+    db_table = 'characteristics'
+    
+  def __str__(self):
+     return self.name
   
   
   

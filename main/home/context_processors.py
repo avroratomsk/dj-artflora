@@ -1,16 +1,11 @@
 from home.models import BaseSettings 
-from shop.models import Categories
+from shop.models import Category
  
 def load_settings(request):
     return {'site_settings': BaseSettings.load()}
 
-def get_main_menu(request):
-    return {'mainmenu': Categories.objects.filter(add_menu=True)}
+def header_menu(request):
+    return {"menu": Category.objects.filter(header_show=True)}
 
-def setup(request):
-    try:
-        setup = BaseSettings.objects.get()
-    except:
-        setup = []
-        
-    return {"setup": setup}
+def category(request):
+    return {"categorys": Category.objects.all()}

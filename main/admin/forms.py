@@ -3,7 +3,10 @@ from django_ckeditor_5.widgets import CKEditor5Widget
 from home.models import BaseSettings, HomeTemplate, Stock
 from service.models import Service
 from reviews.models import Reviews
-from shop.models import Categories, Day, Product, Subsidiary
+from shop.models import Category, Product, ProductSpecification
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField()
 
 # class ProductForm(forms.ModelForm):
 #   # description = forms.CharField(label="Полное описание товара", required=False, widget=CKEditorUploadingWidget())
@@ -102,7 +105,6 @@ class ProductForm(forms.ModelForm):
         fields = [
             'name',
             'slug',
-            'short_description',
             'description',
             'meta_h1',
             'meta_title',
@@ -111,22 +113,18 @@ class ProductForm(forms.ModelForm):
             'image',
             'price',
             'discount',
+            'sale_price',
+            'quantity_purchase',
             'quantity',
             'category',
-            'day',
-            'subsidiary',
             'image',
-            'weight',
-            'calories',
-            'proteins',
-            'fats',
-            'carbonhydrates',
+            'free_shipping',
             'status',
+            'latest',
         ]
         labels = {
             'name': 'Название блюда',
             'slug':'URL',
-            'short_description':'Короткое описание',
             'description':'Полное описание',
             'meta_h1':'Заголвок первого уровня',
             'meta_title':'Meta title',
@@ -134,18 +132,14 @@ class ProductForm(forms.ModelForm):
             'meta_keywords':'Meta keywords',
             'image':'Изображение',
             'price':'Цена',
+            'sale_price':'Цена со скидкой',
+            'quantity_purchase':'Количество покупок',
             'discount':'Скидка в (%)',
             'quantity':'Количество',
-            'category':'Категория',
-            'day':'В какой день готовят',
-            'subsidiary':'В каком из филлиалов',
             'image': 'Превью изображения',
-            'weight':'Грамовка',
-            'calories': 'Каллорийность',
-            'proteins': 'Белки',
-            'fats': 'Жиры',
-            'carbonhydrates': 'Углеводы',
-            'status': 'Статус публикации'
+            'status': 'Статус публикации',
+            'free_shipping': 'Бесплатная доставка',
+            'latest': 'Новинка ?'
         }
         widgets = {
             'name': forms.TextInput(attrs={
@@ -153,10 +147,6 @@ class ProductForm(forms.ModelForm):
                 "id":"name"
                 # 'placeholder': 'Название товара',
                 
-            }),
-            'short_description': forms.Textarea(attrs={
-                'class': 'form__controls',
-                # 'placeholder': 'Короткое описание товара',
             }),
             'description': forms.Textarea(attrs={
                 'class': 'form__controls',
@@ -182,6 +172,14 @@ class ProductForm(forms.ModelForm):
                 'class': 'form__controls',
                 # 'placeholder': 'Цена (с учетом скидки)',
             }),
+            'sale_price': forms.NumberInput(attrs={
+                'class': 'form__controls',
+                # 'placeholder': 'Цена (с учетом скидки)',
+            }),
+            'quantity_purchase': forms.NumberInput(attrs={
+                'class': 'form__controls',
+                # 'placeholder': 'Цена (с учетом скидки)',
+            }),
             'quantity': forms.NumberInput(attrs={
                 'class': 'form__controls',
                 # 'placeholder': 'Количество',
@@ -195,15 +193,6 @@ class ProductForm(forms.ModelForm):
                 'class': 'form__controls', 
                 # 'placeholder': 'Категория',
             }),
-            # 'day': forms.Select(attrs={
-            #     'class': 'form__controls',
-            #     # 'placeholder': 'День приготовления',
-            # }),
-            # 'subsidiary': forms.Select(attrs={
-            #     'class': 'form__controls',
-            #     'placeholder': 'Филлиал',
-            #     'multiply': True
-            # }),
             'weight': forms.TextInput(attrs={
                 'class': 'form__controls',
                 # 'placeholder': 'Грамовка',
@@ -216,38 +205,45 @@ class ProductForm(forms.ModelForm):
                 'class': 'submit-file',
                 'accept': 'image/*'
             }),
-            'calories': forms.TextInput(attrs={
-                'class': "form__controls",
-                # 'placeholder': 'Колорийность'
-            }),
-            'proteins': forms.TextInput(attrs={
-                'class': "form__controls",
-                # 'placeholder': 'Белки'
-            }),
-            'fats': forms.TextInput(attrs={
-                'class': "form__controls",
-                # 'placeholder': 'Жиры'
-            }),
-            'carbonhydrates': forms.TextInput(attrs={
-                'class': "form__controls",
-                # 'placeholder': 'Углеводы'
-            }),
-            # 'status': forms.CheckboxInput(attrs={
-            #     'class': "form__controls-checkbox",
-            #     'placeholder': 'Белки'
-            # })
         }
-   
+
+# class CharName(forms.ModelForm):
+#   class
+
+# class ProductCharForm(forms.ModelForm):
+#   class Meta:
+#       model = ProductSpecification
+#       fields = [
+#           'name',
+#           'value',
+#       ]
+#       labels = {
+#           'name': 'Название характеристики',
+#           'value': 'Значение',
+#       }
+#       widgets = {
+#           'name': forms.TextInput(attrs={
+#               'class': 'form__controls',
+#               'placeholder': 'Название характеристики',
+#               'id': 'id_char_name',
+              
+#           }),
+#           'value': forms.TextInput(attrs={
+#               'class': 'form__controls',
+#               'placeholder': 'Значение',
+#               'id': 'id_char_value'
+#           }),
+#       }
+
 class CategoryForm(forms.ModelForm):
   """ Form, отвечает за создание категорий и редактирование категорий"""
   class Meta:
-    model = Categories
+    model = Category
     fields = [
       "name",
       "slug",
       "image",
-      "add_menu",
-      "add_banner",
+      "header_show",
       "meta_h1",
       "meta_title",
       "meta_description",
@@ -257,8 +253,7 @@ class CategoryForm(forms.ModelForm):
       "name": "Назване категории",
       "slug": "URL",
       "image": "Изображение",
-      "add_menu": "Добавить в меню",
-      "add_banner": "Добавить ссылку на категрию в банере",
+      "header_show": "Отображать в шапке ?",
       "meta_h1": "Заголовок H1",
       "meta_title": "Meta заголовок",
       "meta_description": "Meta описание",
@@ -278,6 +273,9 @@ class CategoryForm(forms.ModelForm):
       'image': forms.FileInput(attrs={
           'class': 'submit-file',
           'accept': 'image/*'
+      }),
+      'header_show': forms.CheckboxInput(attrs={
+        'class': 'form__controls-checkbox',
       }),
       "meta_h1": forms.TextInput(attrs={
         "class":"form__controls",
@@ -299,62 +297,62 @@ class CategoryForm(forms.ModelForm):
       }),  
     }
     
-class DayForm(forms.ModelForm):
-  """ Form, отвечает за создание дней и редактирование дней"""
-  class Meta:
-    model = Day
-    fields = [
-      "name",
-      "slug"
-    ]
-    labels = {
-      "name": "Назване категории",
-      "slug": "URL",
-    }
-    widgets = {
-      "name": forms.TextInput(attrs={
-          "class": "form__controls",
-          "id":"name"
-          # "placeholder": "Название  категории"
-      }),
-      "slug": forms.TextInput(attrs={
-        "class":"form__controls",
-        "id": "slug"
-        # "placeholder": "Название категори"
-      })
-    }
+# class DayForm(forms.ModelForm):
+#   """ Form, отвечает за создание дней и редактирование дней"""
+#   class Meta:
+#     model = Day
+#     fields = [
+#       "name",
+#       "slug"
+#     ]
+#     labels = {
+#       "name": "Назване категории",
+#       "slug": "URL",
+#     }
+#     widgets = {
+#       "name": forms.TextInput(attrs={
+#           "class": "form__controls",
+#           "id":"name"
+#           # "placeholder": "Название  категории"
+#       }),
+#       "slug": forms.TextInput(attrs={
+#         "class":"form__controls",
+#         "id": "slug"
+#         # "placeholder": "Название категори"
+#       })
+#     }
     
-class FillialForm(forms.ModelForm):
-  """ Form, отвечает за добавление филлиала и редактирование филлиала"""
-  class Meta:
-    model = Subsidiary
-    fields = [
-      "name",
-      "address_fillial",
-      "image",
-      "slug"
-    ]
-    labels = {
-      "name": "Название филлиала",
-      "address_fillial": "Адрес филлиала",
-      "image": "Фотография зала",
-      "slug": "URL",
-    }
-    widgets = {
-      "name": forms.TextInput(attrs={
-          "class": "form__controls",
-          "id":"name"
-      }),
-      "address_fillial": forms.TextInput(attrs={
-          "class": "form__controls",
-          "id":"name",
-          "placeholder": "г.Томск, ул.Ленина 111"
-      }),
-      "slug": forms.TextInput(attrs={
-        "class":"form__controls",
-        "id": "slug"
-      })
-    }
+# class FillialForm(forms.ModelForm):
+#   """ Form, отвечает за добавление филлиала и редактирование филлиала"""
+#   class Meta:
+#     model = Subsidiary
+#     fields = [
+#       "name",
+#       "address_fillial",
+#       "image",
+#       "slug"
+#     ]
+#     labels = {
+#       "name": "Название филлиала",
+#       "address_fillial": "Адрес филлиала",
+#       "image": "Фотография зала",
+#       "slug": "URL",
+#     }
+#     widgets = {
+#       "name": forms.TextInput(attrs={
+#           "class": "form__controls",
+#           "id":"name"
+#       }),
+#       "address_fillial": forms.TextInput(attrs={
+#           "class": "form__controls",
+#           "id":"name",
+#           "placeholder": "г.Томск, ул.Ленина 111"
+#       }),
+#       "slug": forms.TextInput(attrs={
+#         "class":"form__controls",
+#         "id": "slug"
+#       })
+#     }
     
 class HomeTemplateForm(forms.ModelForm):
   """ Form, редактирование главной страницы"""

@@ -4,24 +4,18 @@
     <div class="header__container">
       <div class="top-header__inner">
         <nav class="top-header__nav">
-          <a href="">Доставка</a>
-          <a href="">Оплата</a>
-          <a href="">Отзывы</a>
-          <a href="">О магазине</a>
-          <a href="">Контакты</a>
+          {% comment %} <a href="https://avroratomsk.github.io/art-flora/">Доставка</a> {% endcomment %} {% comment %}
+          <a href="https://avroratomsk.github.io/art-flora/">Оплата</a> {% endcomment %}
+          <a href="https://avroratomsk.github.io/art-flora/">Отзывы</a>
+          <a href="https://avroratomsk.github.io/art-flora/">О магазине</a>
+          <a href="{% url 'contact' %}">Контакты</a>
         </nav>
         <div class="top-header__socials">
-          <a href="">
-            <img src="{% static 'theme/mb/images/vk.webp' %}" alt="" />
-          </a>
-          <a href="">
-            <img src="{% static 'theme/mb/images/vb.webp' %}" alt="" />
-          </a>
-          <a href="">
-            <img src="{% static 'theme/mb/images/wh.webp' %}" alt="" />
-          </a>
-          <a href=""> <img src="{% static 'theme/mb/images/tg.webp' %}" alt="" /></a>
-          <a href="#" class="top-header__login">
+          <a href=""> <img src="{% static 'theme/mb/images/icon/vk.png' %}" alt="" /></a>
+          <a href=""> <img src="{% static 'theme/mb/images/icon/viber.png' %}" alt="" /></a>
+          <a href=""> <img src="{% static 'theme/mb/images/icon/whatsapp.png' %}" alt="" /></a>
+          <a href=""> <img src="{% static 'theme/mb/images/icon/telegram.png' %}" alt="" /></a>
+          <a href="{% url 'user:login' %}" class="top-header__login">
             <img src="{% static 'theme/mb/images/icon/i-login.svg' %}" alt="" />
             <span>Войти / Регистрация</span>
           </a>
@@ -33,14 +27,12 @@
     <div class="middle-header__container">
       <div class="middle-header__inner">
         <div class="middle-header__logo logo">
-          {% if site_settings.logo %}
-          <img src="{{ site_settings.logo.url }}" alt="" />
-          {% else %} Logotype {% endif %}
+          <img src="{% static 'theme/mb/images/logo.png' %}" alt="" />
         </div>
         <div class="middle-header__search">
           <input type="search" name="search" id="search" placeholder="Найти в каталоге" />
           <button type="submit">
-            <img src="{% static 'theme/mb/images/icon/i-search.svg' %}" alt="" />
+            <img src="./Главная_files/i-search.svg" alt="" />
           </button>
         </div>
         <button type="button" class="middle-header__btn">Заказать звонок</button>
@@ -53,18 +45,22 @@
           <button type="button" class="middle-header__favorit">
             <img src="{% static 'theme/mb/images/icon/i-favorits.svg' %}" alt="" />
           </button>
-          <button type="button" class="middle-header__cart">
+          <button type="button" class="middle-header__cart" id="show-cart">
             <img src="{% static 'theme/mb/images/icon/i-cart.svg' %}" alt="" />
           </button>
         </div>
       </div>
     </div>
   </div>
-  {% if mainmenu.count > 0 %}
   <div class="header__bottom bottom-header">
     <div class="header__container">
-      <div class="bottom-header__nav">{% for menu in mainmenu %} <a href="{{ menu.get_absolute_url }}">{{ menu }}</a> {% endfor %}</div>
+      <div class="bottom-header__nav">
+        {% for item in menu %}
+        <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+        {% endfor %}
+        <a href="{% url 'category' %}">Каталог</a>
+        <a href="{% url 'populate' %}">Популярные</a>
+      </div>
     </div>
   </div>
-  {% endif %}
 </header>

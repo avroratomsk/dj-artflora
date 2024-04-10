@@ -1,0 +1,27 @@
+.service-page {
+
+  // .service-page__container
+
+  &__container {}
+
+  // .service-page__items
+
+  &__items {}
+
+  // .service-page__item
+
+  &__item {
+    padding: 15px;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0px 0px 10px rgba($color: $mainColor, $alpha: .1);
+    border: 1px solid rgba($color: $mainColor, $alpha: .1);
+    border-radius: 6px;
+  }
+
+  // .service-page__icon
+
+  &__icon {
+    margin-right: 10px;
+  }
+}

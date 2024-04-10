@@ -2,31 +2,27 @@
 // Подключение шрифтов ===========================================================================================================================================================================================================================================================================
 //&display=swap - добавить при подключении через плагин
 
-
-
 // Подключение иконочных шрифтов ==============================================================================================================================================================================================================================================================================
 // Подключить если есть файл иконочного шрифта
 //@import "fonts/icons";
 
 // Шрифт по умолчанию ==============================================================================================================================================================================================================================================================================
-// $fontFamily: "Comfortaa", sans-serif;
+$fontFamily: "Manrope", sans-serif;
+$fontTitle: "Inter", sans-serif;
 
-$fontFamily: "Comfortaa", sans-serif;
-
-
-$fontSize: 16px; // где 16(px) - размер шрифта по умолчанию из макета
+$fontSize: 10px; // где 16(px) - размер шрифта по умолчанию из макета
 
 // Основные цвета
 // $bodyColor: #ffffff;
-$bodyColor: #f3f3f3;
-$mainColor: #253746; // Цвет шрифта по умолчанию
+$bodyColor: #fdfdfd;
+$mainColor: #3f3c38; // Цвет шрифта по умолчанию
 // $accent: #CD0000;
 // $accent: #c2ab89;
 $white: #ffffff;
-$accent: #9ac27c;
+$accent: #b25f68;
 $grey: #939297;
 $orange: #e76642;
-$lightBlue: #d4e9f5;
+$lightBlue: #fdfdfd;
 $greenAplle: #59ce65;
 $animation_speed: 0.5s;
 
@@ -184,3 +180,36 @@ body {
 @import './components/form';
 @import './components/breadcrumbs';
 @import './components/contact';
+@import './components/reviews';
+@import './components/callback';
+
+/*
+    Подключение стилей отдельных блоков страницы
+*/
+
+@import './pages/home/index-slider';
+@import './pages/home/index-catalog';
+@import './pages/home/advantages';
+@import './pages/home/faq';
+@import './pages/home/index-about';
+@import './pages/home/index-reviews';
+@import './pages/home/index-category';
+
+@import './pages/contact/contact';
+
+@import './pages/users/login';
+@import './pages/users/register';
+@import './pages/users/profile';
+
+@import './pages/orders/create';
+
+@import './pages/catalog/category-details';
+
+
+@import './components/mini-cart/mini-cart';
+@import './components/notification/modal';
+@import './components/popup';
+
+
+
+@import './UI/close-button';

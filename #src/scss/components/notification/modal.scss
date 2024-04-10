@@ -1,0 +1,38 @@
+.success {
+  position: fixed;
+  top: 20px;
+  right: -100%;
+  padding: 15px 30px;
+  background-color: #3c8100;
+  min-width: 290px;
+  border-radius: 10px;
+  transition: $animation_speed;
+  z-index: 999;
+
+  // .success__dialog
+
+  &__dialog {}
+
+  // .success__content
+
+  &__content {}
+
+  // .success__body
+
+  &__body {
+    text-align: center;
+    color: rgba($color: $white, $alpha: 1.0);
+  }
+
+  // .success__footer
+
+  &__footer {}
+
+  // .success__btn-close
+
+  &__btn-close {}
+}
+
+.show {
+  right: 0;
+}

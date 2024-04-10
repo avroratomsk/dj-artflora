@@ -8,6 +8,7 @@ urlpatterns = [
     
     #URl - отвечающие за загрузку данных
     path('upload-goods/', views.upload_goods, name="upload_goods"),
+    path('upload-succes/', views.upload_succes, name="upload-succes"),
     
     #URl - отвечающие за отображение категорий, редактирование и удаление категории
     path('category/', views.admin_category, name='admin_category'),
@@ -26,6 +27,12 @@ urlpatterns = [
     path('product/add/', views.product_add, name='product_add'),
     path('product/edit/<int:pk>/', views.product_edit, name='product_edit'),
     path('product/delete/<int:pk>/', views.product_delete, name='product_delete'),
+    
+    #URl - отвечающие за отображение характиристик, редактирование и удаление характеристик
+    path('attribute/', views.admin_attribute, name='admin_attribute'),
+    path('attribute/add/', views.attribute_add, name='attribute_add'),
+    # path('attribute/edit/<int:pk>/', views.attribute_edit, name='attribute_edit'),
+    # path('attribute/delete/<int:pk>/', views.attribute_delete, name='attribute_delete'),
     
     #URl - отвечающие за отображение филлиалов, редактирование и удаление филлиала
     path('fillial/', views.admin_fillial, name='admin_fillial'),

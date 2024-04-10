@@ -40,7 +40,21 @@
       grid-template-columns: 10% 1fr 20% 30%;
     }
   }
+}
 
+.table-5 {
+
+  // .table-5__head
+  &__head {
+    grid-template-columns: 10% 1fr 15% 15% 30%;
+  }
+
+  // .table-5__body 
+  &__body {
+    .body-table__row {
+      grid-template-columns: 10% 1fr 15% 15% 30%;
+    }
+  }
 }
 
 .head-table {
@@ -72,8 +86,6 @@
 }
 
 .body-table {
-  overflow-y: auto;
-  height: 410px;
   padding-right: 10px;
 
   &::-webkit-scrollbar {

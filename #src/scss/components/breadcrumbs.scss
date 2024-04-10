@@ -1,16 +1,30 @@
 .breadcrumbs {
   display: flex;
-  align-items: center;
-  padding: 40px 0;
-}
+  justify-content: center;
+  position: relative;
+  z-index: 2;
 
-.breadcrumbs__item {
-  display: flex;
-  align-items: center;
-}
+  // .breadcrumbs__item
 
-.breadcrumbs__item:not(:last-child)::after {
-  content: "—";
-  display: block;
-  margin: 0 7px;
+  &__item {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+
+    &:not(:last-child) {
+      &::after {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 1px;
+        margin: 0px 10px;
+        background-color: rgba($color: $mainColor, $alpha: 1.0);
+      }
+    }
+
+    &:last-child {
+      font-weight: 600;
+    }
+  }
 }

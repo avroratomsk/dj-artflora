@@ -2,7 +2,7 @@ from datetime import datetime
 from django.shortcuts import get_list_or_404
 from django.db.models import Q
 
-from shop.models import Product, Day
+# from shop.models import Product, Day
 
 def get_name_day():
   today = datetime.today()

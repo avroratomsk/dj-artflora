@@ -8,63 +8,38 @@ from .services import *
 
 from .models import *
 
-def catalog(request):
-  category = Categories.objects.all()
-  product =  Product.objects.all()
+def category(request):
+  category = Category.objects.all()
   
-  for pr in product:
-    print(pr.__dict__)
+  for cat in category:
+    cat.product_count = cat.product_set.count() # Получаем количество товаров в каждой категории
   
   context = {
-    "pr":pr,
     "title": "Заголовок категорий",
-    "category": category,
-    "product": product
+    "categorys": category,
   }
 
-  return render(request, "pages/catalog/products.html", context)
+  return render(request, "pages/catalog/category.html", context)
 
 
-def category_detail(request, slug=None):
-  page = request.GET.get('page', 1)
-  query = request.GET.get('q', None)
-  category_name = get_object_or_404(Categories, slug=slug)
-  category = Categories.objects.all()
-  
-  days = Day.objects.all()
-  day_default = get_slug_day(datetime.today().isoweekday())
-  day_filter = request.GET.get('day', day_default)
-  
-  if slug == "all":
-    products =  Product.objects.all()
-    
-  # elif query:  
-  #   products = q_search(query)
-  else:
-    products = Product.objects.filter(Q(category__slug=slug) & Q(day__slug=day_filter)) 
-  paginator = Paginator(products, 3)
-  current_page = paginator.page(int(page))
+def category_detail(request, slug):
+  category = Category.objects.get(slug=slug)
+  products = Product.objects.filter(category=category)
   
   context = {
-    "title": f"{ category_name.name }",
-    "products": current_page,
-    "category": category,
-    "day_names": days,
-    "give_today": day_default
+    "category_name": category.name,
+    "title": "Название товара",
+    "products": products
   }
-  return render(request, "pages/catalog/single.html", context)
+  
+  return render(request, "pages/catalog/category-details.html", context)
 
 def product(request, slug):
-  
-  product = get_object_or_404(Product, slug=slug)
-  
-  # products = Product.objects.filter(~Q(slug=slug), category__pk=product.category.id)
-  products = Product.objects.filter(category__pk=product.category.id).exclude(slug=slug)
-  
-  
+  product = Product.objects.get(slug=slug)
+  products = Product.objects.all().exclude(slug=slug)[:4]
   context = {
-    "products": products,
+    "title": "Название продукта",
     "product": product,
-    "prod_slug": slug,
+    "products":products
   }
-  return render(request, "pages/catalog/view-product.html", context)
+  return render(request, "pages/catalog/product.html", context)

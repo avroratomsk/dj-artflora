@@ -1,0 +1,253 @@
+.index-catalog {
+  position: relative;
+  padding: 60px 60px;
+  // .index-catalog__inner
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // .index-catalog__head
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+
+  // .index-catalog__title
+
+  &__title {
+    font-family: $fontTitle;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    svg {
+      width: 30px;
+    }
+  }
+
+  // .index-catalog__subtitle
+  &__subtitle {
+    font-size: 18px;
+  }
+
+  // .index-catalog__links
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+
+  // .index-catalog__link
+
+  &__link {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 136%;
+    transition: $animation_speed;
+    color: #3f3c38;
+
+    &:hover {
+      color: #d71635;
+    }
+
+  }
+
+  // .index-catalog__cards
+
+  &__cards {}
+
+  // .index-catalog__card
+
+  &__card {}
+}
+
+.cards-catalog {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 330px));
+  gap: 30px;
+}
+
+.card {
+  overflow: hidden;
+  background: $white;
+  box-shadow: 0 10px 50px 15px rgba(164, 152, 141, .16);
+  border-radius: 20px;
+  z-index: 1000;
+  position: relative;
+  z-index: 2;
+
+  &:hover {
+    .card__click {
+      display: block;
+    }
+
+    .card__image {
+      img {
+        &:nth-child(1) {
+          opacity: 0;
+        }
+
+        &:nth-child(2) {
+          opacity: 1 !important;
+        }
+      }
+    }
+  }
+
+  // .card__image
+
+  &__image {
+    position: relative;
+    min-width: 340px;
+    min-height: 350px;
+    width: 100%;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      border-radius: 20px;
+      transition: $animation_speed;
+
+      &:nth-child(1) {
+        opacity: 1;
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+    }
+
+
+  }
+
+  // .card__favorit
+
+  &__favorit {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 9;
+    width: 40px;
+    height: 40px;
+    background-color: $white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 4px;
+  }
+
+  // .card__stock
+  &__stock {
+    position: absolute;
+    top: 70px;
+    right: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #d71635;
+    color: $white;
+  }
+
+  // .card__hit
+
+  &__hit {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 9;
+    width: 40px;
+    height: 40px;
+  }
+
+  // .card__content
+
+  &__content {
+    padding: 20px 20px 40px;
+    background-color: rgba($color: $white, $alpha: 1.0);
+  }
+
+  // .card__click
+
+  &__click {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+    width: 70%;
+    padding: 20px 0px;
+    text-align: center;
+    background-color: rgba($color: $white, $alpha: .8);
+    font-weight: 700;
+    backdrop-filter: blur(4px);
+    border-radius: 20px;
+    display: none;
+  }
+
+  // .card__title-h3
+
+  &__title-h3 {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 120%;
+    letter-spacing: -.02em;
+    color: #232020;
+    margin-bottom: 25px;
+    font-family: $fontTitle;
+  }
+
+  // .card__content-bottom
+
+  &__content-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  // .card__price
+
+  &__price {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: -.04em;
+    color: #232020;
+  }
+
+  // .card__price-number
+  &__price-number {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+
+  // .card__cart
+
+  &__cart {
+    width: 20px;
+    height: 20px;
+  }
+
+  .currency {
+    font-weight: 600;
+    font-size: 14px;
+  }
+}
+
+.bg-absolute {
+  position: absolute;
+  z-index: -1;
+  left: -50%;
+  top: -50%;
+  opacity: .1;
+}

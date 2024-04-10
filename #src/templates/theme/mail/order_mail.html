@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Заказ с сайта</title>
+    <style type="text/css">
+      table {
+        border: 1px solid #eee;
+        table-layout: fixed;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      table th {
+        font-weight: bold;
+        padding: 5px;
+        background: #efefef;
+        border: 1px solid #dddddd;
+      }
+      table td {
+        padding: 5px 10px;
+        border: 1px solid #eee;
+        text-align: left;
+      }
+      table tbody tr:nth-child(odd) {
+        background: #fff;
+      }
+      table tbody tr:nth-child(even) {
+        background: #f7f7f7;
+      }
+    </style>
+  </head>
+
+  <body>
+    <br />
+
+    <h1>Заказ с сайта номер заказа: {{ order.id }}</h1>
+    <br /><br /><br />
+    <h2>Данные клиента:</h2>
+    Имя: {{ order.first_name }} <br />
+    Email: {{ order.email }} <br />
+    Телефон: {{ order.phone }} <br />
+    Адрес: {{ order.delivery_address }} <br />
+
+    <h2>Детали заказа:</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Товар</th>
+          <th>Номер детали</th>
+          <th>Количество</th>
+        </tr>
+      </thead>
+
+      <tbody style="width: 100%">
+        {% for item in order.items.all %}
+        <tr style="border: 1px solid #333" ;>
+          <td>{{ item.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.price }}руб.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

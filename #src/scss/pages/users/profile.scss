@@ -1,0 +1,156 @@
+.profile {
+
+  // .profile__container
+
+  &__container {}
+
+  // .profile__inner
+
+  &__inner {}
+
+  // .profile__title
+
+  &__title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  // .profile__title-h2
+  &__title-h2 {
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+
+  // .profile__row
+
+  &__row {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+  }
+
+  // .profile__col
+
+  &__col {
+    flex: 1 1 50%;
+
+    &:first-child {
+      position: sticky;
+      top: 100px;
+      background-color: rgba($color: $white, $alpha: 1.0);
+      box-shadow: 0 20px 60px 2px rgba(149, 144, 135, 0.15);
+      padding: 30px;
+      border-radius: 10px;
+    }
+  }
+
+  // .profile__avatar
+
+  &__avatar {
+    width: 150px;
+    height: 150px;
+
+    img {
+      max-width: 100%;
+      object-fit: cover;
+
+    }
+  }
+
+  // .profile__order
+
+  &__order {
+    background-color: rgba($color: $white, $alpha: 1.0);
+    box-shadow: 0 20px 60px 2px rgba(149, 144, 135, 0.15);
+    padding: 30px;
+    border-radius: 10px;
+  }
+
+  // .profile__item
+
+  &__item {
+
+    &+& {
+      margin-top: 30px;
+    }
+  }
+
+  // .profile__item-header
+
+  &__item-header {
+    font-size: 18px;
+
+    span {
+      color: #d71635;
+    }
+
+    strong {
+      margin-left: 5px;
+    }
+  }
+
+  .process {
+    color: orange;
+  }
+
+  .success {
+    color: green;
+  }
+
+  .danger {
+    color: red;
+  }
+
+  // .profile__item-body
+
+  &__item-body {}
+
+  // .profile__table
+
+  &__table {}
+
+  // .profile__item-link
+
+  &__item-link {
+    font-weight: 600;
+    // color: $accent;
+  }
+
+  // .profile__total-sum
+
+  &__total-sum {
+    background-color: rgba($color: $white, $alpha: 1.0);
+    box-shadow: 0 20px 60px 2px rgba(149, 144, 135, 0.15);
+    padding: 40px 30px;
+    border-radius: 10px;
+    margin-top: 40px;
+
+    p {
+      font-size: 20px;
+
+      span {
+        font-size: 20px;
+        font-weight: 800;
+        color: $accent;
+      }
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-top: 20px;
+  }
+
+
+  thead {}
+
+  td,
+  th {
+    border: 1px solid rgba($color: $mainColor, $alpha: .2);
+    padding: 15px 5px;
+    text-align: left;
+  }
+}

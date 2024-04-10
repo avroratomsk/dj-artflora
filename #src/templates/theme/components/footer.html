@@ -9,28 +9,28 @@
       <div class="footer__col">
         <p class="footer__title">Компания</p>
         <nav class="footer__nav">
-          <a href="#">О магазине</a>
-          <a href="#">Доставка и оплата</a>
-          <a href="#">Отзывы</a>
+          <a href="https://avroratomsk.github.io/art-flora/#">О магазине</a>
+          <a href="https://avroratomsk.github.io/art-flora/#">Доставка и оплата</a>
+          <a href="https://avroratomsk.github.io/art-flora/#">Отзывы</a>
         </nav>
       </div>
       <div class="footer__col">
         <p class="footer__title">Магазин</p>
         <nav class="footer__nav">
-          <a href="#">Розы</a>
-          <a href="#">Букеты</a>
-          <a href="#">Повод</a>
-          <a href="#">Тип букета</a>
-          <a href="#">Игрушки</a>
-          <a href="#">Подарки</a>
+          {% for category in categorys %}
+          <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+          {% endfor %}
         </nav>
       </div>
       <div class="footer__col">
         <p class="footer__title">Полезные ссылки</p>
         <nav class="footer__nav">
-          <a href="#">Личный кабинет</a>
-          <a href="#">Авторизация</a>
-          <a href="#">Контакты</a>
+          {% if user.is_authenticated %}
+          <a href="{% url 'user:profile' %}">Личный кабинет</a>
+          {% endif %} {% if not user.is_authenticated %}
+          <a href="{% url 'user:login' %}">Авторизация</a>
+          {% endif %}
+          <a href="https://avroratomsk.github.io/art-flora/#">Контакты</a>
         </nav>
       </div>
       <div class="footer__col">
@@ -43,6 +43,6 @@
     </div> -->
       </div>
     </div>
-    <div class="footer__author">Разработка сайта | <a href=""> РА Аврора</a></div>
+    <div class="footer__author">Разработка сайта | <a href="https://avroratomsk.github.io/art-flora/"> РА Аврора</a></div>
   </div>
 </footer>

@@ -1,0 +1,40 @@
+.login {
+  margin: 0px 10px;
+
+  // .login__container
+
+  &__container {}
+
+  // .login__inner
+
+  &__inner {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgba($color: $white, $alpha: 1.0);
+    box-shadow: 0 20px 60px 2px rgba(149, 144, 135, 0.15);
+    padding: 30px;
+    border-radius: 10px;
+  }
+
+  // .login__reset
+
+  &__reset {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    margin-top: 40px;
+  }
+
+  // .login__link
+
+  &__link {
+    &:hover {
+      color: #d71635;
+    }
+  }
+
+  ._title-h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
