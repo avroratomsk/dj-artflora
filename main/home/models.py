@@ -1,6 +1,5 @@
 from django.db import models
 from django.urls import reverse
-from django_ckeditor_5.fields import CKEditor5Field
 
 from admin.singleton_model import SingletonModel
 
