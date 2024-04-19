@@ -31,15 +31,16 @@
 <body>
   <div class="wrapper">
     {% include "./components/header.html" %}{% block content %}{% endblock %} {% include "./components/footer.html" %}
-    {% include "./components/notification/modal.html" %}
-    {% include "./components/mini-cart.html" %} {% include "./components/popup.html" %}
+    {% include "./components/notification/modal.html" %} {% include "./components/mini-cart.html" %}
+    {% include "./components/popup.html" %}
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>\
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    const section__slider = new Swiper('.section__slider', { // Указываем скласс нужного слайдера
+    const section__slider = new Swiper(".section__slider", {
+      // Указываем скласс нужного слайдера
       // Подключаем модули слайдера
       // для конкретного случая
       observer: true,
@@ -55,7 +56,6 @@
       //preloadImages: false,
       //lazy: true,
 
-
       // Эффекты
       // effect: 'fade',
       // autoplay: {
@@ -65,23 +65,23 @@
 
       // Пагинация
       pagination: {
-        el: '.swiper-pagination',
+        el: ".swiper-pagination",
         clickable: true,
         dynamicBullets: true,
       },
 
       // Скроллбар
       /*
-      scrollbar: {
-        el: '.swiper-scrollbar',
-        draggable: true,
-      },
-      */
+    scrollbar: {
+      el: '.swiper-scrollbar',
+      draggable: true,
+    },
+    */
 
       // Кнопки "влево/вправо"
       navigation: {
-        prevEl: '.swiper-button-prev',
-        nextEl: '.swiper-button-next',
+        prevEl: ".swiper-button-prev",
+        nextEl: ".swiper-button-next",
       },
 
       // Брейкпоинты
@@ -106,12 +106,83 @@
         1660: {
           slidesPerView: 4,
           spaceBetween: 60,
-        }
+        },
       },
       // События
-      on: {
+      on: {},
+    });
 
-      }
+    const reviews__slider = new Swiper(".reviews__slider", {
+      // Указываем скласс нужного слайдера
+      // Подключаем модули слайдера
+      // для конкретного случая
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      spaceBetween: 60,
+      autoHeight: false,
+      speed: 800,
+
+      //touchRatio: 0,
+      //simulateTouch: false,
+      loop: true,
+      //preloadImages: false,
+      //lazy: true,
+
+      // Эффекты
+      // effect: 'fade',
+      // autoplay: {
+      //   delay: 3000,
+      //   disableOnInteraction: false,
+      // },
+
+      // Пагинация
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        dynamicBullets: true,
+      },
+
+      // Скроллбар
+      /*
+    scrollbar: {
+      el: '.swiper-scrollbar',
+      draggable: true,
+    },
+    */
+
+      // Кнопки "влево/вправо"
+      navigation: {
+        prevEl: ".swiper-button-prev",
+        nextEl: ".swiper-button-next",
+      },
+
+      // Брейкпоинты
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          autoHeight: true,
+        },
+        485: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        992: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        1268: {
+          slidesPerView: 1,
+          spaceBetween: 60,
+        },
+        1660: {
+          slidesPerView: 1,
+          spaceBetween: 60,
+        },
+      },
+      // События
+      on: {},
     });
   </script>
   <script>

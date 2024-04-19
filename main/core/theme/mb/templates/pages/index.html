@@ -230,10 +230,9 @@
     <div class="reviews__container">
       <div class="reviews__inner">
         <h2 class="section__title reviews__title">Отзывы</h2>
-        <div class="reviews__slider swiper swiper-initialized swiper-horizontal swiper-backface-hidden">
+        <div class="reviews__slider">
           <div class="reviews__wrapper swiper-wrapper">
-            <div class="reviews__slide swiper-slide swiper-slide-active" data-swiper-slide-index="0"
-              style="width: 1670px; margin-right: 40px">
+            <div class="reviews__slide swiper-slide">
               <div class="reviews__card">
                 <p class="reviews__text">
                   Отличная студия цветов, огромнейший выбор. Хотелось бы отметить прекрасных сотрудниц. Аня, спасибо за
@@ -243,8 +242,7 @@
                 <p class="reviews__name">Иван</p>
               </div>
             </div>
-            <div class="reviews__slide swiper-slide swiper-slide-next" data-swiper-slide-index="1"
-              style="width: 1670px; margin-right: 40px">
+            <div class="reviews__slide swiper-slide">
               <div class="reviews__card">
                 <p class="reviews__text">
                   Отличная студия цветов, огромнейший выбор. Хотелось бы отметить прекрасных сотрудниц. Аня, спасибо за
@@ -258,7 +256,7 @@
           <div class="swiper-button-prev reviews-button-prev"></div>
           <div class="swiper-button-next reviews-button-next"></div>
         </div>
-        <a href="https://avroratomsk.github.io/art-flora/#" class="reviews__btn">Читать все отзывы</a>
+        <a href="#" class="reviews__btn">Читать все отзывы</a>
       </div>
     </div>
   </div>
@@ -306,10 +304,7 @@
           </div>
           <div class="about__col">
             <div class="about__image">
-              <picture>
-                <source srcset="img/flower-shop.webp" type="image/webp" />
-                <img src="{% static 'theme/mb/images/flower-shop.jpg' %}" alt="" />
-              </picture>
+              <img src="{% static 'theme/mb/images/flower-shop.webp' %}" alt="" />
             </div>
           </div>
         </div>
@@ -347,7 +342,9 @@
     </div>
   </div>
   <div class="map">
-    <iframe src="./Главная_files/saved_resource(9).html" width="100%" height="500" frameborder="0"></iframe>
+    <iframe
+      src="https://yandex.ru/map-widget/v1/?um=constructor%3Afe2db880251e99091f27858413c1ab9b944d271271a6c8b513565ed95c12576b&amp;source=constructor"
+      width="100%" height="500" frameborder="0"></iframe>
   </div>
 </main>
 {% endblock %}
