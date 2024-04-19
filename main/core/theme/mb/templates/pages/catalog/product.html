@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load static %}{% block content %}
+{% extends "base.html" %} {% load static %} {% load thumbnail %}{% block content %}
 
 <main class="page">
   <div class="product">
@@ -55,8 +55,16 @@
           </div>
         </div>
         <div class="product__info info-product">
-          <span class="info-product__article">Артикул: 331245</span>
-          <h1 class="info-product__name">{{ product.name }}</h1>
+          <!-- <span class="info-product__article">Артикул: 331245</span> -->
+          <div class="info-product__name-inner">
+            <h1 class="info-product__name">{{ product.name }}</h1>
+            <button type="button" class="info-product__favorit-btn">
+              <svg width="21" height="21" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M12.896 0.489402C13.5829 0.1663 14.319 0 15.0624 0C15.8058 0 16.542 0.166301 17.2288 0.489402C17.9155 0.812443 18.5394 1.2859 19.0649 1.88272C19.5906 2.47936 20.0079 3.18805 20.2923 3.96768C20.577 4.74746 20.7234 5.58325 20.7234 6.42732C20.7234 7.27139 20.577 8.10718 20.2923 8.88695C20.0078 9.66666 19.5907 10.375 19.065 10.9717C19.0649 10.9718 19.0651 10.9717 19.065 10.9717L11.3683 19.7104C11.0283 20.0965 10.4769 20.0965 10.1369 19.7104L2.44015 10.9717C1.3786 9.76648 0.782227 8.1318 0.782227 6.42732C0.782227 4.72283 1.3786 3.08815 2.44015 1.88289C3.5017 0.677634 4.94148 0.000528645 6.44274 0.000528645C7.94401 0.000528645 9.38378 0.677634 10.4453 1.88289L10.7526 2.23174L11.0597 1.88305C11.0597 1.88311 11.0598 1.883 11.0597 1.88305C11.5852 1.28615 12.2093 0.812473 12.896 0.489402ZM15.0624 1.97708C14.5478 1.97708 14.0381 2.09222 13.5626 2.31589C13.0871 2.53958 12.6552 2.86744 12.2913 3.28074L11.3683 4.32875C11.0283 4.7148 10.4769 4.7148 10.1369 4.32875L9.21401 3.2809C8.47903 2.44642 7.48217 1.9776 6.44274 1.9776C5.40331 1.9776 4.40646 2.44642 3.67148 3.2809C2.93649 4.11538 2.52358 5.24718 2.52358 6.42732C2.52358 7.60745 2.93649 8.73925 3.67148 9.57374L10.7526 17.6134L17.8337 9.57374C18.1977 9.16063 18.4866 8.66998 18.6837 8.13014C18.8806 7.59029 18.9821 7.01167 18.9821 6.42732C18.9821 5.84297 18.8806 5.26434 18.6837 4.72449C18.4866 4.18465 18.1978 3.69417 17.8338 3.28106C17.47 2.86777 17.0377 2.53958 16.5623 2.31589C16.0868 2.09222 15.5771 1.97708 15.0624 1.97708Z" />
+              </svg>
+            </button>
+          </div>
           <div class="info-product__sizes">
             <p class="info-product__sizes-title">Размеры:</p>
             <div class="info-product__sizes-grid">
@@ -77,46 +85,35 @@
             </div>
           </div>
           <div class="info-product__description">
-            <p class="info-product__description-label">Описание:</p>
-            <p>
-              {{ product.description }}
-            </p>
+            <p class="info-product__description-label">Состав:</p>
+            <p>{{ product.description }}</p>
           </div>
           <div class="info-product__action action-product">
-            <span class="action-product__price">{{ product.price }} ₽</span>
+            <span class="action-product__price">Цена: {{ product.price }} ₽</span>
+            {% comment %}
             <div class="action-product__count">
               <button type="button" class="action-product__plus"></button>
               <input type="number" value="1" min="1" max="99" />
               <button type="button" class="action-product__minus"></button>
             </div>
-            <button type="submit" class="action-product__submit">Купить</button>
+            {% endcomment %}
+            <button type="submit" class="action-product__submit">Добавить в корзину</button>
           </div>
           <div class="info-product__favorit">
             <button type="button" class="info-product__click btn">Купить в один клик</button>
-            <!-- <button type="button" class="info-product__favorit-btn">
-              <svg width="21" height="21" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M12.896 0.489402C13.5829 0.1663 14.319 0 15.0624 0C15.8058 0 16.542 0.166301 17.2288 0.489402C17.9155 0.812443 18.5394 1.2859 19.0649 1.88272C19.5906 2.47936 20.0079 3.18805 20.2923 3.96768C20.577 4.74746 20.7234 5.58325 20.7234 6.42732C20.7234 7.27139 20.577 8.10718 20.2923 8.88695C20.0078 9.66666 19.5907 10.375 19.065 10.9717C19.0649 10.9718 19.0651 10.9717 19.065 10.9717L11.3683 19.7104C11.0283 20.0965 10.4769 20.0965 10.1369 19.7104L2.44015 10.9717C1.3786 9.76648 0.782227 8.1318 0.782227 6.42732C0.782227 4.72283 1.3786 3.08815 2.44015 1.88289C3.5017 0.677634 4.94148 0.000528645 6.44274 0.000528645C7.94401 0.000528645 9.38378 0.677634 10.4453 1.88289L10.7526 2.23174L11.0597 1.88305C11.0597 1.88311 11.0598 1.883 11.0597 1.88305C11.5852 1.28615 12.2093 0.812473 12.896 0.489402ZM15.0624 1.97708C14.5478 1.97708 14.0381 2.09222 13.5626 2.31589C13.0871 2.53958 12.6552 2.86744 12.2913 3.28074L11.3683 4.32875C11.0283 4.7148 10.4769 4.7148 10.1369 4.32875L9.21401 3.2809C8.47903 2.44642 7.48217 1.9776 6.44274 1.9776C5.40331 1.9776 4.40646 2.44642 3.67148 3.2809C2.93649 4.11538 2.52358 5.24718 2.52358 6.42732C2.52358 7.60745 2.93649 8.73925 3.67148 9.57374L10.7526 17.6134L17.8337 9.57374C18.1977 9.16063 18.4866 8.66998 18.6837 8.13014C18.8806 7.59029 18.9821 7.01167 18.9821 6.42732C18.9821 5.84297 18.8806 5.26434 18.6837 4.72449C18.4866 4.18465 18.1978 3.69417 17.8338 3.28106C17.47 2.86777 17.0377 2.53958 16.5623 2.31589C16.0868 2.09222 15.5771 1.97708 15.0624 1.97708Z" />
-              </svg>
-            </button> -->
           </div>
         </div>
       </div>
 
       <div class="product__specification specification-product">
         <div class="specification-product__header">
-          <button type="button" data-id="compound" class="_active">Состав</button>
+          <button type="button" data-id="compound" class="_active">Описание</button>
           <button type="button" data-id="delivery">Доставка</button>
           <button type="button" data-id="payment">Оплата</button>
         </div>
         <div class="specification-product__content">
           <div class="specification-product__info _show" id="compound">
-            <h5>Состав букета</h5>
-            <div class="specification-product__compound">
-              <span class="name">Букет цветов Вера</span>
-              <span class="line"></span>
-              <span class="count">101 роза</span>
-            </div>
+            <p>Описание букета</p>
           </div>
           <div class="specification-product__info" id="delivery">
             <h5>Условия доставки</h5>
@@ -163,19 +160,22 @@
           {% for product in products %}
           <div class="section__card card-section">
             <a href="{{ product.get_absolute_url }}" class="card-section__image">
-              {% if product.image %}
-              <img src="{{ product.image.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+              {% if product.image %} {% thumbnail product.image "368x350" format="WEBP" crop="center" as im %}
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="product-click-image" />
+              {% endthumbnail %} {% else %}
+              <img src="{% static 'theme/mb/images/no-image.png' %}" alt="{{ product.name }}"
+                title="{{ populate.name }}" class="product-click-image" />
               {% endif %}
             </a>
+            <a href="{{ product.get_absolute_url }}" class="card-section__name">{{ product.name }}</a>
             <div class="card-section__content">
-              <a href="{{ product.get_absolute_url }}" class="card-section__name">
-                {{ product.name }}
-              </a>
               <p class="card-section__price">{{ product.price }} руб</p>
               <div class="card-section__bottom">
-                <button type="button" class="add-one-click">Купить в один клик</button>
+                <button type="button" class="add-one-click" id="one-click" data-id="{{ product.id }}">Купить в один
+                  клик</button>
                 <div class="card-section__action">
-                  <button type="button" class="card-section__btn add-to-cart">
+                  <a href="{% url 'cart_add' %}" class="card__cart add-to-cart" data-product-id="{{ product.id }}">
+                    {% csrf_token %}
                     <svg width="21" height="20" viewBox="0 0 21 20" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M4.08463 0.363636C4.27293 0.134718 4.56844 0 4.88228 0H16.847C17.1609 0 17.4563 0.134718 17.6446 0.363636L20.6358 4C20.7652 4.15736 20.8352 4.34875 20.8352 4.54545V17.2727C20.8352 17.9961 20.5201 18.6897 19.9591 19.2012C19.3982 19.7126 18.6374 20 17.844 20H3.88522C3.09191 20 2.33109 19.7126 1.77014 19.2012C1.20918 18.6897 0.894043 17.9961 0.894043 17.2727V4.54545C0.894043 4.34875 0.964017 4.15736 1.09345 4L4.08463 0.363636ZM5.38081 1.81818L2.88816 4.84848V17.2727C2.88816 17.5138 2.99321 17.7451 3.18019 17.9155C3.36718 18.086 3.62078 18.1818 3.88522 18.1818H17.844C18.1085 18.1818 18.3621 18.086 18.5491 17.9155C18.736 17.7451 18.8411 17.5138 18.8411 17.2727V4.84848L16.3485 1.81818H5.38081Z">
@@ -187,7 +187,7 @@
                         d="M6.87645 7.27274C7.42711 7.27274 7.87351 7.67974 7.87351 8.18183C7.87351 8.9051 8.18865 9.59883 8.74961 10.1103C9.31057 10.6217 10.0714 10.9091 10.8647 10.9091C11.6579 10.9091 12.4188 10.6217 12.9797 10.1103C13.5407 9.59883 13.8559 8.9051 13.8559 8.18183C13.8559 7.67974 14.3022 7.27274 14.8529 7.27274C15.4036 7.27274 15.85 7.67974 15.85 8.18183C15.85 9.38737 15.3247 10.5436 14.3898 11.3959C13.4549 12.2484 12.1869 12.7273 10.8647 12.7273C9.54249 12.7273 8.27448 12.2484 7.33956 11.3959C6.40463 10.5436 5.87939 9.38737 5.87939 8.18183C5.87939 7.67974 6.3258 7.27274 6.87645 7.27274Z">
                       </path>
                     </svg>
-                  </button>
+                  </a>
                   <button type="button" class="add-to-favorit">
                     <svg width="21" height="21" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" clip-rule="evenodd"

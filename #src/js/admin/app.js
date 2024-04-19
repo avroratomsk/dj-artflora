@@ -1,14 +1,16 @@
 /**
  * Добавление класса активности вкладкам sidebar
  */
-const sideBarItem = document.querySelectorAll('.sidebar__item');
-if (sideBarItem) {
-  sideBarItem.forEach(item => {
-    item.addEventListener('click', function (e) {
-      this.classList.toggle('_active');
-    })
-  })
-}
+// const sideBarItem = document.querySelectorAll('.sidebar__item');
+// if (sideBarItem) {
+//   sideBarItem.forEach(item => {
+//     item.addEventListener('click', function (e) {
+//       this.classList.toggle('_active');
+//     })
+//   })
+// }
+
+// const { locale } = require("yargs");
 
 /**
  * Переключение вкладок на страницах продуктов, категорий
@@ -97,4 +99,78 @@ if (metaFields) {
     })
   })
 }
+
+const dropdownButtons = document.querySelectorAll('.dropdownButton');
+
+if (dropdownButtons) {
+  dropdownButtons.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      console.log(e.target);
+      let dropdownContent = this.querySelector('.dropdownContent');
+      if (dropdownContent.classList.contains('hidden')) {
+        dropdownContent.classList.remove('hidden');
+        dropdownContent.style.maxHeight = dropdownContent.scrollHeight + 'px';
+      } else {
+        dropdownContent.style.maxHeight = 0;
+        // setTimeout(function () {
+        dropdownContent.classList.add('hidden');
+        // }, 500); // transition duration
+      }
+    })
+  })
+}
+
+const funeral_menu = document.getElementById('funeral_menu')
+if (funeral_menu) {
+  funeral_menu.addEventListener('change', hideFields)
+}
+
+window.addEventListener('load', function (e) {
+  hideFields();
+  shwoField();
+})
+
+
+function hideFields() {
+  console.log('Change');
+  if (funeral_menu.checked || banquetMenuCheckbox.checked) {
+    console.log("Выполнилось");
+    // document.getElementById('related').classList.add('hide-field');
+    // document.getElementById('char').classList.add('hide-field');
+    // document.getElementById('related-btn').classList.add('hide-field');
+    // document.getElementById('char-btn').classList.add('hide-field');
+    // document.getElementById('quantity').classList.add('hide-field');
+    // document.getElementById('weight').classList.add('hide-field');
+    // document.getElementById('discount').classList.add('hide-field');
+    // document.getElementById('price').classList.add('hide-field');
+    // document.getElementById('description').classList.add('hide-field');
+    // document.getElementById('short_description').classList.add('hide-field');
+  } else {
+    // document.getElementById('related').classList.remove('hide-field');
+    // document.getElementById('char').classList.remove('hide-field');
+    // document.getElementById('related-btn').classList.remove('hide-field');
+    // document.getElementById('char-btn').classList.remove('hide-field');
+    // document.getElementById('quantity').classList.remove('hide-field');
+    // document.getElementById('weight').classList.remove('hide-field');
+    // document.getElementById('discount').classList.remove('hide-field');
+    // document.getElementById('price').classList.remove('hide-field');
+    // document.getElementById('description').classList.remove('hide-field');
+    // document.getElementById('short_description').classList.remove('hide-field');
+  }
+}
+
+const banquetMenuCheckbox = document.getElementById('banquet_menu-checkbox');
+if (banquetMenuCheckbox) {
+  banquetMenuCheckbox.addEventListener('change', shwoField);
+}
+
+function shwoField() {
+  if (banquetMenuCheckbox.checked) {
+    document.getElementById('banquet_menu').classList.add('show');
+    hideFields();
+  } else {
+    document.getElementById('banquet_menu').classList.remove('show');
+  }
+}
+
 

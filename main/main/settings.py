@@ -32,39 +32,8 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
-INSTALLED_APPS = [
-    # "django.contrib.admin",
-    "admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    
-    "debug_toolbar",
-    'sorl.thumbnail',
-    "home",
-    "shop",
-    "users",
-    "reviews",
-    "service",
-    "cart",
-    "order",
-    "payment",
-    'django_ckeditor_5',
-]
-
-MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
-]
+from .local import INSTALLED_APPS
+from .local import MIDDLEWARE
 
 ROOT_URLCONF = "main.urls"
 theme_name = "core/theme/mb/templates"
@@ -98,16 +67,7 @@ WSGI_APPLICATION = "main.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "artflora",
-        "USER": "artflora",
-        "PASSWORD": "1111",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
+from .local import DATABASES
 
 
 # Password validation
@@ -156,11 +116,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-
-INTERNAL_IPS = [
-    "127.0.0.1",
-    "localhost:3000",
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

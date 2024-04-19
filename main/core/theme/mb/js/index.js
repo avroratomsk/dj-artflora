@@ -277,7 +277,7 @@ if (pickupCheckbox) {
  * Покупка в один клик
  */
 
-const oneClickBtn = document.querySelectorAll('.card__click');
+const oneClickBtn = document.querySelectorAll('.add-one-click');
 if (oneClickBtn) {
   oneClickBtn.forEach(btn => {
     btn.addEventListener('click', buyOneСlick)
@@ -285,10 +285,11 @@ if (oneClickBtn) {
 }
 
 function buyOneСlick(e) {
-  let parent = this.closest('.card');
+  let parent = this.closest('.card-section');
+  console.log(parent);
   let img = parent.querySelector('.product-click-image').src;
-  let name = parent.querySelector('.card__title-h3').innerText;
-  let price = parent.querySelector('.card__price').innerText;
+  let name = parent.querySelector('.card-section__name').innerText;
+  let price = parent.querySelector('.card-section__price').innerText;
   popup = document.getElementById('popup-one-click');
   popup.classList.add('_open');
 

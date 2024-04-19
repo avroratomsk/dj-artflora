@@ -97,7 +97,7 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: $orange;
+    background-color: $accent;
     border-radius: 20px;
     border: 3px solid rgba(37, 55, 70, .1);
   }
@@ -167,7 +167,7 @@
       box-shadow: 0px 0px 4px rgba($color: $mainColor, $alpha: .1);
 
       &:last-child {
-        background-color: $orange;
+        background-color: $accent;
 
         svg,
         stroke {

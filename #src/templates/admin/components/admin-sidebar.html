@@ -4,7 +4,7 @@
   <div class="sidebar__logo">
     <img src="{{ site_settings.logo.url }}" alt="" title="" />
   </div>
-  <div class="sidebar__item {% if request.session.sidebar == 'False' %}_active{% endif %}">
+  <div class="sidebar__item dropdownButton _active {% if request.session.sidebar == 'False' %}_active{% endif %}">
     <a href="{% url 'admin' %}" class="sidebar__title">
       <svg xmlns="http://www.w3.org/2000/svg" width="14.91" height="14.288" viewBox="0 0 14.91 14.288">
         <g id="adjust_1_" data-name="adjust (1)" transform="translate(0 -10.667)">
@@ -48,7 +48,7 @@
     </a>
   </div>
 
-  <div class="sidebar__item">
+  <div class="sidebar__item dropdownButton">
     <p class="sidebar__title">
       <svg xmlns="http://www.w3.org/2000/svg" width="16.226" height="16.226" viewBox="0 0 16.226 16.226">
         <g id="divide" transform="translate(0.499 0.499)">
@@ -99,7 +99,7 @@
       <span>Статика</span>
     </p>
 
-    <div class="sidebar__subitem">
+    <div class="sidebar__subitem dropdownContent hidden">
       <a href="" class="sidebar__link">
         <svg xmlns="http://www.w3.org/2000/svg" width="15.886" height="13.765" viewBox="0 0 15.886 13.765">
           <g id="layers_1_" data-name="layers (1)" transform="translate(0 -34.184)">
@@ -304,7 +304,7 @@
     </div>
   </div>
 
-  <div class="sidebar__item">
+  <div class="sidebar__item dropdownButton">
     <p class="sidebar__title">
       <svg xmlns="http://www.w3.org/2000/svg" width="16.226" height="16.226" viewBox="0 0 16.226 16.226">
         <g id="divide" transform="translate(0.499 0.499)">
@@ -355,7 +355,7 @@
       <span>Шаблоны страниц</span>
     </p>
 
-    <div class="sidebar__subitem">
+    <div class="sidebar__subitem dropdownContent hidden">
       <a href="{% url "admin_home" %}" class="sidebar__link">
         <svg xmlns="http://www.w3.org/2000/svg" width="15.886" height="13.765" viewBox="0 0 15.886 13.765">
           <g id="layers_1_" data-name="layers (1)" transform="translate(0 -34.184)">
@@ -399,7 +399,7 @@
     </div>
   </div>
 
-  <div class="sidebar__item">
+  <div class="sidebar__item dropdownButton">
     <p class="sidebar__title">
       <svg xmlns="http://www.w3.org/2000/svg" width="16.226" height="16.226" viewBox="0 0 16.226 16.226">
         <g id="divide" transform="translate(0.499 0.499)">
@@ -450,7 +450,7 @@
       <span>Услуги</span>
     </p>
 
-    <div class="sidebar__subitem">
+    <div class="sidebar__subitem dropdownContent hidden">
       <a href="" class="sidebar__link">
         <svg xmlns="http://www.w3.org/2000/svg" width="15.886" height="13.765" viewBox="0 0 15.886 13.765">
           <g id="layers_1_" data-name="layers (1)" transform="translate(0 -34.184)">
@@ -536,7 +536,7 @@
     </div>
   </div>
 
-  <div class="sidebar__item">
+  <div class="sidebar__item dropdownButton">
     <a href="#" class="sidebar__title">
       <svg id="dashboard" xmlns="http://www.w3.org/2000/svg" width="16.025" height="16.025" viewBox="0 0 16.025 16.025">
         <g id="Group_2301" data-name="Group 2301" transform="translate(8.638)">
@@ -588,7 +588,7 @@
     </a>
   </div>
 
-  <div class="sidebar__item">
+  <div class="sidebar__item dropdownButton">
     <p class="sidebar__title {% if request.session.sidebar == 'False' %}sidebar__title--max {% else %}sidebar__title--min{% endif %}">
       <svg xmlns="http://www.w3.org/2000/svg" width="18.486" height="18.636" viewBox="0 0 18.486 18.636">
         <g id="cubes" transform="translate(0)">
@@ -606,7 +606,7 @@
       <span>Магазин</span>
     </p>
 
-    <div class="sidebar__subitem">
+    <div class="sidebar__subitem dropdownContent hidden">
       <a href="" class="sidebar__link">
         <svg xmlns="http://www.w3.org/2000/svg" width="15.886" height="13.765" viewBox="0 0 15.886 13.765">
           <g id="layers_1_" data-name="layers (1)" transform="translate(0 -34.184)">
@@ -976,9 +976,9 @@
           </g>
         </svg>
 
-        <span>Настройка наценки</span>
+        {% comment %} <span>Настройка наценки</span> {% endcomment %}
       </a>
-      <a href="" class="sidebar__link">
+      <a href="{% url 'upload_goods' %}" class="sidebar__link">
         <svg xmlns="http://www.w3.org/2000/svg" width="15.886" height="13.765" viewBox="0 0 15.886 13.765">
           <g id="layers_1_" data-name="layers (1)" transform="translate(0 -34.184)">
             <g id="Group_2309" data-name="Group 2309" transform="translate(0 34.184)">
@@ -1022,7 +1022,7 @@
     </div>
   </div>
 
-  <div class="sidebar__item">
+  <div class="sidebar__item dropdownButton">
     <p class="sidebar__title {% if request.session.sidebar == 'False' %}sidebar__title--max {% else %}sidebar__title--min{% endif %}">
       <svg xmlns="http://www.w3.org/2000/svg" width="14.505" height="14.505" viewBox="0 0 14.505 14.505">
         <g id="Group_2345" data-name="Group 2345" transform="translate(-218.848 -247.717)">
@@ -1055,7 +1055,7 @@
       </svg>
       <span>Продажи</span>
     </p>
-    <div class="sidebar__subitem">
+    <div class="sidebar__subitem dropdownContent hidden">
       <a href="" class="sidebar__link">
         <svg xmlns="http://www.w3.org/2000/svg" width="15.886" height="13.765" viewBox="0 0 15.886 13.765">
           <g id="layers_1_" data-name="layers (1)" transform="translate(0 -34.184)">
@@ -1141,7 +1141,7 @@
     </div>
   </div>
 
-  <div class="sidebar__item">
+  <div class="sidebar__item dropdownButton">
     <p class="sidebar__title {% if request.session.sidebar == 'False' %}sidebar__title--max {% else %}sidebar__title--min{% endif %}">
       <svg xmlns="http://www.w3.org/2000/svg" width="14.504" height="13.598" viewBox="0 0 14.504 13.598">
         <g id="note" transform="translate(0 -16)">
@@ -1170,7 +1170,7 @@
       </svg>
       <span>Блог</span>
     </p>
-    <div class="sidebar__subitem">
+    <div class="sidebar__subitem dropdownContent hidden">
       <a href="" class="sidebar__link">
         <svg xmlns="http://www.w3.org/2000/svg" width="15.886" height="13.765" viewBox="0 0 15.886 13.765">
           <g id="layers_1_" data-name="layers (1)" transform="translate(0 -34.184)">
@@ -1297,7 +1297,7 @@
     </div>
   </div>
 
-  <div class="sidebar__item">
+  <div class="sidebar__item dropdownButton">
     <p class="sidebar__title {% if request.session.sidebar == 'False' %}sidebar__title--max {% else %}sidebar__title--min{% endif %}">
       <svg xmlns="http://www.w3.org/2000/svg" width="17.228" height="14.538" viewBox="0 0 17.228 14.538">
         <g id="switch" transform="translate(0 -1)">
@@ -1335,7 +1335,7 @@
       <span>Маркетинг</span>
     </p>
 
-    <div class="sidebar__subitem">
+    <div class="sidebar__subitem dropdownContent hidden">
       <a href="" class="sidebar__link">
         <svg xmlns="http://www.w3.org/2000/svg" width="15.886" height="13.765" viewBox="0 0 15.886 13.765">
           <g id="layers_1_" data-name="layers (1)" transform="translate(0 -34.184)">
@@ -1461,7 +1461,7 @@
     </div>
   </div>
 
-  <div class="sidebar__item">
+  <div class="sidebar__item dropdownButton">
     <p class="sidebar__title {% if request.session.sidebar == 'False' %}sidebar__title--max {% else %}sidebar__title--min{% endif %}">
       <svg xmlns="http://www.w3.org/2000/svg" width="17.707" height="17.6" viewBox="0 0 17.707 17.6">
         <g id="gear_4_" data-name="gear (4)" transform="translate(0 -1.544)">
@@ -1517,7 +1517,7 @@
       <span>Настройки</span>
     </p>
 
-    <div class="sidebar__subitem">
+    <div class="sidebar__subitem dropdownContent hidden">
       <a href="{% url "admin_settings" %}" class="sidebar__link">
         <svg xmlns="http://www.w3.org/2000/svg" width="15.886" height="13.765" viewBox="0 0 15.886 13.765">
           <g id="layers_1_" data-name="layers (1)" transform="translate(0 -34.184)">
@@ -1644,7 +1644,7 @@
     </div>
   </div>
 
-  <div class="sidebar__item">
+  <div class="sidebar__item dropdownButton">
     <p class="sidebar__title {% if request.session.sidebar == 'False' %}sidebar__title--max {% else %}sidebar__title--min{% endif %}">
       <svg xmlns="http://www.w3.org/2000/svg" width="20.437" height="13.496" viewBox="0 0 20.437 13.496">
         <g id="motion_1_" data-name="motion (1)" transform="translate(0 -89)">
@@ -1662,7 +1662,7 @@
       <span>Дизайн</span>
     </p>
 
-    <div class="sidebar__subitem">
+    <div class="sidebar__subitem dropdownContent hidden">
       <a href="" class="sidebar__link">
         <svg xmlns="http://www.w3.org/2000/svg" width="15.886" height="13.765" viewBox="0 0 15.886 13.765">
           <g id="layers_1_" data-name="layers (1)" transform="translate(0 -34.184)">

@@ -1,0 +1,3 @@
+PassengerEnabled On
+PassengerAppRoot /home/a/avroraweb/irk-artlora.ru/public_html/main/main
+PassengerPython /home/a/avroraweb/irk-artlora.ru/public_html/venv/bin/python

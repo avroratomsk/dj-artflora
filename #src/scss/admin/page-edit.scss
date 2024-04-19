@@ -3,8 +3,11 @@
 
   // .page-edit__head
   &__head {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    margin-bottom: 30px;
 
     button {
       padding: 15px 30px;
@@ -18,10 +21,17 @@
       }
 
       &._active {
-        background-color: $orange;
+        background-color: $accent;
         color: rgba($color: $white, $alpha: 1.0);
       }
     }
+  }
+
+  // .page-edit__head-inner
+
+  &__head-inner {
+    display: flex;
+    align-items: center;
   }
 
   // .page-edit__body

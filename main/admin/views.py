@@ -193,7 +193,7 @@ def parse_exсel(path):
   workbook = openpyxl.load_workbook(path)
   sheet = workbook.active
   start_row = 2
-    
+  Category.objects.all().delete()
   Product.objects.all().delete()
 
   for row in sheet.iter_rows(min_row=start_row, values_only=True):
@@ -216,8 +216,10 @@ def parse_exсel(path):
     quantity = row[8]
     if row[7]:
       category_name = row[7]
+      # print(category_name)
     else:
-      print("Категории нет")
+      pass
+      # print("Категории нет")
     category_slug = slugify(category_name)
 
     try:

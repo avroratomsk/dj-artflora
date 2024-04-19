@@ -1,0 +1,26 @@
+{% extends 'admin_base.html' %} {% block body %}
+<div class="page">
+  <div class="page__inner">
+    <h1 class="page__title">{{ title }}</h1>
+    <form action="{% url 'admin_colors' %}" class="form">
+      <div class="form__group">
+        <label for="" class="form__label">Фоновый цвет сайта</label>
+        <input type="color" value="#012376" class="form__controls-color" />
+      </div>
+      <div class="form__group">
+        <label for="" class="form__label">Акцентный цвет</label>
+        <input type="color" value="#012376" class="form__controls-color" />
+      </div>
+      <div class="form__group">
+        <label for="" class="form__label">Серый цвет</label>
+        <input type="color" value="#012376" class="form__controls-color" />
+      </div>
+      <div class="form__group">
+        <label for="" class="form__label">Белый цвет</label>
+        <input type="color" value="#012376" class="form__controls-color" />
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

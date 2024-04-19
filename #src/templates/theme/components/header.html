@@ -26,9 +26,9 @@
   <div class="header__middle middle-header">
     <div class="middle-header__container">
       <div class="middle-header__inner">
-        <div class="middle-header__logo logo">
+        <a href="/" class="middle-header__logo logo">
           <img src="{% static 'theme/mb/images/logo.png' %}" alt="" />
-        </div>
+        </a>
         <div class="middle-header__search">
           <input type="search" name="search" id="search" placeholder="Найти в каталоге" />
           <button type="submit">
@@ -47,6 +47,7 @@
           </button>
           <button type="button" class="middle-header__cart" id="show-cart">
             <img src="{% static 'theme/mb/images/icon/i-cart.svg' %}" alt="" />
+            <span class="cart_count">10</span>
           </button>
         </div>
       </div>

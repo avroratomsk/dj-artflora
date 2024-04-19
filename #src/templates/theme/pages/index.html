@@ -104,16 +104,16 @@
               <div class="section__card card-section">
                 <a href="{{ populate.get_absolute_url }}" class="card-section__image">
                   {% if populate.image %} {% thumbnail populate.image "368x350" format="WEBP" crop="center" as im %}
-                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" />
+                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="product-click-image" />
                   {% endthumbnail %} {% else %}
-                  <img src="{% static 'theme/mb/images/no-image.png' %}" alt="{{ populate.name }}" title="{{ populate.name }}" />
+                  <img src="{% static 'theme/mb/images/no-image.png' %}" alt="{{ populate.name }}" title="{{ populate.name }}" class="product-click-image" />
                   {% endif %}
                 </a>
                 <a href="{{ populate.get_absolute_url }}" class="card-section__name">{{ populate.name }}</a>
                 <div class="card-section__content">
                   <p class="card-section__price">{{ populate.price }} руб</p>
                   <div class="card-section__bottom">
-                    <button type="button" class="add-one-click">Купить в один клик</button>
+                    <button type="button" class="add-one-click" id="one-click" data-id="{{ product.id }}">Купить в один клик</button>
                     <div class="card-section__action">
                       <a href="{% url 'cart_add' %}" class="card__cart add-to-cart" data-product-id="{{ populate.id }}">
                         {% csrf_token %}
@@ -154,7 +154,7 @@
           <div class="swiper-button-next"></div>
           <div class="swiper-button-prev"></div>
         </div>
-        <a href="https://avroratomsk.github.io/art-flora/#" class="section__btn">Посмотреть популярные букеты</a>
+        <a href="{% url 'populate' %}" class="section__btn">Посмотреть популярные букеты</a>
       </div>
     </div>
   </div>
@@ -224,7 +224,7 @@
           <div class="swiper-button-next"></div>
           <div class="swiper-button-prev"></div>
         </div>
-        <a href="https://avroratomsk.github.io/art-flora/#" class="section__btn">Посмотреть новинки</a>
+        <a href="{% url 'news' %}" class="section__btn">Посмотреть новинки</a>
       </div>
     </div>
   </div>
@@ -239,7 +239,7 @@
       <div class="catalog__grid">
         {% if categorys %} {% for category in categorys %}
         <a href="{{ category.get_absolute_url }}" class="catalog__item item-catalog">
-          <img src="{{ category.image.url }}" alt="" class="item-catalog__image" />
+          <img src="" alt="" class="item-catalog__image" />
           <div class="item-catalog__count">{{ category.product_count }}</div>
           <div class="item-catalog__content">
             <span class="item-catalog__underline">Категория</span>
