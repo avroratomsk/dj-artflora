@@ -32,7 +32,6 @@ def order_create(request):
           
           try: 
             first_name = request.POST['first_name']
-            print(first_name)
             order.first_name = first_name
             
           except:
@@ -58,12 +57,10 @@ def order_create(request):
           
           try:
             pay_method = request.POST['payment_option']
-            print(pay_method)
             order.pay_method = pay_method
           except: 
             pass
           order.save()
-          # print(f"{order}--------------------")
           for item in cart_items:
             product=item.product
             name=item.product.name
@@ -77,9 +74,7 @@ def order_create(request):
               price=price,
               quantity=quantity
             )
-          print(payment_method)
           if payment_method == "На сайте картой":
-              print("Выполнился")
               data = create_payment(order,  request)
                 # payment_id = data["id"]
                 # confirmation_url = data["confirmation_url"]
@@ -95,7 +90,6 @@ def order_create(request):
             cart_items.delete()
             return redirect('order_succes')
       except Exception as e:
-        print("Сюда пришел тоже")
         print(e)
   
   # cart = request.context['cart_my']

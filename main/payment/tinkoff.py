@@ -25,18 +25,13 @@ D = Decimal
 
 
 def create_payment(order, request):
-  print('nen')
   items_arr = []
 
   success_url = (
       f'https://{request.META["HTTP_HOST"]}/orders/tinkoff_success/{order.id}/'
   )
-  print(success_url)
-  print('1----------------------1')
   items = OrderItem.objects.filter(order=order)
-  print('2----------------------2')
-  print(items)
-  print('3----------------------3')
+  
   # total = str(order.summ)
   # total = total.replace(".", "")
 
@@ -47,17 +42,11 @@ def create_payment(order, request):
   for item in items:
       try:
           name = item.product.name
-          print('4------------------4')
       except:
           name = item.combo.name
-          print('5------------------5')
 
       quantity = item.quantity
-      print(quantity)
-      print('6------------------6')
       # quantity = quantity - item.free
-      # print(quantity)
-      print('7------------------7')
 
       # if order.balls:
       #     price = item.price
@@ -70,14 +59,9 @@ def create_payment(order, request):
       price = item.price
       price = str(price)
       price = price.replace(".", "")
-      print(price)
-      print('8------------------8')
       amount = Decimal(price) * Decimal(quantity)
       amount = str(amount)
-      print(amount)
-      print('9------------------9')
       amount = amount.replace(".", "")
-      print(amount)
 
       
       items_arr.append(
@@ -150,10 +134,9 @@ def create_payment(order, request):
   )
   # print(response.text)
   res = response.json()
-  print(res)
   url = res["PaymentURL"]
 
-  with open('data.json', 'w') as f:
-      json.dump(payList, f)
+  # with open('data.json', 'w') as f:
+  #     json.dump(payList, f)
 
   return url
