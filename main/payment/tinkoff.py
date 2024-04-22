@@ -11,7 +11,7 @@ from payment.models import Tinkoff
 terminalkey = "1713106439711DEMO"
 taxation = "9n23lwcf2kvp01pm"
 
-email = "saniagolovanev@gmail.com"
+email = ["saniagolovanev@gmail.com"]
 
 
 import decimal
@@ -24,8 +24,7 @@ def create_payment(order, request):
   items_arr = []
 
   success_url = (
-      # f'https://{request.META["HTTP_HOST"]}/orders/tinkoff_success/{order.id}/'
-      f'https://artflora38.ru/orders/tinkoff_success/{order.id}/'
+      f'https://{request.META["HTTP_HOST"]}/orders/tinkoff_success/{order.id}/'
   )
   items = OrderItem.objects.filter(order=order)
   price_total = Decimal(0)
@@ -38,8 +37,6 @@ def create_payment(order, request):
       name = item.product.name
       quantity = Decimal(item.quantity)
       price = int(item.price)
-      # price = str(price).replace(".", "")
-      # print(price)
       amount = price * quantity
       items_arr.append({
           "Name": name,
@@ -73,13 +70,14 @@ def create_payment(order, request):
   payList = json.dumps(dictionary, indent=4)
 
   # print(payList)
-
-  response = requests.post(
-      "https://securepay.tinkoff.ru/v2/Init", headers=headers, data=payList
-  )
+  try:
+    response = requests.post(
+        "https://securepay.tinkoff.ru/v2/Init", headers=headers, data=payList
+    )
+  except Exception as e:
+    print(e)
   # print(response.text)
   res = response.json()
-  print(res)
   url = res["PaymentURL"]
   # print(url)
   # with open('data.json', 'w') as f:
