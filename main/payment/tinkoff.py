@@ -12,7 +12,9 @@ terminalkey = "1713106439711DEMO"
 taxation = "9n23lwcf2kvp01pm"
 
 email = "saniagolovanev@gmail.com"
+import logging
 
+logger = logging.getLogger('django')
 
 import decimal
 from decimal import Decimal
@@ -73,10 +75,13 @@ def create_payment(order, request):
   payList = json.dumps(dictionary, indent=4)
 
   # print(payList)
-
-  response = requests.post(
+  try:
+      response = requests.post(
       "https://securepay.tinkoff.ru/v2/Init", headers=headers, data=payList
   )
+  except ZeroDivisionError:
+      logger.error('Деление на ноль', exc_info=True)
+  
   # print(response.text)
   res = response.json()
   url = res["PaymentURL"]
