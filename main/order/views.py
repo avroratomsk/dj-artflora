@@ -90,7 +90,7 @@ def order_create(request):
             cart_items.delete()
             return redirect('order_succes')
       except Exception as e:
-        print(f'Тут - {e}')
+        print(e)
         # print(e)
   
   # cart = request.context['cart_my']

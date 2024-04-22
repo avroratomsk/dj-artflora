@@ -39,7 +39,7 @@ def create_payment(order, request):
       quantity = Decimal(item.quantity)
       price = int(item.price)
       # price = str(price).replace(".", "")
-      print(price)
+      # print(price)
       amount = price * quantity
       items_arr.append({
           "Name": name,
