@@ -78,11 +78,12 @@ def create_payment(order, request):
   try:
       response = requests.post(
       "https://securepay.tinkoff.ru/v2/Init", headers=headers, data=payList
-  )
-  except ZeroDivisionError:
-      logger.error('Деление на ноль', exc_info=True)
+      )
+      
+  except Exception as e:
+      print(e)
   
-  # print(response.text)
+  
   res = response.json()
   url = res["PaymentURL"]
   # print(url)

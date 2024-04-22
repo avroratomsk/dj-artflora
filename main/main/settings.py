@@ -212,21 +212,21 @@ CKEDITOR_5_CONFIGS = {
     }
 }
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': '/home/a/avroraweb/irk-artlora.ru/public_html/debug.log',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['debug.log'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'ERROR',
+#             'class': 'logging.FileHandler',
+#             'filename': '/home/a/avroraweb/irk-artlora.ru/public_html/debug.log',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['debug.log'],
+#             'level': 'ERROR',
+#             'propagate': True,
+#         },
+#     },
+# }
