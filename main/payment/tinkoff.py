@@ -11,10 +11,6 @@ from payment.models import Tinkoff
 terminalkey = "1713106439711DEMO"
 taxation = "9n23lwcf2kvp01pm"
 
-
-
-
-
 email = "saniagolovanev@gmail.com"
 
 
@@ -28,89 +24,37 @@ def create_payment(order, request):
   items_arr = []
 
   success_url = (
-      f'https://{request.META["HTTP_HOST"]}/orders/tinkoff_success/{order.id}/'
+      # f'https://{request.META["HTTP_HOST"]}/orders/tinkoff_success/{order.id}/'
+      f'https://artflora38.ru/orders/tinkoff_success/{order.id}/'
   )
   items = OrderItem.objects.filter(order=order)
-  
-  # total = str(order.summ)
-  # total = total.replace(".", "")
-
-  # print(total)
-
-  # print(items.count())
-
+  price_total = Decimal(0)
   for item in items:
-      try:
-          name = item.product.name
-      except:
-          name = item.combo.name
+      price_total += Decimal(item.price) * Decimal(item.quantity)
 
-      quantity = item.quantity
-      # quantity = quantity - item.free
+  # Формируем список позиций заказа
+  items_arr = []
+  for item in items:
+      name = item.product.name
+      quantity = Decimal(item.quantity)
+      price = int(item.price)
+      # price = str(price).replace(".", "")
+      print(price)
+      amount = price * quantity
+      items_arr.append({
+          "Name": name,
+          "Price": str(price),
+          "Quantity": str(quantity),
+          "Amount": str(amount),
+          "PaymentMethod": "full_prepayment",
+          "PaymentObject": "commodity",
+          "Tax": "none",
+      })
 
-      # if order.balls:
-      #     price = item.price
-      #     discount = (price / 100) * order.percent_pay
-      #     price = price - discount
-      #     price = str(price)
-      #     price = price.replace(".", "")
-
-      # else:
-      price = item.price
-      price = str(price)
-      price = price.replace(".", "")
-      amount = Decimal(price) * Decimal(quantity)
-      amount = str(amount)
-      amount = amount.replace(".", "")
-
-      
-      items_arr.append(
-          {
-              "Name": name,
-              "Price": price,
-              "Quantity": quantity,
-              "Amount": amount,
-              "PaymentMethod": "full_prepayment",
-              "PaymentObject": "commodity",
-              "Tax": "none",
-          }
-      )
-      # print(items_arr)
-      # print(order.percent_pay)
-      # print('Price:')
-      # print(price)
-      # print('item.free')
-      # print(item.free)
-      # print('quantity')
-      # print(quantity)
-      # print('Amount:')
-      # print(amount)
-
-  # delivery_price = order.delivery_price
-
-  # del_pr = (
-  #     str(Decimal(delivery_price).quantize(D("1.00")))
-  #     .replace(".", "")
-  #     .replace(",", "")
-  # )
-
-  # if Decimal(delivery_price) > 0:
-  #     # print(delivery_price)
-  #     items_arr.append(
-  #         {
-  #             "Name": "Доставка",
-  #             "Price": str(del_pr),
-  #             "Quantity": 1,
-  #             "Amount": str(del_pr),
-  #             "PaymentMethod": "full_prepayment",
-  #             "PaymentObject": "commodity",
-  #             "Tax": "none",
-  #         }
-  #     )
-
+  # Создаем словарь для запроса оплаты
   dictionary = {
       "TerminalKey": terminalkey,
-      "Amount": 1000,
+      "Amount": str(price_total),  # Передаем общую сумму заказа
       "OrderId": order.id,
       "Description": f"Покупка товаров в магазине {request.META['HTTP_HOST']}",
       "SuccessURL": success_url,
@@ -119,9 +63,10 @@ def create_payment(order, request):
           "EmailCompany": email,
           "Taxation": taxation,
           "Items": items_arr,
-      },
+      }
   }
-  # print(dictionary)
+  # print(dictionary["Amount"])
+  # print(dictionary["Receipt"]["Items"])
 
   headers = {"content-type": "application/json"}
 
@@ -132,10 +77,10 @@ def create_payment(order, request):
   response = requests.post(
       "https://securepay.tinkoff.ru/v2/Init", headers=headers, data=payList
   )
-  # print(response.text)
+  print(response.text)
   res = response.json()
   url = res["PaymentURL"]
-
+  print(url)
   # with open('data.json', 'w') as f:
   #     json.dump(payList, f)
 

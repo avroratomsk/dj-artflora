@@ -90,7 +90,8 @@ def order_create(request):
             cart_items.delete()
             return redirect('order_succes')
       except Exception as e:
-        print(e)
+        print(f'Тут - {e}')
+        # print(e)
   
   # cart = request.context['cart_my']
   
@@ -108,31 +109,31 @@ def order_error(request):
     return render(request, "orders/order/error.html")
 
 def order_success(request):
-    session_key = request.session.session_key
-    cart = Cart.objects.filter(session_key=session_key)
+  session_key = request.session.session_key
+  cart = Cart.objects.filter(session_key=session_key)
 
-    pay_id = request.GET["orderId"]
+  pay_id = request.GET["orderId"]
 
-    data = get_status(pay_id)
+    # data = get_status(pay_id)
 
-    if data["status"] == "0":
-        order = data["order"]
+    # if data["status"] == "0":
+    #     order = data["order"]
 
-        email_send(order)
+    #     email_send(order)
 
-        text = f"Ваш заказ принят. Ему присвоен № {order.id}."
+    #     text = f"Ваш заказ принят. Ему присвоен № {order.id}."
 
-        session_key = request.session.session_key
-        cart_items = Cart.objects.filter(session_key=session_key)
-        request.session["delivery"] = 1
-        order.paid = True
+    #     session_key = request.session.session_key
+    #     cart_items = Cart.objects.filter(session_key=session_key)
+    #     request.session["delivery"] = 1
+    #     order.paid = True
 
-        order.save()
+    #     order.save()
 
-        return redirect("/?order=True")
+    #     return redirect("/?order=True")
 
-    else:
-        return redirect("order_error")
+    # else:
+  return redirect("order_error")
 
 # def order_create(request):
 #   if request.method == 'POST':
