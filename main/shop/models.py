@@ -23,6 +23,7 @@ class Category(models.Model):
   meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="META заголовок")
   meta_description = models.TextField(null=True, blank=True, verbose_name="META описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="META keywords")
+  menu_add = models.BooleanField(default=False, null=True, blank=True, verbose_name="Добавить в меню")
   
   class Meta:
     db_table = 'category' 

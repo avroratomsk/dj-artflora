@@ -246,7 +246,8 @@ class CategoryForm(forms.ModelForm):
       "meta_h1",
       "meta_title",
       "meta_description",
-      "meta_keywords"
+      "meta_keywords",
+      "menu_add"
     ]
     labels = {
       "name": "Назване категории",
@@ -257,6 +258,7 @@ class CategoryForm(forms.ModelForm):
       "meta_title": "Meta заголовок",
       "meta_description": "Meta описание",
       "meta_keyword": "Meta keywords",
+      "menu_add": "Добавить в меню",
     }
     widgets = {
       "name": forms.TextInput(attrs={
@@ -292,6 +294,10 @@ class CategoryForm(forms.ModelForm):
       }),
       "meta_keywords": forms.TextInput(attrs={
         "class":"form__controls",
+        # "placeholder": "Meta keywords"
+      }),  
+      "menu_add": forms.CheckboxInput(attrs={
+        "class":"form__controls-checkbox",
         # "placeholder": "Meta keywords"
       }),  
     }

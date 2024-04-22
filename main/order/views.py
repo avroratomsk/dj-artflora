@@ -3,7 +3,7 @@ from django.forms import ValidationError
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from cart.models import Cart
-from payment.alfabank import create_payment, get_status
+from payment.tinkoff import create_payment
 from .email_send import email_send
 from order.models import Order, OrderItem
 from order.forms import CreateOrderForm
@@ -80,8 +80,7 @@ def order_create(request):
           print(payment_method)
           if payment_method == "На сайте картой":
               print("Выполнился")
-              data = create_payment(orderItem, cart_items, request)
-              print(data)
+              data = create_payment(order,  request)
                 # payment_id = data["id"]
                 # confirmation_url = data["confirmation_url"]
 
@@ -92,8 +91,6 @@ def order_create(request):
                 # print(cart_items)
                 # return redirect(confirmation_url)
           else:
-            print(f"Сюда пришел заказа номер {order.id}")
-            print(request.session['user_profile_id'])
             email_send(order)
             cart_items.delete()
             return redirect('order_succes')

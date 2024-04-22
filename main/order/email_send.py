@@ -10,7 +10,6 @@ def email_send(order):
   to = ['saniagolovanev@gmail.com']
   msg = EmailMultiAlternatives(subject, text_content, from_email, to)
   msg.attach_alternative(html_content, "text/html")
-  print("Вышел")
   try:
     msg.send()
   except Exception as e:

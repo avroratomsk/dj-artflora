@@ -8,6 +8,8 @@ urlpatterns = [
     path('order-succes/', views.order_succes, name="order_succes"), 
     path('error/', views.order_error, name='order_error'),
     path('success/', views.order_success, name='order_success'),
+    
+    # path('tinkoff_success/<int:pk>/', views.tinkoff_success, name='tinkoff_success')
     # path('cart_change/', views.cart_change, name="cart_change"), 
     # path('cart_remove/', views.cart_remove, name="cart_remove"), 
 ]
