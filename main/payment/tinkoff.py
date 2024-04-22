@@ -12,9 +12,7 @@ terminalkey = "1713106439711DEMO"
 taxation = "9n23lwcf2kvp01pm"
 
 email = "saniagolovanev@gmail.com"
-import logging
 
-logger = logging.getLogger('django')
 
 import decimal
 from decimal import Decimal
@@ -75,16 +73,13 @@ def create_payment(order, request):
   payList = json.dumps(dictionary, indent=4)
 
   # print(payList)
-  try:
-      response = requests.post(
+
+  response = requests.post(
       "https://securepay.tinkoff.ru/v2/Init", headers=headers, data=payList
-      )
-      
-  except Exception as e:
-      print(e)
-  
-  
+  )
+  # print(response.text)
   res = response.json()
+  print(res)
   url = res["PaymentURL"]
   # print(url)
   # with open('data.json', 'w') as f:
