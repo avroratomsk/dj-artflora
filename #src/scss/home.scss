@@ -1044,28 +1044,3 @@
   font-size: 16px;
   color: #fafafa;
 }
-
-.breadcrumbs {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 40px 0;
-}
-
-.breadcrumbs__item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.breadcrumbs__item:not(:last-child)::after {
-  content: "—";
-  display: block;
-  margin: 0 7px;
-}

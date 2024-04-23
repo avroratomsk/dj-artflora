@@ -1,40 +1,43 @@
 {% extends 'admin_base.html' %} {% block body %}
 <div class="page">
   <div class="page__inner">
-    <h1 class="page__title">{{ product.name }}</h1>
-    <div class="page-edit">
-      <div class="page-edit__head">
-        <button type="button" data-name="basic" class="_active">Основные</button>
-        <button type="button" data-name="seo" class="_btn">SEO</button>
-        <button type="button" data-name="related" class="_btn">Связи товара</button>
-        <button type="button" data-name="image" class="_btn">Изображение</button>
-        <button type="button" data-name="char" class="_btn">Характеристики</button>
+    <form action="" method="POST" class="form" enctype="multipart/form-data">
+      <div class="page__head">
+        <div class="page__head-inner">
+          <h1 class="page__title">Добавить характеристику</h1>
+        </div>
+        <button type="submit" class="form__btn">Сохранить</button>
       </div>
-      <form action="." method="POST" class="form" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="page-edit__body">
-          <!-- Основные настройки -->
-          <div class="page-edit__item _show" id="basic">
-            <div class="page-edit__form">
-              <div class="form__group">
-                <label for="{{ form.name.id_for_label }}" class="form__controls-label">
-                  <span>*</span>
-                  Название
-                </label>
-                {{ form.name }} {{ form.name.errors }}
-              </div>
+      {% csrf_token %}
+      <div class="page-content _show" id="basic">
+        <div class="page-content__row">
+          <div class="page-content__seo">
+            <div class="form__group">
+              <label for="{{ form.group.id_for_label }}" class="form__controls-label">Группа характеристики</label>
+              {{ form.group }} {{ form.group.errors }}
+            </div>
 
-              <div class="form__group">
-                <label for="{{ form.value.id_for_label }}" class="form__controls-label"> Полное описание
-                </label>
-                {{ form.value }} {{ form.value.errors }}
-              </div>
+            <div class="form__group">
+              <label for="{{ form.text_name.id_for_label }}" class="form__controls-label"> Название характеристики </label>
+              {{ form.text_name }} {{ form.text_name.errors }}
+            </div>
+
+            <div class="form__group-checkbox">
+              <label for="{{ form.filter_add.id_for_label }}" class="form__controls-label"> Добавить в фильтрацию</label>
+              {{ form.filter_add }} {{ form.filter_add.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.filter_name.id_for_label }}" class="form__controls-label"> Название фильтрации на английском </label>
+              {{ form.filter_name }} {{ form.filter_name.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.sort_order.id_for_label }}" class="form__controls-label"> Сортировка</label>
+              {{ form.sort_order }} {{ form.sort_order.errors }}
             </div>
           </div>
         </div>
-        <button type="submit" class="form__btn">Сохранить</button>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </div>
 

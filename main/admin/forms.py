@@ -2,7 +2,7 @@ from django import forms
 from home.models import BaseSettings, HomeTemplate, Stock
 from service.models import Service
 from reviews.models import Reviews
-from shop.models import Category, Product, ProductSpecification
+from shop.models import Category, CharGroup, CharName, Product, ProductChar, ProductImage
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
@@ -205,6 +205,102 @@ class ProductForm(forms.ModelForm):
                 'accept': 'image/*'
             }),
         }
+
+class ProductImageForm(forms.ModelForm):
+    class Meta:
+        model = ProductImage
+
+        fields = [
+            'parent',
+            'src'
+        ]
+        labels = {
+            'src': 'Выбрать изображение'
+        }
+        widgets = {
+            'parent': forms.Select(attrs={
+                'class': 'form__controls', 
+            })
+        }
+
+class ProductCharForm(forms.ModelForm):
+    class Meta:
+        model = ProductChar
+        fields = [
+            'char_name',
+            'char_value',
+        ]
+        labels = {
+            'char_name': 'Название характеристики',
+            'char_value': 'Значение',
+        }
+        widgets = {
+            'char_name': forms.Select(attrs={
+                'class': 'form__controls',
+                'placeholder': 'Название характеристики',
+                'id': 'id_char_name',
+               
+            }),
+            'char_value': forms.TextInput(attrs={
+                'class': 'input',
+                'placeholder': 'Значение',
+                'id': 'id_char_value'
+            }),
+        }
+
+class CharGroupForm(forms.ModelForm):
+    class Meta:
+        model = CharGroup
+        fields = [
+            'name',
+        ]
+        labels = {
+            'name': 'Название группы характеристик',
+           
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form__controls',
+            }),
+        }
+
+
+class CharNameForm(forms.ModelForm):
+  class Meta:
+    model = CharName
+    fields = [
+        'group',
+        'text_name',
+        'filter_add',
+        'filter_name',
+        'sort_order'
+        
+    ]
+    labels = {
+        'group': 'Группа опций',
+        'text_name': 'Название опции',
+        'filter_add': "Добавить в фильтрацию",
+        'filter_name': "Название фильтрации на английском",
+        'sort_order': "Сортировка"
+    }
+    widgets = {
+        'group': forms.Select(attrs={
+          'class': 'form__controls'
+        }),
+        'text_name': forms.TextInput(attrs={
+            'class': 'form__controls',
+            'id': 'char_name'
+        }),
+        'filter_add': forms.CheckboxInput(attrs={
+            'class': 'form__controls-checkbox',
+        }),
+        'filter_name': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'sort_order': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+    }
 
 # class CharName(forms.ModelForm):
 #   class

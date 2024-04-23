@@ -4,12 +4,12 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import CategoryForm, GlobalSettingsForm, HomeTemplateForm, ProductForm, ReviewsForm, ServiceForm, StockForm, UploadFileForm
+from admin.forms import CategoryForm, CharGroupForm, CharNameForm, GlobalSettingsForm, HomeTemplateForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, StockForm, UploadFileForm
 from home.models import BaseSettings, HomeTemplate, Stock
 from main.settings import BASE_DIR
 from service.models import Service
 from reviews.models import Reviews
-from shop.models import Product,Category, ProductSpecification
+from shop.models import CharGroup, CharName, Product,Category, ProductChar, ProductImage
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 import openpyxl
@@ -80,32 +80,96 @@ def product_edit(request, pk):
   """
   product = Product.objects.get(id=pk)
   form = ProductForm(instance=product)
+  image_form = ProductImageForm()
+  product_char_form = ProductCharForm()
+  chars = ProductChar.objects.filter(parent_id=pk)
+  all_chars = CharName.objects.all()
   
   form_new = ProductForm(request.POST, request.FILES, instance=product) 
   if request.method == 'POST':
     if form_new.is_valid():
       form_new.save()
+      product = Product.objects.get(slug=request.POST['slug'])
+      images = request.FILES.getlist('src')
+      # Характеристики 
+      char_name = request.POST.getlist('text_name')
+      char_value = request.POST.getlist('char_value')
+      char_count = 0
+
+      for char in char_name:
+
+          value = char_value[char_count]
+          product_char = ProductChar(
+              char_name_id = char,
+              parent = product,
+              char_value = value
+          )
+          product_char.save()
+          char_count += 1
+
+      old_char_id = request.POST.getlist('old_char_id')
+      old_char_name = request.POST.getlist('old_text_name')
+      old_char_value = request.POST.getlist('old_char_value')
+      old_char_count = 0
+
+      for id in old_char_id:
+
+          old_char = ProductChar.objects.get(id=id)
+          old_char.char_name_id = old_char_name[old_char_count]
+          old_char.char_value = old_char_value[old_char_count]
+          
+          old_char.save()
+          old_char_count += 1
+      for image in images:
+          img = ProductImage(parent=product, src=image)
+          img.save()
       return redirect('admin_product')
     else:
-      return render(request, 'shop/product/product_edit.html', {'form': form_new,})
+      return render(request, 'shop/product/product_edit.html', {'form': form_new, 'image_form': image_form,})
   context = {
-    "form":form
+    "form":form,
+    'image_form': image_form,
+    "product_char_form": product_char_form,
+    "all_chars": all_chars,
+    "chars": chars,
   }
   return render(request, "shop/product/product_edit.html", context)
 
 def product_add(request):
   form = ProductForm()
+  product_char_form = ProductCharForm()
   
   if request.method == "POST":
     form_new = ProductForm(request.POST, request.FILES)
+    print('this')
     if form_new.is_valid():
       form_new.save()
+      product = Product.objects.get(slug=request.POST['slug'])
+      char_name = request.POST.getlist('text_name')
+      char_value = request.POST.getlist('char_value')
+      char_count = 0
+
+      for char in char_name:
+
+          value = char_value[char_count]
+          product_char = ProductChar(
+              char_name_id = char,
+              parent = product,
+              char_value = value
+          )
+          product_char.save()
+          char_count += 1
+
+
+      product.save()
       return redirect('admin_product')
     else:
-      return render(request, "shop/product/product_add.html", {"form": form_new})
+      messages = "Форма не валидна"
+      return render(request, "shop/product/product_add.html", {"form": form_new, "messages": messages})
     
   context = {
-    "form": form
+    "form": form,
+    "product_char_form":product_char_form,
   }
   
   return render(request, 'shop/product/product_add.html', context)
@@ -116,32 +180,91 @@ def product_delete(request,pk):
   
   return redirect('admin_product')
 
-def admin_attribute(request):
-  chars = ProductSpecification.objects.all()
+def admin_char(request):
+  chars = CharName.objects.filter(group=None)
+  groups = CharGroup.objects.all()
   
   context = {
-    "title": "Характеристики товара",
-    "chars": chars,
-  }
-  
+        "groups": groups,
+        "chars": chars
+    }
   return render(request, "shop/char/char.html", context)
 
-def attribute_add(request):
-  pass
-  # if request.method == "POST":
-  #   form_new = ProductCharForm(request.POST)
-  #   if form_new.is_valid():
-  #     form_new.save()
-  #     return redirect('admin_attribute')
-  #   else:
-  #     return render(request, 'shop/char/char_add.html', {'form': form})
+def char_add(request):
+  if request.method == 'POST':
+        form_new = CharNameForm(request.POST)
+        if form_new.is_valid():
+            form_new.save()
+            return redirect('admin_char')
+        else:
+            return render(request, 'shop/char/char_add.html', {'form': form})
+
+  form = CharNameForm()
+  context = {
+      'form': form,
+  }
+  return render(request, 'shop/char/char_add.html', context)
+
+def char_edit(request, pk):
+  char = CharName.objects.get(id=pk)
   
-  # form = ProductCharForm()
-  # context = {
-  #   "title": "Добавление характиристик",
-  #   "form": form
-  # }
-  # return render(request, "shop/char/char_add.html", context)
+  if request.method == 'POST':
+      form_new = CharNameForm(request.POST, instance=char)
+      print(form_new)
+      if form_new.is_valid():
+          form_new.save()
+          return redirect('admin_char')
+      else:
+          return render(request, 'shop/char/char_edit.html', {'form': form})
+
+  form = CharNameForm(instance=char)
+  context = {
+      'form': form,
+  }
+  return render(request, 'shop/char/char_edit.html', context)
+
+def char_delete(request, pk):
+  char = CharName.objects.get(id=pk)
+  char.delete()
+  return redirect('admin_char')
+
+def char_group_add(request):
+  if request.method == 'POST':
+      form_new = CharGroupForm(request.POST)
+      if form_new.is_valid():
+          form_new.save()
+          return redirect('admin_char')
+      else:
+          return render(request, 'shop/char/char_group_add.html', {'form': form})
+
+  form = CharGroupForm()
+  context = {
+      'form': form,
+  }
+  return render(request, 'shop/char/char_group_add.html', context)
+
+def char_group_edit(request, pk):
+  char_group = CharGroup.objects.get(id=pk)
+  if request.method == "POST":
+    form_new = CharGroupForm(request.POST, instance=char_group)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_char")
+    else:
+      return render(request, "shop/char/char_group_edit.html", {"form": form})
+  form = CharGroupForm(instance=char_group)
+  
+  context = {
+    "form": form,
+  }
+  
+  return render(request, "shop/char/char_group_edit.html", context)
+
+
+def char_group_delete(request, pk):
+  char_group = CharGroup.objects.get(id=pk)
+  char_group.delete()
+  return redirect('admin_char')
 
 
 folder = 'upload/'

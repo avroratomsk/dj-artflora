@@ -99,19 +99,49 @@ class Product(models.Model):
   def get_absolute_url(self):
         return reverse("product", kwargs={"slug": self.slug})
     
-class CharName(models.Model):
-  char_name = models.CharField(max_length=250, verbose_name="Название характеристки")
+class ProductImage(models.Model):
+    parent = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images", verbose_name="Привязка к продукту")
+    src = models.ImageField(upload_to="product_iamge", null=True, blank=True, verbose_name="Дополнительны изображения")
+    class Meta:
+      verbose_name = 'Изображение'
 
-class ProductSpecification(models.Model):
-  product = models.ManyToManyField(Product, related_name='character', verbose_name="Связь с продуктом")
-  char_name = models.ForeignKey(CharName, on_delete=models.CASCADE, related_name='chars', null=True, blank=True)
-  value = models.CharField(max_length=100, verbose_name="Значение")
+
+class CharGroup(models.Model):
+  name = models.CharField(max_length=250, verbose_name="Название группы", null=True, blank=True)
   
-  class Meta:
-    db_table = 'characteristics'
-    
   def __str__(self):
-     return self.name
+    return self.name
+
+
+class CharName(models.Model):
+    group = models.ForeignKey(CharGroup, on_delete=models.SET_NULL, related_name='g_chars', null=True, blank=True)
+    text_name = models.CharField(max_length=250, null=True, blank=True, verbose_name="Название характеристики")
+    filter_add = models.BooleanField(default=False, verbose_name='Включить фильтрацию по характеристике', null=True, blank=True)
+    filter_name = models.CharField(max_length=250, verbose_name='Название характеристики для фильтра (сокращенно на английском)', null=True, blank=True, unique=True)
+    sort_order = models.PositiveIntegerField(default=0, verbose_name='Порядок сортировки', null=True, blank=True)
+
+    def __str__(self):
+        return self.text_name
+
+
+class CharDefault(models.Model):
+    value = models.CharField(max_length=250, verbose_name='Значение', null=True, blank=True)
+    char = models.ForeignKey(CharName, on_delete=models.CASCADE, related_name='defaults', verbose_name='Характеристика', null=True, blank=True)
+
+    def __str__(self):
+        return self.value
+
+    class Meta:
+        verbose_name = 'Значение по умолчанию'
+        verbose_name_plural = 'Значения по умолчанию'
+
+class ProductChar(models.Model):
+    char_name = models.ForeignKey(CharName, on_delete=models.CASCADE, related_name='c_chars', null=True, blank=True)
+    parent = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='chars', null=True, blank=True)
+    char_value = models.TextField()
+
+    def __str__(self):
+        return self.char_value
   
   
   

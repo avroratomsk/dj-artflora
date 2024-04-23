@@ -29,10 +29,16 @@ urlpatterns = [
     path('product/delete/<int:pk>/', views.product_delete, name='product_delete'),
     
     #URl - отвечающие за отображение характиристик, редактирование и удаление характеристик
-    path('attribute/', views.admin_attribute, name='admin_attribute'),
-    path('attribute/add/', views.attribute_add, name='attribute_add'),
-    # path('attribute/edit/<int:pk>/', views.attribute_edit, name='attribute_edit'),
-    # path('attribute/delete/<int:pk>/', views.attribute_delete, name='attribute_delete'),
+    #URl - отвечающие за отображение характиристик, редактирование и удаление характеристик
+    path('char/', views.admin_char, name='admin_char'),
+    path('char/char-add/', views.char_add, name='char_add'),
+    path('char/char-edit/<int:pk>', views.char_edit, name='char_edit'),
+    path('char/char-delete/<int:pk>', views.char_delete, name='char_delete'),
+    
+    
+    path('char/group/add/', views.char_group_add, name='char_group_add'),
+    path('char/group/edit/<int:pk>', views.char_group_edit, name='char_group_edit'),
+    path('char/group/delete/<int:pk>', views.char_group_delete, name='char_group_delete'),
     
     #URl - отвечающие за отображение филлиалов, редактирование и удаление филлиала
     path('fillial/', views.admin_fillial, name='admin_fillial'),
