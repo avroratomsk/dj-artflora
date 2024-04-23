@@ -75,7 +75,9 @@ def order_create(request):
               quantity=quantity
             )
           if payment_method == "На сайте картой":
+            # return redirect('home')
               data = create_payment(order,  request)
+              print(data)
                 # payment_id = data["id"]
                 # confirmation_url = data["confirmation_url"]
 

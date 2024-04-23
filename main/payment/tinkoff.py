@@ -28,7 +28,7 @@ def generate_token(values):
     token = hash_object.hexdigest()
     
     return token
-
+import codecs
 def create_payment(order, request):
     items_arr = []
 
@@ -45,17 +45,23 @@ def create_payment(order, request):
     
     values = {
         'Amount': total_sum,
-        'OrderId': f"{order.id}",
+        'OrderId': str(order.id),
         'Password': password,
         'TerminalKey': terminalkey,
         'Description': f"Покупка товаров в магазине artflora38.ru"
     }
     
     token  = generate_token(values)
-    
+    print(token)
     for item in items:
         
         name = item.product.name
+        unicode_str = name
+        decoded_str = codecs.decode(unicode_str, 'unicode_escape').encode('latin1').decode('utf-8')
+        print(decoded_str)
+        # decoded_name = name.encode('utf-8').decode('unicode-escape')
+        # decoded_name = name.decode('utf-8')
+        # print(decoded_name)
         quantity = item.quantity
         price = str(item.price).replace('.','')
         amount = item.price * item.quantity
@@ -64,7 +70,7 @@ def create_payment(order, request):
         
         items_arr.append(
             {
-                "Name": name,
+                "Name": decoded_str,
                 "Price": int(price),
                 "Quantity": int(quantity),
                 "Amount": int(amount),
@@ -72,81 +78,38 @@ def create_payment(order, request):
             }
         )
     
-    # dictionary = {
-    #     "TerminalKey": terminalkey,
-    #     "Amount": int(total_sum),
-    #     "OrderId": str(order.id),
-    #     "Description": "Orders",
-    #     "SuccessURL": success_url,
-    #     "Token": token,
-    #     "Receipt": {
-    #         "Phone": order.phone,
-    #         "Email": email,
-    #         "Taxation":"usn_income",
-    #         "Items": items_arr,
-    #     },
-    # }
-    
     dictionary = {
         "TerminalKey": terminalkey,
-        "Amount":140000,
-        "OrderId":"21050",
-        "Description":"Подарочная карта на 1000 рублей",
+        "Amount": int(total_sum),
+        "OrderId": str(order.id),
+        "Description": "Orders",
+        "SuccessURL": success_url,
         "Token": token,
-        "DATA": {
-        "Phone":"+71234567890",
-        "Email":"a@test.com"
-        },
         "Receipt": {
-        "Email":"a@test.ru",
-        "Phone":"+79031234567",
-        "Taxation":"osn",
-        "Items": [
-        {
-        "Name":"Наименование товара 1",
-        "Price":10000,
-        "Quantity":1.00,
-        "Amount":10000,
-        "Tax":"vat10",
-        "Ean13":"303130323930303030630333435"
+            "Phone": order.phone,
+            "Email": email,
+            "Taxation":"usn_income",
+            "Items": items_arr,
         },
-        {
-        "Name":"Наименование товара 2",
-        "Price":20000,
-        "Quantity":2.00,
-        "Amount":40000,
-        "Tax":"vat20"
-        },
-        {
-        "Name":"Наименование товара 3",
-        "Price":30000,
-        "Quantity":3.00,
-        "Amount":90000,
-        "Tax":"vat10"
-        }
-        ]
-        }
-        }
-
+    }
     
-    try:
-        headers = {"Content-Type": "application/json"}
-    except Exception as e:
-        print(e)
+    headers = {"Content-Type": "application/json"}
         
-    
-    payList = json.dumps(dictionary, indent=4)
-    # print(payList)
+    payList = json.dumps(dictionary)
+    # json_str = payList
+
+    # Декодируем JSON
+    decoded_json = json.loads(payList)
     
     
     try: 
         response = requests.post(
-            "https://rest-api-test.tinkoff.ru/v2/Init/", headers=headers, data=payList
+            "https://rest-api-test.tinkoff.ru/v2/Init/", headers=headers, data=decoded_json
         )
         if response.status_code == 200:
             try:
-                print(response.json())
-                # res = response.json()
+                # print(response.json())
+                res = response.json()
             except Exception as e:
                 print("Ошибка при парсинге JSON:", e)
         else:
@@ -154,10 +117,10 @@ def create_payment(order, request):
     except Exception as e: 
         print("Ошибка при запросе:", e)
         
-    # url = res["PaymentURL"]
+    url = res["PaymentURL"]
 
     # with open('data.json', 'w') as f:
     #     json.dump(payList, f)
     # print("Хуйня")
-    return True
+    return url
     
