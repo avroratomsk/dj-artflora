@@ -92,14 +92,15 @@ def create_payment(order, request):
     except Exception as e:
         print(e)
     try:
-        payList = json.dumps(dictionary, indent=4)
+        payList = json.dumps(dictionary)
     except Exception as e:
         print(e)
     
     try: 
         response = requests.post(
-            "https://rest-api-test.tinkoff.ru/v2/Init/", headers=headers, data=dictionary
+            "https://rest-api-test.tinkoff.ru/v2/Init/", headers=headers, data=payList
         )
+        print(response.text)
     except Exception as e: 
         print(e)
     
