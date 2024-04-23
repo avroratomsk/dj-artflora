@@ -14,21 +14,20 @@ password = "9n23lwcf2kvp01pm"
 email = "saniagolovanev@gmail.com"
 
 from decimal import Decimal
-
+import codecs
 D = Decimal
 import hashlib
 
 def generate_token(values):
     
     sorted_values = sorted(values.items())
-    # Получить только значения и объединить их
     combined_values = ''.join(str(value) for key, value in sorted_values)
-    
     hash_object = hashlib.sha256(combined_values.encode('utf-8'))
     token = hash_object.hexdigest()
     
     return token
-import codecs
+
+
 def create_payment(order, request):
     items_arr = []
 
@@ -104,7 +103,7 @@ def create_payment(order, request):
     
     try: 
         response = requests.post(
-            "https://rest-api-test.tinkoff.ru/v2/Init/", headers=headers, data=decoded_json
+            ": https://securepay.tinkoff.ru/v2/Init/", headers=headers, data=decoded_json
         )
         if response.status_code == 200:
             try:
