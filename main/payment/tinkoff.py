@@ -72,30 +72,72 @@ def create_payment(order, request):
             }
         )
     
+    # dictionary = {
+    #     "TerminalKey": terminalkey,
+    #     "Amount": int(total_sum),
+    #     "OrderId": str(order.id),
+    #     "Description": "Orders",
+    #     "SuccessURL": success_url,
+    #     "Token": token,
+    #     "Receipt": {
+    #         "Phone": order.phone,
+    #         "Email": email,
+    #         "Taxation":"usn_income",
+    #         "Items": items_arr,
+    #     },
+    # }
+    
     dictionary = {
         "TerminalKey": terminalkey,
-        "Amount": int(total_sum),
-        "OrderId": str(order.id),
-        "Description": f"Покупка товаров в магазине {request.META['HTTP_HOST']}",
-        "SuccessURL": success_url,
+        "Amount":140000,
+        "OrderId":"21050",
+        "Description":"Подарочная карта на 1000 рублей",
         "Token": token,
-        "Receipt": {
-            "Phone": order.phone,
-            "Email": email,
-            "Taxation":"osn",
-            "Items": items_arr,
+        "DATA": {
+        "Phone":"+71234567890",
+        "Email":"a@test.com"
         },
-    }
+        "Receipt": {
+        "Email":"a@test.ru",
+        "Phone":"+79031234567",
+        "Taxation":"osn",
+        "Items": [
+        {
+        "Name":"Наименование товара 1",
+        "Price":10000,
+        "Quantity":1.00,
+        "Amount":10000,
+        "Tax":"vat10",
+        "Ean13":"303130323930303030630333435"
+        },
+        {
+        "Name":"Наименование товара 2",
+        "Price":20000,
+        "Quantity":2.00,
+        "Amount":40000,
+        "Tax":"vat20"
+        },
+        {
+        "Name":"Наименование товара 3",
+        "Price":30000,
+        "Quantity":3.00,
+        "Amount":90000,
+        "Tax":"vat10"
+        }
+        ]
+        }
+        }
+
     
     try:
         headers = {"Content-Type": "application/json"}
     except Exception as e:
         print(e)
-    try:
-        payList = json.dumps(dictionary, indent=4)
-        # print(payList)
-    except Exception as e:
-        print(e)
+        
+    
+    payList = json.dumps(dictionary, indent=4)
+    # print(payList)
+    
     
     try: 
         response = requests.post(

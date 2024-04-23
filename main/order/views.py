@@ -23,7 +23,7 @@ def order_create(request):
         if request.user.is_authenticated:
           user = request.user
           order.user = user
-          # Получаем корзину пользователя если он авторизован
+          
         else:
           order.user = None
           # Получаем корзину пользователя если он не авторизован по ключу сессии
@@ -33,9 +33,9 @@ def order_create(request):
           try: 
             first_name = request.POST['first_name']
             order.first_name = first_name
+          except Exception as e:
+            print(first_name)
             
-          except:
-            pass
           
           try:
             email = request.POST['email']
