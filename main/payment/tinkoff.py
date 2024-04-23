@@ -88,11 +88,12 @@ def create_payment(order, request):
     }
     
     try:
-        headers = {"content-type": "application/json"}
+        headers = {"Content-Type": "application/json"}
     except Exception as e:
         print(e)
     try:
-        payList = json.dumps(dictionary)
+        payList = json.dumps(dictionary, indent=4)
+        # print(payList)
     except Exception as e:
         print(e)
     
@@ -100,19 +101,21 @@ def create_payment(order, request):
         response = requests.post(
             "https://rest-api-test.tinkoff.ru/v2/Init/", headers=headers, data=payList
         )
-        print(response.text)
+        if response.status_code == 200:
+            try:
+                print(response.json())
+                # res = response.json()
+            except Exception as e:
+                print("Ошибка при парсинге JSON:", e)
+        else:
+            print("Ошибка: невалидный статус код -", response.status_code)
     except Exception as e: 
-        print(e)
-    
-    try:
-        res = response.json()
-    except Exception as e:
-        print(e)
+        print("Ошибка при запросе:", e)
         
-    url = res["PaymentURL"]
+    # url = res["PaymentURL"]
 
     # with open('data.json', 'w') as f:
     #     json.dump(payList, f)
     # print("Хуйня")
-    return url
+    return True
     
