@@ -105,6 +105,7 @@ def create_payment(order, request):
         response = requests.post(
             "https://securepay.tinkoff.ru/v2/Init/", headers=headers, data=decoded_json
         )
+        print(response)
         if response.status_code == 200:
             try:
                 # print(response.json())
