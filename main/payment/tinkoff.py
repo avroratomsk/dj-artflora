@@ -98,7 +98,7 @@ def create_payment(order, request):
     
     try: 
         response = requests.post(
-            "https://rest-api-test.tinkoff.ru/v2/Init/", data=dictionary
+            "https://rest-api-test.tinkoff.ru/v2/Init/", headers=headers, data=dictionary
         )
     except Exception as e: 
         print(e)
@@ -108,10 +108,10 @@ def create_payment(order, request):
     except Exception as e:
         print(e)
         
-    # url = res["PaymentURL"]
+    url = res["PaymentURL"]
 
     # with open('data.json', 'w') as f:
     #     json.dump(payList, f)
-    print("Хуйня")
-    # return url
+    # print("Хуйня")
+    return url
     
