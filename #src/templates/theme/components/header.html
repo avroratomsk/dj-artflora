@@ -74,9 +74,9 @@
           </a>
         </div>
         <div class="header-mb__middle">
-          <div class="header-mb__logo">
+          <a href="/" class="header-mb__logo">
             <img src="{% static 'theme/mb/images/logo.png' %}" alt="" />
-          </div>
+          </a>
         </div>
         <div class="header-mb__right">
           <button type="button" class="header-mb__favorit">
@@ -92,10 +92,10 @@
 </header>
 
 <div class="hidden-menu">
-  <button class="close-menu" id="close-menu"><span></span></button>
+  <button class="close-menu close" id="close-menu"><span></span></button>
   <form action="" method="GET" class="hidden-menu__search">
     {% csrf_token %}
-    <input type="search" placeholder="Найти.." value="">
+    <input type="search" placeholder="Найти.." value="" />
     <button type="button" class="hidden-menu__search-btn">
       <img src="{% static 'theme/mb/images/icon/i-search.svg' %}" alt="" />
     </button>
@@ -104,7 +104,7 @@
     {% for item in menu %}
     <li class="hidden-menu__item">
       <div class="hidden-menu__item-inner">
-        <a href="">{{ item.name }}</a>
+        <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
         <button type="button" class="submenu-show"><i class="fa-solid fa-chevron-down"></i></button>
       </div>
       <ul class="hidden-submenu">

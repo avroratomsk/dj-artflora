@@ -11,6 +11,7 @@ from service.models import Service
 from reviews.models import Reviews
 from shop.models import CharGroup, CharName, Product,Category, ProductChar, ProductImage
 from django.core.paginator import Paginator
+from django.core.files.images import ImageFile
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 import openpyxl
 import pandas as pd
@@ -316,7 +317,7 @@ def parse_exсel(path):
   workbook = openpyxl.load_workbook(path)
   sheet = workbook.active
   start_row = 2
-  Category.objects.all().delete()
+    
   Product.objects.all().delete()
 
   for row in sheet.iter_rows(min_row=start_row, values_only=True):
@@ -327,19 +328,23 @@ def parse_exсel(path):
     meta_title = ''
     meta_description = ''
     meta_keywords = ''
-    image = f"goods/{row[4]}"
+    try:
+      image = f"goods/{row[4].split(';')[0]}"
+      image_list = row[4].split(';')
+      print(image_list)
+    except:
+      pass
     price = row[5]
     sale_price = 0.0
+    
     if row[6] == None:
-      discount = 0.0
+      discount = 0
     else:
-      discount = row[6] * 100
-      discount = int(discount)
+      discount = int(row[6])
       sale_price = round(price - price * discount / 100, 1)
     quantity = row[8]
     if row[7]:
       category_name = row[7]
-      # print(category_name)
     else:
       pass
       # print("Категории нет")
@@ -392,10 +397,21 @@ def parse_exсel(path):
           )
         except Exception as e:
           pass
-          # print(e)
       else:
         new_product = Product.objects.filter(name=name).first() 
-  
+        
+      for image in image_list:
+        
+        try:
+          image_file = open('media/goods/' + image, 'rb')
+          image_image = ImageFile(image_file)
+          image_create = ProductImage.objects.create(
+              parent=new_product,
+              src=image_image
+          )
+          print(image_create)
+        except Exception as e: 
+          print(e)
 # parse_exсel(path)
 
 def admin_category(request):

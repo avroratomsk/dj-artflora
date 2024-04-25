@@ -104,12 +104,31 @@
           </div>
 
           <!-- Характеристики -->
-          <div class="page-edit__item" id="char">
-            <div class="page-edit__form"></div>
+          <div class="page-content _show" id="char">
+            <button type="button" id="add-char" class="form__btn char__plus">Добавить характеристику</button>
+            <!-- Характеристики товара страницы -->
+            <div class="page-content__row">
+              <div class="page-content__seo" id="paste-char">
+                <!-- <div class="form__group form__group--chars">
+                  <div class="form__group-char">
+                    <label for="{{ product_char_form.char_name.id_for_label }}" class="form__controls-label">
+                      Название характеристики <span>:</span>
+                    </label>
+                    {{ product_char_form.char_name }} {{ product_char_form.char_name.errors }}
+                  </div>
+                  <div class="form__group-char">
+                    <label for="{{ product_char_form.char_value.id_for_label }}" class="form__controls-label">
+                      Значение характеристики <span>:</span> </label>
+                    {{ product_char_form.char_value }} {{ product_char_form.char_value.errors }}
+                  </div>
+                </div> -->
+              </div>
+            </div>
           </div>
         </div>
         <button type="submit" class="form__btn">Сохранить</button>
       </form>
+      <div class="select-hide" id="select-hide" style="opacity: 0; position: absolute">{{ option_form.type }} {{ product_char_form.char_name }}</div>
     </div>
   </div>
 </div>

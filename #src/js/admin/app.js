@@ -120,57 +120,25 @@ if (dropdownButtons) {
   })
 }
 
-const funeral_menu = document.getElementById('funeral_menu')
-if (funeral_menu) {
-  funeral_menu.addEventListener('change', hideFields)
-}
-
-window.addEventListener('load', function (e) {
-  hideFields();
-  shwoField();
-})
-
-
-function hideFields() {
-  console.log('Change');
-  if (funeral_menu.checked || banquetMenuCheckbox.checked) {
-    console.log("Выполнилось");
-    // document.getElementById('related').classList.add('hide-field');
-    // document.getElementById('char').classList.add('hide-field');
-    // document.getElementById('related-btn').classList.add('hide-field');
-    // document.getElementById('char-btn').classList.add('hide-field');
-    // document.getElementById('quantity').classList.add('hide-field');
-    // document.getElementById('weight').classList.add('hide-field');
-    // document.getElementById('discount').classList.add('hide-field');
-    // document.getElementById('price').classList.add('hide-field');
-    // document.getElementById('description').classList.add('hide-field');
-    // document.getElementById('short_description').classList.add('hide-field');
-  } else {
-    // document.getElementById('related').classList.remove('hide-field');
-    // document.getElementById('char').classList.remove('hide-field');
-    // document.getElementById('related-btn').classList.remove('hide-field');
-    // document.getElementById('char-btn').classList.remove('hide-field');
-    // document.getElementById('quantity').classList.remove('hide-field');
-    // document.getElementById('weight').classList.remove('hide-field');
-    // document.getElementById('discount').classList.remove('hide-field');
-    // document.getElementById('price').classList.remove('hide-field');
-    // document.getElementById('description').classList.remove('hide-field');
-    // document.getElementById('short_description').classList.remove('hide-field');
+document.addEventListener('click', function (event) {
+  if (event.target.classList.contains('form__plus')) {
+    const blockPasteChar = document.getElementById('paste-char');
+    let char_name_id = document.getElementById('id_char_name').innerHTML;
+    console.log(char_name_id);
+    blockPasteChar.innerHTML += `
+    <div class="form__group-char">
+      <label for="{{ product_char_form.char_name.id_for_label }}" class="form__controls-label">
+        Название характеристики <span>:</span>
+      </label>
+      <select name="text_name" class="form__controls" placeholder="Название характеристики" id="id_name">${char_name_id}</select>
+    
+    <label for="id_char_value">Значение:</label>
+    <input type="text" name="char_value" class="form__controls" placeholder="Значение" required="" id="id_char_value">
+    <div class="form__remove">
+      Удалить
+    </div>
+    </div>`
   }
-}
-
-const banquetMenuCheckbox = document.getElementById('banquet_menu-checkbox');
-if (banquetMenuCheckbox) {
-  banquetMenuCheckbox.addEventListener('change', shwoField);
-}
-
-function shwoField() {
-  if (banquetMenuCheckbox.checked) {
-    document.getElementById('banquet_menu').classList.add('show');
-    hideFields();
-  } else {
-    document.getElementById('banquet_menu').classList.remove('show');
-  }
-}
+});
 
 

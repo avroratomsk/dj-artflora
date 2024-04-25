@@ -224,6 +224,22 @@ if (closeMenuBtn) {
   })
 }
 
+const filterBtn = document.getElementById('filter-btn')
+if (filterBtn) {
+  filterBtn.addEventListener('click', function (e) {
+    document.querySelector('.filter-mobile').classList.add('_show');
+    bodyLock();
+  })
+}
+
+const closeFilterBtn = document.getElementById('close-filter')
+if (closeFilterBtn) {
+  closeFilterBtn.addEventListener('click', function (e) {
+    document.querySelector('.filter-mobile').classList.remove('_show');
+    bodyUnLock();
+  })
+}
+
 
 /**
  * Покупка в один клик
