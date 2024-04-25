@@ -1,16 +1,24 @@
+* {
+  // outline: 1px solid red;
+}
+
 .footer {
   padding: 50px 0;
   background-color: #222;
 }
 
 .footer__grid {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   gap: 60px;
+
+  @media screen and (max-width: 1024px) {
+    flex-wrap: wrap;
+  }
+
+  @media screen and (max-width: 520px) {
+    flex-direction: column;
+  }
 }
 
 .footer__logo {

@@ -2,6 +2,14 @@
   border-bottom: 1px solid rgba($color: $mainColor, $alpha: .05);
 }
 
+// .header__inner-pc
+
+&__inner-pc {
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
+}
+
 .header__bottom {
   -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
@@ -225,6 +233,10 @@
 .bottom-header__nav {
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 1140px) {
+    flex-wrap: wrap;
+  }
 }
 
 .bottom-header__nav a {
@@ -235,6 +247,14 @@
   font-weight: 400;
   color: $mainColor;
   transition: 0.5s;
+
+  @media screen and (max-width: 1460px) {
+    padding: 15px 20px;
+  }
+
+  @media screen and (max-width: 1300px) {
+    padding: 15px 10px;
+  }
 }
 
 .bottom-header__nav a:hover {
