@@ -1,5 +1,9 @@
 .index-slider {
   margin-top: 10px;
+
+  @media screen and (max-width: 1024px) {
+    margin-top: 98px;
+  }
 }
 
 .index-slider__grid {
@@ -47,6 +51,8 @@
   background-position: center;
   overflow: hidden;
   border-radius: 5px;
+  min-height: 400px;
+
 
   @media screen and (max-width: 768px) {
     padding: 40px 40px;

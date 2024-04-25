@@ -143,27 +143,29 @@ function clearSimvol(str) {
 /**
  * Функции отвечающие за открытие и закрытие мини-корзины
  */
+window.addEventListener('DOMContentLoaded', function (e) {
+  const showCart = document.getElementById('show-cart');
+  if (showCart) {
+    showCart.addEventListener('click', showMiniCart);
+  }
 
-const showCart = document.getElementById('show-cart');
-if (showCart) {
-  showCart.addEventListener('click', showMiniCart);
-}
+  function showMiniCart(e) {
+    console.log(this);
+    document.querySelector('#mini-cart').classList.add('_show-mini-cart');
+    bodyLock();
+  }
 
-function showMiniCart(e) {
-  console.log(this);
-  document.querySelector('#mini-cart').classList.add('_show-mini-cart');
-  bodyLock();
-}
+  const closeCart = document.getElementById('close-cart');
+  if (closeCart) {
+    closeCart.addEventListener('click', closeMiniCart);
+  }
 
-const closeCart = document.getElementById('close-cart');
-if (closeCart) {
-  closeCart.addEventListener('click', closeMiniCart);
-}
+  function closeMiniCart(e) {
+    document.querySelector('#mini-cart').classList.remove('_show-mini-cart');
+    bodyUnLock();
+  }
+})
 
-function closeMiniCart(e) {
-  document.querySelector('#mini-cart').classList.remove('_show-mini-cart');
-  bodyUnLock();
-}
 
 /**
  * Вспомогательные общие функции
@@ -205,6 +207,23 @@ if (pickupCheckbox) {
     }
   })
 }
+
+const burgerBtn = document.getElementById('burger')
+if (burger) {
+  burger.addEventListener('click', function (e) {
+    document.querySelector('.hidden-menu').classList.add('_show');
+    bodyLock();
+  })
+}
+
+const closeMenuBtn = document.getElementById('close-menu')
+if (closeMenuBtn) {
+  closeMenuBtn.addEventListener('click', function (e) {
+    document.querySelector('.hidden-menu').classList.remove('_show');
+    bodyUnLock();
+  })
+}
+
 
 /**
  * Покупка в один клик
@@ -343,5 +362,31 @@ $(document).on("click", ".remove-from-cart", function (e) {
     },
   });
 });
+
+const submenuShowBtn = document.querySelectorAll('.submenu-show');
+
+if (submenuShowBtn) {
+  submenuShowBtn.forEach(btn => {
+    btn.addEventListener('click', showSubMenu);
+  })
+}
+
+function showSubMenu(e) {
+  let submenu = this.closest('.hidden-menu__item').querySelector('.hidden-submenu');
+  submenu.classList.toggle('_show');
+}
+
+// function hideTagOnResolution() {
+//   if (window.innerWidth <= 1024) {
+//     var tagsToHide = document.querySelectorAll('.header__inner-pc');
+//     tagsToHide.forEach(function (tag) {
+//       tag.remove(); // Удалить тег из DOM
+//     });
+//   }
+// }
+
+// // Вызов функции при загрузке страницы и при изменении размера окна
+// hideTagOnResolution();
+// window.addEventListener('resize', hideTagOnResolution);
 
 

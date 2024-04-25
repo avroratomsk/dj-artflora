@@ -65,6 +65,87 @@
   </div>
 
   <div class="header__mb header-mb">
-    <div class="header-mb__container"></div>
+    <div class="header-mb__container">
+      <div class="header-mb__inner">
+        <div class="header-mb__left">
+          <button type="button" class="header__burger" id="burger"><span></span></button>
+          <a href="" class="header-mb__phone">
+            <img src="{% static 'theme/mb/images/i-phone.svg' %}" alt="" />
+          </a>
+        </div>
+        <div class="header-mb__middle">
+          <div class="header-mb__logo">
+            <img src="{% static 'theme/mb/images/logo.png' %}" alt="" />
+          </div>
+        </div>
+        <div class="header-mb__right">
+          <button type="button" class="header-mb__favorit">
+            <img src="{% static 'theme/mb/images/icon/i-favorits.svg' %}" alt="" />
+          </button>
+          <button type="button" class="header-mb__cart" id="show-cart">
+            <img src="{% static 'theme/mb/images/icon/i-cart.svg' %}" alt="" />
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
+
+<div class="hidden-menu">
+  <button class="close-menu" id="close-menu"><span></span></button>
+  <form action="" method="GET" class="hidden-menu__search">
+    {% csrf_token %}
+    <input type="search" placeholder="Найти.." value="">
+    <button type="button" class="hidden-menu__search-btn">
+      <img src="{% static 'theme/mb/images/icon/i-search.svg' %}" alt="" />
+    </button>
+  </form>
+  <ul class="hidden-menu__list">
+    {% for item in menu %}
+    <li class="hidden-menu__item">
+      <div class="hidden-menu__item-inner">
+        <a href="">{{ item.name }}</a>
+        <button type="button" class="submenu-show"><i class="fa-solid fa-chevron-down"></i></button>
+      </div>
+      <ul class="hidden-submenu">
+        {% for item in menu %}
+        <li class="hidden-submenu__item">
+          <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+    {% endfor %}
+  </ul>
+  <ul class="hidden-menu__list">
+    <li class="hidden-menu__item">
+      <div class="hidden-menu__item-inner">
+        <a href="">Популярные</a>
+      </div>
+    </li>
+    <li class="hidden-menu__item">
+      <div class="hidden-menu__item-inner">
+        <a href="">Контакты</a>
+      </div>
+    </li>
+    <li class="hidden-menu__item">
+      <div class="hidden-menu__item-inner">
+        <a href="">Акции</a>
+      </div>
+    </li>
+    <li class="hidden-menu__item">
+      <div class="hidden-menu__item-inner">
+        <a href="">О магазине</a>
+      </div>
+    </li>
+    <li class="hidden-menu__item">
+      <div class="hidden-menu__item-inner">
+        <a href="">Авторизация</a>
+      </div>
+    </li>
+  </ul>
+  <div class="hidden-menu__action">
+    <a href="tel:89999999999">8 (999) 999-99-99</a>
+    <button type="button">Заказть звонок</button>
+  </div>
+</div>
