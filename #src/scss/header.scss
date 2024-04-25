@@ -117,15 +117,10 @@
 }
 
 .middle-header__inner {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   justify-content: space-between;
+  gap: 15px;
 }
 
 .middle-header__logo img {
@@ -144,6 +139,10 @@
   border: 1px solid rgba(77, 100, 105, 0.3);
   overflow: hidden;
   border-radius: 5px;
+
+  @media screen and (max-width: 1220px) {
+    width: 290px;
+  }
 }
 
 .middle-header__search input[type="search"] {
@@ -245,11 +244,14 @@
 
 .bottom-header__nav a {
   display: flex;
-  padding: 15px 30px;
+  padding: 17px 25px;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
-  color: $mainColor;
+  color: rgba($color: $mainColor, $alpha: 1);
+  font-family: "Oswald", sans-serif;
+  letter-spacing: .5px;
+
   transition: 0.5s;
 
   @media screen and (max-width: 1460px) {

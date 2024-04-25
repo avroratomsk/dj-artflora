@@ -272,6 +272,7 @@
 }
 
 .card-section__action {
+  display: flex;
 
   @media screen and (max-width: 640px) {
     width: 100%;

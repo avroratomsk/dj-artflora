@@ -10,11 +10,13 @@ from .models import *
 
 def category(request):
   category = Category.objects.all()
+  products = Product.objects.filter(status=True)
   
   for cat in category:
     cat.product_count = cat.product_set.count() # Получаем количество товаров в каждой категории
   
   context = {
+    "products": products,
     "title": "Заголовок категорий",
     "categorys": category,
   }
