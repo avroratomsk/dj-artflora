@@ -279,6 +279,20 @@ if (closeBtn) {
   })
 }
 
+let popupBtn = document.querySelectorAll('[data-popup]')
+
+if (popupBtn) {
+  popupBtn.forEach(btn => {
+    btn.addEventListener('click', openPopup);
+  })
+}
+
+function openPopup(e) {
+  document.getElementById(this.dataset.popup).classList.add('_open');
+  bodyLock();
+}
+
+
 
 // Ловим собыитие клика по кнопке добавить в корзину
 $(document).on("click", ".add-to-cart", function (e) {

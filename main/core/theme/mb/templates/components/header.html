@@ -34,7 +34,7 @@
               <img src="{% static 'theme/mb/images/icon/i-search.svg' %}" alt="" />
             </button>
           </div>
-          <button type="button" class="middle-header__btn">Заказать звонок</button>
+          <button type="button" class="middle-header__btn" data-popup="callback">Заказать звонок</button>
           <div class="middle-header__info">
             <a href="tel:+79025133003">+7 (902) 513-30-03</a>
             <a href="tel:+73952623003">+7 (3952) 62-30-03</a>
@@ -59,7 +59,10 @@
         <div class="bottom-header__nav">
           {% for item in menu %}
           <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
-          {{ menu.posts.all}} {% endfor %}
+          <!-- <ul>
+            <li><a href="">sasdasd</a></li>
+          </ul> -->
+          {% endfor %}
           <a href="{% url 'category' %}">Каталог</a>
           <a href="{% url 'populate' %}">Популярные</a>
         </div>

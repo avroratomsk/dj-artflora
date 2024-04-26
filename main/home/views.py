@@ -1,17 +1,42 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from home.models import BaseSettings, HomeTemplate, SliderHome, Stock
 from cart.models import Cart
+from home.forms import CallbackForm
+from home.callback_send import email_callback
 from shop.models import Category, Product
 from reviews.models import Reviews
 
 
+def callback(request):
+  if request.method == "POST":
+    form = CallbackForm(request.POST)
+    if form.is_valid():
+      name  = form.cleaned_data['name']
+      phone = form.cleaned_data['phone']
+      message = form.cleaned_data['message']
+      title = 'Заказ обратного звонка'
+      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone) + "\n" + "*Сообщение*: " +str(message)
+      
+      email_callback(messages, title)
+      
+      return redirect('callback_success')
+  else:
+    form = CallbackForm()
+  
+  context = {
+    'form': form
+  }
+  
+  return render(request, 'pages/index.html', context)
 
+def callback_success(request):
+  return render(request, "pages/orders/callback-succes.html")
 
 def index(request):
   page = request.GET.get('page', 1)
-  
+  # form = CallbackForm()
   try: 
     home_page = HomeTemplate.objects.get()
     settings = BaseSettings.objects.get()
@@ -41,6 +66,7 @@ def index(request):
     "settings": settings,
     "reviews": reviews,
     "slider": slider,
+    # "form": form,
   }
   return render(request, 'pages/index.html', context)
 
