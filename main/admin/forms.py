@@ -338,6 +338,7 @@ class CategoryForm(forms.ModelForm):
       "name",
       "slug",
       "image",
+      "parent",
       "header_show",
       "meta_h1",
       "meta_title",
@@ -349,6 +350,7 @@ class CategoryForm(forms.ModelForm):
       "name": "Назване категории",
       "slug": "URL",
       "image": "Изображение",
+      "parent": "Родительсткая категория",
       "header_show": "Отображать в шапке ?",
       "meta_h1": "Заголовок H1",
       "meta_title": "Meta заголовок",
@@ -370,6 +372,9 @@ class CategoryForm(forms.ModelForm):
       'image': forms.FileInput(attrs={
           'class': 'submit-file',
           'accept': 'image/*'
+      }),
+      'parent': forms.Select(attrs={
+          'class': 'form__controls'
       }),
       'header_show': forms.CheckboxInput(attrs={
         'class': 'form__controls-checkbox',
@@ -631,8 +636,7 @@ class StockForm(forms.ModelForm):
         'class': 'form__controls'
       })
     }
-    
-    
+      
 class ServiceForm(forms.ModelForm):
   """ Form, добавление и редактирование услуг"""
   # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())

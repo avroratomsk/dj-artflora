@@ -1,329 +1,325 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru" class="">
-  <head>
-    <title>{{ title }}</title>
-    <meta charset="UTF-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <!-- <style>body{opacity: 0;}</style> -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="{% static 'theme/mb/css/main.css' %}" />
-    <link rel="shortcut icon" href="favicon.ico" />
-    <!-- <meta name="robots" content="noindex, nofollow"> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Oswald:wght@200..700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css?_v=20240126172157"
-      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
 
-  <body>
-    <div class="wrapper">
-      {% include "./components/header.html" %}{% block content %}{% endblock %} {% include "./components/footer.html" %} {% include "./components/notification/modal.html" %} {%
-      include "./components/mini-cart.html" %} {% include "./components/popup.html" %}
-    </div>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-      var galleryThumbs = new Swiper(".product-thumb__slider", {
-        spaceBetween: 10,
-        slidesPerView: 3,
-        direction: "vertical",
-      });
+<head>
+  <title>{{ title }}</title>
+  <meta charset="UTF-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <!-- <style>body{opacity: 0;}</style> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="{% static 'theme/mb/css/main.css' %}" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <!-- <meta name="robots" content="noindex, nofollow"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Oswald:wght@200..700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css?_v=20240126172157"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
 
-      const product__slider = new Swiper(".product__slider", {
-        // Optional parameters
-        spaceBetween: 20,
-        direction: "horizontal",
-        loop: true,
+<body>
+  <div class="wrapper">
+    {% include "./components/header.html" %}{% block content %}{% endblock %} {% include "./components/footer.html" %}
+    {% include "./components/notification/modal.html" %} {% include "./components/mini-cart.html" %}
+    {% include "./components/popup.html" %}
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    var galleryThumbs = new Swiper(".product-thumb__slider", {
+      spaceBetween: 10,
+      slidesPerView: 3,
+      direction: "vertical",
+    });
 
-        // If we need pagination
-        pagination: {
-          el: ".swiper-pagination",
-        },
+    const product__slider = new Swiper(".product__slider", {
+      // Optional parameters
+      spaceBetween: 20,
+      direction: "horizontal",
+      loop: true,
 
-        // Navigation arrows
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
+      // If we need pagination
+      pagination: {
+        el: ".swiper-pagination",
+      },
 
-        // And if we need scrollbar
-        scrollbar: {
-          el: ".swiper-scrollbar",
-        },
+      // Navigation arrows
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
 
-        thumbs: {
-          swiper: galleryThumbs,
-        },
-      });
+      // And if we need scrollbar
+      scrollbar: {
+        el: ".swiper-scrollbar",
+      },
 
-      const section__slider = new Swiper(".section__slider", {
-        // Указываем скласс нужного слайдера
-        // Подключаем модули слайдера
-        // для конкретного случая
-        observer: true,
-        observeParents: true,
-        slidesPerView: 4,
-        spaceBetween: 60,
-        autoHeight: false,
-        speed: 800,
+      thumbs: {
+        swiper: galleryThumbs,
+      },
+    });
 
-        //touchRatio: 0,
-        //simulateTouch: false,
-        loop: true,
-        //preloadImages: false,
-        //lazy: true,
+    const section__slider = new Swiper(".section__slider", {
+      // Указываем скласс нужного слайдера
+      // Подключаем модули слайдера
+      // для конкретного случая
+      observer: true,
+      observeParents: true,
+      slidesPerView: 4,
+      spaceBetween: 60,
+      autoHeight: false,
+      speed: 800,
 
-        // Эффекты
-        // effect: 'fade',
-        // autoplay: {
-        //   delay: 3000,
-        //   disableOnInteraction: false,
-        // },
+      //touchRatio: 0,
+      //simulateTouch: false,
+      loop: true,
+      //preloadImages: false,
+      //lazy: true,
 
-        // Пагинация
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-          dynamicBullets: true,
-        },
+      // Эффекты
+      // effect: 'fade',
+      // autoplay: {
+      //   delay: 3000,
+      //   disableOnInteraction: false,
+      // },
 
-        // Скроллбар
-        /*
+      // Пагинация
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        dynamicBullets: true,
+      },
+
+      // Скроллбар
+      /*
 scrollbar: {
-  el: '.swiper-scrollbar',
-  draggable: true,
+el: '.swiper-scrollbar',
+draggable: true,
 },
 */
 
-        // Кнопки "влево/вправо"
-        navigation: {
-          prevEl: ".swiper-button-prev",
-          nextEl: ".swiper-button-next",
+      // Кнопки "влево/вправо"
+      navigation: {
+        prevEl: ".swiper-button-prev",
+        nextEl: ".swiper-button-next",
+      },
+
+      // Брейкпоинты
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          autoHeight: true,
         },
-
-        // Брейкпоинты
-        breakpoints: {
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            autoHeight: true,
-          },
-          485: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          992: {
-            slidesPerView: 3,
-            spaceBetween: 20,
-          },
-          1268: {
-            slidesPerView: 3,
-            spaceBetween: 60,
-          },
-          1660: {
-            slidesPerView: 4,
-            spaceBetween: 60,
-          },
+        485: {
+          slidesPerView: 2,
+          spaceBetween: 20,
         },
-        // События
-        on: {},
-      });
-
-      const reviews__slider = new Swiper(".reviews__slider", {
-        // Указываем скласс нужного слайдера
-        // Подключаем модули слайдера
-        // для конкретного случая
-        observer: true,
-        observeParents: true,
-        slidesPerView: 1,
-        spaceBetween: 60,
-        autoHeight: false,
-        speed: 800,
-
-        //touchRatio: 0,
-        //simulateTouch: false,
-        loop: true,
-        //preloadImages: false,
-        //lazy: true,
-
-        // Эффекты
-        // effect: 'fade',
-        // autoplay: {
-        //   delay: 3000,
-        //   disableOnInteraction: false,
-        // },
-
-        // Пагинация
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-          dynamicBullets: true,
+        992: {
+          slidesPerView: 3,
+          spaceBetween: 20,
         },
+        1268: {
+          slidesPerView: 3,
+          spaceBetween: 60,
+        },
+        1660: {
+          slidesPerView: 4,
+          spaceBetween: 60,
+        },
+      },
+      // События
+      on: {},
+    });
 
-        // Скроллбар
-        /*
+    const reviews__slider = new Swiper(".reviews__slider", {
+      // Указываем скласс нужного слайдера
+      // Подключаем модули слайдера
+      // для конкретного случая
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      spaceBetween: 60,
+      autoHeight: false,
+      speed: 800,
+
+      //touchRatio: 0,
+      //simulateTouch: false,
+      loop: true,
+      //preloadImages: false,
+      //lazy: true,
+
+      // Эффекты
+      // effect: 'fade',
+      // autoplay: {
+      //   delay: 3000,
+      //   disableOnInteraction: false,
+      // },
+
+      // Пагинация
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        dynamicBullets: true,
+      },
+
+      // Скроллбар
+      /*
 scrollbar: {
-  el: '.swiper-scrollbar',
-  draggable: true,
+el: '.swiper-scrollbar',
+draggable: true,
 },
 */
 
-        // Кнопки "влево/вправо"
-        navigation: {
-          prevEl: ".swiper-button-prev",
-          nextEl: ".swiper-button-next",
+      // Кнопки "влево/вправо"
+      navigation: {
+        prevEl: ".swiper-button-prev",
+        nextEl: ".swiper-button-next",
+      },
+
+      // Брейкпоинты
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          autoHeight: true,
         },
-
-        // Брейкпоинты
-        breakpoints: {
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            autoHeight: true,
-          },
-          485: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-          },
-          992: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-          },
-          1268: {
-            slidesPerView: 1,
-            spaceBetween: 60,
-          },
-          1660: {
-            slidesPerView: 1,
-            spaceBetween: 60,
-          },
+        485: {
+          slidesPerView: 1,
+          spaceBetween: 20,
         },
-        // События
-        on: {},
-      });
-    </script>
-    <script>
-      // Теперь + - количества товара
-      // Обработчик события для уменьшения значения
-      $(document).on("click", ".decrement", function () {
-        // Берем ссылку на контроллер django из атрибута data-cart-change-url
-        var url = $(this).data("cart-change-url");
-        // Берем id корзины из атрибута data-cart-id
-        var cartID = $(this).data("cart-id");
-        // Ищем ближайшеий input с количеством
-        var $input = $(this).closest(".mini-cart__counter").find(".number");
-        // Берем значение количества товара
-        var currentValue = parseInt($input.val());
-        // Если количества больше одного, то только тогда делаем -1
-        if (currentValue > 1) {
-          $input.val(currentValue - 1);
-          // Запускаем функцию определенную ниже
-          // с аргументами (id карты, новое количество, количество уменьшилось или прибавилось, url)
-          updateCart(cartID, currentValue - 1, -1, url);
-        }
-      });
-
-      // Обработчик события для увеличения значения
-      $(document).on("click", ".increment", function () {
-        // Берем ссылку на контроллер django из атрибута data-cart-change-url
-        var url = $(this).data("cart-change-url");
-        // Берем id корзины из атрибута data-cart-id
-        var cartID = $(this).data("cart-id");
-        // Ищем ближайшеий input с количеством
-        var $input = $(this).closest(".mini-cart__counter").find(".number");
-        // Берем значение количества товара
-        var currentValue = parseInt($input.val());
-
-        $input.val(currentValue + 1);
-
+        992: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        1268: {
+          slidesPerView: 1,
+          spaceBetween: 60,
+        },
+        1660: {
+          slidesPerView: 1,
+          spaceBetween: 60,
+        },
+      },
+      // События
+      on: {},
+    });
+  </script>
+  <script>
+    // Теперь + - количества товара
+    // Обработчик события для уменьшения значения
+    $(document).on("click", ".decrement", function () {
+      // Берем ссылку на контроллер django из атрибута data-cart-change-url
+      var url = $(this).data("cart-change-url");
+      // Берем id корзины из атрибута data-cart-id
+      var cartID = $(this).data("cart-id");
+      // Ищем ближайшеий input с количеством
+      var $input = $(this).closest(".mini-cart__counter").find(".number");
+      // Берем значение количества товара
+      var currentValue = parseInt($input.val());
+      // Если количества больше одного, то только тогда делаем -1
+      if (currentValue > 1) {
+        $input.val(currentValue - 1);
         // Запускаем функцию определенную ниже
         // с аргументами (id карты, новое количество, количество уменьшилось или прибавилось, url)
-        updateCart(cartID, currentValue + 1, 1, url);
-      });
-
-      function updateCart(cartID, quantity, change, url) {
-        $.ajax({
-          type: "POST",
-          url: url,
-          data: {
-            cart_id: cartID,
-            quantity: quantity,
-            csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
-          },
-
-          success: function (data) {
-            // Изменяем количество товаров в корзине
-            var goodsInCartCount = $("#mini-cart-count");
-            var cartCount = parseInt(goodsInCartCount.text() || 0);
-            cartCount += change;
-            goodsInCartCount.text(cartCount);
-
-            // Меняем содержимое корзины
-            var cartItemsContainer = $("#cart-item");
-            cartItemsContainer.html(data.cart_items_html);
-          },
-          error: function (data) {
-            console.log("Ошибка при добавлении товара в корзину");
-          },
-        });
+        updateCart(cartID, currentValue - 1, -1, url);
       }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    });
 
-    <script type="module">
-      import Swiper from "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs";
+    // Обработчик события для увеличения значения
+    $(document).on("click", ".increment", function () {
+      // Берем ссылку на контроллер django из атрибута data-cart-change-url
+      var url = $(this).data("cart-change-url");
+      // Берем id корзины из атрибута data-cart-id
+      var cartID = $(this).data("cart-id");
+      // Ищем ближайшеий input с количеством
+      var $input = $(this).closest(".mini-cart__counter").find(".number");
+      // Берем значение количества товара
+      var currentValue = parseInt($input.val());
 
-      const swiper = new Swiper(".index-slider__slider", {
-        effect: "fade",
-        loop: true,
-        navigation: {
-          nextEl: ".index-slider__next",
-          prevEl: ".index-slider__prev",
+      $input.val(currentValue + 1);
+
+      // Запускаем функцию определенную ниже
+      // с аргументами (id карты, новое количество, количество уменьшилось или прибавилось, url)
+      updateCart(cartID, currentValue + 1, 1, url);
+    });
+
+    function updateCart(cartID, quantity, change, url) {
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+          cart_id: cartID,
+          quantity: quantity,
+          csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
+        },
+
+        success: function (data) {
+          // Изменяем количество товаров в корзине
+          var goodsInCartCount = $("#mini-cart-count");
+          var cartCount = parseInt(goodsInCartCount.text() || 0);
+          cartCount += change;
+          goodsInCartCount.text(cartCount);
+
+          // Меняем содержимое корзины
+          var cartItemsContainer = $("#cart-item");
+          cartItemsContainer.html(data.cart_items_html);
+        },
+        error: function (data) {
+          console.log("Ошибка при добавлении товара в корзину");
         },
       });
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-      const swiper_reviews = new Swiper(".index-reviews__slider", {
-        slidesPerView: 3,
-        //slidesPerGroup: 1,
-        loop: true,
-        navigation: {
-          nextEl: ".index-reviews__next",
-          prevEl: ".index-reviews__prev",
-        },
-      });
+  <script type="module">
+    import Swiper from "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs";
 
-      const swiper_about = new Swiper(".index-about__slider", {
-        slidesPerView: 1,
-        //slidesPerGroup: 1,
-        loop: true,
-        navigation: {
-          nextEl: ".index-reviews__next",
-          prevEl: ".index-reviews__prev",
-        },
-        autoplay: {
-          delay: 5000,
-        },
+    const swiper = new Swiper(".index-slider__slider", {
+      effect: "fade",
+      loop: true,
+      navigation: {
+        nextEl: ".index-slider__next",
+        prevEl: ".index-slider__prev",
+      },
+    });
 
-        pagination: {
-          el: ".swiper-pagination",
-          type: "bullets",
-        },
-      });
-    </script>
-    <script src="{% static 'theme/mb/js/index.js' %}"></script>
-  </body>
+    const swiper_reviews = new Swiper(".index-reviews__slider", {
+      slidesPerView: 3,
+      //slidesPerGroup: 1,
+      loop: true,
+      navigation: {
+        nextEl: ".index-reviews__next",
+        prevEl: ".index-reviews__prev",
+      },
+    });
+
+    const swiper_about = new Swiper(".index-about__slider", {
+      slidesPerView: 1,
+      //slidesPerGroup: 1,
+      loop: true,
+      navigation: {
+        nextEl: ".index-reviews__next",
+        prevEl: ".index-reviews__prev",
+      },
+      autoplay: {
+        delay: 5000,
+      },
+
+      pagination: {
+        el: ".swiper-pagination",
+        type: "bullets",
+      },
+    });
+  </script>
+  <script src="{% static 'theme/mb/js/index.js' %}"></script>
+</body>
+
 </html>

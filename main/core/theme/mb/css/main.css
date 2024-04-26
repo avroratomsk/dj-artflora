@@ -1862,6 +1862,7 @@ html.lock body::before {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 4px;
 }
 
 .header__burger {
@@ -1962,6 +1963,7 @@ html.lock body::before {
 
 .header-mb__cart {
   padding: 5px;
+  position: relative;
 }
 
 .header-mb__cart img {
@@ -4884,6 +4886,13 @@ html.lock body::before {
     visibility: hidden;
   }
 
+  .cart_count {
+    width: 14px;
+    height: 14px;
+    top: 0;
+    right: 0;
+  }
+
   .footer__grid {
     flex-wrap: wrap;
   }
@@ -5054,6 +5063,10 @@ html.lock body::before {
 
   .footer__grid {
     flex-direction: column;
+  }
+
+  .mini-cart {
+    width: 100%;
   }
 }
 

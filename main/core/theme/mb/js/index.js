@@ -392,17 +392,17 @@ function showSubMenu(e) {
   submenu.classList.toggle('_show');
 }
 
-// function hideTagOnResolution() {
-//   if (window.innerWidth <= 1024) {
-//     var tagsToHide = document.querySelectorAll('.header__inner-pc');
-//     tagsToHide.forEach(function (tag) {
-//       tag.remove(); // Удалить тег из DOM
-//     });
-//   }
-// }
+function hideTagOnResolution() {
+  if (window.innerWidth <= 1024) {
+    var tagsToHide = document.querySelectorAll('.header__inner-pc');
+    tagsToHide.forEach(function (tag) {
+      tag.remove();
+    });
+  }
+}
 
-// // Вызов функции при загрузке страницы и при изменении размера окна
-// hideTagOnResolution();
-// window.addEventListener('resize', hideTagOnResolution);
+// Вызов функции при загрузке страницы и при изменении размера окна
+hideTagOnResolution();
+window.addEventListener('resize', hideTagOnResolution);
 
 

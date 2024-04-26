@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %}{% load carts_tag %}
 <header class="header">
   <div class="header__inner-pc">
     <div class="header__top top-header">
@@ -46,6 +46,9 @@
             </button>
             <button type="button" class="middle-header__cart" id="show-cart">
               <img src="{% static 'theme/mb/images/icon/i-cart.svg' %}" alt="" />
+              {% user_carts request as carts %} {% if carts %}
+              <span class="cart_count">{{ carts.total_quantity }}</span>
+              {% endif %}
             </button>
           </div>
         </div>
@@ -56,7 +59,7 @@
         <div class="bottom-header__nav">
           {% for item in menu %}
           <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
-          {% endfor %}
+          {{ menu.posts.all}} {% endfor %}
           <a href="{% url 'category' %}">Каталог</a>
           <a href="{% url 'populate' %}">Популярные</a>
         </div>
@@ -84,6 +87,9 @@
           </button>
           <button type="button" class="header-mb__cart" id="show-cart">
             <img src="{% static 'theme/mb/images/icon/i-cart.svg' %}" alt="" />
+            {% user_carts request as carts %} {% if carts %}
+            <span class="cart_count">{{ carts.total_quantity }}</span>
+            {% endif %}
           </button>
         </div>
       </div>

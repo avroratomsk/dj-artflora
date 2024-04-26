@@ -21,8 +21,8 @@ def index(request):
 
   category = Category.objects.all()[:8]
   
-  for cat in category:
-    cat.product_count = cat.product_set.count() # Получаем количество товаров в каждой категории
+  # for cat in category:
+  #   cat.product_count = cat.product_set.count() # Получаем количество товаров в каждой категории
     
   saleProduct = Product.objects.filter(sale_price__gt=0)[:8]
   affordable_products = Product.objects.filter(price__gt=0, price__lt=2500)[:8]

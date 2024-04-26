@@ -50,7 +50,7 @@ class Product(models.Model):
   sale_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name="Цена со скидкой")
   discount = models.DecimalField(default=0, max_digits=10, decimal_places=2, verbose_name="Скидака в %")
   quantity = models.PositiveIntegerField(default=0, verbose_name="Количество")
-  category = models.ForeignKey("Category", on_delete=models.CASCADE, null=True, default=None, verbose_name='День недели')
+  category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="posts", null=True, default=None, verbose_name='Категория')
   composition = models.CharField(max_length=255, blank=True, null=True, verbose_name="Состав")
   diameter = models.CharField(max_length=250, blank=True, null=True, verbose_name="Диаметр")
   width = models.CharField(max_length=150, blank=True, null=True, verbose_name="Ширина")
