@@ -40,7 +40,7 @@
                 {% static 'theme/mb/images/no-image.png' %}
                 {% endif %}
               )">
-                <h1 class="index-slider__title">{{ slide.title }}</h1>
+                <h1 class="index-slider__title ff">{{ slide.title }}</h1>
                 <p class="index-slider__subtitle">
                   {{ slide.description }}
                 </p>
@@ -74,28 +74,28 @@
           <div class="advantage__icon">
             <img src="{% static 'theme/mb/images/i-car.svg' %}" alt="" />
           </div>
-          <p class="advantage__title">Быстрая доставка</p>
+          <p class="advantage__title ff">Быстрая доставка</p>
           <p class="advantage__subtitle">Оперативная доставка цветов и букетов в день обращения</p>
         </div>
         <div class="advantage__item">
           <div class="advantage__icon">
             <img src="{% static 'theme/mb/images/i-flowers.svg' %}" alt="" />
           </div>
-          <p class="advantage__title">Свежие цветы</p>
+          <p class="advantage__title ff">Свежие цветы</p>
           <p class="advantage__subtitle">В наших салонах всегда свежесрезанные цветы самого лучшего качества</p>
         </div>
         <div class="advantage__item">
           <div class="advantage__icon">
             <img src="{% static 'theme/mb/images/i-florist.svg' %}" alt="" />
           </div>
-          <p class="advantage__title">Опытные флористы</p>
+          <p class="advantage__title ff">Опытные флористы</p>
           <p class="advantage__subtitle">Профессионально подберут букет или композицию</p>
         </div>
         <div class="advantage__item">
           <div class="advantage__icon">
             <img src="{% static 'theme/mb/images/i-coin.svg' %}" alt="" />
           </div>
-          <p class="advantage__title">Доступные цены</p>
+          <p class="advantage__title ff">Доступные цены</p>
           <p class="advantage__subtitle">Всегда доступные цены на весь ассортимент</p>
         </div>
       </div>
@@ -107,7 +107,7 @@
       <div class="section__inner">
         <div class="section__top">
           <div class="line-left"></div>
-          <h2 class="section__title">Популярное</h2>
+          <h2 class="section__title ff">Популярное</h2>
           <div class="line-right"></div>
         </div>
         <div
@@ -173,7 +173,7 @@
       <div class="section__inner">
         <div class="section__top">
           <div class="line-left"></div>
-          <h2 class="section__title">Новинки</h2>
+          <h2 class="section__title ff">Новинки</h2>
           <div class="line-right"></div>
         </div>
         <div
@@ -237,7 +237,7 @@
     <div class="catalog__container">
       <div class="section__top">
         <div class="line-left"></div>
-        <h2 class="section__title">Каталог</h2>
+        <h2 class="section__title ff">Каталог</h2>
         <div class="line-right"></div>
       </div>
       <div class="catalog__grid">
@@ -247,7 +247,7 @@
           <div class="item-catalog__count">{{ category.product_count }}</div>
           <div class="item-catalog__content">
             <span class="item-catalog__underline">Категория</span>
-            <h3 class="item-catalog__name">{{ category.name }}</h3>
+            <h3 class="item-catalog__name ff">{{ category.name }}</h3>
           </div>
         </a>
         {% endfor %} {% endif %}
@@ -258,7 +258,7 @@
   <div class="reviews" style="background-image: url({% static 'theme/mb/images/reviews.webp' %})">
     <div class="reviews__container">
       <div class="reviews__inner">
-        <h2 class="section__title reviews__title">Отзывы</h2>
+        <h2 class="section__title reviews__title ff">Отзывы</h2>
         <div class="reviews__slider">
           <div class="reviews__wrapper swiper-wrapper">
             <div class="reviews__slide swiper-slide">
@@ -296,7 +296,7 @@
         <div class="about__row">
           <div class="about__col">
             <p class="about__undertitle">Всегда свежие цветы и букеты</p>
-            <h2 class="about__title">Интернет-магазин цветов и букетов</h2>
+            <h2 class="about__title section__title ff">Интернет-магазин цветов и букетов</h2>
             <div class="about__text">
               <p>
                 Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum
@@ -346,25 +346,25 @@
       <div class="contact__inner">
         <div class="section__top">
           <div class="line-left"></div>
-          <h2 class="section__title contact__title">Cвязаться любым удобным способом</h2>
+          <h2 class="section__title contact__title ff">Cвязаться любым удобным способом</h2>
           <div class="line-right"></div>
         </div>
         <div class="contact__grid">
           <div class="contact__item">
             <img src="{% static 'theme/mb/images/i-email.svg' %}" alt="" />
-            <p>artflora-irk@yandex.ru</p>
+            <p class="ff">artflora-irk@yandex.ru</p>
           </div>
           <div class="contact__item">
             <img src="{% static 'theme/mb/images/i-phone.svg' %}" alt="" />
-            <p>8(999) 999-99-99</p>
+            <p class="ff">8(999) 999-99-99</p>
           </div>
           <div class="contact__item">
             <img src="{% static 'theme/mb/images/i-wa.svg' %}" alt="" />
-            <p>Whatsapp</p>
+            <p class="ff">Whatsapp</p>
           </div>
           <div class="contact__item">
             <img src="{% static 'theme/mb/images/i-faq.svg' %}" alt="" />
-            <p>Частые вопросы</p>
+            <p class="ff">Частые вопросы</p>
           </div>
         </div>
       </div>

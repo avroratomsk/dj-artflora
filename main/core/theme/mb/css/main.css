@@ -59,7 +59,7 @@ body {
 body {
   color: #3f3c38;
   line-height: 1;
-  font-family: "Manrope", sans-serif;
+  font-family: "Lato", sans-serif;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -495,7 +495,6 @@ html.lock body::before {
   font-size: 50px;
   text-wrap: balance;
   max-width: 630px;
-  font-family: "Lato", sans-serif;
   line-height: 120%;
   margin-bottom: 20px;
   transform: translateX(-100px);
@@ -657,12 +656,13 @@ html.lock body::before {
 }
 
 .advantage__title {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .advantage__subtitle {
   line-height: 150%;
+  font-size: 14px;
 }
 
 .section {
@@ -2806,6 +2806,10 @@ html.lock body::before {
   display: none !important;
 }
 
+.ff {
+  font-family: "Oswald", sans-serif;
+}
+
 /*
     Подключение стилей отдельных компонентов
 */
@@ -3249,7 +3253,7 @@ html.lock body::before {
 }
 
 .index-catalog__title {
-  font-family: "Inter", sans-serif;
+  font-family: "Oswald", sans-serif;
   display: flex;
   align-items: center;
   gap: 30px;
@@ -3398,7 +3402,7 @@ html.lock body::before {
   letter-spacing: -0.02em;
   color: #232020;
   margin-bottom: 25px;
-  font-family: "Inter", sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 
 .card__content-bottom {
@@ -4200,7 +4204,7 @@ html.lock body::before {
 .category-details__title {
   font-size: 25px;
   font-weight: 700;
-  font-family: "Inter", sans-serif;
+  font-family: "Oswald", sans-serif;
   text-align: center;
   margin-bottom: 40px;
 }
