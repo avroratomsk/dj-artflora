@@ -200,10 +200,10 @@ if (whoGetRadio) {
 const pickupCheckbox = document.getElementById('pickup');
 if (pickupCheckbox) {
   pickupCheckbox.addEventListener('change', function (e) {
-    if (!pickupCheckbox.checked) {
-      document.getElementById('address-delivery').classList.add('_hidden');
+    if (pickupCheckbox.checked) {
+      document.getElementById('id_delivery_address').classList.add('_hidden');
     } else {
-      document.getElementById('address-delivery').classList.remove('_hidden');
+      document.getElementById('id_delivery_address').classList.remove('_hidden');
     }
   })
 }
