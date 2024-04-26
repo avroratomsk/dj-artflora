@@ -4,60 +4,31 @@
     <div class="index-slider__container">
       <div class="index-slider__grid">
         <div class="index-slider__grid-col">
-          {% if slider_category %}
-            {% for cat in slider_category %}
-            <a href="{{ cat.get_absolute_url }}" class="index-slider__item">
-              {% if cat.image %}
-              {% thumbnail cat.image "368x350" format="WEBP" crop="center" as im %}
-              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="product-click-image" alt="{{ cat.name }}" title="{{ cat.name }}" />
-              {% endthumbnail %}
-              {% else %}
-              <img src="{% static 'theme/mb/images/no-image.png' %}" class="product-click-image" alt="Нет фото" title="Нет фото" />
-              {% endif %}
-              <p class="index-slider__item-title">{{ cat.name }}</p>
-            </a>
-            {% endfor %}
-          {% else %}
-          <a href="#" class="index-slider__item">
-            <img src="{% static 'theme/mb/images/no-image.png'%} " alt="Нет фото" title="Нет фото" />
-            <p class="index-slider__item-title">Категория</p>
+          <a href="https://avroratomsk.github.io/art-flora/#" class="index-slider__item">
+            <img src="{% static 'theme/mb/images/banner.jpg'%} " alt="" title="" />
+            <p class="index-slider__item-title">Розы</p>
           </a>
           <a href="#" class="index-slider__item">
-            <img src="{% static 'theme/mb/images/no-image.png'%} " alt="Нет фото" title="Нет фото" />
-            <p class="index-slider__item-title">Категория</p>
-          </a>
-          {% endif %}
+            <img src="{% static 'theme/mb/images/type-bouqets.jpg'%}" alt="" title="" />
+            <p class="index-slider__item-title">Цветы по поводу</p>
           </a>
         </div>
         <div class="index-slider__slider swiper">
           <div class="index-slider__wrapper swiper-wrapper">
-            {% if slider %}
-            {% for slide in slider %}
-              <div class="index-slider__slide swiper-slide" style="background-image: url(
-                {% if slide.image %}
-                {{ slide.image.url }}
-                {% else %}
-                {% static 'theme/mb/images/no-image.png' %}
-                {% endif %}
-              )">
-                <h1 class="index-slider__title ff">{{ slide.title }}</h1>
-                <p class="index-slider__subtitle">
-                  {{ slide.description }}
-                </p>
-                {% if slide.link %}
-                <a href="{{ slide.link }}" class="index-slider__btn">Перейти</a>
-                {% endif %}
-              </div>
-            {% endfor %}
-            {% else %}
-            <div class="index-slider__slide swiper-slide" style="background-image: url({% static 'theme/mb/images/no-image.png' %})">
-              <h1 class="index-slider__title">Заголовок слайда</h1>
-              <p class="index-slider__subtitle">
-                Описание слайда
-              </p>
-              <a href="#" class="index-slider__btn">Перейти</a>
+            <div class="index-slider__slide swiper-slide"
+              style="background-image: url('{% static 'theme/mb/images/banner-ng.webp'%}')">
+              <h1 class="index-slider__title">Цветы и букеты в Иркутске с доставкойasdasdasd</h1>
+              <p class="index-slider__subtitle">Всегда свежие цветы и букеты от салона цветов "ARTFLORA" с доставкой
+                получателю в день заказ</p>
+              <a href="#" class="index-slider__btn">Выбрать букет</a>
             </div>
-            {% endif %}
+            <div class="index-slider__slide swiper-slide"
+              style="background-image: url('{% static 'theme/mb/images/slide-1.jpg'%}')">
+              <h1 class="index-slider__title">Цветы и букеты в Иркутске с доставкой</h1>
+              <p class="index-slider__subtitle">Всегда свежие цветы и букеты от салона цветов "ARTFLORA" с доставкой
+                получателю в день заказ</p>
+              <a href="#" class="index-slider__btn">Выбрать букет</a>
+            </div>
           </div>
           <div class="swiper-button-prev index-slider-prev"></div>
           <div class="swiper-button-next index-slider-next"></div>
@@ -74,28 +45,28 @@
           <div class="advantage__icon">
             <img src="{% static 'theme/mb/images/i-car.svg' %}" alt="" />
           </div>
-          <p class="advantage__title ff">Быстрая доставка</p>
+          <p class="advantage__title">Быстрая доставка</p>
           <p class="advantage__subtitle">Оперативная доставка цветов и букетов в день обращения</p>
         </div>
         <div class="advantage__item">
           <div class="advantage__icon">
             <img src="{% static 'theme/mb/images/i-flowers.svg' %}" alt="" />
           </div>
-          <p class="advantage__title ff">Свежие цветы</p>
+          <p class="advantage__title">Свежие цветы</p>
           <p class="advantage__subtitle">В наших салонах всегда свежесрезанные цветы самого лучшего качества</p>
         </div>
         <div class="advantage__item">
           <div class="advantage__icon">
             <img src="{% static 'theme/mb/images/i-florist.svg' %}" alt="" />
           </div>
-          <p class="advantage__title ff">Опытные флористы</p>
+          <p class="advantage__title">Опытные флористы</p>
           <p class="advantage__subtitle">Профессионально подберут букет или композицию</p>
         </div>
         <div class="advantage__item">
           <div class="advantage__icon">
             <img src="{% static 'theme/mb/images/i-coin.svg' %}" alt="" />
           </div>
-          <p class="advantage__title ff">Доступные цены</p>
+          <p class="advantage__title">Доступные цены</p>
           <p class="advantage__subtitle">Всегда доступные цены на весь ассортимент</p>
         </div>
       </div>
@@ -107,7 +78,7 @@
       <div class="section__inner">
         <div class="section__top">
           <div class="line-left"></div>
-          <h2 class="section__title ff">Популярное</h2>
+          <h2 class="section__title">Популярное</h2>
           <div class="line-right"></div>
         </div>
         <div
@@ -173,7 +144,7 @@
       <div class="section__inner">
         <div class="section__top">
           <div class="line-left"></div>
-          <h2 class="section__title ff">Новинки</h2>
+          <h2 class="section__title">Новинки</h2>
           <div class="line-right"></div>
         </div>
         <div
@@ -237,7 +208,7 @@
     <div class="catalog__container">
       <div class="section__top">
         <div class="line-left"></div>
-        <h2 class="section__title ff">Каталог</h2>
+        <h2 class="section__title">Каталог</h2>
         <div class="line-right"></div>
       </div>
       <div class="catalog__grid">
@@ -247,7 +218,7 @@
           <div class="item-catalog__count">{{ category.product_count }}</div>
           <div class="item-catalog__content">
             <span class="item-catalog__underline">Категория</span>
-            <h3 class="item-catalog__name ff">{{ category.name }}</h3>
+            <h3 class="item-catalog__name">{{ category.name }}</h3>
           </div>
         </a>
         {% endfor %} {% endif %}
@@ -258,7 +229,7 @@
   <div class="reviews" style="background-image: url({% static 'theme/mb/images/reviews.webp' %})">
     <div class="reviews__container">
       <div class="reviews__inner">
-        <h2 class="section__title reviews__title ff">Отзывы</h2>
+        <h2 class="section__title reviews__title">Отзывы</h2>
         <div class="reviews__slider">
           <div class="reviews__wrapper swiper-wrapper">
             <div class="reviews__slide swiper-slide">
@@ -296,7 +267,7 @@
         <div class="about__row">
           <div class="about__col">
             <p class="about__undertitle">Всегда свежие цветы и букеты</p>
-            <h2 class="about__title section__title ff">Интернет-магазин цветов и букетов</h2>
+            <h2 class="about__title">Интернет-магазин цветов и букетов</h2>
             <div class="about__text">
               <p>
                 Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum
@@ -346,25 +317,25 @@
       <div class="contact__inner">
         <div class="section__top">
           <div class="line-left"></div>
-          <h2 class="section__title contact__title ff">Cвязаться любым удобным способом</h2>
+          <h2 class="section__title contact__title">Cвязаться любым удобным способом</h2>
           <div class="line-right"></div>
         </div>
         <div class="contact__grid">
           <div class="contact__item">
             <img src="{% static 'theme/mb/images/i-email.svg' %}" alt="" />
-            <p class="ff">artflora-irk@yandex.ru</p>
+            <p>artflora-irk@yandex.ru</p>
           </div>
           <div class="contact__item">
             <img src="{% static 'theme/mb/images/i-phone.svg' %}" alt="" />
-            <p class="ff">8(999) 999-99-99</p>
+            <p>8(999) 999-99-99</p>
           </div>
           <div class="contact__item">
             <img src="{% static 'theme/mb/images/i-wa.svg' %}" alt="" />
-            <p class="ff">Whatsapp</p>
+            <p>Whatsapp</p>
           </div>
           <div class="contact__item">
             <img src="{% static 'theme/mb/images/i-faq.svg' %}" alt="" />
-            <p class="ff">Частые вопросы</p>
+            <p>Частые вопросы</p>
           </div>
         </div>
       </div>

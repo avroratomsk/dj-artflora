@@ -2,12 +2,12 @@
   <div class="footer__container">
     <div class="footer__grid">
       <div class="footer__col">
-        <div class="footer__logo ff">ARTFLORA</div>
+        <div class="footer__logo">ARTFLORA</div>
         <div class="footer__text">Свежие цветы доставляются бесплатно до двер каждому покупателю.</div>
         <div class="footer__copyright">© 2023 - все права защищены</div>
       </div>
       <div class="footer__col">
-        <p class="footer__title ff">Компания</p>
+        <p class="footer__title">Компания</p>
         <nav class="footer__nav">
           <a href="https://avroratomsk.github.io/art-flora/#">О магазине</a>
           <a href="https://avroratomsk.github.io/art-flora/#">Доставка и оплата</a>
@@ -15,7 +15,7 @@
         </nav>
       </div>
       <div class="footer__col">
-        <p class="footer__title ff">Каталог</p>
+        <p class="footer__title">Каталог</p>
         <nav class="footer__nav">
           {% for category in categorys %}
           <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
@@ -23,7 +23,7 @@
         </nav>
       </div>
       <div class="footer__col">
-        <p class="footer__title ff">Полезные ссылки</p>
+        <p class="footer__title">Полезные ссылки</p>
         <nav class="footer__nav">
           {% if user.is_authenticated %}
           <a href="{% url 'user:profile' %}">Личный кабинет</a>
@@ -34,7 +34,7 @@
         </nav>
       </div>
       <div class="footer__col">
-        <p class="footer__title ff">Контакты</p>
+        <p class="footer__title">Контакты</p>
         <a href="tel:89999999999" class="footer__social">8(999) 999-99-99</a>
         <a href="mailto:artflora-irk@yandex.ru" class="footer__social">artflora-irk@yandex.ru</a>
         <p class="footer__social">г. Иркутск, ул. Вампилова, д. 2/2;</p>
@@ -43,6 +43,6 @@
     </div> -->
       </div>
     </div>
-    <div class="footer__author ff">Разработка сайта | <a href="#"> РА Аврора</a></div>
+    <div class="footer__author">Разработка сайта | <a href="#"> РА Аврора</a></div>
   </div>
 </footer>

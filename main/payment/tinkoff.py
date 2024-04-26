@@ -51,16 +51,11 @@ def create_payment(order, request):
     }
     
     token  = generate_token(values)
-    print(token)
     for item in items:
         
         name = item.product.name
         unicode_str = name
         decoded_str = codecs.decode(unicode_str, 'unicode_escape').encode('latin1').decode('utf-8')
-        print(decoded_str)
-        # decoded_name = name.encode('utf-8').decode('unicode-escape')
-        # decoded_name = name.decode('utf-8')
-        # print(decoded_name)
         quantity = item.quantity
         price = str(item.price).replace('.','')
         amount = item.price * item.quantity
@@ -105,10 +100,8 @@ def create_payment(order, request):
         response = requests.post(
             "https://securepay.tinkoff.ru/v2/Init/", headers=headers, data=decoded_json
         )
-        print(response)
         if response.status_code == 200:
             try:
-                # print(response.json())
                 res = response.json()
             except Exception as e:
                 print("Ошибка при парсинге JSON:", e)

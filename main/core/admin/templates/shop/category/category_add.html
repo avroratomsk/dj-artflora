@@ -21,13 +21,6 @@
                 {{ form.slug }} {{ form.slug.errors }}
               </div>
               <div class="form__group">
-                <label for="{{ form.parent.id_for_label }}" class="form__controls-label">
-                  <span>*</span>
-                  Родительская категория <span>:</span>
-                </label>
-                {{ form.parent }} {{ form.parent.errors }}
-              </div>
-              <div class="form__group">
                 <label for="{{ form.meta_h1.id_for_label }}" class="form__controls-label"> Заголовок h1 <span>:</span></label>
                 {{ form.meta_h1 }} {{ form.meta_h1.errors }}
               </div>
@@ -51,14 +44,8 @@
               </div>
               <div class="page-edit__form">
                 <div class="form__group">
-                  <label for="{{ form.menu_add.id_for_label }}" class="form__controls-label">Добавить в меню <span>:</span></label>
+                  <label for="{{ form.menu_add.id_for_label }}" class="form__controls-label">Изображение категории <span>:</span></label>
                   {{ form.menu_add }} {{ form.menu_add.errors }}
-                </div>
-              </div>
-              <div class="page-edit__form">
-                <div class="form__group">
-                  <label for="{{ form.first_block_home.id_for_label }}" class="form__controls-label">Вывести на главную ? <span>:</span></label>
-                  {{ form.first_block_home }} {{ form.first_block_home.errors }}
                 </div>
               </div>
             </div>

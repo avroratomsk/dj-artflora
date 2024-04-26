@@ -6,7 +6,7 @@
       <h3 class="popup__title">Заказ в один клик</h3>
       <div class="popup__product">
         <div class="popup__product-image">
-          <img src="{% static 'theme/mb/images/no-image.png' %}" alt="" title="" class="popup__product-img" />
+          <img src="{% static 'theme/mb/images/no-image.png' %}" alt="" title="" class="popup__product-img">
         </div>
         <div class="popup__product-info">
           <p class="popup__product-name">Товар номер 1</p>
@@ -14,21 +14,10 @@
         </div>
       </div>
       <form action="" method="POST" class="popup__product-form form">
-        <input type="text" placeholder="Имя" class="form__controls" />
-        <input type="text" placeholder="Номер телефона" class="form__controls" />
+        <input type="text" placeholder="Имя" class="form__controls">
+        <input type="text" placeholder="Номер телефона" class="form__controls">
         <button type="submit" class="form__submit">Отправить</button>
       </form>
     </div>
-  </div>
-</div>
-
-<div class="popup" id="callback">
-  <div class="popup__content">
-    <h3 class="popup__title">Перезвоните мне</h3>
-    <button type="button" class="popup__close close-btn"></button>
-    <form action="{% url 'callback' %}" class="popup__form form" method="POST">
-      {% csrf_token %} {{ form.name }} {{ form.phone }} {{ form.message }}
-      <button type="submit" class="form__submit">Отправить</button>
-    </form>
   </div>
 </div>

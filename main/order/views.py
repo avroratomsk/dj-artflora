@@ -33,8 +33,8 @@ def order_create(request):
           try: 
             first_name = request.POST['first_name']
             order.first_name = first_name
-          except Exception as e:
-            print(first_name)
+          except:
+            pass
             
           
           try:
@@ -77,23 +77,19 @@ def order_create(request):
           if payment_method == "На сайте картой":
             # return redirect('home')
               data = create_payment(order,  request)
-              print(data)
-                # payment_id = data["id"]
-                # confirmation_url = data["confirmation_url"]
+              payment_id = data["id"]
+              confirmation_url = data["confirmation_url"]
 
-                # order.payment_id = payment_id
-                # order.payment_dop_info = confirmation_url
-                # order.save()
-                # print(data['path'])
-                # print(cart_items)
-                # return redirect(confirmation_url)
+              order.payment_id = payment_id
+              order.payment_dop_info = confirmation_url
+              order.save()
+              return redirect(confirmation_url)
           else:
             email_send(order)
             cart_items.delete()
             return redirect('order_succes')
       except Exception as e:
         print(e)
-        # print(e)
   
   # cart = request.context['cart_my']
   

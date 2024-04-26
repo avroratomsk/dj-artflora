@@ -200,10 +200,10 @@ if (whoGetRadio) {
 const pickupCheckbox = document.getElementById('pickup');
 if (pickupCheckbox) {
   pickupCheckbox.addEventListener('change', function (e) {
-    if (pickupCheckbox.checked) {
-      document.getElementById('id_delivery_address').classList.add('_hidden');
+    if (!pickupCheckbox.checked) {
+      document.getElementById('address-delivery').classList.add('_hidden');
     } else {
-      document.getElementById('id_delivery_address').classList.remove('_hidden');
+      document.getElementById('address-delivery').classList.remove('_hidden');
     }
   })
 }
@@ -278,20 +278,6 @@ if (closeBtn) {
     })
   })
 }
-
-let popupBtn = document.querySelectorAll('[data-popup]')
-
-if (popupBtn) {
-  popupBtn.forEach(btn => {
-    btn.addEventListener('click', openPopup);
-  })
-}
-
-function openPopup(e) {
-  document.getElementById(this.dataset.popup).classList.add('_open');
-  bodyLock();
-}
-
 
 
 // Ловим собыитие клика по кнопке добавить в корзину
@@ -406,17 +392,17 @@ function showSubMenu(e) {
   submenu.classList.toggle('_show');
 }
 
-function hideTagOnResolution() {
-  if (window.innerWidth <= 1024) {
-    var tagsToHide = document.querySelectorAll('.header__inner-pc');
-    tagsToHide.forEach(function (tag) {
-      tag.remove();
-    });
-  }
-}
+// function hideTagOnResolution() {
+//   if (window.innerWidth <= 1024) {
+//     var tagsToHide = document.querySelectorAll('.header__inner-pc');
+//     tagsToHide.forEach(function (tag) {
+//       tag.remove(); // Удалить тег из DOM
+//     });
+//   }
+// }
 
-// Вызов функции при загрузке страницы и при изменении размера окна
-hideTagOnResolution();
-window.addEventListener('resize', hideTagOnResolution);
+// // Вызов функции при загрузке страницы и при изменении размера окна
+// hideTagOnResolution();
+// window.addEventListener('resize', hideTagOnResolution);
 
 
