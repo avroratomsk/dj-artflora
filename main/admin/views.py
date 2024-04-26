@@ -4,8 +4,8 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import CategoryForm, CharGroupForm, CharNameForm, GlobalSettingsForm, HomeTemplateForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, StockForm, UploadFileForm
-from home.models import BaseSettings, HomeTemplate, Stock
+from admin.forms import CategoryForm, CharGroupForm, CharNameForm, GlobalSettingsForm, HomeTemplateForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, SliderForm, StockForm, UploadFileForm
+from home.models import BaseSettings, HomeTemplate, SliderHome, Stock
 from main.settings import BASE_DIR
 from service.models import Service
 from reviews.models import Reviews
@@ -459,6 +459,29 @@ def category_delete(request, pk):
   category.delete()
   
   return redirect('admin_category')
+
+def admin_slider(request):
+  slider = SliderHome.objects.all()
+  
+  context ={
+    "slider": slider,
+  }
+  return render(request, "static/slider-home/slider.html", context)
+
+def slider_add(request):
+  form = SliderForm()
+  if request.method == "POST":
+    form_new = SliderForm(request.POST, request.FILES)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_slider")
+    else:
+      return render(request, "static/slider-home/slider_add.html", {"form": form_new})
+    
+  context = {
+    "form": form
+  }
+  return render(request, "static/slider-home/slider_add.html", context)
 
 def day_product(request):
   pass

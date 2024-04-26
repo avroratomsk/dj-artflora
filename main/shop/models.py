@@ -24,6 +24,7 @@ class Category(models.Model):
   meta_description = models.TextField(null=True, blank=True, verbose_name="META описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="META keywords")
   menu_add = models.BooleanField(default=False, null=True, blank=True, verbose_name="Добавить в меню")
+  first_block_home = models.BooleanField(default=False, null=True, blank=True, verbose_name="Вывести на главную страницу")
   
   class Meta:
     db_table = 'category' 

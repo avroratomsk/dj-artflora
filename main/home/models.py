@@ -27,6 +27,12 @@ class HomeTemplate(SingletonModel):
   about_text = models.TextField(null=True, blank=True, verbose_name="О компании")
   about_image = models.ImageField(upload_to="home-page", null=True, blank=True, verbose_name="О компании картинка")
   
+class SliderHome(models.Model):
+  title = models.CharField(max_length=250, null=True, blank=True, verbose_name="Заголовк слайдера")
+  description = models.TextField(null=True, blank=True, verbose_name="Описание слайдера")
+  link = models.CharField(max_length=250, null=True, blank=True, verbose_name="Ссылка на страницу")
+  image = models.ImageField(upload_to="slider_home", null=True, blank=True, verbose_name="Изображение слайдера")
+  
 class Stock(models.Model):
   """Model"""
   title = models.CharField(max_length=250, blank=True, null=True, verbose_name="Название акции")

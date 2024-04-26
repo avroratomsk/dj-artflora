@@ -58,8 +58,14 @@
               </div>
               <div class="page-edit__form">
                 <div class="form__group">
-                  <label for="{{ form.menu_add.id_for_label }}" class="form__controls-label">Изображение категории <span>:</span></label>
+                  <label for="{{ form.menu_add.id_for_label }}" class="form__controls-label">Добавить в меню <span>:</span></label>
                   {{ form.menu_add }} {{ form.menu_add.errors }}
+                </div>
+              </div>
+              <div class="page-edit__form">
+                <div class="form__group">
+                  <label for="{{ form.first_block_home.id_for_label }}" class="form__controls-label">Вывести на главную ? <span>:</span></label>
+                  {{ form.first_block_home }} {{ form.first_block_home.errors }}
                 </div>
               </div>
             </div>

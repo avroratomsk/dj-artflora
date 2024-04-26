@@ -58,11 +58,18 @@ urlpatterns = [
     path('stock/edit/<int:pk>/', views.stock_edit, name='stock_edit'),
     path('stock/delete/<int:pk>/', views.stock_delete, name='stock_delete'),
     
-    #URl - отвечающие за отображение услуг, редактирование и удаление услуг
-    path('serv/', views.admin_service, name='admin_service'),
-    path('serv/add/', views.service_add, name='service_add'),
-    path('serv/edit/<int:pk>/', views.service_edit, name='service_edit'),
-    path('serv/delete/<int:pk>/', views.service_delete, name='service_delete'),
+    
+    #URl - отвечающие за отображение акций, редактирование и удаление акций
+    path('stock/', views.admin_stock, name='admin_stock'),
+    path('stock/add/', views.stock_add, name='stock_add'),
+    path('stock/edit/<int:pk>/', views.stock_edit, name='stock_edit'),
+    path('stock/delete/<int:pk>/', views.stock_delete, name='stock_delete'),
+    
+    #URl - отвечающие за отображение Слайдера главной страницы, редактирование и удаление услуг
+    path('admin-slider/', views.admin_slider, name='admin_slider'),
+    path('admin-slider/add/', views.slider_add, name='slider_add'),
+    # path('serv/edit/<int:pk>/', views.service_edit, name='service_edit'),
+    # path('serv/delete/<int:pk>/', views.service_delete, name='service_delete'),
     
     #URl - Шаблон главной страницы
     path('home/', views.admin_home, name='admin_home'),

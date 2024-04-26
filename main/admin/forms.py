@@ -1,5 +1,5 @@
 from django import forms
-from home.models import BaseSettings, HomeTemplate, Stock
+from home.models import BaseSettings, HomeTemplate, SliderHome, Stock
 from service.models import Service
 from reviews.models import Reviews
 from shop.models import Category, CharGroup, CharName, Product, ProductChar, ProductImage
@@ -344,7 +344,8 @@ class CategoryForm(forms.ModelForm):
       "meta_title",
       "meta_description",
       "meta_keywords",
-      "menu_add"
+      "menu_add",
+      "first_block_home"
     ]
     labels = {
       "name": "Назване категории",
@@ -357,6 +358,7 @@ class CategoryForm(forms.ModelForm):
       "meta_description": "Meta описание",
       "meta_keyword": "Meta keywords",
       "menu_add": "Добавить в меню",
+      "first_block_home": "Вывести на главную страницу",
     }
     widgets = {
       "name": forms.TextInput(attrs={
@@ -398,6 +400,10 @@ class CategoryForm(forms.ModelForm):
         # "placeholder": "Meta keywords"
       }),  
       "menu_add": forms.CheckboxInput(attrs={
+        "class":"form__controls-checkbox",
+        # "placeholder": "Meta keywords"
+      }),  
+      "first_block_home": forms.CheckboxInput(attrs={
         "class":"form__controls-checkbox",
         # "placeholder": "Meta keywords"
       }),  
@@ -510,6 +516,36 @@ class HomeTemplateForm(forms.ModelForm):
           'about_text': forms.TextInput(attrs={
               'class': 'form__controls',
           }),
+      }
+      
+class SliderForm(forms.ModelForm):
+  """ Form, редактирование слайдера главной страницы """
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+      model = SliderHome
+      fields = [
+          'title',
+          'description',
+          'link',
+          'image',
+      ]
+      labels = {
+          'title': 'Заголовок',
+          'description':'Описание',
+          'link': 'Ссылка на страницу',
+          'image':'Изображение',
+      }
+      widgets = {
+          'title': forms.TextInput(attrs={
+              'class': 'form__controls'
+          }),
+          'description': forms.Textarea(attrs={
+              'class': 'form__controls',
+          }),
+          'link': forms.TextInput(attrs={
+              'class': 'form__controls',
+          })
       }
            
 class ReviewsForm(forms.ModelForm):

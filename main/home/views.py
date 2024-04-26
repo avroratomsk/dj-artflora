@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from home.models import BaseSettings, HomeTemplate, Stock
+from home.models import BaseSettings, HomeTemplate, SliderHome, Stock
 from cart.models import Cart
 from shop.models import Category, Product
 from reviews.models import Reviews
@@ -29,6 +29,7 @@ def index(request):
   populate = Product.objects.filter(quantity_purchase__gte=10)[:8]
   novetly = Product.objects.filter(latest=True)[:8]
   reviews = Reviews.objects.filter(status=True)[:8]
+  slider = SliderHome.objects.all()
   
   context = {
     "categorys": category,
@@ -39,6 +40,7 @@ def index(request):
     "affordable": affordable_products,
     "settings": settings,
     "reviews": reviews,
+    "slider": slider,
   }
   return render(request, 'pages/index.html', context)
 

@@ -56,6 +56,7 @@ TEMPLATES = [
                 "home.context_processors.header_menu",
                 "home.context_processors.category",
                 "home.context_processors.product_menu",
+                "home.context_processors.slider_category",
             ],
         },
     },
