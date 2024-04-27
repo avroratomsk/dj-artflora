@@ -36,7 +36,7 @@ def callback_success(request):
 
 def index(request):
   page = request.GET.get('page', 1)
-  # form = CallbackForm()
+  products = Product.objects.all()
   try: 
     home_page = HomeTemplate.objects.get()
     settings = BaseSettings.objects.get()
@@ -66,6 +66,7 @@ def index(request):
     "settings": settings,
     "reviews": reviews,
     "slider": slider,
+    "menus": products,
     # "form": form,
   }
   return render(request, 'pages/index.html', context)

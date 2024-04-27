@@ -55,7 +55,7 @@ TEMPLATES = [
                 # "home.context_processors.get_main_menu",
                 "home.context_processors.header_menu",
                 "home.context_processors.category",
-                "home.context_processors.product_menu",
+                "home.context_processors.menus",
                 "home.context_processors.slider_category",
             ],
         },
