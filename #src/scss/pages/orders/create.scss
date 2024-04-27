@@ -1,11 +1,20 @@
 .order-create {
-  padding: 60px 60px;
+  padding: 60px 0px;
+
+  @media screen and (max-width: 1024px) {
+    margin-top: 80px;
+  }
+
   // .order-create__row
 
   &__row {
     display: flex;
     align-items: flex-start;
     gap: 20px;
+
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+    }
   }
 
   // .order-create__col
@@ -17,14 +26,22 @@
     background-color: rgba($color: #fafafa, $alpha: 1.0);
     padding: 25px;
     border-radius: 10px;
+    width: 100%;
 
-    flex: 1 1 50%;
-
-    &:last-child {
+    @media screen and (min-width: 1024px) {
       position: sticky;
       top: 20px;
-      flex: 1 1 30%;
+      flex: 1 1 50%;
+    }
+
+    &:last-child {
       border: 1px solid rgba($color: $mainColor, $alpha: .7);
+
+      @media screen and (min-width: 1024px) {
+        position: sticky;
+        top: 20px;
+        flex: 1 1 30%;
+      }
     }
   }
 
@@ -105,6 +122,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    span {
+      font-size: inherit;
+    }
+
+    @media screen and (max-width: 768px) {
+      font-size: 23px;
+    }
   }
 
 }

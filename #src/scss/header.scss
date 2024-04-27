@@ -274,15 +274,16 @@
 
 .cart_count {
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: 7px;
+  right: 7px;
   background-color: rgba($color: $accent, $alpha: 1.0);
   color: rgba($color: $white, $alpha: 1.0);
   font-size: 10px;
-  width: 17px;
-  height: 17px;
+  width: 15px;
+  height: 15px;
   display: flex;
   align-items: center;
+  border-radius: 4px;
   justify-content: center;
 }
 
@@ -408,6 +409,7 @@
 
   &__cart {
     padding: 5px;
+    position: relative;
 
     img {
       width: 25px;

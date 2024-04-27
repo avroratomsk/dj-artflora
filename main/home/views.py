@@ -112,7 +112,11 @@ def news(request):
   return render(request, "pages/stock-product.html", context)
 
 def about(request):
-    return render(request, "pages/about.html")
+    category = Category.objects.all()[:12]
+    context = {
+      "categorys": category
+    }
+    return render(request, "pages/about.html", context)
 
 def contact(request):
     return render(request, "pages/contact.html")

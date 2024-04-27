@@ -668,7 +668,10 @@
 .reviews {
   padding: 100px 0;
   background-size: cover;
+  background-position-x: center;
   background-repeat: no-repeat;
+  overflow: hidden;
+
 }
 
 .reviews__inner {
@@ -691,6 +694,10 @@
   line-height: 150%;
   font-style: italic;
   font-weight: 300;
+
+  @media screen and (max-width: 425px) {
+    font-size: 16px;
+  }
 }
 
 .reviews__name {
@@ -740,11 +747,19 @@
 }
 
 .reviews .reviews-button-prev {
-  left: 15%;
+  left: 7%;
+
+  @media screen and (max-width: 920px) {
+    top: 100%;
+  }
 }
 
 .reviews .reviews-button-next {
-  right: 15%;
+  right: 7%;
+
+  @media screen and (max-width: 920px) {
+    top: 100%;
+  }
 }
 
 .faq {

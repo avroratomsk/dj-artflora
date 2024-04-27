@@ -120,11 +120,18 @@ function viewProduct(e) {
 
 const orderBtn = document.querySelectorAll('.filter-sort__value');
 
-orderBtn.forEach(btn => {
-  btn.addEventListener('click', function (e) {
-    // e.preventDefault();
+let popupBtn = document.querySelectorAll('[data-popup]')
+
+if (popupBtn) {
+  popupBtn.forEach(btn => {
+    btn.addEventListener('click', openPopup);
   })
-})
+}
+
+function openPopup(e) {
+  document.getElementById(this.dataset.popup).classList.add('_open');
+  bodyLock();
+}
 
 
 // Создание правильной ссылка номера телефона
@@ -158,6 +165,7 @@ window.addEventListener('DOMContentLoaded', function (e) {
   const closeCart = document.getElementById('close-cart');
   if (closeCart) {
     closeCart.addEventListener('click', closeMiniCart);
+    bodyUnLock();
   }
 
   function closeMiniCart(e) {
@@ -200,10 +208,10 @@ if (whoGetRadio) {
 const pickupCheckbox = document.getElementById('pickup');
 if (pickupCheckbox) {
   pickupCheckbox.addEventListener('change', function (e) {
-    if (!pickupCheckbox.checked) {
-      document.getElementById('address-delivery').classList.add('_hidden');
+    if (pickupCheckbox.checked) {
+      document.getElementById('id_delivery_address').classList.add('_hidden');
     } else {
-      document.getElementById('address-delivery').classList.remove('_hidden');
+      document.getElementById('id_delivery_address').classList.remove('_hidden');
     }
   })
 }
@@ -392,17 +400,17 @@ function showSubMenu(e) {
   submenu.classList.toggle('_show');
 }
 
-// function hideTagOnResolution() {
-//   if (window.innerWidth <= 1024) {
-//     var tagsToHide = document.querySelectorAll('.header__inner-pc');
-//     tagsToHide.forEach(function (tag) {
-//       tag.remove(); // Удалить тег из DOM
-//     });
-//   }
-// }
+function hideTagOnResolution() {
+  if (window.innerWidth <= 1024) {
+    var tagsToHide = document.querySelectorAll('.header__inner-pc');
+    tagsToHide.forEach(function (tag) {
+      tag.remove(); // Удалить тег из DOM
+    });
+  }
+}
 
-// // Вызов функции при загрузке страницы и при изменении размера окна
-// hideTagOnResolution();
-// window.addEventListener('resize', hideTagOnResolution);
+// Вызов функции при загрузке страницы и при изменении размера окна
+hideTagOnResolution();
+window.addEventListener('resize', hideTagOnResolution);
 
 

@@ -1,3 +1,24 @@
+._lock {
+  overflow: hidden;
+
+  body {
+    position: relative;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: $mainColor, $alpha: .2);
+    backdrop-filter: blur(3px);
+    z-index: 100;
+    cursor: pointer;
+  }
+}
+
 .product {
   padding: 0 0 50px;
   margin-top: 40px;
@@ -472,4 +493,8 @@
 
 .ff {
   font-family: $fontTitle;
+}
+
+._hidden {
+  display: none !important;
 }
