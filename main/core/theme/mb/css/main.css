@@ -5071,6 +5071,10 @@ html.lock body::before {
     margin-bottom: 20px;
   }
 
+  .order-create__title {
+    font-size: 30px;
+  }
+
   .order-create__info-order {
     font-size: 23px;
   }
