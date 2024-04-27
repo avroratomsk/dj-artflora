@@ -5222,6 +5222,10 @@ html.lock body::before {
     padding-top: 50px;
   }
 
+  .form__group-grid {
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  }
+
   .order-succes__image {
     width: 100px;
     height: 100px;
