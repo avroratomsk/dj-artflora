@@ -64,6 +64,10 @@
     &:hover {
       opacity: .9;
     }
+
+    @media screen and (max-width: 620px) {
+      width: 100%;
+    }
   }
 
   // .form__item

@@ -5131,6 +5131,10 @@ html.lock body::before {
 }
 
 @media screen and (max-width: 620px) {
+  .form__submit {
+    width: 100%;
+  }
+
   .page-contact .contact__map iframe {
     display: none;
   }
