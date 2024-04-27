@@ -117,10 +117,14 @@
         <button type="button" class="submenu-show"><i class="fa-solid fa-chevron-down"></i></button>
       </div>
       <ul class="hidden-submenu">
-        {% for item in menu %}
+        {% for subitem in product_menu %}
+        {% if item.name == subitem.category.name %}
+
         <li class="hidden-submenu__item">
-          <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+          <a href="{{ subitem.get_absolute_url }}">{{ item.name }}</a>
         </li>
+
+        {% endif %}
         {% endfor %}
       </ul>
     </li>

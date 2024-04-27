@@ -1,0 +1,80 @@
+{% extends 'admin_base.html' %} {% block body %}
+<div class="page">
+  <div class="page__inner">
+    <h1 class="page__title">{{ product.name }}</h1>
+    <div class="page-edit">
+      <div class="page-edit__head">
+        <button type="button" data-name="basic" class="_active">Основные</button>
+        <button type="button" data-name="seo" class="_btn">SEO</button>
+        <button type="button" data-name="related" class="_btn">Связи товара</button>
+        <button type="button" data-name="image" class="_btn">Изображение</button>
+        <button type="button" data-name="char" class="_btn">Характеристики</button>
+      </div>
+      <form action="." method="POST" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="page-edit__body">
+          <!-- Основные настройки -->
+          <div class="page-edit__item _show" id="basic">
+            <div class="page-edit__form">
+              <div class="form__group">
+                <label for="{{ form.status.id_for_label }}" class="form__controls-label"> Статус публикации </label>
+                {{ form.status }} {{ form.status.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.title.id_for_label }}" class="form__controls-label">
+                  <span>*</span>
+                  Заголовок
+                </label>
+                {{ form.title }} {{ form.title.errors }}
+              </div>
+
+              <div class="form__group">
+                <label for="{{ form.description.id_for_label }}" class="form__controls-label"> Описание </label>
+                {{ form.description }} {{ form.description.errors }}
+              </div>
+
+              <div class="form__group">
+                <label for="{{ form.link.id_for_label }}" class="form__controls-label">Ссылка(необязательно) </label>
+                {{ form.link }} {{ form.link.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.image.id_for_label }}">Изображение товара</label>
+                {{ form.image }} {{ form.image.errors }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Изображение товара -->
+          <div class="page-edit__item" id="image"></div>
+
+          <!-- Характеристики -->
+          <div class="page-content _show" id="char">
+            <button type="button" id="add-char" class="form__btn char__plus">Добавить характеристику</button>
+            <!-- Характеристики товара страницы -->
+            <div class="page-content__row">
+              <div class="page-content__seo" id="paste-char">
+                <!-- <div class="form__group form__group--chars">
+                  <div class="form__group-char">
+                    <label for="{{ product_char_form.char_name.id_for_label }}" class="form__controls-label">
+                      Название характеристики <span>:</span>
+                    </label>
+                    {{ product_char_form.char_name }} {{ product_char_form.char_name.errors }}
+                  </div>
+                  <div class="form__group-char">
+                    <label for="{{ product_char_form.char_value.id_for_label }}" class="form__controls-label">
+                      Значение характеристики <span>:</span> </label>
+                    {{ product_char_form.char_value }} {{ product_char_form.char_value.errors }}
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="form__btn">Сохранить</button>
+      </form>
+      <div class="select-hide" id="select-hide" style="opacity: 0; position: absolute">{{ option_form.type }} {{ product_char_form.char_name }}</div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

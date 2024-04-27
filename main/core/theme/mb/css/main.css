@@ -59,7 +59,7 @@ body {
 body {
   color: #3f3c38;
   line-height: 1;
-  font-family: "Manrope", sans-serif;
+  font-family: "Lato", sans-serif;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -459,6 +459,17 @@ html.lock body::before {
   overflow: hidden;
   border-radius: 5px;
   min-height: 400px;
+  position: relative;
+}
+
+.index-slider__slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(63, 60, 56, 0.2);
 }
 
 .index-slider .swiper-slide-active .index-slider__title {
@@ -480,15 +491,14 @@ html.lock body::before {
 }
 
 .index-slider__title {
-  font-size: 39px;
+  font-size: 50px;
+  color: white;
   text-wrap: balance;
   max-width: 630px;
-  font-family: "Lato", sans-serif;
   line-height: 120%;
   margin-bottom: 20px;
   transform: translateX(-100px);
   opacity: 0;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
@@ -497,7 +507,7 @@ html.lock body::before {
   text-wrap: balance;
   max-width: 700px;
   line-height: 150%;
-  color: rgba(77, 100, 105, 0.8);
+  color: white;
   margin-bottom: 40px;
   transform: translateX(-100px);
   opacity: 0;
@@ -514,6 +524,7 @@ html.lock body::before {
   color: #fafafa;
   font-size: 16px;
   background-color: #b25f68;
+  border-radius: 5px;
   transform: translateY(50px);
   opacity: 0;
   transition: 0.5s;
@@ -588,6 +599,8 @@ html.lock body::before {
 .index-slider__item-title {
   position: relative;
   z-index: 2;
+  font-family: "Oswald", sans-serif;
+  font-size: 22px;
 }
 
 .index-slider .index-slider-next,
@@ -2791,6 +2804,10 @@ html.lock body::before {
   text-wrap: balance;
 }
 
+.ff {
+  font-family: "Oswald", sans-serif;
+}
+
 /*
     Подключение стилей отдельных компонентов
 */
@@ -3234,7 +3251,7 @@ html.lock body::before {
 }
 
 .index-catalog__title {
-  font-family: "Inter", sans-serif;
+  font-family: "Oswald", sans-serif;
   display: flex;
   align-items: center;
   gap: 30px;
@@ -3383,7 +3400,7 @@ html.lock body::before {
   letter-spacing: -0.02em;
   color: #232020;
   margin-bottom: 25px;
-  font-family: "Inter", sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 
 .card__content-bottom {
@@ -4185,7 +4202,7 @@ html.lock body::before {
 .category-details__title {
   font-size: 25px;
   font-weight: 700;
-  font-family: "Inter", sans-serif;
+  font-family: "Oswald", sans-serif;
   text-align: center;
   margin-bottom: 40px;
 }

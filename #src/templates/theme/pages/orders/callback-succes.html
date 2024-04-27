@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% load static %} {% load carts_tag %} {% block content %}
+<main>
+  <section class="order-succes">
+    <div class="order-succes__container">
+      <div class="order-succes__image">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <!-- <h1 class="order-succes__title">Спасибо</h1> -->
+      <p class="order-succes__subtitle">Ваше сообщение отправлено</p>
+      <div class="order-succes__questions">
+        {% comment %}
+        <p class="order-succes__questions-text">Менеджер свяжется с вами в ближайшее время</p>
+        {% endcomment %}
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
