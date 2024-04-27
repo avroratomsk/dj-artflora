@@ -1,4 +1,8 @@
 .page-contact {
+  @media screen and (max-width: 1024px) {
+    margin-top: 80px;
+  }
+
   .contact {
     height: 900px;
 

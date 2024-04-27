@@ -4998,6 +4998,10 @@ html.lock body::before {
     flex-wrap: wrap;
   }
 
+  .page-contact {
+    margin-top: 80px;
+  }
+
   .order-create {
     margin-top: 80px;
   }
