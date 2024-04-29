@@ -86,7 +86,6 @@ def create_payment(order, request):
             "Items": items_arr,
         },
     }
-    print(dictionary)
     headers = {"Content-Type": "application/json"}
         
     payList = json.dumps(dictionary)
@@ -96,9 +95,7 @@ def create_payment(order, request):
     )
     res = response.json()
     print(res)
-    print('------------')
     url = res["PaymentURL"]
-    print(url)
 
     # with open('data.json', 'w') as f:
     #     json.dump(payList, f)
