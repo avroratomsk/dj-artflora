@@ -89,7 +89,6 @@ def order_create(request):
             cart_items.delete()
             return redirect('order_succes')
       except Exception as e:
-        print('Какого хуя')
         print(e)
   
   # cart = request.context['cart_my']
