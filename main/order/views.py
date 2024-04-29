@@ -78,6 +78,7 @@ def order_create(request):
             # return redirect('home')
               data = create_payment(order,  request)
               payment_id = data["id"]
+              print(payment_id)
               confirmation_url = data["confirmation_url"]
 
               order.payment_id = payment_id

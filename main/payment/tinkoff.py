@@ -8,8 +8,8 @@ from order.models import OrderItem
 from payment.models import Tinkoff
 
 
-terminalkey = "1713106439711DEMO"
-password = "9n23lwcf2kvp01pm"
+terminalkey = "1713419929838"
+password = "j9lrf7t4z7362bld"
 
 email = "saniagolovanev@gmail.com"
 
@@ -90,27 +90,15 @@ def create_payment(order, request):
     headers = {"Content-Type": "application/json"}
         
     payList = json.dumps(dictionary)
-    # json_str = payList
-
-    # Декодируем JSON
-    decoded_json = json.loads(payList)
+    print(payList)
     
-    
-    try: 
-        response = requests.post(
-            "https://securepay.tinkoff.ru/v2/Init/", headers=headers, data=decoded_json
-        )
-        if response.status_code == 200:
-            try:
-                res = response.json()
-            except Exception as e:
-                print("Ошибка при парсинге JSON:", e)
-        else:
-            print("Ошибка: невалидный статус код -", response.status_code)
-    except Exception as e: 
-        print("Ошибка при запросе:", e)
-        
+    response = requests.post(
+        "https://securepay.tinkoff.ru/v2/Init/", headers=headers, data=payList
+    )
+    res = response.json()
+    print('------------')
     url = res["PaymentURL"]
+    print(url)
 
     # with open('data.json', 'w') as f:
     #     json.dump(payList, f)
