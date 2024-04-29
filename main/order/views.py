@@ -78,7 +78,6 @@ def order_create(request):
             # return redirect('home')
               data = create_payment(order,  request)
               payment_id = data["id"]
-              print(payment_id)
               confirmation_url = data["confirmation_url"]
 
               order.payment_id = payment_id
@@ -90,6 +89,7 @@ def order_create(request):
             cart_items.delete()
             return redirect('order_succes')
       except Exception as e:
+        print('Какого хуя')
         print(e)
   
   # cart = request.context['cart_my']
