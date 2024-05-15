@@ -5,24 +5,16 @@ from .models import AlfaBank
 from order.models import Order
 from shop.models import Product
 
-try:
-    login = "r-florens38-api"
-    password = "r-florens38*?1"
-    token = AlfaBank.objects.get().token
-except:
-    login = ""
-    password = ""
-    token = ""
+login = "i-artflora38-api"
+password = "i-artflora38*?1"
+# token = AlfaBank.objects.get().token
+
 
 gateway_url = ""
 
-
 def create_payment(order, cart, request):
-    print(cart)
-    print(order)
-    print(request)
-    returnUrl = "https://" + request.META["HTTP_HOST"] + "/orders/success/"
-    failUrl = "https://" + request.META["HTTP_HOST"] + "/orders/error/"
+    returnUrl = "https://" + request.META["HTTP_HOST"] + "/orders/order-succes/"
+    failUrl = "https://" + request.META["HTTP_HOST"] + "/orders/order-error/"
 
     def dec_to_cop(price):
         res = str(round(price, 2))
@@ -32,30 +24,33 @@ def create_payment(order, cart, request):
     items = []
     count = 1
     for item in cart:
-        product = Product.objects.get(id=item["product"].id)
+        product = Product.objects.get(id=item.product.id)
         i = {
             "positionId": count,
             "name": product.name,
-            "quantity": {"value": int(item["quantity"]), "measure": "шт"},
-            "itemAmount": dec_to_cop(Decimal(item["price"]) * item["quantity"]),
+            "quantity": {"value": int(item.quantity), "measure": "шт"},
+            "itemAmount": dec_to_cop(Decimal(item.product.sell_price()) * item.quantity),
             "itemCode": product.id,
-            "itemPrice": dec_to_cop(Decimal(item["price"])),
+            "itemPrice": dec_to_cop(Decimal(item.product.sell_price())),
         }
         count += 1
         items.append(i)
-
+    
+    sum = 0
+    for item in items:
+        sum += int(item["itemAmount"])
+        
     post_data = {
         "userName": login,
         "password": password,
         "orderNumber": order.id,
-        "amount": dec_to_cop(order.summ),
+        "amount": sum,
         "returnUrl": returnUrl,
         "failUrl": failUrl,
         "cartItems": items,
     }
-
-    r = requests.post("https://web.rbsuat.com/ab/rest/register.do", post_data)
-    # print(r.json())
+    
+    r = requests.post("https://payment.alfabank.ru/payment/rest/register.do", post_data)
 
     try:
         confirmation_url = r.json()["formUrl"]
@@ -66,7 +61,7 @@ def create_payment(order, cart, request):
         pay_id = "0"
 
     data = {"id": pay_id, "confirmation_url": confirmation_url}
-
+    sum = 0
     return data
 
 
@@ -81,12 +76,13 @@ def get_status(pay_id):
     }
 
     r = requests.post(
-        "https://web.rbsuat.com/ab/rest/getOrderStatusExtended.do", post_data
+        "https://alfa.rbsuat.com/payment/rest/getOrderStatusExtended.do", post_data
     )
-    print(r.json())
+    # print(r.json())
 
     status = r.json()["errorCode"]
 
     data = {"status": status, "order": order}
 
     return data
+

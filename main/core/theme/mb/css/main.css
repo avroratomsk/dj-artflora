@@ -2454,6 +2454,17 @@ html.lock body::before {
   margin-top: 40px;
 }
 
+.ymaps-2-1-79-map {
+  height: 800px !important;
+}
+
+#map {
+  width: 100%;
+  height: 800px;
+  padding: 0;
+  margin: 0;
+}
+
 .product__content {
   display: flex;
   gap: 50px;

@@ -414,3 +414,217 @@ hideTagOnResolution();
 window.addEventListener('resize', hideTagOnResolution);
 
 
+// const address_field = document.getElementById('suggest');
+
+// ymaps.ready(function () {
+//   // Указывается идентификатор HTML-элемента.
+//   var moscow_map = new ymaps.Map("map", {
+//     center: [55.76, 37.64],
+//     zoom: 10
+//   });
+// });
+
+var deliveryArea;
+var myMap;
+ymaps.ready(init);
+
+function init() {
+
+  var city = $('#suggest').attr('data-city')
+  var zones = $('#suggest').attr('data-zones')
+
+  var suggestView = new ymaps.SuggestView(
+    'suggest', {
+    provider: {
+      suggest: (function (request, options) {
+
+        return ymaps.suggest(request, {
+          boundedBy: myMap.getBounds()
+        });
+
+      })
+    }
+  }
+
+  );
+
+  if (zones == 'false') {
+    $(document).on('click touchend', '.ymaps-2-1-79-suggest-item', function (e) {
+      $('#finaladress').val($('#suggest').val())
+    })
+  } else {
+    $(document).on('keyup', '#suggest', function (e) {
+      $('#suggest').css('border-color', 'red');
+      $('#finaladress').val('')
+    })
+
+    ymaps.geocode(city).then(function (res) {
+      myMap = new ymaps.Map('map', {
+        center: res.geoObjects.get(0).geometry.getCoordinates(),
+        zoom: 12,
+        controls: []
+
+      });
+
+
+      function getzones() {
+        var flickerAPI = "/core/libs/data-1.json";
+        $.getJSON(flickerAPI, {
+          tags: "mount rainier",
+          tagmode: "any",
+          format: "json"
+        })
+          .done(function (data) {
+            console.log(data);
+            var count = 0
+            $.each(data.deliverys, function (index, val) {
+
+              freeArea = new ymaps.Polygon(
+                [
+                  val.coords
+                ], {
+                hintContent: val.hintContent,
+                balloonContent: val.balloonContent,
+                balloonContentHeader: val.balloonContentHeader,
+                balloonContentBody: val.balloonContentBody,
+                balloonContentFooter: val.balloonContentFooter
+              }, {
+
+                fillColor: val.fillColor,
+                strokeColor: val.strokeColor,
+                opacity: val.opacity
+              });
+              myMap.geoObjects.add(freeArea);
+              count += 1
+            })
+          });
+      };
+      getzones()
+      $(document).on('click touchend', '.ymaps-2-1-79-suggest-item', function (e) {
+        geocode();
+        getzones()
+      })
+      function showError(message) {
+        $('#suggest').addClass('suggest-error')
+        $('#addressError').text(message)
+        $('#addressError').show()
+      }
+      function geocode() {
+        // Забираем запрос из поля ввода.
+        myMap.geoObjects.removeAll()
+        var request = $('#suggest').val();
+        // Геокодируем введённые данные.
+        ymaps.geocode(request).then(function (res) {
+          var obj = res.geoObjects.get(0),
+            error, hint;
+
+          if (obj) {
+            // Об оценке точности ответа геокодера можно прочитать тут: https://tech.yandex.ru/maps/doc/geocoder/desc/reference/precision-docpage/
+            switch (obj.properties.get('metaDataProperty.GeocoderMetaData.precision')) {
+              case 'exact':
+                break;
+              case 'number':
+              case 'near':
+              case 'range':
+                error = 'Уточните номер дома';
+                hint = 'Уточните номер дома';
+                break;
+              case 'street':
+                error = 'Уточните номер дома';
+                hint = 'Уточните номер дома';
+                break;
+              case 'other':
+              default:
+                error = 'Уточните адрес';
+                hint = 'Уточните адрес';
+            }
+          } else {
+            error = 'Адрес не найден';
+            hint = 'Уточните адрес';
+          }
+
+          // Если геокодер возвращает пустой массив или неточный результат, то показываем ошибку.
+          if (error) {
+            showError(error)
+
+          } else {
+            // showResult(obj);
+
+            var deliveryText = ''
+            myMap.geoObjects.each(function (item) {
+              if (item.geometry.getType() == "Polygon") {
+                if (item.geometry.contains(obj.geometry._coordinates)) {
+
+                  var deliveryText = item.properties._data.hintContent
+                  var deliveryPrice = item.properties._data.balloonContentFooter
+                  var sd = parseInt(deliveryPrice);
+                  $.get("/cart/delivery_summ/" + sd + '/', function () {
+                    $(".cart__inner").load(location.href + " .cart__refresh");
+
+                    $(".cart__order-create-wrapper").load(location.href + " .cart__order-create-wrapper-inner");
+                    $(".header__cart-wrap").load(location.href + " .header__cart");
+                    $(".cart__deliv-method-wrap").load(location.href + " .cart__deliv-method");
+                    $(".cart-detail-wrap").load(location.href + " .cart-detail-wrap__refresh");
+
+
+
+                  });
+
+
+
+                  // console.log(deliveryPrice)
+                  // console.log(deliveryText)
+
+                  myGeoObject = new ymaps.GeoObject({
+                    // Описание геометрии.
+                    geometry: {
+                      type: "Point",
+                      coordinates: obj.geometry._coordinates
+                    },
+                    // Свойства.
+                    properties: {
+                      iconContent: 'Я тут',
+                    }
+                  }, {
+                    // Опции.
+                    // Иконка метки будет растягиваться под размер ее содержимого.
+                    preset: 'islands#blackStretchyIcon',
+                    // Метку можно перемещать.
+                    draggable: false
+                  })
+                  $('#suggest').removeClass('suggest-error')
+                  $('#addressError').text('')
+                  $('#addressError').hide()
+                  myMap.geoObjects.removeAll()
+                  getzones()
+                  myMap.geoObjects.add(item)
+                  myMap.geoObjects.add(myGeoObject)
+                  $('#finaladress').val($('#suggest').val())
+                  console.log($('#finaladress').val($('#suggest').val()));
+                  myMap.setCenter(obj.geometry._coordinates);
+                  myMap.setZoom(17);
+                  $('#suggest').css('border-color', 'green');
+
+                } else {
+                  showError('Нет доставки')
+                  $('#finaladress').val('')
+                }
+
+              }
+
+            })
+
+
+          }
+        }, function (e) {
+          console.log(e.geometry._coordinates)
+        })
+
+      }
+    });
+
+  }
+
+}
+
+
