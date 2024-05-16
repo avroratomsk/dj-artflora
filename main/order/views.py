@@ -1,4 +1,4 @@
-from venv import logger
+from main.settings import logger
 from django.db import transaction
 from django.forms import ValidationError
 from django.contrib import messages
