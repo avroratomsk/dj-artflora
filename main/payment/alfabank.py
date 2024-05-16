@@ -51,7 +51,7 @@ def create_payment(order, cart, request):
         "cartItems": items,
     }
     
-    r = requests.post("https://pay.alfabank.ru/payment/rest/register.do", post_data)
+    r = requests.post("https://payment.alfabank.ru/payment/rest/register.do", post_data)
 
     try:
         confirmation_url = r.json()["formUrl"]
@@ -77,7 +77,7 @@ def get_status(pay_id):
     }
 
     r = requests.post(
-        "https://pay.alfabank.ru/payment/rest/getOrderStatusExtended.do", post_data
+        "https://payment.alfabank.ru/payment/rest/getOrderStatusExtended.do", post_data
     )
     # print(r.json())
 
