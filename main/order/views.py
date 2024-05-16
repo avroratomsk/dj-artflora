@@ -11,15 +11,6 @@ from django.contrib.auth.decorators import login_required
 
 def order(request):
   ...
-  
-from logging import StreamHandler
-import sys
-import logging
-logger = logging.getLogger(__name__)
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-handler = StreamHandler(stream=sys.stdout)
-logger.addHandler(handler)
 def order_create(request):
   form = CreateOrderForm(request.POST)
   
@@ -115,7 +106,6 @@ def order_create(request):
               quantity=quantity
             )
           if payment_method == "На сайте картой":
-              logger.info("На сайте картой")
               data = create_payment(orderItem, cart_items, request)
               payment_id = data["id"]
               confirmation_url = data["confirmation_url"]
