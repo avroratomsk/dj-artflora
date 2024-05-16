@@ -115,10 +115,10 @@ def order_create(request):
               quantity=quantity
             )
           if payment_method == "На сайте картой":
+              logger.info("На сайте картой")
               data = create_payment(orderItem, cart_items, request)
               payment_id = data["id"]
               confirmation_url = data["confirmation_url"]
-              logger.info(confirmation_url)
               order.payment_id = payment_id
               order.payment_dop_info = confirmation_url
               order.save()
