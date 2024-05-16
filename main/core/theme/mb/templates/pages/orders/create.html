@@ -124,8 +124,10 @@
               </form>
             </div> -->
             <div class="order-create__summ"><span>Сумма:</span> {{ cart.total_price }} руб.</div>
-            <div class="order-create__delivery"><span>Доставка:</span> от <div id="order-delivery">300</div> руб.</div>
-            <div class="order-create__total"><span>Итого:</span> {{ cart.total_price }} руб.</div>
+            <div class="order-create__delivery"><span>Доставка:</span> от <span id="order-delivery">300</span> руб.
+            </div>
+            <div class="order-create__total"><span>Итого:</span> <span id="order-total">{{ cart.total_price }}</span>
+              руб.</div>
           </div>
         </div>
       </div>

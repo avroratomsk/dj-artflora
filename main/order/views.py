@@ -109,7 +109,6 @@ def order_create(request):
               data = create_payment(orderItem, cart_items, request)
               payment_id = data["id"]
               confirmation_url = data["confirmation_url"]
-              email_send(order)
               order.payment_id = payment_id
               order.payment_dop_info = confirmation_url
               order.save()
@@ -156,11 +155,8 @@ def order_success(request):
         cart_items.delete()
         request.session["delivery"] = 1
         order.paid = True
-
         order.save()
-        
         return redirect("/?order=True")
-
     else:
         order = data["order"]
 
@@ -175,8 +171,7 @@ def order_success(request):
         order.paid = True
 
         order.save()
-        return redirect("order_success")
-        # return redirect("order_error")
+        return redirect("order_error")
 
 # def order_create(request):
 #   if request.method == 'POST':

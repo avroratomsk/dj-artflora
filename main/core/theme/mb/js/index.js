@@ -557,7 +557,6 @@ function init() {
                   var deliveryText = item.properties._data.hintContent
                   var deliveryPrice = item.properties._data.balloonContentFooter
                   var sd = parseInt(deliveryPrice);
-                  var gelivery_path
 
                   $.get("/cart/set_delivery/" + sd + '/', function () {
                     // $(".cart__inner").load(location.href + " .cart__refresh");
@@ -566,7 +565,10 @@ function init() {
                     // $(".header__cart-wrap").load(location.href + " .header__cart");
                     // $(".cart__deliv-method-wrap").load(location.href + " .cart__deliv-method");
                     // $(".cart-detail-wrap").load(location.href + " .cart-detail-wrap__refresh");
-
+                    let summ = document.getElementById('order-total').innerText;
+                    let total_sum = sd + parseInt(summ)
+                    document.getElementById('order-total').innerText = "";
+                    document.getElementById('order-total').innerText = total_sum;
                     document.getElementById('order-delivery').innerText = sd;
                   });
 
