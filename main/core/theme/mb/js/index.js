@@ -550,10 +550,9 @@ function init() {
             var deliveryText = ''
             myMap.geoObjects.each(function (item) {
               if (item.geometry.getType() == "Polygon") {
-                var f = item.geometry._coordPath._coordinates[0];
-                var search = obj.geometry._coordinates;
-                const found = f.some(arr => JSON.stringify(arr.slice(0, 8)) === JSON.stringify(search.slice(0, 8)));
-                if (item.geometry._coordPath._coordinates[0].contains(obj.geometry._coordinates)) {
+                console.log(item.geometry);
+                console.log(obj.geometry._coordinates);
+                if (item.geometry.contains(obj.geometry._coordinates)) {
                   console.log("Тут 2");
                   var deliveryText = item.properties._data.hintContent
                   var deliveryPrice = item.properties._data.balloonContentFooter
@@ -609,12 +608,8 @@ function init() {
                   showError('Нет доставки')
                   $('#finaladress').val('')
                 }
-
               }
-
             })
-
-
           }
         }, function (e) {
           console.log(e.geometry._coordinates)
