@@ -95,6 +95,7 @@ def cart_remove(request):
 
 def set_delivery(request, value): 
   print(value)
+  print('=============')
   request.session['delivery'] = value
   return redirect('home')
 
