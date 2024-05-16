@@ -5,7 +5,7 @@ from .models import AlfaBank
 from order.models import Order
 from shop.models import Product
 
-login = "i-artflora38-api"
+login = "i-artflora38_ru-api"
 password = "i-artflora38*?1"
 # password = "}w~TlFdYeE3"
 # token = AlfaBank.objects.get().token
