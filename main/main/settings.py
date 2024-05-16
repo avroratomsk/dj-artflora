@@ -73,36 +73,9 @@ EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
 
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'console': {
-#             'format': '%(name)-12s %(levelname)-8s %(message)s'
-#         },
-#         'file': {
-#             'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
-#         }
-#     },
-#     'handlers': {
-#         'console': {
-#             'class': 'logging.StreamHandler',
-#             'formatter': 'console'
-#         },
-#         'file': {
-#             'level': 'INFO',
-#             'class': 'logging.FileHandler',
-#             'formatter': 'file',
-#             'filename': '/home/a/avroraweb/irk-artlora.ru/public_html/debug.log'
-#         }
-#     },
-#     'loggers': {
-#         '': {
-#             'level': 'INFO',
-#             'handlers': ['console', 'file']
-#         }
-#     }
-# }
+import logging
+
+logger = logging.getLogger(__name__)
 
 WSGI_APPLICATION = "main.wsgi.application"
 

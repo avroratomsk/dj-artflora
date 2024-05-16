@@ -1,3 +1,4 @@
+from venv import logger
 from django.db import transaction
 from django.forms import ValidationError
 from django.contrib import messages
@@ -142,7 +143,7 @@ def order_success(request):
     pay_id = request.GET["orderId"]
 
     data = get_status(pay_id)
-
+    logger.warning(data["status"])
     if data["status"] == "0":
         order = data["order"]
 
