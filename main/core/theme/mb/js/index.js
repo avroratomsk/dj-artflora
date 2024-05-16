@@ -557,9 +557,9 @@ function init() {
                   var deliveryText = item.properties._data.hintContent
                   var deliveryPrice = item.properties._data.balloonContentFooter
                   var sd = parseInt(deliveryPrice);
-                  console.log("/cart/delivery_summ/" + sd + '/');
+                  var gelivery_path
 
-                  $.get("/cart/delivery_summ/" + sd + '/', function () {
+                  $.get("/cart/set_delivery/" + sd + '/', function () {
                     // $(".cart__inner").load(location.href + " .cart__refresh");
 
                     // $(".cart__order-create-wrapper").load(location.href + " .cart__order-create-wrapper-inner");

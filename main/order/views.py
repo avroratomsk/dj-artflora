@@ -109,7 +109,7 @@ def order_create(request):
               data = create_payment(orderItem, cart_items, request)
               payment_id = data["id"]
               confirmation_url = data["confirmation_url"]
-
+              email_send(order)
               order.payment_id = payment_id
               order.payment_dop_info = confirmation_url
               order.save()

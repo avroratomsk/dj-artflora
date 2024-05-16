@@ -43,7 +43,7 @@
       ],
       "fillColor": "#ed4543",
       "strokeColor": "#ed4543",
-      "opacity": 0.5
+      "opacity": 0.2
     },
     {
       "hintContent": "Зона платной доставки",
@@ -86,7 +86,7 @@
       ],
       "fillColor": "#1e98ff",
       "strokeColor": "#1e98ff",
-      "opacity": 0.5
+      "opacity": 0.2
     },
     {
       "hintContent": "Зона платной доставки",
@@ -123,7 +123,7 @@
       ],
       "fillColor": "#1bad03",
       "strokeColor": "#1bad03",
-      "opacity": 0.5
+      "opacity": 0.2
     },
     {
       "hintContent": "Зона платной доставки",
@@ -145,7 +145,7 @@
       ],
       "fillColor": "#82cdff",
       "strokeColor": "#82cdff",
-      "opacity": 0.5
+      "opacity": 0.2
     },
     {
       "hintContent": "Зона платной доставки",
@@ -168,7 +168,7 @@
       ],
       "fillColor": "#56db40",
       "strokeColor": "#56db40",
-      "opacity": 0.5
+      "opacity": 0.2
     }
   ]
 }
