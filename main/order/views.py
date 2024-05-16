@@ -19,7 +19,7 @@ def order_create(request):
     """Получаем способ оплаты и в зависимости от метода оплаты строим логику ниже"""
     payment_method = request.POST['payment_option']
     my_value = request.session.get('delivery')
-    print(my_value)
+    logger.warning(payment_method)
     if form.is_valid():
       try:
         order = form.save(commit=False)
@@ -143,7 +143,7 @@ def order_success(request):
     pay_id = request.GET["orderId"]
 
     data = get_status(pay_id)
-    logger.warning(data["status"])
+    
     if data["status"] == "0":
         order = data["order"]
 
