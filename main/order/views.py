@@ -17,6 +17,8 @@ def order_create(request):
   if request.method == "POST":
     """Получаем способ оплаты и в зависимости от метода оплаты строим логику ниже"""
     payment_method = request.POST['payment_option']
+    my_value = request.session.get('delivery')
+    print(my_value)
     if form.is_valid():
       try:
         order = form.save(commit=False)
@@ -124,7 +126,7 @@ def order_create(request):
   session_key = request.session.session_key
   cart_items = Cart.objects.filter(session_key=session_key)
   context = {
-    'title': 'Home - Оформление заказа',
+    'title': 'Оформление заказа',
     'orders': True,
     "cart": cart_items
   }

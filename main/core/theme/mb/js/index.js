@@ -461,7 +461,7 @@ function init() {
     ymaps.geocode(city).then(function (res) {
       myMap = new ymaps.Map('map', {
         center: res.geoObjects.get(0).geometry.getCoordinates(),
-        zoom: 10,
+        zoom: 9,
         controls: []
 
       });
@@ -557,22 +557,19 @@ function init() {
                   var deliveryText = item.properties._data.hintContent
                   var deliveryPrice = item.properties._data.balloonContentFooter
                   var sd = parseInt(deliveryPrice);
-                  // $.get("/cart/delivery_summ/" + sd + '/', function () {
-                  //   $(".cart__inner").load(location.href + " .cart__refresh");
+                  console.log("/cart/delivery_summ/" + sd + '/');
 
-                  //   $(".cart__order-create-wrapper").load(location.href + " .cart__order-create-wrapper-inner");
-                  //   $(".header__cart-wrap").load(location.href + " .header__cart");
-                  //   $(".cart__deliv-method-wrap").load(location.href + " .cart__deliv-method");
-                  //   $(".cart-detail-wrap").load(location.href + " .cart-detail-wrap__refresh");
+                  $.get("/cart/delivery_summ/" + sd + '/', function () {
+                    // $(".cart__inner").load(location.href + " .cart__refresh");
 
+                    // $(".cart__order-create-wrapper").load(location.href + " .cart__order-create-wrapper-inner");
+                    // $(".header__cart-wrap").load(location.href + " .header__cart");
+                    // $(".cart__deliv-method-wrap").load(location.href + " .cart__deliv-method");
+                    // $(".cart-detail-wrap").load(location.href + " .cart-detail-wrap__refresh");
 
+                    document.getElementById('order-delivery').innerText = sd;
+                  });
 
-                  // });
-
-
-
-                  console.log(deliveryPrice)
-                  console.log(deliveryText)
 
                   myGeoObject = new ymaps.GeoObject({
                     // Описание геометрии.
