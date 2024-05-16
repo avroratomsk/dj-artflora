@@ -40,7 +40,6 @@ def create_payment(order, cart, request):
     sum = 0
     for item in items:
         sum += int(item["itemAmount"])
-        
     post_data = {
         "userName": login,
         "password": password,
@@ -65,7 +64,8 @@ def create_payment(order, cart, request):
     sum = 0
     return data
 
-
+import logging
+logger = logging.getLogger(__name__)
 def get_status(pay_id):
     order = Order.objects.get(payment_id=pay_id)
 
@@ -82,6 +82,7 @@ def get_status(pay_id):
     # print(r.json())
 
     status = r.json()["errorCode"]
+    logger.info(status)
 
     data = {"status": status, "order": order}
 

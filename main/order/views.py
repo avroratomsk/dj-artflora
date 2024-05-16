@@ -12,14 +12,15 @@ from django.contrib.auth.decorators import login_required
 
 def order(request):
   ...
-
+import logging
+logger = logging.getLogger(__name__)
 def order_create(request):
   form = CreateOrderForm(request.POST)
   if request.method == "POST":
     """Получаем способ оплаты и в зависимости от метода оплаты строим логику ниже"""
     payment_method = request.POST['payment_option']
     my_value = request.session.get('delivery')
-    logger.warning(payment_method)
+    logger.info(my_value)
     if form.is_valid():
       try:
         order = form.save(commit=False)
