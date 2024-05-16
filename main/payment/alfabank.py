@@ -49,7 +49,7 @@ def create_payment(order, cart, request):
         "failUrl": failUrl,
         "cartItems": items,
     }
-    print(post_data)
+    
     r = requests.post("https://tws.egopay.ru/api/ab/rest/register.do", post_data)
 
     try:
