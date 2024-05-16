@@ -77,7 +77,7 @@ def get_status(pay_id):
     }
 
     r = requests.post(
-        "https://payment.alfabank.ru/payment/rest/getOrderStatusExtended.do", post_data
+        "https://ecom.alfabank.ru/payment/rest/getOrderStatusExtended.do", post_data
     )
     # print(r.json())
 
