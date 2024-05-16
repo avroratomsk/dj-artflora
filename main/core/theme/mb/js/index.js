@@ -461,7 +461,7 @@ function init() {
     ymaps.geocode(city).then(function (res) {
       myMap = new ymaps.Map('map', {
         center: res.geoObjects.get(0).geometry.getCoordinates(),
-        zoom: 12,
+        zoom: 10,
         controls: []
 
       });
@@ -475,10 +475,8 @@ function init() {
           format: "json"
         })
           .done(function (data) {
-            console.log(data);
             var count = 0
             $.each(data.deliverys, function (index, val) {
-
               freeArea = new ymaps.Polygon(
                 [
                   val.coords
@@ -549,31 +547,33 @@ function init() {
 
           } else {
             // showResult(obj);
-
             var deliveryText = ''
             myMap.geoObjects.each(function (item) {
               if (item.geometry.getType() == "Polygon") {
-                if (item.geometry.contains(obj.geometry._coordinates)) {
-
+                var f = item.geometry._coordPath._coordinates[0];
+                var search = obj.geometry._coordinates;
+                const found = f.some(arr => JSON.stringify(arr.slice(0, 8)) === JSON.stringify(search.slice(0, 8)));
+                if (item.geometry._coordPath._coordinates[0].contains(obj.geometry._coordinates)) {
+                  console.log("Тут 2");
                   var deliveryText = item.properties._data.hintContent
                   var deliveryPrice = item.properties._data.balloonContentFooter
                   var sd = parseInt(deliveryPrice);
-                  $.get("/cart/delivery_summ/" + sd + '/', function () {
-                    $(".cart__inner").load(location.href + " .cart__refresh");
+                  // $.get("/cart/delivery_summ/" + sd + '/', function () {
+                  //   $(".cart__inner").load(location.href + " .cart__refresh");
 
-                    $(".cart__order-create-wrapper").load(location.href + " .cart__order-create-wrapper-inner");
-                    $(".header__cart-wrap").load(location.href + " .header__cart");
-                    $(".cart__deliv-method-wrap").load(location.href + " .cart__deliv-method");
-                    $(".cart-detail-wrap").load(location.href + " .cart-detail-wrap__refresh");
-
-
-
-                  });
+                  //   $(".cart__order-create-wrapper").load(location.href + " .cart__order-create-wrapper-inner");
+                  //   $(".header__cart-wrap").load(location.href + " .header__cart");
+                  //   $(".cart__deliv-method-wrap").load(location.href + " .cart__deliv-method");
+                  //   $(".cart-detail-wrap").load(location.href + " .cart-detail-wrap__refresh");
 
 
 
-                  // console.log(deliveryPrice)
-                  // console.log(deliveryText)
+                  // });
+
+
+
+                  console.log(deliveryPrice)
+                  console.log(deliveryText)
 
                   myGeoObject = new ymaps.GeoObject({
                     // Описание геометрии.

@@ -49,8 +49,8 @@ def create_payment(order, cart, request):
         "failUrl": failUrl,
         "cartItems": items,
     }
-    
-    r = requests.post("https://payment.alfabank.ru/payment/rest/register.do", post_data)
+    print(post_data)
+    r = requests.post("https://tws.egopay.ru/api/ab/rest/register.do", post_data)
 
     try:
         confirmation_url = r.json()["formUrl"]
@@ -76,7 +76,7 @@ def get_status(pay_id):
     }
 
     r = requests.post(
-        "https://alfa.rbsuat.com/payment/rest/getOrderStatusExtended.do", post_data
+        "https://tws.egopay.ru/api/ab/rest/getOrderStatusExtended.do", post_data
     )
     # print(r.json())
 
