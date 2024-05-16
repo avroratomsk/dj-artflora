@@ -1,4 +1,3 @@
-from main.settings import logger
 from django.db import transaction
 from django.forms import ValidationError
 from django.contrib import messages
@@ -12,15 +11,23 @@ from django.contrib.auth.decorators import login_required
 
 def order(request):
   ...
+  
+from logging import StreamHandler
+import sys
 import logging
 logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+handler = StreamHandler(stream=sys.stdout)
+logger.addHandler(handler)
 def order_create(request):
   form = CreateOrderForm(request.POST)
+  
   if request.method == "POST":
     """Получаем способ оплаты и в зависимости от метода оплаты строим логику ниже"""
     payment_method = request.POST['payment_option']
     my_value = request.session.get('delivery')
-    logger.info(my_value)
+    
     if form.is_valid():
       try:
         order = form.save(commit=False)
@@ -111,6 +118,7 @@ def order_create(request):
               data = create_payment(orderItem, cart_items, request)
               payment_id = data["id"]
               confirmation_url = data["confirmation_url"]
+              logger.info(confirmation_url)
               order.payment_id = payment_id
               order.payment_dop_info = confirmation_url
               order.save()
