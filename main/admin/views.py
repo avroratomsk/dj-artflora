@@ -4,12 +4,12 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import CategoryForm, CharGroupForm, CharNameForm, GlobalSettingsForm, HomeTemplateForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, SliderForm, StockForm, UploadFileForm
+from admin.forms import CategoryForm, CharGroupForm, CharNameForm, GlobalSettingsForm, HomeTemplateForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, ShopSettingsForm, SliderForm, StockForm, UploadFileForm
 from home.models import BaseSettings, HomeTemplate, SliderHome, Stock
 from main.settings import BASE_DIR
 from service.models import Service
 from reviews.models import Reviews
-from shop.models import CharGroup, CharName, Product,Category, ProductChar, ProductImage
+from shop.models import CharGroup, CharName, Product,Category, ProductChar, ProductImage, ShopSettings
 from django.core.paginator import Paginator
 from django.core.files.images import ImageFile
 from django.shortcuts import render, get_object_or_404, get_list_or_404
@@ -57,6 +57,33 @@ def admin_settings(request):
   }  
 
   return render(request, "settings/general_settings.html", context)
+
+
+def admin_shop(request):
+  try:
+    shop_setup = ShopSettings.objects.get()
+    form = ShopSettingsForm(instance=shop_setup)
+  except:
+    form = ShopSettingsForm()
+    
+  if request.method == "POST":
+    try:
+      shop_setup = ShopSettings.objects.get() 
+    except:
+      shop_setup = None
+    
+    form_new = ShopSettingsForm(request.POST, request.FILES, instance=shop_setup)
+    if form_new.is_valid:
+      form_new.save()
+      
+      return redirect('admin_shop')
+    else:
+      return render(request, "shop/settings.html", {"form": form})
+  
+  context = {
+    "form": form,
+  }
+  return render(request, "shop/settings.html", context)
 
 def admin_product(request):
   """

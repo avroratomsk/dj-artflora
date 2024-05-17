@@ -8,17 +8,20 @@ from .email_send import email_send
 from order.models import Order, OrderItem
 from order.forms import CreateOrderForm
 from django.contrib.auth.decorators import login_required
+from shop.models import ShopSettings
 
 def order(request):
   ...
+  
 def order_create(request):
   form = CreateOrderForm(request.POST)
   
+  # Получаем стоимость минимальной доставки
+  delivery = ShopSettings.objects.get()
+  # request.session['delivery'] = 1
   if request.method == "POST":
     """Получаем способ оплаты и в зависимости от метода оплаты строим логику ниже"""
     payment_method = request.POST['payment_option']
-    my_value = request.session.get('delivery')
-    
     if form.is_valid():
       try:
         order = form.save(commit=False)
@@ -105,6 +108,7 @@ def order_create(request):
               price=price,
               quantity=quantity
             )
+          
           if payment_method == "На сайте картой":
               data = create_payment(orderItem, cart_items, request)
               payment_id = data["id"]
@@ -127,7 +131,8 @@ def order_create(request):
   context = {
     'title': 'Оформление заказа',
     'orders': True,
-    "cart": cart_items
+    "cart": cart_items,
+    "delivery": delivery.delivery
   }
       
   return render(request, "pages/orders/create.html", context)

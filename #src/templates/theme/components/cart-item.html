@@ -11,6 +11,7 @@
     <div class="mini-cart__info">
       <a href="{{ cart.product.get_absolute_url }}" class="mini-cart__name">{{ cart.product.name }}</a>
       <p class="mini-cart__price">{{ cart.product.sell_price }} руб.</p>
+      <p class="mini-cart__price">{{ cart.product.sell_price }} руб.</p>
     </div>
     <div class="mini-cart__action">
       <a href="{% url 'cart_remove' %}" aria-label="Удаления товара из корзины" id="delete-card" class="mini-cart__delete remove-from-cart" data-cart-id="{{ cart.id }}">

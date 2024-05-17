@@ -63,13 +63,17 @@
             </div>
             <div class="form__item">
               <p class="form__item-title">Адрес доставки</p>
+              <div class="form__group" id="id_delivery_address">
+                <input required type="text" data-zones="true" data-city="Иркутск" class="form__controls"
+                  placeholder="Улица, дом" id="suggest" name="id_delivery_address" />
+                <div id="addressError" class="address-error"></div>
+              </div>
               <div class="form__group-boolean">
-                <input type="checkbox" name="pickup" id="pickup" class="form__controls-checkbox" checked />
+                <input type="checkbox" name="pickup" id="pickup" class="form__controls-checkbox" />
                 <label for="pickup" class="form__boolean-label">Самовывоз</label>
               </div>
-              <div class="form__group _hidden" id="id_delivery_address">
-                <input type="text" class="form__controls" name="delivery_address"
-                  placeholder="Город, улица, дом, подъезд, офис/квартира" />
+              <div class="form__group">
+                <input type="text" name="pickup" id="finaladress" class="form__controls" />
               </div>
             </div>
             <div class="form__item">
@@ -84,11 +88,6 @@
                   <input class="form__controls-radio" type="radio" name="payment_option" id="id_for_label-2"
                     value="Курьером при получении" />
                   <label class="form__boolean-label" for="id_for_label-2">Курьером при получении</label>
-                </div>
-                <div class="form__group">
-                  <input required type="text" data-zones="true" data-city="Иркутск" class="form__controls"
-                    placeholder="Улица, дом" id="suggest" />
-                  <div id="addressError" class="address-error"></div>
                 </div>
               </div>
             </div>
@@ -123,10 +122,15 @@
                   placeholder="Введите промокод" />
               </form>
             </div> -->
-            <div class="order-create__summ"><span>Сумма:</span> {{ cart.total_price }} руб.</div>
-            <div class="order-create__delivery"><span>Доставка:</span> от <span id="order-delivery">300</span> руб.
+            <div class="order-create__summ"><span>Сумма:</span>
+              <span id="order-sum">{{ cart.total_price }}</span> руб.
             </div>
-            <div class="order-create__total"><span>Итого:</span> <span id="order-total">{{ cart.total_price }}</span>
+            <div id="delivery-price">{{ delivery }}</div>
+            <div class="order-create__delivery" id="order-delivery-info"><span>Доставка:</span> от <span
+                id="order-delivery">
+                {{ delivery }}</span> руб.
+            </div>
+            <div class="order-create__total"><span>Итого:</span> <span id="order-total">{{ cart.total_sum }}</span>
               руб.</div>
           </div>
         </div>

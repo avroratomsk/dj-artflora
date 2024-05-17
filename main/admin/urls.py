@@ -23,6 +23,7 @@ urlpatterns = [
     # path('days/delete/<int:pk>/', views.day_delete, name='days_delete'),
     
     #URl - отвечающие за отображение товаров, редактирование и удаление товара
+    path('shop/', views.admin_shop, name='admin_shop'),
     path('product/', views.admin_product, name='admin_product'),
     path('product/add/', views.product_add, name='product_add'),
     path('product/edit/<int:pk>/', views.product_edit, name='product_edit'),

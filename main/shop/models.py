@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
+from admin.singleton_model import SingletonModel
+
 # Дни недели с краткими ключами и полнымим наименованиями.
 DAY_NAMES = (
     ('mon', 'Понедельник'),
@@ -12,7 +14,15 @@ DAY_NAMES = (
     ('sun', 'Воскресенье')
 )
 
-# Категория
+"""Поля базы данных для настройки параметров магазина"""
+class ShopSettings(SingletonModel):
+  meta_h1 = models.CharField(max_length=350, null=True, blank=True, verbose_name="Заголовок первого уровня")
+  meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="META заголовок")
+  meta_description = models.TextField(null=True, blank=True, verbose_name="META описание")
+  meta_keywords = models.TextField(null=True, blank=True, verbose_name="META keywords")
+  delivery = models.IntegerField(null=True, blank=True, verbose_name="Стоимость досткавки")
+
+"""Поля базы данных для настройки параметров категории"""
 class Category(models.Model):
   name = models.CharField(max_length=150, db_index=True, unique=True, verbose_name="Название категории")
   slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")

@@ -14,8 +14,16 @@ password = "D~8Z{3mw"
 gateway_url = ""
 
 def create_payment(order, cart, request):
-    returnUrl = "https://" + request.META["HTTP_HOST"] + "/orders/order-succes/"
-    failUrl = "https://" + request.META["HTTP_HOST"] + "/orders/order-error/"
+    returnUrl = "http://" + request.META["HTTP_HOST"] + "/orders/order-succes/"
+    failUrl = "http://" + request.META["HTTP_HOST"] + "/orders/order-error/"
+    
+    isDelivery = request.session.get('delivery')
+    print(isDelivery)
+    if isDelivery == 1:
+      delivery = request.session.get('delivery_summ')
+      delivery = int("{0:.2f}".format(delivery).replace('.',''))
+    else: 
+      delivery = 0
 
     def dec_to_cop(price):
         res = str(round(price, 2))
@@ -37,9 +45,10 @@ def create_payment(order, cart, request):
         count += 1
         items.append(i)
     
-    sum = 0
+    sum  = 0
     for item in items:
         sum += int(item["itemAmount"])
+    sum += delivery
     post_data = {
         "userName": login,
         "password": password,
@@ -64,8 +73,6 @@ def create_payment(order, cart, request):
     sum = 0
     return data
 
-import logging
-logger = logging.getLogger(__name__)
 def get_status(pay_id):
     order = Order.objects.get(payment_id=pay_id)
 

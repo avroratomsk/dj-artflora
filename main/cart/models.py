@@ -1,6 +1,6 @@
 from django.db import models
 from shop.models import Product
-
+from shop.models import ShopSettings
 from users.models import User
 
 """Данный класс, считает общую сумму в корзине исходя из product_price()
@@ -10,8 +10,14 @@ class CartQuerySet(models.QuerySet):
   
   def total_price(self):
     summ = sum(cart.products_price() for cart in self)
+    return int(summ)
+  
+  def total_sum(self):
+    summ = sum(cart.products_price() for cart in self)
+    delivery_price = ShopSettings.objects.get()
+    price_total = int(summ) + int(delivery_price.delivery)
     
-    return summ
+    return price_total
   
   def total_quantity(self):
     if self:
@@ -29,7 +35,6 @@ class Cart(models.Model):
   quantity = models.PositiveSmallIntegerField(default=0, verbose_name="Количество")
   session_key = models.CharField(max_length=32, null=True, blank=True, verbose_name="ключ сессии если пользователь не авторизован")
   created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата обновления")
-  delivery = models.CharField(max_length=250, default="300", null=True, blank=True, verbose_name="Доставка")
   
   class Meta:
     db_table = "cart"

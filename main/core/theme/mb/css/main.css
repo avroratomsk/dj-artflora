@@ -2480,6 +2480,10 @@ html.lock body::before {
   margin-top: 60px;
 }
 
+#delivery-price {
+  display: none;
+}
+
 .product__image {
   min-width: 0;
   display: flex;

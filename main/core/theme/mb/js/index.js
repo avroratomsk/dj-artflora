@@ -111,7 +111,6 @@ if (btnViewProduct) {
 function viewProduct(e) {
   let parentNodeHtml = this.closest('.card-product').querySelector('.card-product__info').innerHTML;
   let popupView = document.querySelector('.popup-view .popup__grid');
-  console.log(popupView);
 
   if (popupView) {
     popupView.innerHTML = parentNodeHtml;
@@ -157,7 +156,6 @@ window.addEventListener('DOMContentLoaded', function (e) {
   }
 
   function showMiniCart(e) {
-    console.log(this);
     document.querySelector('#mini-cart').classList.add('_show-mini-cart');
     bodyLock();
   }
@@ -195,7 +193,6 @@ const whoGetRadio = document.querySelectorAll('.who-get');
 if (whoGetRadio) {
   whoGetRadio.forEach(item => {
     item.addEventListener('change', function (e) {
-      console.log(this);
       if (item.dataset.id == 'another') {
         document.getElementById('contact-human').classList.add('_show')
       } else {
@@ -204,17 +201,36 @@ if (whoGetRadio) {
     })
   })
 }
-
+// $.get("/cart/set_delivery/1/", function () { })
 const pickupCheckbox = document.getElementById('pickup');
-if (pickupCheckbox) {
-  pickupCheckbox.addEventListener('change', function (e) {
-    if (pickupCheckbox.checked) {
-      document.getElementById('id_delivery_address').classList.add('_hidden');
-    } else {
-      document.getElementById('id_delivery_address').classList.remove('_hidden');
-    }
-  })
-}
+pickupCheckbox.addEventListener('change', function (e) {
+  if (e.target.checked) {
+    let sd = parseInt(document.getElementById('order-delivery').innerText);
+    console.log(sd);
+    $.get("/cart/set_delivery/0/", function () {
+      document.getElementById('id_delivery_address').style.display = 'none';
+      document.getElementById('suggest').required = false;
+      document.getElementById('suggest').value = '';
+      let summ = document.getElementById('order-total').innerText;
+      let total_sum = parseInt(summ) - sd;
+      document.getElementById('order-total').innerText = total_sum;
+      document.getElementById('order-delivery').innerText = 0;
+    });
+
+  } else {
+    $.get("/cart/set_delivery/1/", function () {
+      let sd = parseInt(document.getElementById('delivery-price').innerText);
+      console.log(sd);
+      document.getElementById('id_delivery_address').style.display = 'flex';
+      document.getElementById('suggest').required = true;
+      let summ = document.getElementById('order-total').innerText;
+      let total_sum = parseInt(summ) + sd;
+      document.getElementById('order-total').innerText = total_sum;
+      document.getElementById('order-delivery').innerText = sd;
+    });
+
+  }
+})
 
 const burgerBtn = document.getElementById('burger')
 if (burger) {
@@ -262,7 +278,6 @@ if (oneClickBtn) {
 
 function buyOneСlick(e) {
   let parent = this.closest('.card-section');
-  console.log(parent);
   let img = parent.querySelector('.product-click-image').src;
   let name = parent.querySelector('.card-section__name').innerText;
   let price = parent.querySelector('.card-section__price').innerText;
@@ -302,7 +317,6 @@ $(document).on("click", ".add-to-cart", function (e) {
 
   // Из атрибута href берем ссылку на контроллер django
   var add_to_cart_url = $(this).attr("href");
-  console.log(add_to_cart_url);
 
   // делаем post запрос через ajax не перезагружая страницу
   $.ajax({
@@ -356,8 +370,6 @@ $(document).on("click", ".remove-from-cart", function (e) {
   var cart_id = $(this).data("cart-id");
   // Из атрибута href берем ссылку на контроллер django
   var remove_from_cart = $(this).attr("href");
-  console.log(remove_from_cart);
-  console.log($("[name=csrfmiddlewaretoken]").val());
   // делаем post запрос через ajax не перезагружая страницу
   $.ajax({
     type: "POST",
@@ -550,24 +562,20 @@ function init() {
             var deliveryText = ''
             myMap.geoObjects.each(function (item) {
               if (item.geometry.getType() == "Polygon") {
-                console.log(item.geometry);
-                console.log(obj.geometry._coordinates);
                 if (item.geometry.contains(obj.geometry._coordinates)) {
-                  console.log("Тут 2");
                   var deliveryText = item.properties._data.hintContent
                   var deliveryPrice = item.properties._data.balloonContentFooter
                   var sd = parseInt(deliveryPrice);
 
-                  $.get("/cart/set_delivery/" + sd + '/', function () {
+                  $.get("/cart/delivery_summ/" + sd + "/", function () {
                     // $(".cart__inner").load(location.href + " .cart__refresh");
 
                     // $(".cart__order-create-wrapper").load(location.href + " .cart__order-create-wrapper-inner");
                     // $(".header__cart-wrap").load(location.href + " .header__cart");
                     // $(".cart__deliv-method-wrap").load(location.href + " .cart__deliv-method");
                     // $(".cart-detail-wrap").load(location.href + " .cart-detail-wrap__refresh");
-                    let summ = document.getElementById('order-total').innerText;
+                    let summ = document.getElementById('order-sum').innerText;
                     let total_sum = sd + parseInt(summ)
-                    document.getElementById('order-total').innerText = "";
                     document.getElementById('order-total').innerText = total_sum;
                     document.getElementById('order-delivery').innerText = sd;
                   });
@@ -598,7 +606,6 @@ function init() {
                   myMap.geoObjects.add(item)
                   myMap.geoObjects.add(myGeoObject)
                   $('#finaladress').val($('#suggest').val())
-                  console.log($('#finaladress').val($('#suggest').val()));
                   myMap.setCenter(obj.geometry._coordinates);
                   myMap.setZoom(17);
                   $('#suggest').css('border-color', 'green');
@@ -616,9 +623,9 @@ function init() {
 
       }
     });
-
   }
-
 }
+
+
 
 

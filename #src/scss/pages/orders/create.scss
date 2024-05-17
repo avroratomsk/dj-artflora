@@ -31,18 +31,25 @@
     @media screen and (min-width: 1024px) {
       position: sticky;
       top: 20px;
-      flex: 1 1 50%;
+      flex: 1 1 40%;
     }
 
     &:last-child {
-      border: 1px solid rgba($color: $mainColor, $alpha: .7);
+      // border: 1px solid rgba($color: $mainColor, $alpha: .7);
+      padding: 0px;
+      overflow: hidden;
 
       @media screen and (min-width: 1024px) {
         position: sticky;
         top: 20px;
-        flex: 1 1 30%;
+        flex: 1 1 60%;
       }
     }
+  }
+
+  // .order-create__information
+  &__information {
+    padding: 65px 25px 25px;
   }
 
   // .order-create__title
@@ -106,12 +113,15 @@
 
   // .order-create__promocod
 
-  &__promocod {}
+  &__promocod {
+    margin-top: 30px;
+  }
 
   // .order-create__total
 
   &__total {
     font-size: 20px;
+    margin-top: 20px;
 
     span {
       font-size: 22px;
@@ -119,9 +129,22 @@
     }
   }
 
+  // .order-create__summ
+
+  &__summ {
+    margin-top: 20px;
+  }
+
+  // .order-create__delivery
+
+  &__delivery {
+    margin-top: 20px;
+  }
+
   // .order-create__info-order
   &__info-order {
     font-size: 30px;
+    margin-bottom: 30px;
     width: 100%;
     display: flex;
     align-items: center;
