@@ -9,6 +9,8 @@ from order.models import Order, OrderItem
 from order.forms import CreateOrderForm
 from django.contrib.auth.decorators import login_required
 from shop.models import ShopSettings
+import logging
+logger = logging.getLogger(__name__)
 
 def order(request):
   ...
@@ -147,7 +149,7 @@ def order_success(request):
     pay_id = request.GET["orderId"]
 
     data = get_status(pay_id)
-    
+    logger.info(data)
     if data["status"] == "0":
         order = data["order"]
 
