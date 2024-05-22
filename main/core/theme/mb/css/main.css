@@ -2233,8 +2233,8 @@ html.lock body::before {
   max-width: 300px;
   line-height: 150%;
   text-wrap: balance;
-  font-size: 16px;
-  margin-bottom: 30px;
+  font-size: 14px;
+  margin-bottom: 15px;
 }
 
 .footer__copyright {
@@ -2338,15 +2338,6 @@ html.lock body::before {
   font-weight: 400;
   font-size: 16px;
   margin-bottom: 20px;
-}
-
-.footer__text {
-  color: rgba(255, 255, 255, 0.6);
-  max-width: 300px;
-  line-height: 150%;
-  text-wrap: balance;
-  font-size: 16px;
-  margin-bottom: 30px;
 }
 
 .footer__copyright {

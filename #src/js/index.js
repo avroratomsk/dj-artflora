@@ -203,34 +203,36 @@ if (whoGetRadio) {
 }
 // $.get("/cart/set_delivery/1/", function () { })
 const pickupCheckbox = document.getElementById('pickup');
-pickupCheckbox.addEventListener('change', function (e) {
-  if (e.target.checked) {
-    let sd = parseInt(document.getElementById('order-delivery').innerText);
-    console.log(sd);
-    $.get("/cart/set_delivery/0/", function () {
-      document.getElementById('id_delivery_address').style.display = 'none';
-      document.getElementById('suggest').required = false;
-      document.getElementById('suggest').value = '';
-      let summ = document.getElementById('order-total').innerText;
-      let total_sum = parseInt(summ) - sd;
-      document.getElementById('order-total').innerText = total_sum;
-      document.getElementById('order-delivery').innerText = 0;
-    });
-
-  } else {
-    $.get("/cart/set_delivery/1/", function () {
-      let sd = parseInt(document.getElementById('delivery-price').innerText);
+if (pickupCheckbox) {
+  pickupCheckbox.addEventListener('change', function (e) {
+    if (e.target.checked) {
+      let sd = parseInt(document.getElementById('order-delivery').innerText);
       console.log(sd);
-      document.getElementById('id_delivery_address').style.display = 'flex';
-      document.getElementById('suggest').required = true;
-      let summ = document.getElementById('order-total').innerText;
-      let total_sum = parseInt(summ) + sd;
-      document.getElementById('order-total').innerText = total_sum;
-      document.getElementById('order-delivery').innerText = sd;
-    });
+      $.get("/cart/set_delivery/0/", function () {
+        document.getElementById('id_delivery_address').style.display = 'none';
+        document.getElementById('suggest').required = false;
+        document.getElementById('suggest').value = '';
+        let summ = document.getElementById('order-total').innerText;
+        let total_sum = parseInt(summ) - sd;
+        document.getElementById('order-total').innerText = total_sum;
+        document.getElementById('order-delivery').innerText = 0;
+      });
 
-  }
-})
+    } else {
+      $.get("/cart/set_delivery/1/", function () {
+        let sd = parseInt(document.getElementById('delivery-price').innerText);
+        console.log(sd);
+        document.getElementById('id_delivery_address').style.display = 'flex';
+        document.getElementById('suggest').required = true;
+        let summ = document.getElementById('order-total').innerText;
+        let total_sum = parseInt(summ) + sd;
+        document.getElementById('order-total').innerText = total_sum;
+        document.getElementById('order-delivery').innerText = sd;
+      });
+
+    }
+  })
+}
 
 const burgerBtn = document.getElementById('burger')
 if (burger) {
