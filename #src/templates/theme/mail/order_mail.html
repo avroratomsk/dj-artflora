@@ -10,20 +10,24 @@
         width: 100%;
         margin-bottom: 20px;
       }
+
       table th {
         font-weight: bold;
         padding: 5px;
         background: #efefef;
         border: 1px solid #dddddd;
       }
+
       table td {
         padding: 5px 10px;
         border: 1px solid #eee;
         text-align: left;
       }
+
       table tbody tr:nth-child(odd) {
         background: #fff;
       }
+
       table tbody tr:nth-child(even) {
         background: #f7f7f7;
       }
@@ -39,8 +43,22 @@
     Имя: {{ order.first_name }} <br />
     Email: {{ order.email }} <br />
     Телефон: {{ order.phone }} <br />
-    Адрес: {{ order.delivery_address }} <br />
-    Способ оплаты: {{ order.payment }} <br />
+    Способ оплаты: {{ order.pay_method }} <br />
+    {% if order.delivery_address %} Адрес доставки: {{ order.delivery_address }} <br />
+    {% else %} Способ получени: Самовывоз<br />
+    {% endif %}
+    <br />
+    <h2>Данные получателя:</h2>
+    {% if order.first_name_human %}
+    <p>{{ order.first_name_human }}</p>
+    {% endif %} {% if order.phone_number_human %}
+    <p>{{ order.phone_number_human }}</p>
+    {% endif %}
+    <br />
+    <h2>Дополнительная информация:</h2>
+    {% if order.anonymous %} Говорить от кого букет: Нет<br />
+    {% endif %} {% if order.surprise %} Предупреждать получателя: Нет<br />
+    {% endif %}
 
     <h2>Детали заказа:</h2>
 

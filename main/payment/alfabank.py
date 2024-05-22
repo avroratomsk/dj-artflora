@@ -84,12 +84,12 @@ def get_status(pay_id):
     }
 
     r = requests.post(
-        "https://ecom.alfabank.ru/api/rest/getOrderStatusExtended.do", post_data
+        "https://ecom.alfabank.ru/api/rest/getOrderStatus.do", post_data
     )
     # print(r.json())
 
     status = r.json()["errorCode"]
-    logger.info(status)
+    # logger.info(status)
 
     data = {"status": status, "order": order}
 

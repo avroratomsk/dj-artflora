@@ -151,34 +151,33 @@ def order_success(request):
     data = get_status(pay_id)
     logger.info(data)
     if data["status"] == "0":
-        order = data["order"]
+      order = data["order"]
 
-        email_send(order)
+      email_send(order)
 
-        text = f"Ваш заказ принят. Ему присвоен № {order.id}."
+      text = f"Ваш заказ принят. Ему присвоен № {order.id}."
 
-        session_key = request.session.session_key
-        cart_items = Cart.objects.filter(session_key=session_key)
-        cart_items.delete()
-        request.session["delivery"] = 1
-        order.paid = True
-        order.save()
-        return redirect("/?order=True")
+      session_key = request.session.session_key
+      cart_items = Cart.objects.filter(session_key=session_key)
+      cart_items.delete()
+      request.session["delivery"] = 1
+      order.paid = True
+      order.save()
+      return redirect("/?order=True")
     else:
-        order = data["order"]
+      order = data["order"]
 
-        email_send(order)
+      email_send(order)
 
-        text = f"Ваш заказ принят. Ему присвоен № {order.id}."
+      text = f"Ваш заказ принят. Ему присвоен № {order.id}."
 
-        session_key = request.session.session_key
-        cart_items = Cart.objects.filter(session_key=session_key)
-        cart_items.delete()
-        request.session["delivery"] = 1
-        order.paid = True
-
-        order.save()
-        return redirect("order_error")
+      session_key = request.session.session_key
+      cart_items = Cart.objects.filter(session_key=session_key)
+      cart_items.delete()
+      request.session["delivery"] = 1
+      order.paid = True
+      order.save()
+      return redirect("/?order=True")
 
 # def order_create(request):
 #   if request.method == 'POST':

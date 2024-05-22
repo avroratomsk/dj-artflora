@@ -169,7 +169,6 @@ def product_add(request):
   
   if request.method == "POST":
     form_new = ProductForm(request.POST, request.FILES)
-    print('this')
     if form_new.is_valid():
       form_new.save()
       product = Product.objects.get(slug=request.POST['slug'])
