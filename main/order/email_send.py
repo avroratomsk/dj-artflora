@@ -13,5 +13,5 @@ def email_send(order):
   try:
     msg.send()
   except Exception as e:
-    print(f"Произошла ошибка при отправке письма: {e}")
+    print(e)
   
