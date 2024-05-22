@@ -11,7 +11,7 @@ def header_menu(request):
 def menus(request):
     return {"menus_pr": Product.objects.all()}
 
-def product_menu(request):
+def callback(request):
     return {"form": CallbackForm()}
 
 def slider_category(request):
