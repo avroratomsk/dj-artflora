@@ -49,6 +49,7 @@
           </form>
         </div>
         <div class="category-details__col">
+          {% comment %}
           <div class="content-catalog__filter">
             <span>Сортировка:</span>
             <a href="" data-sort="asc">Сначало недорогие</a>
@@ -56,6 +57,7 @@
             <a href="" data-sort="populate">Популярные</a>
             <a href="" data-sort="stock">Акции</a>
           </div>
+          {% endcomment %}
           <div class="index-catalog__cards cards-catalog">
             {% for product in products %}
             <div class="section__card card-section">

@@ -41,8 +41,6 @@ def admin_settings(request):
     form_new = GlobalSettingsForm(request.POST, request.FILES, instance=settings)
     if form_new.is_valid():
       form_new.save()
-      
-      print("Все хорошо")
       # subprocess.call(["touch", RESET_FILE])
       return redirect("admin")
     else:
@@ -237,7 +235,6 @@ def char_edit(request, pk):
   
   if request.method == 'POST':
       form_new = CharNameForm(request.POST, instance=char)
-      print(form_new)
       if form_new.is_valid():
           form_new.save()
           return redirect('admin_char')
@@ -357,7 +354,6 @@ def parse_exсel(path):
     try:
       image = f"goods/{row[4].split(';')[0]}"
       image_list = row[4].split(';')
-      print(image_list)
     except:
       pass
     price = row[5]
@@ -373,7 +369,6 @@ def parse_exсel(path):
       category_name = row[7]
     else:
       pass
-      # print("Категории нет")
     category_slug = slugify(category_name)
 
     try:
@@ -435,7 +430,6 @@ def parse_exсel(path):
               parent=new_product,
               src=image_image
           )
-          print(image_create)
         except Exception as e: 
           print(e)
 # parse_exсel(path)
@@ -612,7 +606,6 @@ def admin_home(request):
     if form_new.is_valid():
       form_new.save()
       
-      print("Все хорошо")
       # subprocess.call(["touch", RESET_FILE])
       return redirect("admin")
     else:
