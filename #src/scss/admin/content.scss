@@ -1,16 +1,12 @@
 .content {
   display: flex;
-  justify-content: flex-end;
-  // height: 100vh;
-  overflow: hidden;
+  background-color: #f4f6fa;
 
   // .content__inner
   &__inner {
     display: flex;
     flex-direction: column;
-    width: 85%;
-    padding: 20px;
+    width: 100%;
+    padding: 30px;
   }
-
-
 }

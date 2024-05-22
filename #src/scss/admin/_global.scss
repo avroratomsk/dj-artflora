@@ -6,7 +6,6 @@
 
 body {
     font-family: $fontFamily;
-    background-color: $white;
 }
 
 a {
@@ -28,7 +27,7 @@ ol {
 }
 
 .empty {
-    height: 60vh;
+    height: 100%;
     font-size: clamp(25px, 2.5vw, 45px);
     font-weight: 700;
     text-transform: uppercase;
@@ -37,8 +36,4 @@ ol {
     align-items: center;
     justify-content: center;
     text-align: center;
-}
-
-.hide-field {
-    display: none !important;
 }
