@@ -48,17 +48,19 @@
     {% else %} Способ получени: Самовывоз<br />
     {% endif %}
     <br />
+    {% if order.first_name_human or order.phone_number_human or order.phone_number_human %}
     <h2>Данные получателя:</h2>
     {% if order.first_name_human %}
     <p>{{ order.first_name_human }}</p>
     {% endif %} {% if order.phone_number_human %}
     <p>{{ order.phone_number_human }}</p>
-    {% endif %}
+    {% endif %} {% endif %}
     <br />
+    {% if order.anonymous or order.surprise %}
     <h2>Дополнительная информация:</h2>
     {% if order.anonymous %} Говорить от кого букет: Нет<br />
     {% endif %} {% if order.surprise %} Предупреждать получателя: Нет<br />
-    {% endif %}
+    {% endif %} {% endif %}
 
     <h2>Детали заказа:</h2>
 
