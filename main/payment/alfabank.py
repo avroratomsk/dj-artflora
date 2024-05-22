@@ -14,7 +14,7 @@ password = "D~8Z{3mw"
 gateway_url = ""
 
 def create_payment(order, cart, request):
-    returnUrl = "http://" + request.META["HTTP_HOST"] + "/orders/order-succes/"
+    returnUrl = "http://" + request.META["HTTP_HOST"] + "/orders/order-success/"
     failUrl = "http://" + request.META["HTTP_HOST"] + "/orders/order-error/"
     
     isDelivery = request.session.get('delivery')
