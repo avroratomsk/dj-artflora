@@ -7,74 +7,23 @@
     <div class="category-details__row">
       <div class="category-details__col">
         <form action="" method="GET" class="filter form">
+          {% for char in char_name %}
           <div class="filter__body">
-            <p class="filter__label">Цена:</p>
+            <p class="filter__label">{{ char.text_name }}:</p>
+            {% for char_value in chars %} {% if char_value.char_name.text_name == char.text_name %}
+            <div class="form__group-boolean">
+              <input
+                type="checkbox"
+                name="{{ char_value.char_name.filter_name }}-{{ char_value.id }}"
+                class="form__controls-checkbox filter-checkbox"
+                id="filter-{{ char_value.id }}"
+                value="{{ char_value.char_value }}"
+              />
+              <label for="filter-{{ char_value.id }}" class="form__boolean-label"> {{ char_value.char_value }}</label>
+            </div>
+            {% endif %} {% endfor %}
           </div>
-          <div class="filter__body">
-            <p class="filter__label">Состав букета:</p>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="rose" value="Розы" />
-              <label for="rose" class="form__boolean-label">Розы</label>
-            </div>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="hrizantema" value="Хризантема" />
-              <label for="hrizantema" class="form__boolean-label">Хризантема</label>
-            </div>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="kustovaya-rosa" value="Кустовая роза" />
-              <label for="kustovaya-rosa" class="form__boolean-label">Кустовая роза</label>
-            </div>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="tylpany" value="Тюльпаны" />
-              <label for="tylpany" class="form__boolean-label">Тюльпаны</label>
-            </div>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="orhidei" value="Орхидеи" />
-              <label for="orhidei" class="form__boolean-label">Орхидеи</label>
-            </div>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="iris" value="Ирисы" />
-              <label for="iris" class="form__boolean-label">Ирисы</label>
-            </div>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="gerbery" value="Герберы" />
-              <label for="gerbery" class="form__boolean-label">Герберы</label>
-            </div>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="composition-bouquet" class="form__controls-checkbox" id="eustomy" value="Эустомы" />
-              <label for="eustomy" class="form__boolean-label">Эустомы</label>
-            </div>
-          </div>
-          <div class="filter__body">
-            <p class="filter__label">Для кого:</p>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="for-whom" class="form__controls-checkbox" id="mame" value="Маме" />
-              <label for="mame" class="form__boolean-label">Маме</label>
-            </div>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="for-whom" class="form__controls-checkbox" id="babushke" value="Бабушке" />
-              <label for="babushke" class="form__boolean-label">Бабушке</label>
-            </div>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="for-whom" class="form__controls-checkbox" id="kollege" value="Коллеге" />
-              <label for="kollege" class="form__boolean-label">Коллеге</label>
-            </div>
-          </div>
-          <div class="filter__body">
-            <p class="filter__label">По цвету:</p>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="colors" class="form__controls-checkbox" id="jeltiy" value="Желтый" />
-              <label for="jeltiy" class="form__boolean-label">Желтый</label>
-            </div>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="colors" class="form__controls-checkbox" id="krasnyi" value="Красный" />
-              <label for="krasnyi" class="form__boolean-label">Красный</label>
-            </div>
-            <div class="form__group-boolean">
-              <input type="checkbox" name="colors" class="form__controls-checkbox" id="rozoviy" value="Розовый" />
-              <label for="rozoviy" class="form__boolean-label">Розовый</label>
-            </div>
-          </div>
+          {% endfor %}
           <button type="submit" class="form__submit">Применить</button>
         </form>
       </div>
