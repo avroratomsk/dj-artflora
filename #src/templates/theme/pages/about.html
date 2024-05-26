@@ -84,40 +84,30 @@
       </div>
     </div>
   </section>
-  <section class="reviews" style="background-image: url({% static 'theme/mb/images/reviews.webp' %})">
+  {% if reviews %}
+  <div class="reviews" style="background-image: url({% static 'theme/mb/images/reviews.webp' %})">
     <div class="reviews__container">
       <div class="reviews__inner">
         <h2 class="section__title reviews__title ff">Отзывы</h2>
         <div class="reviews__slider">
           <div class="reviews__wrapper swiper-wrapper">
+            {% for review in reviews %}
             <div class="reviews__slide swiper-slide">
               <div class="reviews__card">
-                <p class="reviews__text">
-                  Отличная студия цветов, огромнейший выбор. Хотелось бы отметить прекрасных сотрудниц. Аня, спасибо за
-                  Ваш профессионализм, консультацию и организацию доставки
-                  цветов. Всё супер! Всё вовремя!Все как хотели! Третий день рад ...
-                </p>
+                <p class="reviews__text">{{ review.text }}</p>
                 <p class="reviews__name">Иван</p>
               </div>
             </div>
-            <div class="reviews__slide swiper-slide">
-              <div class="reviews__card">
-                <p class="reviews__text">
-                  Отличная студия цветов, огромнейший выбор. Хотелось бы отметить прекрасных сотрудниц. Аня, спасибо за
-                  Ваш профессионализм, консультацию и организацию доставки
-                  цветов. Всё супер! Всё вовремя!Все как хотели! Третий день рад ...
-                </p>
-                <p class="reviews__name">Иван</p>
-              </div>
-            </div>
+            {% endfor %}
           </div>
           <div class="swiper-button-prev reviews-button-prev"></div>
           <div class="swiper-button-next reviews-button-next"></div>
         </div>
-        <a href="#" class="reviews__btn">Читать все отзывы</a>
+        <!-- <a href="#" class="reviews__btn">Читать все отзывы</a> -->
       </div>
     </div>
-  </section>
+  </div>
+  {% endif %}
   <!-- <section class="gallery">
     <div class="gallery__container">
       <h2 class="gallery__title ff">Фото работ</h2>

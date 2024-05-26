@@ -3040,6 +3040,7 @@ html.lock body::before {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
 }
 
 .form__group-grid {
@@ -4311,18 +4312,20 @@ html.lock body::before {
   gap: 30px;
 }
 
-.category-details__col:nth-child(1) {
+.category-details__col {
+  flex: 1 1 auto;
+}
+
+.category-details__col.filter-col {
   position: sticky;
-  top: 105px;
+  top: 10px;
+  flex: 0 0 20%;
+  min-width: 300px;
   background-color: white;
   border: 1px solid rgba(63, 60, 56, 0.3);
   border-radius: 10px;
   overflow: hidden;
   padding: 30px 20px;
-}
-
-.category-details__col:nth-child(2) {
-  flex: 1 1 auto;
 }
 
 .category-details .cards-catalog {
@@ -4345,6 +4348,19 @@ html.lock body::before {
 
 .category-details .content-catalog__filter a + .category-details .content-catalog__filter a {
   margin-right: 10px;
+}
+
+.filter__submit {
+  width: 100%;
+  padding: 15px 20px;
+  background-color: #b25f68;
+  border-radius: 5px;
+  color: #ffffff;
+  transition: 0.5s;
+}
+
+.filter__submit:hover {
+  opacity: 0.9;
 }
 
 .filter-mb {
@@ -4416,10 +4432,6 @@ html.lock body::before {
 
 .filter-mobile__top p {
   font-weight: 600;
-}
-
-.filter {
-  padding-right: 10px;
 }
 
 .filter::-webkit-scrollbar {
@@ -4755,6 +4767,10 @@ html.lock body::before {
   margin-bottom: 15px;
 }
 
+.popup__product-form .form__submit {
+  width: 100%;
+}
+
 .popup .form__submit {
   align-self: center;
 }
@@ -4762,6 +4778,27 @@ html.lock body::before {
 .popup._open {
   transform: scale(1) !important;
   pointer-events: all !important;
+}
+
+#order {
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.popup__order {
+  display: flex;
+}
+
+.popup__order .order-create__title {
+  font-size: 20px;
+}
+
+.popup__order .form {
+  padding: 30px;
+  background-color: white;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .close-btn {
@@ -5179,6 +5216,10 @@ html.lock body::before {
     flex-direction: column;
     gap: 20px;
     text-align: center;
+  }
+
+  .filter__submit {
+    width: 100%;
   }
 
   .mini-cart {

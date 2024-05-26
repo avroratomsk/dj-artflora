@@ -1,5 +1,6 @@
 from home.models import BaseSettings 
 from home.forms import CallbackForm
+from reviews.models import Reviews
 from shop.models import Category, Product
  
 def load_settings(request):
@@ -19,3 +20,6 @@ def slider_category(request):
 
 def category(request):
     return {"categorys": Category.objects.all()}
+
+def reviews(request):
+    return {"reviews": Reviews.objects.filter(status=True)}

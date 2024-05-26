@@ -305,6 +305,22 @@ if (closeBtn) {
 }
 
 
+window.addEventListener('DOMContentLoaded', function (e) {
+  const param_mass = []
+  var params = window.location.search.replace('?', '').split('&');
+  params.forEach(item => {
+    param_mass.push(item.split('=')[0]);
+  });
+  if (param_mass[0] != '') {
+    param_mass.forEach(item => {
+      let checkbox = document.querySelector('[name=' + item + ']')
+      checkbox.checked = true;
+    })
+  } else {
+    console.log('Четко');
+  }
+})
+
 // Ловим собыитие клика по кнопке добавить в корзину
 $(document).on("click", ".add-to-cart", function (e) {
   // Блокируем его базовое действие
@@ -461,7 +477,6 @@ function init() {
   }
 
   );
-
   if (zones == 'false') {
     $(document).on('click touchend', '.ymaps-2-1-79-suggest-item', function (e) {
       $('#finaladress').val($('#suggest').val())
@@ -626,6 +641,19 @@ function init() {
       }
     });
   }
+}
+
+/**
+ * Реализация покупки в один клик
+ */
+
+const oneClickOrderBtn = document.querySelectorAll('.one-click-order');
+if (oneClickOrderBtn) {
+  oneClickOrderBtn.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      console.log("ТОвар");
+    })
+  })
 }
 
 

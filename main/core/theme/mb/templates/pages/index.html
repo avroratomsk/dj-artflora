@@ -254,42 +254,32 @@
       </div>
     </div>
   </div>
-
+  {% if reviews %}
   <div class="reviews" style="background-image: url({% static 'theme/mb/images/reviews.webp' %})">
     <div class="reviews__container">
       <div class="reviews__inner">
         <h2 class="section__title reviews__title ff">Отзывы</h2>
         <div class="reviews__slider">
           <div class="reviews__wrapper swiper-wrapper">
+            {% for review in reviews %}
             <div class="reviews__slide swiper-slide">
               <div class="reviews__card">
                 <p class="reviews__text">
-                  Отличная студия цветов, огромнейший выбор. Хотелось бы отметить прекрасных сотрудниц. Аня, спасибо за
-                  Ваш профессионализм, консультацию и организацию доставки
-                  цветов. Всё супер! Всё вовремя!Все как хотели! Третий день рад ...
+                  {{ review.text }}
                 </p>
                 <p class="reviews__name">Иван</p>
               </div>
             </div>
-            <div class="reviews__slide swiper-slide">
-              <div class="reviews__card">
-                <p class="reviews__text">
-                  Отличная студия цветов, огромнейший выбор. Хотелось бы отметить прекрасных сотрудниц. Аня, спасибо за
-                  Ваш профессионализм, консультацию и организацию доставки
-                  цветов. Всё супер! Всё вовремя!Все как хотели! Третий день рад ...
-                </p>
-                <p class="reviews__name">Иван</p>
-              </div>
-            </div>
+            {% endfor %}
           </div>
           <div class="swiper-button-prev reviews-button-prev"></div>
           <div class="swiper-button-next reviews-button-next"></div>
         </div>
-        <a href="#" class="reviews__btn">Читать все отзывы</a>
+        {% comment %} <a href="#" class="reviews__btn">Читать все отзывы</a> {% endcomment %}
       </div>
     </div>
   </div>
-
+  {% endif %}
   <div class="about">
     <div class="about__container">
       <div class="about__inner">
@@ -327,7 +317,7 @@
                 появились по ошибке, некоторые - намеренно (например, юмористические варианты).
               </p>
 
-              <a href="#" class="about__btn">О нашем магазине</a>
+              <a href="{% url 'about' %}" class="about__btn">О нашем магазине</a>
             </div>
             <!-- <a href="#" class="about__link">Подробнее о нас </a> -->
           </div>

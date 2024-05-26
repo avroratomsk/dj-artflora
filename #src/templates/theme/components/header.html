@@ -5,7 +5,7 @@
       <div class="header__container">
         <div class="top-header__inner">
           <nav class="top-header__nav">
-            <a href="">Отзывы</a>
+            {% comment %} <a href="">Отзывы</a> {% endcomment %}
             <a href="{% url 'about' %}">О магазине</a>
             <a href="{% url 'contact' %}">Контакты</a>
           </nav>
@@ -28,12 +28,12 @@
           <a href="/" class="middle-header__logo logo">
             <img src="{% static 'theme/mb/images/logo.png' %}" alt="" />
           </a>
-          <div class="middle-header__search">
+          <form method="GET" action="{% url 'search' %}" class="middle-header__search">
             <input type="search" name="search" id="search" placeholder="Найти в каталоге" />
             <button type="submit">
               <img src="{% static 'theme/mb/images/icon/i-search.svg' %}" alt="" />
             </button>
-          </div>
+          </form>
           <button type="button" class="middle-header__btn" data-popup="callback">Заказать звонок</button>
           <div class="middle-header__info">
             <a href="tel:+79025133003">+7 (902) 513-30-03</a>
@@ -102,10 +102,10 @@
 
 <div class="hidden-menu">
   <button class="close-menu close" id="close-menu"><span></span></button>
-  <form action="" method="GET" class="hidden-menu__search">
+  <form action="{% url 'search' %}" method="GET" class="hidden-menu__search">
     {% csrf_token %}
-    <input type="search" placeholder="Найти.." value="" />
-    <button type="button" class="hidden-menu__search-btn">
+    <input type="search" placeholder="Найти.." value="" name="search" />
+    <button type="submit" class="hidden-menu__search-btn">
       <img src="{% static 'theme/mb/images/icon/i-search.svg' %}" alt="" />
     </button>
   </form>

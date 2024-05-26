@@ -32,10 +32,11 @@
 
   &__col {
 
-    &:nth-child(1) {
+    &.filter-col {
       position: sticky;
-      top: 105px;
-
+      top: 10px;
+      flex: 0 0 20%;
+      min-width: 300px;
       background-color: rgba($color: $white, $alpha: 1.0);
       border: 1px solid rgba($color: $mainColor, $alpha: .3);
       border-radius: 10px;
@@ -43,9 +44,9 @@
       padding: 30px 20px;
     }
 
-    &:nth-child(2) {
-      flex: 1 1 auto;
-    }
+    // &:nth-child(2) {
+    flex: 1 1 auto;
+    // }
   }
 
   .cards-catalog {
@@ -80,6 +81,23 @@
         margin-right: 10px;
       }
     }
+  }
+}
+
+.filter__submit {
+  width: 100%;
+  padding: 15px 20px;
+  background-color: $accent;
+  border-radius: 5px;
+  color: $white;
+  transition: $animation_speed;
+
+  &:hover {
+    opacity: .9;
+  }
+
+  @media screen and (max-width: 620px) {
+    width: 100%;
   }
 }
 
@@ -233,7 +251,7 @@
 .filter {
   // height: calc(100vh - 185px);
   // overflow-y: auto;
-  padding-right: 10px;
+  // padding-right: 10px;
 
   &::-webkit-scrollbar {
     width: 1px;

@@ -90,7 +90,11 @@
 
   // .popup__product-form
 
-  &__product-form {}
+  &__product-form {
+    .form__submit {
+      width: 100%;
+    }
+  }
 
   // .popup__product-flex
 
@@ -111,6 +115,26 @@
 
 }
 
+#order {
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.popup__order {
+  display: flex;
+
+  .order-create__title {
+    font-size: 20px;
+  }
+
+  .form {
+    padding: 30px;
+    background-color: rgba($color: $white, $alpha: 1.0);
+    height: 100vh;
+    overflow-y: auto;
+  }
+}
 
 .form {
 

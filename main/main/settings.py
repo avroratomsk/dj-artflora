@@ -58,6 +58,7 @@ TEMPLATES = [
                 "home.context_processors.menus",
                 "home.context_processors.slider_category",
                 "home.context_processors.callback",
+                "home.context_processors.reviews",
             ],
         },
     },
