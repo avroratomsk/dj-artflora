@@ -46,6 +46,7 @@ def category(request):
   
   context = {
     "pr_char":pr_char,
+    "chars_all":chars_all,
     "products": products,
     "chars": chars,
     "char_name": char_name,

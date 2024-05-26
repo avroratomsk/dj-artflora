@@ -28,7 +28,7 @@
       <div class="category-details__row">
         <div class="category-details__col" id="filter-category">
           <form action="" method="GET" class="filter form">
-            {{ pr_char }}-pr_char{% for char in char_name %}
+            {{ pr_char }}-pr_char {{ chars_all }}-chars_all {% for char in char_name %}
             <div class="filter__body">
               <p class="filter__label">{{ char.text_name }}:</p>
               {% for char_value in chars %} {% if char_value.char_name.text_name == char.text_name %}
