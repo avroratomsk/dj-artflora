@@ -38,9 +38,9 @@ def category(request):
   for li in chars_all:
     if li.char_value not in chars_list_name_noduble:
       chars_list_name_noduble.append(li.char_value)
+  # print(chars_list_name_noduble)
   
-  chars = ProductChar.objects.filter(char_value__in=chars_list_name_noduble).distinct('char_value')
-  
+  chars = ProductChar.objects.filter(char_value__in=chars_list_name_noduble).distinct()
   chars_list_name_noduble_a = ProductChar.objects.filter(parent__in=products_all).distinct().values_list('char_value', flat=True).distinct()
   
   context = {
@@ -88,6 +88,7 @@ def category_detail(request, slug):
   chars = ProductChar.objects.filter(char_value__in=chars_list_name_noduble).distinct('char_value')
   
   chars_list_name_noduble_a = ProductChar.objects.filter(parent__in=products_all).distinct().values_list('char_value', flat=True).distinct()
+  
   context = {
     "category_name": category.name,
     "title": category.name,
