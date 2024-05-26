@@ -31,6 +31,7 @@ def category(request):
         products = products.filter(id__in=id_filter)
     
   products_all = Product.objects.filter(status=True)
+  pr_char = ProductChar.objects.all()
   chars_all = ProductChar.objects.filter(parent__in=products_all)
   char_name = CharName.objects.filter(c_chars__in=chars_all, filter_add=True).exclude(filter_name=None).distinct()
   
@@ -44,8 +45,7 @@ def category(request):
   chars_list_name_noduble_a = ProductChar.objects.filter(parent__in=products_all).distinct().values_list('char_value', flat=True).distinct()
   
   context = {
-    "products_all":products_all,
-    "chars_all":chars_all,
+    "pr_char":pr_char,
     "products": products,
     "chars": chars,
     "char_name": char_name,
