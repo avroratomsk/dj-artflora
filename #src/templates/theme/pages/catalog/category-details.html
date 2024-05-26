@@ -7,9 +7,13 @@
           Главная
           <meta itemprop="position" content="1" />
         </a>
+        <a href="{% url 'category' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
+          Каталог
+          <meta itemprop="position" content="1" />
+        </a>
         <span itemprop="name" class="breadcrumbs__item">
-          Категории
-          <meta itemprop="position" content="2" />
+          {{ category_name }}
+          <meta itemprop="position" content="3" />
         </span>
       </div>
       <div class="filter-mb">
@@ -48,7 +52,7 @@
               {% endif %} {% endfor %}
             </div>
             {% endfor %}
-            <button type="submit" class="form__submit">Применить</button>
+            <button type="submit" class="filter__submit">Применить</button>
           </form>
         </div>
         {% endif %}

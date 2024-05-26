@@ -7,9 +7,7 @@ from .services import *
 from .models import *
 
 def category(request):
-  category = Category.objects.all()
   products = Product.objects.filter(status=True).order_by('price')
-  groups = CharGroup.objects.all()
   
   if request.method == "GET":
     get_filtres = request.GET
@@ -43,9 +41,10 @@ def category(request):
       chars_list_name_noduble.append(li.char_value)
   # print(chars_list_name_noduble)
   
-  chars = ProductChar.objects.filter(char_value__in=chars_list_name_noduble).distinct()
+  chars = ProductChar.objects.filter(char_value__in=chars_list_name_noduble).distinct('char_value')
+  # print(chars)
+  # print('----------------')
   chars_list_name_noduble_a = ProductChar.objects.filter(parent__in=products_all).distinct().values_list('char_value', flat=True).distinct()
-  
   context = {
     "products": products,
     "chars": chars,
@@ -91,6 +90,7 @@ def category_detail(request, slug):
   chars = ProductChar.objects.filter(char_value__in=chars_list_name_noduble).distinct()
   
   chars_list_name_noduble_a = ProductChar.objects.filter(parent__in=products_all).distinct().values_list('char_value', flat=True).distinct()
+  
   
   context = {
     "category_name": category.name,
@@ -168,6 +168,7 @@ def search(request):
     # "char_name":char_name,
     # "chars": chars,
     "products": products,
+    "category": "Страницы поиска",
     "title": "Страница поиска",
   }
   
