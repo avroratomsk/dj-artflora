@@ -48,6 +48,7 @@ def category(request):
     "chars": chars,
     "char_name": char_name,
     "title": "Каталог",
+    "parametrs_value": parametrs_value
   }
 
   return render(request, "pages/catalog/category.html", context)
