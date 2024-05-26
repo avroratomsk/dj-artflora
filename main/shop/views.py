@@ -31,7 +31,7 @@ def category(request):
         products = products.filter(id__in=id_filter)
     
   products_all = Product.objects.filter(status=True)
-  chars_all = ProductChar.objects.filter(parent__in=products_all).distinct()
+  chars_all = ProductChar.objects.filter(parent__in=products_all)
   char_name = CharName.objects.filter(c_chars__in=chars_all, filter_add=True).exclude(filter_name=None).distinct()
   
   chars_list_name_noduble = []
