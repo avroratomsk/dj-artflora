@@ -44,6 +44,7 @@ def category(request):
   chars_list_name_noduble_a = ProductChar.objects.filter(parent__in=products_all).distinct().values_list('char_value', flat=True).distinct()
   
   context = {
+    "products_all":products_all,
     "chars_all":chars_all,
     "products": products,
     "chars": chars,
