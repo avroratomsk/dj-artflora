@@ -90,7 +90,7 @@ def category_detail(request, slug):
     if li.char_value not in chars_list_name_noduble:
       chars_list_name_noduble.append(li.char_value)
   
-  chars = ProductChar.objects.filter(char_value__in=chars_list_name_noduble).distinct('char_value')
+  chars = ProductChar.objects.filter(char_value__in=chars_list_name_noduble).distinct()
   
   chars_list_name_noduble_a = ProductChar.objects.filter(parent__in=products_all).distinct().values_list('char_value', flat=True).distinct()
   
