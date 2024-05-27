@@ -6,6 +6,7 @@ import itertools
 from .services import *
 from .models import *
 from django.db.models import F
+
 def category(request):
   products = Product.objects.filter(status=True).order_by('price')
   
@@ -41,7 +42,7 @@ def category(request):
       chars_list_name_noduble.append(li.char_value)
   # print(chars_list_name_noduble)
   
-  chars = ProductChar.objects.filter(char_value__in=chars_list_name_noduble).distinct('char_value')
+  chars = ProductChar.objects.filter(char_value__in=chars_list_name_noduble).distinct()
   
   # print(chars)
   # print('----------------')
