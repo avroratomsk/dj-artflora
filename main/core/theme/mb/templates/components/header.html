@@ -10,14 +10,19 @@
             <a href="{% url 'contact' %}">Контакты</a>
           </nav>
           <div class="top-header__socials">
-            <a href=""> <img src="{% static 'theme/mb/images/icon/vk.png' %}" alt="" /></a>
-            <a href=""> <img src="{% static 'theme/mb/images/icon/viber.png' %}" alt="" /></a>
-            <a href=""> <img src="{% static 'theme/mb/images/icon/whatsapp.png' %}" alt="" /></a>
-            <a href=""> <img src="{% static 'theme/mb/images/icon/telegram.png' %}" alt="" /></a>
+            {% if messanger_header %} {% for mes in messanger_header %}
+            <a href="{{ mes.link }}"> <img src="{{ mes.icon.url }}" alt="{{ mes.name }}" title="{{ mes.name }}" /></a>
+            {% endfor %} {% endif %} {% if user.is_authenticated %}
+            <a href="{% url 'user:profile' %}" class="top-header__login">
+              <img src="{% static 'theme/mb/images/icon/i-login.svg' %}" alt="" />
+              <span>Личный кабинет</span>
+            </a>
+            {% else %}
             <a href="{% url 'user:login' %}" class="top-header__login">
               <img src="{% static 'theme/mb/images/icon/i-login.svg' %}" alt="" />
               <span>Войти / Регистрация</span>
             </a>
+            {% endif %}
           </div>
         </div>
       </div>

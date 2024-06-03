@@ -59,6 +59,9 @@ def category(request):
 
 def category_detail(request, slug):
   category = Category.objects.get(slug=slug)
+  print(f"{category.id} -  id category")
+  print(f"{category.parent} -  parent category")
+  
   products = Product.objects.filter(category=category).order_by('price')
   groups = CharGroup.objects.all()
   
@@ -80,7 +83,7 @@ def category_detail(request, slug):
     if id_filter:
         products = products.filter(id__in=id_filter)
     
-  products_all = Product.objects.filter(status=True, category_id=category)
+  products_all = Product.objects.filter(status=True, category=category)
   chars_all = ProductChar.objects.filter(parent__in=products_all).distinct()
   char_name = CharName.objects.filter(c_chars__in=chars_all, filter_add=True).exclude(filter_name=None).distinct()
   

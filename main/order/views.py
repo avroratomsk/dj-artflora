@@ -1,14 +1,14 @@
 from django.db import transaction
 from django.forms import ValidationError
 from django.contrib import messages
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from cart.models import Cart
 from payment.alfabank import create_payment, get_status
 from .email_send import email_send
 from order.models import Order, OrderItem
 from order.forms import CreateOrderForm
 from django.contrib.auth.decorators import login_required
-from shop.models import ShopSettings
+from shop.models import Product, ShopSettings
 import logging
 logger = logging.getLogger(__name__)
 
@@ -178,6 +178,26 @@ def order_success(request):
       order.paid = True
       order.save()
       return redirect("/?order=True")
+from django.db.models import Sum
+
+def buy_now(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    order = Order.objects.create(user=request.user)
+    OrderItem.objects.create(order=order, product=product, price=product.price, quantity=1)
+    order.total_price = order.items.aggregate(total=Sum('price'))['total'] or 0
+    order.save()
+    return redirect('checkout', order_id=order.id)
+  
+def checkout(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    if request.method == 'POST':
+        form = CreateOrderForm(request.POST, instance=order)
+        if form.is_valid():
+            order.save()
+            return redirect('order_success', order_id=order.id)
+    else:
+        form = CreateOrderForm(instance=order)
+    return render(request, 'pages/orders/checkout.html', {'form': form, 'order': order})
 
 # def order_create(request):
 #   if request.method == 'POST':

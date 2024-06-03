@@ -1,0 +1,51 @@
+{% extends 'admin_base.html' %}{% load static %} {% block body %}
+<div class="page">
+  <div class="page__inner">
+    <form action="." method="POST" class="form" enctype="multipart/form-data">
+      <div class="page__head">
+        <div class="page__head-save">
+          <h1 class="page__title">Страница добавления</h1>
+          <button type="submit" class="form__btn">
+            <img src="{% static 'theme/mb/images/admin/save.svg' %}" alt="" />
+            Сохранить
+          </button>
+        </div>
+        <div class="page__head-tab">
+          <button type="button" data-name="basic" class="page__head-btn _active">Основные</button>
+          <button type="button" data-name="seo" class="page__head-btn">Поля SEO</button>
+          <button type="button" data-name="char" class="page__head-btn">Характеристики</button>
+        </div>
+      </div>
+      {% csrf_token %}
+      <div class="page-content _show" id="basic">
+        <div class="page-content__row">
+          <div class="page-content__onecol">
+            <div class="form__group">
+              <label for="{{ form.name.id_for_label }}" class="form__controls-label"> <span>*</span>Название</label>
+              {{ form.name }} {{ form.name.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.link.id_for_label }}" class="form__controls-label">Ссылка</label>
+              {{ form.link }} {{ form.link.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.icon.id_for_label }}" class="form__controls-label">Иконка</label>
+              {{ form.icon }} {{ form.icon.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.header_view.id_for_label }}" class="form__controls-label">Отображать в шапке сайта ? </label>
+              {{ form.header_view }} {{ form.header_view.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.footer_view.id_for_label }}" class="form__controls-label">Отображать в подвале сайта ? </label>
+              {{ form.footer_view }} {{ form.footer_view.errors }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="select-hide" id="select-hide" style="opacity: 0; position: absolute">{{ option_form.type }} {{ product_char_form.char_name }}</div>
+  </div>
+</div>
+
+{% endblock %}

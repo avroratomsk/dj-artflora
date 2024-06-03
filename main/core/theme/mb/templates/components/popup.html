@@ -27,7 +27,7 @@
     <h3 class="popup__title">Перезвоните мне</h3>
     <button type="button" class="popup__close close-btn"></button>
     <form action="{% url 'callback' %}" class="popup__form form" method="POST">
-      {% csrf_token %} {{ form.name }} {{ form.phone }} {{ form.message }}
+      {% csrf_token %} {{ form.name }} {{ form.phone }}
       <button type="submit" class="form__submit">Отправить</button>
     </form>
   </div>

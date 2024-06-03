@@ -139,3 +139,5 @@ def stock_detail(request, slug):
     }
     
     return render(request, "pages/stock/stock_detail.html", context)
+
+

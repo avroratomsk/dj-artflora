@@ -10,6 +10,10 @@
           <div class="page-edit__item _show">
             <div class="page-edit__form">
               <div class="form__group">
+                <label for="{{ form.parent.id_for_label }}" class="form__controls-label">Родительская категория <span>:</span></label>
+                {{ form.parent }} {{ form.parent.errors }}
+              </div>
+              <div class="form__group">
                 <label for="{{ form.name.id_for_label }}" class="form__controls-label"><span>*</span>Название категории <span>:</span></label>
                 {{ form.name }} {{ form.name.errors }}
               </div>

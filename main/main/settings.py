@@ -59,6 +59,8 @@ TEMPLATES = [
                 "home.context_processors.slider_category",
                 "home.context_processors.callback",
                 "home.context_processors.reviews",
+                "home.context_processors.messanger_header",
+                "home.context_processors.messanger_footer",
             ],
         },
     },

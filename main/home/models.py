@@ -40,10 +40,17 @@ class Stock(models.Model):
   validity = models.DateTimeField(blank=True, null=True, help_text="После окончания акции, она перейдет в состояние не активна", verbose_name="Срок дейстия акции")
   status = models.BooleanField(default=True, verbose_name="Статус публикации")
   image = models.ImageField(upload_to="stock", null=True, blank=True, verbose_name="ФОтография акции")
-  slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
+  slug = models.SlugField(max_length=200, blank=True, null=True, verbose_name="URL")
   meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="Мета заголовок")
   meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
 
   def get_absolute_url(self):
       return reverse("stock_detail", kwargs={"slug": self.slug})
+    
+class Messanger(models.Model):
+  name = models.CharField(max_length=250, unique=True, default="Null", verbose_name="Название соц.сети")
+  link = models.CharField(max_length=250, default="Null", verbose_name="Ссылка на соц.сеть")
+  icon = models.ImageField(upload_to="messanger", default="Null", verbose_name="Иконка соц.сети")
+  header_view = models.BooleanField(default=False, verbose_name="Отображать в шапке")
+  footer_view = models.BooleanField(default=False, verbose_name="Отображать в подвале")

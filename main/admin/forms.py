@@ -1,5 +1,5 @@
 from django import forms
-from home.models import BaseSettings, HomeTemplate, SliderHome, Stock
+from home.models import BaseSettings, HomeTemplate, Messanger, SliderHome, Stock
 from service.models import Service
 from reviews.models import Reviews
 from shop.models import Category, CharGroup, CharName, Product, ProductChar, ProductImage, ShopSettings
@@ -188,10 +188,7 @@ class ProductForm(forms.ModelForm):
                 "id": "slug"
                 # 'placeholder': 'SEO URL',
             }),
-            'category': forms.Select(attrs={
-                'class': 'form__controls', 
-                # 'placeholder': 'Категория',
-            }),
+            'category': forms.CheckboxSelectMultiple,
             'weight': forms.TextInput(attrs={
                 'class': 'form__controls',
                 # 'placeholder': 'Грамовка',
@@ -764,4 +761,31 @@ class ShopSettingsForm(forms.ModelForm):
             'delivery': forms.NumberInput(attrs={
                 'class': 'form__controls',
             }),
+        }
+        
+        
+class MessangerForm(forms.ModelForm):
+    """ Form, отвечает за создание товара и редактирование товара"""
+    # description = forms.CharField(label='Описание производителя', required=False, widget=CKEditorUploadingWidget)
+    # description = forms.CharField(widget=TinyMCE())
+    class Meta:
+        model = Messanger
+        fields = "__all__"
+        widgets = {
+            # 'meta_h1': forms.TextInput(attrs={
+            #     'class': 'form__controls',
+            # }),
+            # 'meta_title': forms.TextInput(attrs={
+            #     'class': 'form__controls',
+            # }),
+            # 'meta_description': forms.Textarea(attrs={
+            #     'class': 'form__controls',
+            #     "id": "meta_description"
+            # }),
+            # 'meta_keywords': forms.TextInput(attrs={
+            #     'class': 'form__controls',
+            # }),
+            # 'delivery': forms.NumberInput(attrs={
+            #     'class': 'form__controls',
+            # }),
         }

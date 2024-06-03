@@ -1,4 +1,4 @@
-from home.models import BaseSettings 
+from home.models import BaseSettings, Messanger 
 from home.forms import CallbackForm
 from reviews.models import Reviews
 from shop.models import Category, Product
@@ -23,3 +23,9 @@ def category(request):
 
 def reviews(request):
     return {"reviews": Reviews.objects.filter(status=True)}
+
+def messanger_header(request):
+    return {"messanger_header": Messanger.objects.filter(header_view=True)}
+
+def messanger_footer(request):
+    return {"messanger_footer": Messanger.objects.filter(footer_view=True)}

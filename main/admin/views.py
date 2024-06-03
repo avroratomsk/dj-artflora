@@ -4,8 +4,8 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import CategoryForm, CharGroupForm, CharNameForm, GlobalSettingsForm, HomeTemplateForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, ShopSettingsForm, SliderForm, StockForm, UploadFileForm
-from home.models import BaseSettings, HomeTemplate, SliderHome, Stock
+from admin.forms import CategoryForm, CharGroupForm, CharNameForm, GlobalSettingsForm, HomeTemplateForm, MessangerForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, ShopSettingsForm, SliderForm, StockForm, UploadFileForm
+from home.models import BaseSettings, HomeTemplate, Messanger, SliderHome, Stock
 from main.settings import BASE_DIR
 from service.models import Service
 from reviews.models import Reviews
@@ -36,7 +36,7 @@ def admin_settings(request):
   except:
     settings = BaseSettings()
     settings.save()
-  
+    
   if request.method == "POST":
     form_new = GlobalSettingsForm(request.POST, request.FILES, instance=settings)
     if form_new.is_valid():
@@ -49,13 +49,61 @@ def admin_settings(request):
   settings = BaseSettings.objects.get()
 
   form = GlobalSettingsForm(instance=settings)
+  
   context = {
     "form": form,
-    "settings":settings
+    "settings":settings,
   }  
 
   return render(request, "settings/general_settings.html", context)
 
+def admin_messanger(request):
+  messanger = Messanger.objects.all().order_by('name')
+  
+  context = {
+    "messangers": messanger
+  }
+  return render(request, "settings/messanger.html", context)
+
+def messanger_add(request):
+  form = MessangerForm()
+  
+  if request.method == "POST":
+    form_new = MessangerForm(request.POST, request.FILES)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect('messanger')
+    else:
+      return render(request, "settings/messanger_add.html", {"form": form_new})
+    
+  context = {
+    "form": form,
+  }
+  
+  return render(request, "settings/messanger_add.html", context)
+
+def messanger_edit(request, pk):
+  messanger = Messanger.objects.get(id=pk)
+  form = MessangerForm(instance=messanger)
+  
+  form_new = MessangerForm(request.POST, request.FILES, instance=messanger)
+  if request.method == "POST":
+    if form_new.is_valid():
+      form_new.save()
+      return redirect('messanger')
+    else:
+      return render(request, "settings/messanger_edit.html", {"form": form_new})
+    
+  context = {
+    "form": form,
+  }
+  
+  return render(request, "settings/messanger_edit.html", context)
+
+def messanger_delete(request, pk):
+  messanger = Messanger.objects.get(id=pk)
+  messanger.delete()
+  return redirect('messanger')
 
 def admin_shop(request):
   try:

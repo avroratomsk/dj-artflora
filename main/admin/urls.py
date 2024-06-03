@@ -77,4 +77,8 @@ urlpatterns = [
     
     #URl - Шаблон общих настроек сайта
     path('settings/', views.admin_settings, name='admin_settings'),
+    path('messanger/', views.admin_messanger, name='messanger'),
+    path('messanger/add/', views.messanger_add, name='messanger_add'),
+    path('messanger/edit/<int:pk>/', views.messanger_edit, name='messanger_edit'),
+    path('messanger/delete/<int:pk>/', views.messanger_delete, name='messanger_delete'),
 ]

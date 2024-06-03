@@ -4,6 +4,7 @@ from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from cart.models import Cart
+from order.models import Order, OrderItem
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
 
 def login(request):
@@ -67,17 +68,24 @@ def register(request):
 
 @login_required
 def profile(request):
+  try:
+    order = Order.objects.get(user=request.user)
+  except:
+    order = None
+  
   if request.method == "POST":
-    form = ProfileForm(data=request.POST, files=request.FILES, instance=request.user,)
+    form = ProfileForm(data=request.POST, files=request.FILES, instance=request.user)
     if form.is_valid():
       form.save()
       messages.success(request, "Профиль успешно обновлен !")
       return HttpResponseRedirect(reverse("profile"))
   else:
     form = ProfileForm(instance=request.user)
+    
   context = {
     "title": "Личный кабинет",
     "form":form,
+    "order": order,
   }
   
   return render(request, 'pages/users/profile.html', context)

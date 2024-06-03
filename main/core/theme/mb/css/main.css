@@ -2259,18 +2259,18 @@ html.lock body::before {
 }
 
 .footer__social {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
   display: block;
   color: rgba(255, 255, 255, 0.6);
   font-size: 16px;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
+}
+
+.footer__socials {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .footer__social:not(:last-child) {
@@ -2882,6 +2882,11 @@ html.lock body::before {
 
 ._hidden {
   display: none !important;
+}
+
+.social-link img {
+  width: 20px;
+  height: 20px;
 }
 
 /*
