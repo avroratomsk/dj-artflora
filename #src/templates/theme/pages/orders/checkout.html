@@ -4,7 +4,7 @@
     <div class="order-create__container">
       <div class="order-create__row">
         <div class="order-create__col">
-          <form action="{% url 'order_create' %}" method="POST" class="form">
+          <form action="." method="POST" class="form">
             <h2 class="order-create__title">Оформление заказа</h2>
             {% csrf_token %}
             <div class="form__item">
@@ -61,8 +61,7 @@
             <div class="form__item">
               <p class="form__item-title">Адрес доставки</p>
               <div class="form__group" id="id_delivery_address">
-                <input required type="text" data-zones="true" data-city="Иркутск" class="form__controls" placeholder="Улица, дом" id="suggest" name="id_delivery_address" />
-                <div id="addressError" class="address-error"></div>
+                <input type="text" class="form__controls" placeholder="Улица, дом" name="id_delivery_address" />
               </div>
               <div class="form__group-boolean">
                 <input type="checkbox" name="pickup" id="pickup" class="form__controls-checkbox" />

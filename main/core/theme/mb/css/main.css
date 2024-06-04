@@ -4006,7 +4006,8 @@ html.lock body::before {
   margin-bottom: 20px;
 }
 
-.profile__title {
+.profile__title,
+.profile .section__title {
   text-align: center;
   margin-bottom: 40px;
 }
@@ -4507,6 +4508,10 @@ html.lock body::before {
 
 .mini-cart__close::after {
   transform: rotate(45deg);
+}
+
+.mini-cart_noempty {
+  height: 100%;
 }
 
 .mini-cart__title {

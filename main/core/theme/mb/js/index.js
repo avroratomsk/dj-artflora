@@ -207,7 +207,6 @@ if (pickupCheckbox) {
   pickupCheckbox.addEventListener('change', function (e) {
     if (e.target.checked) {
       let sd = parseInt(document.getElementById('order-delivery').innerText);
-      console.log(sd);
       $.get("/cart/set_delivery/0/", function () {
         document.getElementById('id_delivery_address').style.display = 'none';
         document.getElementById('suggest').required = false;
@@ -403,7 +402,7 @@ $(document).on("click", ".remove-from-cart", function (e) {
       $("#show-cart span").text(cartCount);
       if (cartCount == 0) {
         // $('#show-cart .no-empty').remove();
-        $('#mini-cart_noempty').html('<div class="mini-cart__empty"><p class="mini-cart__empty-text">Пусто</p><a href="{% url "category" %}"class="mini-cart__empty-link">Перейти в каталог</a></div>')
+        $('#mini-cart_noempty').html('<div class="mini-cart__empty"><p class="mini-cart__empty-text">Пусто</p><a href="/category/"class="mini-cart__empty-link">Перейти в каталог</a></div>')
         // $('#mini-cart .mini-cart__links').remove()
       }
       // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)

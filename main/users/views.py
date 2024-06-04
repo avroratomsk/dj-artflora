@@ -68,11 +68,9 @@ def register(request):
 
 @login_required
 def profile(request):
-  try:
-    order = Order.objects.get(user=request.user)
-  except:
-    order = None
-  
+  if request.user.is_authenticated:
+    order = Order.objects.filter(user_id=request.user.id).prefetch_related('items')
+    
   if request.method == "POST":
     form = ProfileForm(data=request.POST, files=request.FILES, instance=request.user)
     if form.is_valid():
@@ -85,7 +83,7 @@ def profile(request):
   context = {
     "title": "Личный кабинет",
     "form":form,
-    "order": order,
+    "orders": order,
   }
   
   return render(request, 'pages/users/profile.html', context)

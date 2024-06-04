@@ -1,9 +1,9 @@
 {% extends "base.html" %} {% load shop_tags %} {% load static %}{% block content %}
 <main>
-  <section class="profile">
+  <section class="profile section">
     <div class="profile__container">
       <div class="profile__inner">
-        <h1 class="profile__title _title-h2">Профиль пользователя</h1>
+        <h1 class="section__title ff">Профиль пользователя</h1>
         <div class="profile__row">
           <div class="profile__col">
 
@@ -39,13 +39,13 @@
             </form>
           </div>
           <div class="profile__col">
-            {% if order %}
+            {% if orders %}
             <div class="profile__order">
               <h2 class="profile__title-h2 _title-h2">Мои заказы</h2>
-              
+              {% for order in orders %}
               <div class="profile__item">
                 <div class="profile__item-header">
-                  Заказ №{{ order.payment_id }} - {{ order.created_timestamp }} <span>|</span> Статус:<strong class="process">{{ order.is_paid }}</strong>
+                  Заказ №{{ order.id }} - {{ order.created_timestamp }}
                 </div>
                 <div class="profile__item-body">
                   <table class="profile__table">
@@ -54,27 +54,33 @@
                         <th>Товар</th>
                         <th>Количество</th>
                         <th>Цена</th>
-                        {% comment %} <th>Общая стоимость</th> {% endcomment %}
+                        <th>Общая стоимость</th>
                       </tr>
                     </thead>
                     <tbody>
                       {% for item in order.items.all %}
                       <tr>
-                        <td><a class="profile__item-link" href="{{ item.get_absolute_url }}">{{ item.name }}</a></td>
+                        <td><a class="profile__item-link" href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a></td>
                         <td>Количество: {{ item.quantity }}</td>
                         <td>Цена: {{ item.price }}</td>
+                        <td>Общая стоимость:</td>
                       </tr>
                       {% endfor %}
                     </tbody>
                   </table>
                 </div>
               </div>
+              {% endfor %}
+
             </div>
+{% comment %} 
             <div class="profile__total-sum">
               <p><b>Итоговая сумма</b><span>:</span> 255.00 руб.</p>
-            </div>
+            </div> {% endcomment %}
             {% else %}
-            нет заказов
+            <div class="empty-info">
+              <p>Товары на данной странице отсутсвуют</p>
+            </div>
             {% endif %}
           </div>
         </div>

@@ -82,7 +82,7 @@
               <div class="card-section__content">
                 <p class="card-section__price">{{ product.price }} руб</p>
                 <div class="card-section__bottom">
-                  <a href="{% url 'buy_now' product.id %}" class="add-one-click">Купить в один клик</a>
+                  <a href="{% url 'buy_now' product.id %}">Купить в один клик</a>
                   <div class="card-section__action">
                     <a href="{% url 'cart_add' %}" class="card__cart add-to-cart" data-product-id="{{ product.id }}">
                       {% csrf_token %}

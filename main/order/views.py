@@ -178,26 +178,57 @@ def order_success(request):
       order.paid = True
       order.save()
       return redirect("/?order=True")
-from django.db.models import Sum
 
 def buy_now(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    order = Order.objects.create(user=request.user)
-    OrderItem.objects.create(order=order, product=product, price=product.price, quantity=1)
-    order.total_price = order.items.aggregate(total=Sum('price'))['total'] or 0
-    order.save()
-    return redirect('checkout', order_id=order.id)
-  
-def checkout(request, order_id):
-    order = get_object_or_404(Order, id=order_id, user=request.user)
-    if request.method == 'POST':
-        form = CreateOrderForm(request.POST, instance=order)
+    form = CreateOrderForm(request.POST or None)
+    delivery = ShopSettings.objects.get()
+
+    if request.method == "POST":
+        payment_method = request.POST['payment_option']
         if form.is_valid():
-            order.save()
-            return redirect('order_success', order_id=order.id)
-    else:
-        form = CreateOrderForm(instance=order)
-    return render(request, 'pages/orders/checkout.html', {'form': form, 'order': order})
+            try:
+                order = form.save(commit=False)
+                order.user = request.user if request.user.is_authenticated else None
+                order.first_name = request.POST.get('first_name', '')
+                order.email = request.POST.get('email', '')
+                order.phone = request.POST.get('phone', '')
+                order.delivery_address = request.POST.get('delivery_address', '')
+                order.pay_method = payment_method
+                order.save()
+
+                order_item = OrderItem.objects.create(
+                    order=order,
+                    product=product,
+                    name=product.name,
+                    price=product.price,
+                    quantity=1
+                )
+
+                if payment_method == "На сайте картой":
+                    data = create_payment(order_item, [order_item], request)
+                    payment_id = data["id"]
+                    confirmation_url = data["confirmation_url"]
+                    order.payment_id = payment_id
+                    order.payment_dop_info = confirmation_url
+                    order.save()
+                    return redirect(confirmation_url)
+                else:
+                    email_send(order)
+                    return redirect('order_succes')
+            except Exception as e:
+                print(e)
+
+    context = {
+        'title': 'Покупка в один клик',
+        'order_form': form,
+        'product': product,
+        'delivery': delivery.delivery
+    }
+
+    return render(request, "pages/orders/checkout.html", context)
+
+
 
 # def order_create(request):
 #   if request.method == 'POST':

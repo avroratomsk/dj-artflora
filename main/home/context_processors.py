@@ -13,7 +13,7 @@ def menus(request):
     return {"menus_pr": Product.objects.all()}
 
 def callback(request):
-    return {"form": CallbackForm()}
+    return {"callback_form": CallbackForm()}
 
 def slider_category(request):
     return {"slider_category": Category.objects.filter(first_block_home=True)[:2]}
