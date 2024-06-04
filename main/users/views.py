@@ -46,7 +46,6 @@ def login(request):
 def register(request):
   if request.method == "POST":
     form = UserRegistrationForm(data=request.POST)
-    print(form)
     if form.is_valid:
       form.save()
       session_key = request.session.session_key
@@ -54,7 +53,6 @@ def register(request):
       auth.login(request, user)
       if session_key:
         Cart.objects.filter(session_key=session_key).update(user=user)
-      messages.success(request, f"{user.username}, Вы успешно зарегистрировались и вошли в аккаунт")
       return HttpResponseRedirect(reverse("home"))
   else:
     form = UserRegistrationForm()
@@ -75,7 +73,6 @@ def profile(request):
     form = ProfileForm(data=request.POST, files=request.FILES, instance=request.user)
     if form.is_valid():
       form.save()
-      messages.success(request, "Профиль успешно обновлен !")
       return HttpResponseRedirect(reverse("profile"))
   else:
     form = ProfileForm(instance=request.user)
