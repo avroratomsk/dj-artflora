@@ -7,6 +7,7 @@ from main import settings
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('about/', include('home.urls')),
+    path('coupons/', include('coupons.urls')),
     path('category/', include('shop.urls')),
     path('service/', include('service.urls')),
     path('user/', include('users.urls')),

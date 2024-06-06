@@ -3,6 +3,7 @@ from django.template.loader import render_to_string
 from django.shortcuts import redirect, render
 from cart.models import Cart
 from cart.utils import get_user_carts
+from coupons.models import Coupon
 from shop.models import Product
 
 

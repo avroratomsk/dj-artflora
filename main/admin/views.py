@@ -4,8 +4,9 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import CategoryForm, CharGroupForm, CharNameForm, GlobalSettingsForm, HomeTemplateForm, MessangerForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, ShopSettingsForm, SliderForm, StockForm, UploadFileForm
+from admin.forms import CategoryForm, CharGroupForm, CharNameForm, CouponForm, GlobalSettingsForm, HomeTemplateForm, MessangerForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, ShopSettingsForm, SliderForm, StockForm, UploadFileForm
 from home.models import BaseSettings, HomeTemplate, Messanger, SliderHome, Stock
+from coupons.models import Coupon
 from main.settings import BASE_DIR
 from service.models import Service
 from reviews.models import Reviews
@@ -808,3 +809,58 @@ def service_delete(request, pk):
   service = Service.objects.get(id=pk)
   service.delete()
   return redirect("admin_service")
+
+
+# !!! МАРКЕТИНГ !!!
+# Промокоды
+
+def admin_promo(request):
+    coupons = Coupon.objects.all()
+    context = {
+        'coupons': coupons
+    }
+
+    return render(request, 'marketing/promo.html', context)
+
+
+def promo_add(request):
+    if request.method == 'POST':
+        form = CouponForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('admin_promo')
+
+    form = CouponForm()
+    context = {
+        'form': form
+    }
+
+    return render(request, 'marketing/promo_add.html', context)
+
+def promo_edit(request, pk):
+    coupon = Coupon.objects.get(id=pk)
+
+    if request.method == 'POST':
+        form = CouponForm(request.POST, instance=coupon)
+        if form.is_valid():
+            form.save()
+
+            return redirect('admin_promo')
+
+        else:
+            return render(request, 'marketing/promo_edit.html', {'form':form})
+
+    form = CouponForm(instance=coupon)
+    context = {
+        'form': form,
+        'coupon': coupon,
+    }
+
+    return render(request, 'marketing/promo_edit.html', context)
+
+
+def promo_delete(request, pk):
+    coupon = Coupon.objects.get(id=pk)
+    coupon.delete()
+    return redirect('admin_promo')
+

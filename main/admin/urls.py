@@ -81,4 +81,9 @@ urlpatterns = [
     path('messanger/add/', views.messanger_add, name='messanger_add'),
     path('messanger/edit/<int:pk>/', views.messanger_edit, name='messanger_edit'),
     path('messanger/delete/<int:pk>/', views.messanger_delete, name='messanger_delete'),
+    
+    path('promo/', views.admin_promo, name='admin_promo'),
+    path('promo/add/', views.promo_add, name='promo_add'),
+    path('promo/edit/<int:pk>/', views.promo_edit, name='promo_edit'),
+    path('promo/delete/<int:pk>/', views.promo_delete, name='promo_delete'),
 ]

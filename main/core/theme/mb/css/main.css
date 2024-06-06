@@ -4144,7 +4144,7 @@ html.lock body::before {
 }
 
 .order-create__information {
-  padding: 65px 25px 25px;
+  padding: 0px 25px 25px;
 }
 
 .order-create__title {
@@ -4190,8 +4190,17 @@ html.lock body::before {
   font-weight: 600;
 }
 
-.order-create__promocod {
+.order-create__promocode {
   margin-top: 30px;
+  padding: 0px 25px;
+}
+
+.order-create__promocode p {
+  color: #b25f68;
+}
+
+.order-create #order-create__promocode-error {
+  display: none;
 }
 
 .order-create__total {

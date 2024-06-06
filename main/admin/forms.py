@@ -1,5 +1,6 @@
 from django import forms
 from home.models import BaseSettings, HomeTemplate, Messanger, SliderHome, Stock
+from coupons.models import Coupon
 from service.models import Service
 from reviews.models import Reviews
 from shop.models import Category, CharGroup, CharName, Product, ProductChar, ProductImage, ShopSettings
@@ -7,27 +8,7 @@ from shop.models import Category, CharGroup, CharName, Product, ProductChar, Pro
 class UploadFileForm(forms.Form):
     file = forms.FileField()
 
-# class ProductForm(forms.ModelForm):
-#   # description = forms.CharField(label="Полное описание товара", required=False, widget=CKEditorUploadingWidget())
-#   class Meta:
-#     model = Product
-#     fields = (
-#       "name", 
-#       "short_description",
-#       "description",
-#       "meta_h1",
-#       "meta_title",
-#       "meta_description",
-#       "meta_keywords",
-#       "slug",
-#       "price",
-#       "discount",
-#       "quantity",
-#       "category",
-#       "day",
-#       "subsidiary",
-#       "weight",
-#       )
+
 class GlobalSettingsForm(forms.ModelForm):
   """ Form, глобальные и общие настройки сайта(лого, телефон, email)"""
   # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
@@ -35,12 +16,10 @@ class GlobalSettingsForm(forms.ModelForm):
     model = BaseSettings
     fields = [
         'logo',
-        'phone_one',
-        'phone_two',
+        'phone',
         'time_work',
         'email',
-        'address_one',
-        'address_two',
+        'address',
         'meta_h1',
         'meta_title',
         'meta_description',
@@ -60,13 +39,7 @@ class GlobalSettingsForm(forms.ModelForm):
         'meta_keywords':'Meta keywords',
     }
     widgets = {
-        'phone_one': forms.TextInput(attrs={
-            'class': 'form__controls'
-        }),
-        'phone_one': forms.TextInput(attrs={
-            'class': 'form__controls'
-        }),
-        'phone_two': forms.TextInput(attrs={
+        'phone': forms.TextInput(attrs={
             'class': 'form__controls'
         }),
         'time_work': forms.TextInput(attrs={
@@ -75,10 +48,7 @@ class GlobalSettingsForm(forms.ModelForm):
         'email': forms.EmailInput(attrs={
             'class': 'form__controls'
         }),
-        'address_one': forms.TextInput(attrs={
-            'class': 'form__controls'
-        }),
-        'address_two': forms.TextInput(attrs={
+        'address': forms.TextInput(attrs={
             'class': 'form__controls'
         }),
         'meta_h1': forms.TextInput(attrs={
@@ -261,7 +231,6 @@ class CharGroupForm(forms.ModelForm):
             }),
         }
 
-
 class CharNameForm(forms.ModelForm):
   class Meta:
     model = CharName
@@ -298,34 +267,6 @@ class CharNameForm(forms.ModelForm):
             'class': 'form__controls',
         }),
     }
-
-# class CharName(forms.ModelForm):
-#   class
-
-# class ProductCharForm(forms.ModelForm):
-#   class Meta:
-#       model = ProductSpecification
-#       fields = [
-#           'name',
-#           'value',
-#       ]
-#       labels = {
-#           'name': 'Название характеристики',
-#           'value': 'Значение',
-#       }
-#       widgets = {
-#           'name': forms.TextInput(attrs={
-#               'class': 'form__controls',
-#               'placeholder': 'Название характеристики',
-#               'id': 'id_char_name',
-              
-#           }),
-#           'value': forms.TextInput(attrs={
-#               'class': 'form__controls',
-#               'placeholder': 'Значение',
-#               'id': 'id_char_value'
-#           }),
-#       }
 
 class CategoryForm(forms.ModelForm):
   """ Form, отвечает за создание категорий и редактирование категорий"""
@@ -405,63 +346,6 @@ class CategoryForm(forms.ModelForm):
         # "placeholder": "Meta keywords"
       }),  
     }
-    
-# class DayForm(forms.ModelForm):
-#   """ Form, отвечает за создание дней и редактирование дней"""
-#   class Meta:
-#     model = Day
-#     fields = [
-#       "name",
-#       "slug"
-#     ]
-#     labels = {
-#       "name": "Назване категории",
-#       "slug": "URL",
-#     }
-#     widgets = {
-#       "name": forms.TextInput(attrs={
-#           "class": "form__controls",
-#           "id":"name"
-#           # "placeholder": "Название  категории"
-#       }),
-#       "slug": forms.TextInput(attrs={
-#         "class":"form__controls",
-#         "id": "slug"
-#         # "placeholder": "Название категори"
-#       })
-#     }
-    
-# class FillialForm(forms.ModelForm):
-#   """ Form, отвечает за добавление филлиала и редактирование филлиала"""
-#   class Meta:
-#     model = Subsidiary
-#     fields = [
-#       "name",
-#       "address_fillial",
-#       "image",
-#       "slug"
-#     ]
-#     labels = {
-#       "name": "Название филлиала",
-#       "address_fillial": "Адрес филлиала",
-#       "image": "Фотография зала",
-#       "slug": "URL",
-#     }
-#     widgets = {
-#       "name": forms.TextInput(attrs={
-#           "class": "form__controls",
-#           "id":"name"
-#       }),
-#       "address_fillial": forms.TextInput(attrs={
-#           "class": "form__controls",
-#           "id":"name",
-#           "placeholder": "г.Томск, ул.Ленина 111"
-#       }),
-#       "slug": forms.TextInput(attrs={
-#         "class":"form__controls",
-#         "id": "slug"
-#       })
-#     }
     
 class HomeTemplateForm(forms.ModelForm):
   """ Form, редактирование главной страницы"""
@@ -762,8 +646,7 @@ class ShopSettingsForm(forms.ModelForm):
                 'class': 'form__controls',
             }),
         }
-        
-        
+              
 class MessangerForm(forms.ModelForm):
     """ Form, отвечает за создание товара и редактирование товара"""
     # description = forms.CharField(label='Описание производителя', required=False, widget=CKEditorUploadingWidget)
@@ -788,4 +671,29 @@ class MessangerForm(forms.ModelForm):
             # 'delivery': forms.NumberInput(attrs={
             #     'class': 'form__controls',
             # }),
+        }
+             
+class CouponForm(forms.ModelForm):
+    class Meta:
+        model = Coupon
+        fields = "__all__"
+        widgets = {
+            'code': forms.TextInput(attrs={
+                'class': 'form__controls',
+                'placeholder': 'Код купона',
+            }),
+            'valid_from': forms.DateInput(attrs={
+                'class': 'input',
+                'type': 'date',
+                
+            }),
+            'valid_to': forms.DateInput(attrs={
+                'class': 'input',
+                'type': 'date',
+                
+            }),
+            'discount': forms.NumberInput(attrs={
+                'class': 'form__controls',
+                'placeholder': 'Скидка',
+            }),
         }

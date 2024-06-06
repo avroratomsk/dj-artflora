@@ -18,12 +18,17 @@ def create_payment(order, cart, request):
     failUrl = "http://" + request.META["HTTP_HOST"] + "/orders/error/"
     
     isDelivery = request.session.get('delivery')
-    print(isDelivery)
     if isDelivery == 1:
       delivery = request.session.get('delivery_summ')
       delivery = int("{0:.2f}".format(delivery).replace('.',''))
     else: 
       delivery = 0
+    
+    isCoupon = request.session.get('coupon_code')
+    if isCoupon:
+        print(isCoupon)
+    else:
+        print(isCoupon)
 
     def dec_to_cop(price):
         res = str(round(price, 2))

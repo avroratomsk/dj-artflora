@@ -12,14 +12,20 @@ from shop.models import Product, ShopSettings
 import logging
 logger = logging.getLogger(__name__)
 
+from coupons.models import Coupon
+
 def order(request):
   ...
-  
+
+
+
 def order_create(request):
   form = CreateOrderForm(request.POST)
   
   # Получаем стоимость минимальной доставки
+  coupon = request.session.get('coupon_id')
   delivery = ShopSettings.objects.get()
+  # cart_coupon = Cart.objects.get(coupon=coupon)
   # request.session['delivery'] = 1
   if request.method == "POST":
     """Получаем способ оплаты и в зависимости от метода оплаты строим логику ниже"""

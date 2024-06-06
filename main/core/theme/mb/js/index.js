@@ -655,6 +655,37 @@ if (oneClickOrderBtn) {
   })
 }
 
+applyCoupon()
+
+async function applyCoupon() {
+  const couponCode = document.getElementById('code').value;
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+  const response = await fetch('/coupons/apply-to/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken
+    },
+    body: JSON.stringify({ couponCode })
+  });
+
+  const data = await response.json();
+
+  if (data.valid) {
+    alert(data.message)
+    totalSum = document.getElementById('order-total').innerText;
+    totalSum = parseInt(totalSum);
+    persent = data.coupon_discount
+
+    let discount = totalSum - ((totalSum * 10) / 100)
+    document.getElementById('order-total').innerText = discount;
+
+  } else {
+    alert('Купон недействителен');
+  }
+}
+
 
 
 

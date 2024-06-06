@@ -17,15 +17,8 @@
               {{ form.logo }} {{ form.logo.errors }}
             </div>
             <div class="form__group">
-              <label for="{{ form.phone_one.id_for_label }}" class="form__controls-label">
-                <span>*</span>
-                Телефон<span>(пролетарская):</span>
-              </label>
-              {{ form.phone_one }} {{ form.phone_one.errors }}
-            </div>
-            <div class="form__group">
-              <label for="{{ form.phone_two.id_for_label }}" class="form__controls-label">Телефон <span>(Ракетная):</span> </label>
-              {{ form.phone_two }} {{ form.phone_two.errors }}
+              <label for="{{ form.phone.id_for_label }}" class="form__controls-label">Телефон <span>:</span> </label>
+              {{ form.phone }} {{ form.phone.errors }}
             </div>
             <div class="form__group">
               <label for="{{ form.time_work.id_for_label }}" class="form__controls-label">Время работы <span>:</span> </label>
@@ -36,12 +29,8 @@
               {{ form.email }} {{ form.email.errors }}
             </div>
             <div class="form__group">
-              <label for="{{ form.address_one.id_for_label }}" class="form__controls-label">Адрес <span>(Пролетарская):</span> </label>
-              {{ form.address_one }} {{ form.address_one.errors }}
-            </div>
-            <div class="form__group">
-              <label for="{{ form.address_two.id_for_label }}" class="form__controls-label">Адрес<span>(Ракетная):</span> </label>
-              {{ form.address_two }} {{ form.address_two.errors }}
+              <label for="{{ form.address.id_for_label }}" class="form__controls-label">Адрес <span>:</span> </label>
+              {{ form.address }} {{ form.address.errors }}
             </div>
             <div class="form__group">
               <label for="{{ form.meta_h1.id_for_label }}" class="form__controls-label">
