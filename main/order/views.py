@@ -139,7 +139,6 @@ def order_create(request):
   try: 
     coupon_discoint = request.session['coupon_discoint']
   except:
-    print('Тут какого хуя ты вообще блять')
     coupon_discoint = 0
   
   amount_delivery = cart_items.total_price() + delivery
