@@ -34,24 +34,29 @@ def apply_to(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         coupon_code = data.get('couponCode')
-        try:
-            coupon = Coupon.objects.get(code__iexact=coupon_code, valid_from__lte=now, valid_to__gte=now, active=True)
-            if request.user.is_authenticated:
-                cart = Cart.objects.filter(user=request.user)
-                print(cart.coupon)
-            else:
-                cart = Cart.objects.filter(session_key=request.session.session_key)
+        coupons = request.session.get('coupon_code', None)
+        if coupon_code == coupons:
+            return JsonResponse({'valid': True, 'message': 'Купон уже применен', 'coupon_discount': coupon.discount, 'status': 0})
+        else:
+            try:
+                coupon = Coupon.objects.get(code__iexact=coupon_code, valid_from__lte=now, valid_to__gte=now, active=True)         
+                # if coupon.valid_to < datetime.now() or not coupon.active:
+                #     return JsonResponse({'valid': False, 'message': 'Купон недействителен или срок действия истек'})
                 
-            # if coupon.valid_to < datetime.now() or not coupon.active:
-            #     return JsonResponse({'valid': False, 'message': 'Купон недействителен или срок действия истек'})
-            
-            # Сохраняем купон в сессию
-            
-            request.session['coupon_id'] = coupon.id
+                # Сохраняем купон в сессию
+                request.session['coupon_discoint'] = coupon.discount
+                request.session['coupon_code'] = coupon.code
+                print(coupon.discount)
 
-            return JsonResponse({'valid': True, 'message': 'Купон успешно применен', 'coupon_discount': coupon.discount})
-        
-        except Coupon.DoesNotExist:
-            return JsonResponse({'valid': False, 'message': 'Купон не найден'})
+                return JsonResponse({'valid': True, 'message': 'Купон успешно применен', 'coupon_discount': coupon.discount, 'status': 1})
+            
+            except Coupon.DoesNotExist:
+                return JsonResponse({'valid': False, 'message': 'Купон не найден', 'status': -1})
 
-    return JsonResponse({'valid': False, 'message': 'Неверный метод запроса'})
+    return JsonResponse({'valid': False, 'message': 'Неверный метод запроса', 'status': -1})
+
+def check_coupon_delivery(request):
+    delivery = request.session.get('delivery_summ')
+    coupon_sum = request.session.get('coupon_discoint')
+    
+    return JsonResponse({'delivery': delivery, 'coupon_sum': coupon_sum, 'status': 1})

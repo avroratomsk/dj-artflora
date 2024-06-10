@@ -170,4 +170,19 @@
     font-size: 13px;
     font-weight: 600;
   }
+
+  // .form__row
+  &__row {
+    display: flex;
+    gap: 20px;
+
+    // button {
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: center;
+    //   padding: 15px 30px;
+    //   background-color: rgba($color: $accent, $alpha: 1.0);
+    //   border-radius: 5px;
+    // }
+  }
 }

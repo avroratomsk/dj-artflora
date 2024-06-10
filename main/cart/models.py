@@ -7,23 +7,32 @@ from users.models import User
   product_price() - данный метод находится в таблице Cart
 """
 class CartQuerySet(models.QuerySet):
-  
   def total_price(self):
     summ = sum(cart.products_price() for cart in self)
-    return int(summ)
-  
-  def total_sum(self):
     
-    summ = sum(cart.products_price() for cart in self)
-    delivery_price = ShopSettings.objects.get()
-    price_total = int(summ) + int(delivery_price.delivery)
-    
-    return price_total
+    return summ
   
   def total_quantity(self):
     if self:
       return sum(cart.quantity for cart in self)
     return 0
+  
+  # def total_price(self):
+  #   summ = sum(cart.products_price() for cart in self)
+  #   return int(summ)
+  
+  # def total_sum(self):
+    
+  #   summ = sum(cart.products_price() for cart in self)
+  #   delivery_price = ShopSettings.objects.get()
+  #   price_total = int(summ) + int(delivery_price.delivery)
+    
+  #   return price_total
+  
+  # def total_quantity(self):
+  #   if self:
+  #     return sum(cart.quantity for cart in self)
+  #   return 0
 
 """
   Данная модель создает корзину пользователя,
@@ -36,7 +45,6 @@ class Cart(models.Model):
   quantity = models.PositiveSmallIntegerField(default=0, verbose_name="Количество")
   session_key = models.CharField(max_length=32, null=True, blank=True, verbose_name="ключ сессии если пользователь не авторизован")
   created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата обновления")
-  coupon = models.CharField(max_length=250, null=True, blank=True, verbose_name="Купон для корзины")
   
   class Meta:
     db_table = "cart"

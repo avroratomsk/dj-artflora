@@ -49,7 +49,7 @@
 
   // .order-create__information
   &__information {
-    padding: 65px 25px 25px;
+    padding: 0px 25px 25px;
   }
 
   // .order-create__title
@@ -111,10 +111,19 @@
     }
   }
 
-  // .order-create__promocod
+  // .order-create__promocode
 
-  &__promocod {
+  &__promocode {
     margin-top: 30px;
+    padding: 0px 25px;
+
+    p {
+      color: $accent;
+    }
+  }
+
+  #order-create__promocode-error {
+    display: none;
   }
 
   // .order-create__total

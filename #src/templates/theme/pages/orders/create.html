@@ -96,6 +96,16 @@
         </div>
         <div class="order-create__col">
           <div id="map"></div>
+          <div class="order-create__promocode">
+            <form action="{% url 'apply' %}" class="form" method="POST">
+              {% csrf_token %}
+              <div class="form__row">
+                <input type="text" name="code" id="code" class="form__controls" placeholder="Промокод" />
+                <button type="button" class="form__submit" onclick="applyCoupon()">Применить</button>
+              </div>
+              <p id="order-create__promocode-error">Промокод недействителен</p>
+            </form>
+          </div>
           <div class="order-create__information">
             {% load carts_tag %}{% user_carts request as carts %}
             <p class="order-create__info-order"><span>Информация о заказе</span><span>{{ carts.quantity }}</span></p>
@@ -122,16 +132,15 @@
                   placeholder="Введите промокод" />
               </form>
             </div> -->
-            <div class="order-create__summ"><span>Сумма:</span>
-              <span id="order-sum">{{ cart.total_price }}</span> руб.
+            <div class="order-create__summ"><span>Сумма:</span> <span id="order-sum">{{ cart.total_price }}</span> руб.
             </div>
             <div id="delivery-price">{{ delivery }}</div>
             <div class="order-create__delivery" id="order-delivery-info"><span>Доставка:</span> от <span
-                id="order-delivery">
-                {{ delivery }}</span> руб.
-            </div>
-            <div class="order-create__total"><span>Итого:</span> <span id="order-total">{{ cart.total_sum }}</span>
-              руб.</div>
+                id="order-delivery"> {{ delivery }}</span> руб.</div>
+            {% if discount %}
+            <div class="order-create__delivery"><span>Скидка:</span> <span id="discount"> {{ discount }}%</span></div>
+            {% endif %}
+            <div class="order-create__total"><span>Итого:</span> <span id="order-total">{{ total }}</span> руб.</div>
           </div>
         </div>
       </div>

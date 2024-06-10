@@ -21,12 +21,12 @@ def order(request):
 
 def order_create(request):
   form = CreateOrderForm(request.POST)
+  if request.session.get('delivery_summ'):
+    delivery = request.session.get('delivery_summ')
+  else:
+    delivery = ShopSettings.objects.get().delivery
   
-  # Получаем стоимость минимальной доставки
-  coupon = request.session.get('coupon_id')
-  delivery = ShopSettings.objects.get()
-  # cart_coupon = Cart.objects.get(coupon=coupon)
-  # request.session['delivery'] = 1
+  
   if request.method == "POST":
     """Получаем способ оплаты и в зависимости от метода оплаты строим логику ниже"""
     payment_method = request.POST['payment_option']
@@ -132,15 +132,26 @@ def order_create(request):
       except Exception as e:
         print(e)
   
-  # cart = request.context['cart_my']
   
   session_key = request.session.session_key
   cart_items = Cart.objects.filter(session_key=session_key)
+  
+  try: 
+    coupon_discoint = request.session['coupon_discoint']
+  except:
+    print('Тут какого хуя ты вообще блять')
+    coupon_discoint = 0
+  
+  amount_delivery = cart_items.total_price() + delivery
+  total = amount_delivery - ((amount_delivery * coupon_discoint) / 100)
+  
   context = {
     'title': 'Оформление заказа',
     'orders': True,
+    'discount': coupon_discoint,
     "cart": cart_items,
-    "delivery": delivery.delivery
+    "delivery": delivery,
+    "total": total
   }
       
   return render(request, "pages/orders/create.html", context)

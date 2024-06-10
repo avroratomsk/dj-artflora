@@ -584,16 +584,7 @@ function init() {
                   var sd = parseInt(deliveryPrice);
 
                   $.get("/cart/delivery_summ/" + sd + "/", function () {
-                    // $(".cart__inner").load(location.href + " .cart__refresh");
-
-                    // $(".cart__order-create-wrapper").load(location.href + " .cart__order-create-wrapper-inner");
-                    // $(".header__cart-wrap").load(location.href + " .header__cart");
-                    // $(".cart__deliv-method-wrap").load(location.href + " .cart__deliv-method");
-                    // $(".cart-detail-wrap").load(location.href + " .cart-detail-wrap__refresh");
-                    let summ = document.getElementById('order-sum').innerText;
-                    let total_sum = sd + parseInt(summ)
-                    document.getElementById('order-total').innerText = total_sum;
-                    document.getElementById('order-delivery').innerText = sd;
+                    checkCoupon();
                   });
 
 
@@ -623,7 +614,7 @@ function init() {
                   myMap.geoObjects.add(myGeoObject)
                   $('#finaladress').val($('#suggest').val())
                   myMap.setCenter(obj.geometry._coordinates);
-                  myMap.setZoom(17);
+                  myMap.setZoom(17); ы
                   $('#suggest').css('border-color', 'green');
 
                 } else {
@@ -655,6 +646,84 @@ if (oneClickOrderBtn) {
   })
 }
 
+async function applyCoupon() {
+  const couponCode = document.getElementById('code').value;
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  promocodErrorText = document.getElementById('order-create__promocode-error');
+
+  if (couponCode) {
+    const response = await fetch('/coupons/apply-to/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      },
+      body: JSON.stringify({ couponCode })
+    });
+
+    const data = await response.json();
+    console.log(data.status);
+    if (data.status == 1) {
+
+      promocodErrorText.style.display = "block"
+      promocodErrorText.innerText = "Промокод применился"
+      checkCoupon()
+
+    } else if (data.status == 0) {
+      promocodErrorText = document.getElementById('order-create__promocode-error');
+      promocodErrorText.style.display = 'block';
+      promocodErrorText.innerText = "Применен";
+    } else {
+      promocodErrorText = document.getElementById('order-create__promocode-error');
+      promocodErrorText.style.display = 'block';
+      promocodErrorText.innerText = "Купон не действителен";
+    }
+  }
+}
+
+async function checkCoupon() {
+  promocodErrorText = document.getElementById('order-create__promocode-error');
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+  const response = await fetch('/coupons/check-coupons/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken
+    },
+  });
+
+  const data = await response.json();
+
+  console.log(data);
+
+  /*
+   * Тут изменения которые должны быть визуально применены
+   * смена стоимсоти скидки, и стоимость досткавки
+   */
+
+  let delivery = document.getElementById('order-delivery');
+  let discount = document.getElementById('discount');
+  let summ = parseInt(document.getElementById('order-sum').innerText);
+  let total = document.getElementById('order-total');
+
+  let priceWithShiping = summ + parseInt(data.delivery);
+
+  let totalSum = priceWithShiping - ((priceWithShiping * data.coupon_sum) / 100);
+
+  console.log(`Цена с доставкой - ${priceWithShiping} - ${totalSum} - со скидкой - ${data.delivery} - Доставка - ${data.coupon_sum} - Вот такая скидка`);
+
+
+  delivery.innerText = data.delivery;
+  discount.innerText = data.coupon_sum
+  console.log(data.coupon_discount);
+
+  total.innerText = totalSum
+
+}
+
+
+// checkCoupon()
 
 
 

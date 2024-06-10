@@ -3178,6 +3178,11 @@ html.lock body::before {
   font-weight: 600;
 }
 
+.form__row {
+  display: flex;
+  gap: 20px;
+}
+
 .breadcrumbs {
   display: flex;
   position: relative;
