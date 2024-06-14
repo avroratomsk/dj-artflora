@@ -25,7 +25,7 @@ class Order(models.Model):
   payment_dop_info = models.CharField(max_length=550, verbose_name="Информация о платеже (ссылка на плптеж)", null=True, blank=True)
   pay_method = models.CharField(max_length=250, verbose_name="Способ оплаты", null=True, blank=True)
   is_paid = models.BooleanField(default=False, verbose_name="Оплачено ?")
-  delivery = models.CharField(max_length=250, default="300", null=True, blank=True, verbose_name="Доставка")
+  delivery = models.CharField(max_length=250, null=True, blank=True, verbose_name="Доставка")
   
   ORDER_STATUS = (
     ('Новый', 'Новый'),
@@ -34,7 +34,7 @@ class Order(models.Model):
     ('Выполнен', 'Выполнен'),
     ('Отказ', 'Отказ')
   )
-  models.CharField(max_length=250, verbose_name='Статус заказа', choices=ORDER_STATUS, default='Новый',)
+  order_status = models.CharField(max_length=250, verbose_name='Статус заказа', choices=ORDER_STATUS, default='Новый',)
   
   class Meta:
     db_table="order"

@@ -26,9 +26,19 @@
   <div class="popup__content">
     <h3 class="popup__title">Перезвоните мне</h3>
     <button type="button" class="popup__close close-btn"></button>
-    <form action="{% url 'callback' %}" class="popup__form form" method="POST">
-      {% csrf_token %} {{ callback_form.name }} {{ callback_form.phone }}
+    <form action="{% url 'callback' %}" class="popup__form form" method="POST" id="callback-form">
+      {{ form.as_p }} {% csrf_token %} {{ callback_form.name }} {{ callback_form.phone }}
       <button type="submit" class="form__submit">Отправить</button>
     </form>
+  </div>
+</div>
+
+<div class="popup" id="success">
+  <div class="popup__content">
+    <button type="button" class="popup__close close-btn"></button>
+    <div class="popup__image">
+      <img src="{% static 'theme/mb/images/tick.png' %}" alt="Обратный звонок" title="Обратный звонок">
+    </div>
+    <p class="popup__callback-text ff">Сообщение успешно отправлено</p>
   </div>
 </div>

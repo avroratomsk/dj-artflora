@@ -4804,10 +4804,35 @@ html.lock body::before {
   pointer-events: all !important;
 }
 
+.popup__image {
+  width: 100px;
+  height: auto;
+}
+
+.popup__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.popup__callback-text {
+  font-size: 30px;
+  line-height: 140%;
+  margin-top: 30px;
+}
+
 #order {
   align-items: flex-start;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+#success .popup__content {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .popup__order {

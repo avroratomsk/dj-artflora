@@ -673,6 +673,7 @@ async function applyCoupon() {
       promocodErrorText = document.getElementById('order-create__promocode-error');
       promocodErrorText.style.display = 'block';
       promocodErrorText.innerText = "Применен";
+      // checkCoupon()
     } else {
       promocodErrorText = document.getElementById('order-create__promocode-error');
       promocodErrorText.style.display = 'block';
@@ -682,6 +683,7 @@ async function applyCoupon() {
 }
 
 async function checkCoupon() {
+  console.log("Зашел сюда");
   promocodErrorText = document.getElementById('order-create__promocode-error');
   const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
@@ -694,8 +696,6 @@ async function checkCoupon() {
   });
 
   const data = await response.json();
-
-  console.log(data);
 
   /*
    * Тут изменения которые должны быть визуально применены
@@ -711,12 +711,11 @@ async function checkCoupon() {
 
   let totalSum = priceWithShiping - ((priceWithShiping * data.coupon_sum) / 100);
 
-  console.log(`Цена с доставкой - ${priceWithShiping} - ${totalSum} - со скидкой - ${data.delivery} - Доставка - ${data.coupon_sum} - Вот такая скидка`);
-
+  console.log(`Цена с доставкой - ${priceWithShiping, typeof (priceWithShiping)} - ${totalSum, typeof (totalSum)} - со скидкой - ${data.delivery, typeof (data.delivery)} - Доставка - ${data.coupon_sum, typeof (data.coupon_sum)} - Вот такая скидка`);
 
   delivery.innerText = data.delivery;
-  discount.innerText = data.coupon_sum
-  console.log(data.coupon_discount);
+  discount.innerText = data.coupon_sum;
+  console.log("Тут");
 
   total.innerText = totalSum
 
@@ -724,6 +723,35 @@ async function checkCoupon() {
 
 
 // checkCoupon()
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('callback-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+    const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    fetch(form.action, {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+      body: formData
+    })
+      .then(response => response.json())
+      .then(data => {
+        form.reset();
+        document.getElementById('callback').classList.remove('_open');
+        document.getElementById('success').classList.add('_open');
+      })
+      .catch(error => {
+        console.log(error);
+        // document.getElementById('form-messages').innerHTML = '<p>Произошла ошибка: ' + error + '</p>';
+      });
+  });
+});
 
 
 

@@ -4,7 +4,7 @@ from coupons.models import Coupon
 from service.models import Service
 from reviews.models import Reviews
 from shop.models import Category, CharGroup, CharName, Product, ProductChar, ProductImage, ShopSettings
-
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 class UploadFileForm(forms.Form):
     file = forms.FileField()
 
@@ -67,60 +67,22 @@ class GlobalSettingsForm(forms.ModelForm):
     
 class ProductForm(forms.ModelForm):
     """ Form, отвечает за создание товара и редактирование товара"""
-    # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
-    
+    description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+    # description = RichTextUploadingField()
     class Meta:
         model = Product
-        fields = [
-            'name',
-            'slug',
-            'description',
-            'meta_h1',
-            'meta_title',
-            'meta_description',
-            'meta_keywords',
-            'image',
-            'price',
-            'discount',
-            'sale_price',
-            'quantity_purchase',
-            'quantity',
-            'category',
-            'image',
-            'free_shipping',
-            'status',
-            'latest',
-        ]
-        labels = {
-            'name': 'Название блюда',
-            'slug':'URL',
-            'description':'Полное описание',
-            'meta_h1':'Заголвок первого уровня',
-            'meta_title':'Meta title',
-            'meta_description':'Мета description',
-            'meta_keywords':'Meta keywords',
-            'image':'Изображение',
-            'price':'Цена',
-            'sale_price':'Цена со скидкой',
-            'quantity_purchase':'Количество покупок',
-            'discount':'Скидка в (%)',
-            'quantity':'Количество',
-            'image': 'Превью изображения',
-            'status': 'Статус публикации',
-            'free_shipping': 'Бесплатная доставка',
-            'latest': 'Новинка ?'
-        }
+        fields = "__all__"
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form__controls',
                 "id":"name"
                 # 'placeholder': 'Название товара',
                 
-            }),
-            'description': forms.Textarea(attrs={
-                'class': 'form__controls',
-                # 'placeholder': 'Короткое описание товара',
-            }),
+            }), 
+            # 'description': forms.Textarea(attrs={
+            #     'class': 'form__controls',
+            #     # 'placeholder': 'Короткое описание товара',
+            # }),
             'meta_h1': forms.TextInput(attrs={
                 'class': 'form__controls',
                 # 'placeholder': 'h1',

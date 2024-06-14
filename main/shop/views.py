@@ -128,9 +128,9 @@ def search(request):
   for token in keywords:
     q_objects |= Q(name__icontains=token)
     q_objects |= Q(category__name__icontains=token)
+    q_objects |= Q(char_value__icontains=token)
   
   # char_product = ProductChar.objects.filter(char_value__icontains=query)
-  
   
   products = Product.objects.filter(q_objects).order_by('price')
   

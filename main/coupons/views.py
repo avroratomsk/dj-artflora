@@ -36,7 +36,7 @@ def apply_to(request):
         coupon_code = data.get('couponCode')
         coupons = request.session.get('coupon_code', None)
         if coupon_code == coupons:
-            return JsonResponse({'valid': True, 'message': 'Купон уже применен', 'coupon_discount': coupon.discount, 'status': 0})
+            return JsonResponse({'valid': True, 'message': 'Купон уже применен','coupon_discount': 10,  'status': 0})
         else:
             try:
                 coupon = Coupon.objects.get(code__iexact=coupon_code, valid_from__lte=now, valid_to__gte=now, active=True)         
@@ -46,7 +46,6 @@ def apply_to(request):
                 # Сохраняем купон в сессию
                 request.session['coupon_discoint'] = coupon.discount
                 request.session['coupon_code'] = coupon.code
-                print(coupon.discount)
 
                 return JsonResponse({'valid': True, 'message': 'Купон успешно применен', 'coupon_discount': coupon.discount, 'status': 1})
             

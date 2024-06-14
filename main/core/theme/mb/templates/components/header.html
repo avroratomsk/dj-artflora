@@ -49,7 +49,8 @@
             <button type="button" class="middle-header__favorit">
               <img src="{% static 'theme/mb/images/icon/i-favorits.svg' %}" alt="" />
             </button>
-            <button type="button" class="middle-header__cart" id="show-cart">
+            
+            <button type="button" {% if request.path == "/orders/create/" %}disabled{% endif %} class="middle-header__cart" id="show-cart">
               <img src="{% static 'theme/mb/images/icon/i-cart.svg' %}" alt="" />
               {% user_carts request as carts %} {% if carts %}
               <span class="cart_count">{{ carts.total_quantity }}</span>

@@ -3,6 +3,7 @@ from django.forms import ValidationError
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from cart.models import Cart
+from order.services import get_cart_and_user
 from payment.alfabank import create_payment, get_status
 from .email_send import email_send
 from order.models import Order, OrderItem
@@ -17,132 +18,79 @@ from coupons.models import Coupon
 def order(request):
   ...
 
-
-
 def order_create(request):
+  """ 
+    Устанавливаем значение доставки в 1 это значит что доставка нужна
+    как только пользователь сменит в форме на самовывоз, то доставка перейдет в значение 0 
+    и не будет учитываться.
+  """
+  request.session['delivery'] = 1
+  
+  """
+    Получаем корзину в зависимости от авторизации пользователя.
+    Если не авторизован, то получаем через session_key
+  """
+  cart_items = get_cart_and_user(request)['cart_items']
+  
   form = CreateOrderForm(request.POST)
-  if request.session.get('delivery_summ'):
-    delivery = request.session.get('delivery_summ')
-  else:
-    delivery = ShopSettings.objects.get().delivery
-  
-  
-  if request.method == "POST":
-    """Получаем способ оплаты и в зависимости от метода оплаты строим логику ниже"""
-    payment_method = request.POST['payment_option']
-    if form.is_valid():
-      try:
-        order = form.save(commit=False)
-        if request.user.is_authenticated:
-          user = request.user
-          order.user = user
-          # Получаем корзину пользователя если он авторизован
-        else:
-          order.user = None
-          # Получаем корзину пользователя если он не авторизован по ключу сессии
-          session_key = request.session.session_key
-          cart_items = Cart.objects.filter(session_key=session_key)
-          
-          try: 
-            first_name = request.POST['first_name']
-            order.first_name = first_name
-          except:
-            pass          
-          try:
-            email = request.POST['email']
-            order.email = email
-          except:
-            pass
-          
-          try:
-            first_name_human = request.POST['first_name_human']
-            order.first_name_human = first_name_human
-          except:
-            pass
-          
-          try:
-            phone_number_human = request.POST['phone_number_human']
-            order.phone_number_human = phone_number_human
-          except:
-            pass
-          
-          try:
-            pickup = request.POST['pickup']
-            order.pickup = True
-          except:
-            pass
-          
-          try:
-            surprise = request.POST['surprise']
-            order.surprise = True
-          except:
-            pass
-          
-          try:
-            anonymous = request.POST['anonymous']
-            order.anonymous = True
-          except:
-            pass
-          
-          try:
-            phone = request.POST['phone']
-            order.phone = phone
-          except:
-            pass
-          
-          try:
-            delivery_address = request.POST['delivery_address']
-            order.delivery_address = delivery_address
-          except: 
-            pass
-          
-          try:
-            pay_method = request.POST['payment_option']
-            order.pay_method = pay_method
-          except: 
-            pass
-        
-          order.save()
-          for item in cart_items:
-            product=item.product
-            name=item.product.name
-            price=item.product.sell_price()
-            quantity=item.quantity
-            
-            orderItem  = OrderItem.objects.create(
-              order = order,
-              product=product,
-              name=name,
-              price=price,
-              quantity=quantity
-            )
-          
-          if payment_method == "На сайте картой":
-              data = create_payment(orderItem, cart_items, request)
-              payment_id = data["id"]
-              confirmation_url = data["confirmation_url"]
-              order.payment_id = payment_id
-              order.payment_dop_info = confirmation_url
-              order.save()
-              return redirect(confirmation_url)
-          else:
-            email_send(order)
-            cart_items.delete()
-            return redirect('order_success')
-      except Exception as e:
-        print(e)
-  
-  
-  session_key = request.session.session_key
-  cart_items = Cart.objects.filter(session_key=session_key)
-  
-  try: 
-    coupon_discoint = request.session['coupon_discoint']
-  except:
-    coupon_discoint = 0
-  
+  delivery = request.session.get('delivery_summ', ShopSettings.objects.get().delivery)
+  coupon_discoint = request.session.get('coupon_discoint', 0)
+ 
   amount_delivery = cart_items.total_price() + delivery
   total = amount_delivery - ((amount_delivery * coupon_discoint) / 100)
+  
+  if request.method == "POST":
+    if form.is_valid():
+      
+      try:
+        order = form.save(commit=False)
+        
+        order.user = get_cart_and_user(request)['user']
+        cart_items = get_cart_and_user(request)['cart_items']
+    
+        fields = [
+            'first_name', 'email', 'first_name_human',
+            'phone_number_human', 'phone', 'delivery_address'
+        ]
+        for field in fields:
+          value = request.POST.get(field)
+          
+          if value:  # Проверка на наличие значения
+            setattr(order, field, value)
+          else:
+            print(f"Not such value: {field} - {value}")
+        
+        # Логические поля (булевые)
+        order.pickup = 'pickup' in request.POST
+        order.surprise = 'surprise' in request.POST
+        order.anonymous = 'anonymous' in request.POST
+      
+        order.save()
+        for item in cart_items:
+          product=item.product
+          name=item.product.name
+          price=item.product.sell_price()
+          quantity=item.quantity
+          
+          orderItem  = OrderItem.objects.create(
+            order = order,
+            product=product,
+            name=name,
+            price=price,
+            quantity=quantity
+          )
+        
+        
+        data = create_payment(orderItem, cart_items, request)
+        payment_id = data["id"]
+        confirmation_url = data["confirmation_url"]
+        order.payment_id = payment_id
+        order.payment_dop_info = confirmation_url
+        order.save()
+        return redirect(confirmation_url)
+      except Exception as e:
+        print(f"Error: {e}")
+  
   
   context = {
     'title': 'Оформление заказа',
@@ -152,7 +100,7 @@ def order_create(request):
     "delivery": delivery,
     "total": total
   }
-      
+  
   return render(request, "pages/orders/create.html", context)
 
 def order_error(request):

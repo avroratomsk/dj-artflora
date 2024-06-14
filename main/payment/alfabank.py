@@ -14,6 +14,7 @@ password = "D~8Z{3mw"
 gateway_url = ""
 
 def create_payment(order, cart, request):
+    print("Тут")
     returnUrl = "http://" + request.META["HTTP_HOST"] + "/orders/success/"
     failUrl = "http://" + request.META["HTTP_HOST"] + "/orders/error/"
     
@@ -21,14 +22,19 @@ def create_payment(order, cart, request):
     if isDelivery == 1:
       delivery = request.session.get('delivery_summ')
       delivery = int("{0:.2f}".format(delivery).replace('.',''))
+      print(delivery)
     else: 
       delivery = 0
+      print(delivery)
     
     isCoupon = request.session.get('coupon_code')
+    
     if isCoupon:
-        print(isCoupon)
+        coupon_discount = request.session.get('coupon_discoint')
     else:
-        print(isCoupon)
+        coupon_discount = 0
+        
+    
 
     def dec_to_cop(price):
         res = str(round(price, 2))
@@ -51,9 +57,13 @@ def create_payment(order, cart, request):
         items.append(i)
     
     sum  = 0
+    
     for item in items:
         sum += int(item["itemAmount"])
+        
     sum += delivery
+    sum = sum - ((sum * coupon_discount) / 100)
+    
     post_data = {
         "userName": login,
         "password": password,
