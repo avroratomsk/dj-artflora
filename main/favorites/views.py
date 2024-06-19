@@ -33,7 +33,7 @@ def favorites_toggle(request):
     favorites.delete()
     return JsonResponse({"status": "removed"}) 
   
-  return JsonResponse({"status": "added", "product":product.name, "user":user.name, "session_key": session_key, "favorites": favorites })
+  return JsonResponse({"status": "added", "product":product.name, "user": user.first_name, "session_key": session_key, "favorites": favorites })
 
 
 def favorites_check(request):
