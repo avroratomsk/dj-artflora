@@ -2908,6 +2908,27 @@ html.lock body::before {
   padding: 0px 0px 0px 40px;
 }
 
+.text li {
+  line-height: 150%;
+}
+
+.text a {
+  line-height: 150%;
+}
+
+.text h1,
+.text h2,
+.text h3,
+.text h4,
+.text h5,
+.text h6 {
+  line-height: 140%;
+}
+
+.text p {
+  line-height: 150%;
+}
+
 /*
     Подключение стилей отдельных компонентов
 */
