@@ -51,10 +51,9 @@ def category(request):
   chars_list_name_noduble_a = ProductChar.objects.filter(parent__in=products_all).distinct().values_list('char_value', flat=True).distinct()
   
   if request.user.is_authenticated:
-    pass
+    favorite_product_ids = Favorites.objects.filter(user=request.user).values_list('product_id', flat=True)
   else:
     favorite_product_ids = Favorites.objects.filter(session_key=request.session.session_key).values_list('product_id', flat=True)
-    print(favorite_product_ids)
   
     
   # Добавляем флаг is_favorite к каждому продукту
@@ -109,16 +108,14 @@ def category_detail(request, slug):
   chars_list_name_noduble_a = ProductChar.objects.filter(parent__in=products_all).distinct().values_list('char_value', flat=True).distinct()
   
   if request.user.is_authenticated:
-    pass
+    favorite_product_ids = Favorites.objects.filter(user=request.user).values_list('product_id', flat=True)
   else:
     favorite_product_ids = Favorites.objects.filter(session_key=request.session.session_key).values_list('product_id', flat=True)
-    print(favorite_product_ids)
   
     
   # Добавляем флаг is_favorite к каждому продукту
   for product in products:
     product.is_favorite = product.id in favorite_product_ids
-    print(product.is_favorite)
   
   
   context = {

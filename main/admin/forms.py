@@ -5,7 +5,7 @@ from service.models import Service
 from reviews.models import Reviews
 from shop.models import Category, CharGroup, CharName, Product, ProductChar, ProductImage, ShopSettings
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from ckeditor.widgets import CKEditorWidget
+# from ckeditor.widgets import CKEditorWidget
 class UploadFileForm(forms.Form):
     file = forms.FileField()
 
@@ -68,7 +68,7 @@ class GlobalSettingsForm(forms.ModelForm):
     
 class ProductForm(forms.ModelForm):
     """ Form, отвечает за создание товара и редактирование товара"""
-    description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorWidget())
+    description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
     # description = RichTextUploadingField()
     class Meta:
         model = Product
