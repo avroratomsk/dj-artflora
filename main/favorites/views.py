@@ -15,7 +15,7 @@ def favorites(request):
 
 
 def favorites_toggle(request):
-  data = json.loads(request.body)
+  # data = json.loads(request.body)
   # idProduct = data.get('dataId')
   idProduct = 263
   product = get_object_or_404(Product, id=idProduct)
