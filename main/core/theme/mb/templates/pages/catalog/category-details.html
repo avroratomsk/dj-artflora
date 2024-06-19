@@ -132,11 +132,14 @@
       {% endif %}
     </div>
   </section>
+  {% if category.description %}
+
   <section class="text">
     <div class="text__container">
       {{ category.description|safe }}
     </div>
   </section>
+  {% endif %}
   <div class="filter-mobile">
     <div class="filter-mobile__top">
       <p>Фильтры</p>
