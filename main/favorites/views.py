@@ -39,6 +39,7 @@ def favorites_check(request):
   
   if request.user.is_authenticated:
     user = request.user
+    session_key = request.session.session_key
   else:
     user=None
     session_key = request.session.session_key
