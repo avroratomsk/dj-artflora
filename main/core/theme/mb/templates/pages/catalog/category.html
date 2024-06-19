@@ -1,4 +1,13 @@
-{% extends "base.html" %} {% load shop_tags %} {% load thumbnail %}{% load static %}{% block content %}
+{% extends "base.html" %}
+{% load shop_tags %}
+{% load thumbnail %}
+{% load static %}
+{% block title %}{{ shop_settings.meta_title }}{% endif %}
+{%endblock %}
+{% block description %}{{ shop_settings.meta_description }}{% endblock %}
+{% block keywords %}{{ shop_settings.meta_keywords }}{% endblock %}
+{% block content %}
+{% block content %}
 <main class="page">
   <section class="category-details">
     <div class="category-details__container">

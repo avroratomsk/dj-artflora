@@ -61,6 +61,7 @@ def category(request):
     product.is_favorite = product.id in favorite_product_ids
   
   context = {
+    "shop_settings": ShopSettings.objects.get(), 
     "products": products,
     "chars": chars,
     "char_name": char_name,
