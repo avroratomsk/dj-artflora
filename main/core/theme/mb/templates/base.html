@@ -6,16 +6,14 @@
   <meta charset="UTF-8" />
   <meta name="format-detection" content="telephone=no" />
 
-  <title> {% block title %}{% endblock %}</title>
+  <title>{% block title %}{% endblock %}</title>
   <meta name="description" content="{% block description %}{% endblock %}" />
   <meta name="keywords" content="{% block keywords %}{% endblock %}" />
   <link rel="canonical" href="{% block canonical %}{% endblock %}" />
 
-
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="{% static 'theme/mb/css/main.css' %}" />
-  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="shortcut icon" href="{% static 'theme/mb/images/favicon.ico' %}" />
   <!-- <meta name="robots" content="noindex, nofollow"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link
@@ -31,7 +29,8 @@
   <div class="wrapper">
     {% include "./components/header.html" %}{% block content %}{% endblock %} {% include "./components/footer.html" %}
     {% include "./components/notification/modal.html" %}
-    {% include "./components/mini-cart.html" %} {% include "./components/popup.html" %}
+    {% include "./components/mini-cart.html" %}
+    {% include "./components/popup.html" %}
   </div>
   <script
     src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=aeafb882-e871-4da0-a97b-c7b2e5718d45&suggest_apikey=744e5a40-d5e9-4eca-b155-c059770e8cac"

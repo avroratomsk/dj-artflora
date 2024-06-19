@@ -1,4 +1,11 @@
-{% extends 'base.html' %} {% load static %}{% load carts_tag %}{% load thumbnail %}{% block content %}
+{% extends 'base.html' %} 
+{% load static %}
+{% load carts_tag %}
+{% load thumbnail %}
+{% block title %}{{ site_settings.meta_title }}{% endblock %}
+{% block description %}{{ site_settings.meta_description }}{% endblock %}
+{% block keywords %}{{ site_settings.meta_keywords }}{% endblock %}
+{% block content %}
 <main class="page">
   <div class="index-slider">
     <div class="index-slider__container">
