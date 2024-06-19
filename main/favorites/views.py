@@ -43,5 +43,4 @@ def favorites_check(request):
     session_key = request.session.session_key
     
   favorites_count = Favorites.objects.filter(user=user, session_key=session_key).count()
-  print(favorites_count)
   return JsonResponse({"count": favorites_count})
