@@ -20,7 +20,6 @@ INSTALLED_APPS = [
     "payment",
     "coupons",
     "favorites",
-    'django_ckeditor_5',
 ]
 
 MIDDLEWARE = [

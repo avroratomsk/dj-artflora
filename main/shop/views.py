@@ -122,8 +122,7 @@ def category_detail(request, slug):
   
   
   context = {
-    "category_name": category.name,
-    "title": category.name,
+    "category": category,
     "chars": chars,
     "char_name": char_name,
     "products": products

@@ -1,5 +1,4 @@
 INSTALLED_APPS = [
-    # "django.contrib.admin",
     "admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -8,7 +7,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'ckeditor',
     'ckeditor_uploader',
-    # "debug_toolbar",
     'sorl.thumbnail',
     "home",
     "shop",
@@ -20,7 +18,6 @@ INSTALLED_APPS = [
     "payment",
     "coupons",
     "favorites",
-    # 'django_ckeditor_5',
 ]
 
 MIDDLEWARE = [

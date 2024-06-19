@@ -93,22 +93,8 @@ a:hover {
   text-decoration: none;
 }
 
-ul li {
-  list-style: none;
-}
-
 img {
   vertical-align: top;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: inherit;
-  font-size: inherit;
 }
 
 input::-webkit-outer-spin-button,
@@ -2911,6 +2897,15 @@ html.lock body::before {
   font-size: 10px;
   color: white;
   background-color: #b25f68;
+}
+
+.django-ckeditor-widget {
+  width: 100%;
+}
+
+.text ul,
+.text ol {
+  padding: 0px 0px 0px 40px;
 }
 
 /*
