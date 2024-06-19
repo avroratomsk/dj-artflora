@@ -273,7 +273,7 @@
                 <p class="reviews__text">
                   {{ review.text }}
                 </p>
-                <p class="reviews__name">Иван</p>
+                <p class="reviews__name">{{ reviews.name }}</p>
               </div>
             </div>
             {% endfor %}
@@ -281,7 +281,7 @@
           <div class="swiper-button-prev reviews-button-prev"></div>
           <div class="swiper-button-next reviews-button-next"></div>
         </div>
-        {% comment %} <a href="#" class="reviews__btn">Читать все отзывы</a> {% endcomment %}
+        <a href="#" class="reviews__btn">Читать все отзывы</a>
       </div>
     </div>
   </div>

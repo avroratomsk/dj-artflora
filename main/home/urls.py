@@ -13,6 +13,7 @@ urlpatterns = [
     path('best-offer/', views.best_offer, name="best_offer"),
     path('callback/', views.callback, name="callback"),
     path('callback-success/', views.callback_success, name="callback_success"),
+    path('delivery/', views.delivery, name="delivery"),
     # path('uslugi/', views.about, name="about"),
     # path('valancy/', views.about, name="about"),
     

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from home.models import BaseSettings, HomeTemplate, SliderHome, Stock
+from home.models import BaseSettings, DeliveryPage, HomeTemplate, SliderHome, Stock
 from cart.models import Cart
 from home.forms import CallbackForm
 from home.callback_send import email_callback
@@ -135,4 +135,18 @@ def stock_detail(request, slug):
     
     return render(request, "pages/stock/stock_detail.html", context)
 
+
+def delivery(request):
+  try:
+    delivery_page = DeliveryPage.objects.get()
+  except:
+    delivery_page = None
+    
+  print(delivery_page)
+    
+  context = {
+    "delivery_page":delivery_page
+  }
+  
+  return render(request, "pages/delivery.html", context)
 

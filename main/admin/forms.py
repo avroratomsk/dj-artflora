@@ -1,5 +1,5 @@
 from django import forms
-from home.models import BaseSettings, HomeTemplate, Messanger, SliderHome, Stock
+from home.models import BaseSettings, DeliveryPage, HomeTemplate, Messanger, SliderHome, Stock
 from coupons.models import Coupon
 from service.models import Service
 from reviews.models import Reviews
@@ -651,3 +651,8 @@ class CouponForm(forms.ModelForm):
                 'placeholder': 'Скидка',
             }),
         }
+        
+class DeliveryPageForm(forms.ModelForm):
+    class Meta:
+        model = DeliveryPage
+        fields = "__all__"

@@ -52,3 +52,10 @@ class Messanger(models.Model):
   icon = models.ImageField(upload_to="messanger", default="Null", verbose_name="Иконка соц.сети")
   header_view = models.BooleanField(default=False, verbose_name="Отображать в шапке")
   footer_view = models.BooleanField(default=False, verbose_name="Отображать в подвале")
+  
+class DeliveryPage(SingletonModel):
+  meta_h1 = models.CharField(max_length=250, blank=True, null=True, verbose_name="Заголовок первого уровня")
+  meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="Мета заголовок")
+  meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
+  meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
+  description = models.TextField(null=True, blank=True,verbose_name="Описание способок доставки и оплаты")

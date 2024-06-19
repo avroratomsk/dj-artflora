@@ -2933,6 +2933,11 @@ html.lock body::before {
   line-height: 150%;
 }
 
+.delivery__title {
+  font-size: 30px;
+  margin-top: 40px;
+}
+
 /*
     Подключение стилей отдельных компонентов
 */

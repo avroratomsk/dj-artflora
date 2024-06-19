@@ -4,8 +4,8 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import CategoryForm, CharGroupForm, CharNameForm, CouponForm, GlobalSettingsForm, HomeTemplateForm, MessangerForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, ShopSettingsForm, SliderForm, StockForm, UploadFileForm
-from home.models import BaseSettings, HomeTemplate, Messanger, SliderHome, Stock
+from admin.forms import CategoryForm, CharGroupForm, CharNameForm, CouponForm, DeliveryPageForm, GlobalSettingsForm, HomeTemplateForm, MessangerForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, ShopSettingsForm, SliderForm, StockForm, UploadFileForm
+from home.models import BaseSettings, DeliveryPage, HomeTemplate, Messanger, SliderHome, Stock
 from coupons.models import Coupon
 from main.settings import BASE_DIR
 from service.models import Service
@@ -863,4 +863,23 @@ def promo_delete(request, pk):
     coupon = Coupon.objects.get(id=pk)
     coupon.delete()
     return redirect('admin_promo')
+  
+def admin_delivery(request):
+  # Попытка получить существующую запись, если нет - создать новую
+  delivery_page, created = DeliveryPage.objects.get_or_create(pk=1)
+  
+  if request.method == "POST":
+    form = DeliveryPageForm(request.POST, request.FILES, instance=delivery_page)
+    if form.is_valid():
+      form.save()
+      return redirect(request.META.get("HTTP_REFERER", 'admin'))
+  else:
+    form = DeliveryPageForm(instance=delivery_page)
+
+  context = {
+    "form": form,
+    "delivery_page": delivery_page
+  }  
+  
+  return render(request, "static/delivery_page.html", context)
 

@@ -1,3 +1,21 @@
-{% extends "base.html" %} {% load static %} {% load thumbnail %}{% block content %}
-<main></main>
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+{% block title %}{{ delivery_page.meta_title }}{% endblock %}
+{% block description %}{{ delivery_page.meta_description }}{% endblock %}
+{% block keywords %}{{ delivery_page.meta_keywords }}{% endblock %}
+{% block content %}
+<main>
+  <section class="delivery">
+    <div class="delivery__container">
+      <div class="delivery__content">
+        <h1 class="delivery__title ff">{% if delivery_page.meta_h1 %}{{ delivery_page.meta_h1 }}{% else %}Доставка и
+          Оплата{% endif %}</h1>
+        <div class="text">
+          {{ delivery_page.description|safe }}
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 {% endblock %}
