@@ -486,11 +486,17 @@
   color: #c05b5e;
 }
 
-.card-section .add-to-favorit {
+.add-to-favorit {
   padding: 0 0 0 10px;
 
   @media screen and (max-width: 640px) {
     display: none;
+  }
+
+  &._active {
+    svg {
+      fill: rgba($color: $accent, $alpha: 1.0);
+    }
   }
 }
 

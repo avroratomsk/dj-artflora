@@ -6,7 +6,14 @@
   <title>{{ title }}</title>
   <meta charset="UTF-8" />
   <meta name="format-detection" content="telephone=no" />
-  <!-- <style>body{opacity: 0;}</style> -->
+
+  <title> {% block title %}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{% endblock %}" />
+  <meta name="keywords" content="{% block keywords %}{% endblock %}" />
+  <link rel="canonical" href="{% block canonical %}{% endblock %}" />
+
+
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="{% static 'theme/mb/css/main.css' %}" />
   <link rel="shortcut icon" href="favicon.ico" />

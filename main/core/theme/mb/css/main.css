@@ -819,8 +819,12 @@ html.lock body::before {
   color: #c05b5e;
 }
 
-.card-section .add-to-favorit {
+.add-to-favorit {
   padding: 0 0 0 10px;
+}
+
+.add-to-favorit._active svg {
+  fill: #b25f68;
 }
 
 .card-section .add-to-favorit svg {
@@ -1867,6 +1871,7 @@ html.lock body::before {
   align-items: center;
 }
 
+.middle-header__action a,
 .middle-header__action button {
   padding: 20px;
 }
@@ -1897,15 +1902,19 @@ html.lock body::before {
   position: relative;
 }
 
+.middle-header__cart img {
+  width: 25px;
+  height: 20px;
+}
+
 .cart_count {
   position: absolute;
-  top: 7px;
-  right: 7px;
+  top: 3px;
+  right: 5px;
   background-color: #b25f68;
   color: white;
   font-size: 10px;
-  width: 15px;
-  height: 15px;
+  padding: 3px 6px;
   display: flex;
   align-items: center;
   border-radius: 4px;
@@ -2001,11 +2010,15 @@ html.lock body::before {
 }
 
 .header-mb__favorit {
-  padding: 5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-mb__favorit img {
   width: 25px;
+  height: 20px;
 }
 
 .header-mb__cart {
@@ -2889,6 +2902,17 @@ html.lock body::before {
   height: 20px;
 }
 
+#count {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  color: white;
+  background-color: #b25f68;
+}
+
 /*
     Подключение стилей отдельных компонентов
 */
@@ -3253,6 +3277,44 @@ html.lock body::before {
   border-radius: 6px;
   color: #ffffff;
   margin-top: 35px;
+}
+
+.favorites {
+  padding: 60px 0px;
+}
+
+.favorites .section__title {
+  margin-bottom: 40px;
+}
+
+.favorites__inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 40px;
+}
+
+.favorites__item {
+  display: grid;
+  gap: 10px;
+}
+
+.favorites__image img {
+  width: 100%;
+}
+
+.favorites__content {
+  display: grid;
+  gap: 15px;
+}
+
+.favorites__title {
+  font-weight: 600;
+}
+
+.favorites__action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /*
@@ -5218,7 +5280,7 @@ html.lock body::before {
     font-size: 12px;
   }
 
-  .card-section .add-to-favorit {
+  .add-to-favorit {
     display: none;
   }
 

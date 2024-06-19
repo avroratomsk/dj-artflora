@@ -13,6 +13,7 @@ urlpatterns = [
     path('user/', include('users.urls')),
     path('reviews/', include('reviews.urls')),
     path('cart/', include('cart.urls')),
+    path('favorites/', include('favorites.urls')),
     path('orders/', include('order.urls')),
     path('admin/', include('admin.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),

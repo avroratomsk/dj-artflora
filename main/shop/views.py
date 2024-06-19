@@ -3,6 +3,8 @@ from django.shortcuts import redirect, render, get_object_or_404, get_list_or_40
 from django.http import HttpResponse
 from django.db.models import Q
 import itertools
+
+from favorites.models import Favorites
 from .services import *
 from .models import *
 from django.db.models import F
@@ -47,6 +49,18 @@ def category(request):
   # print(chars)
   # print('----------------')
   chars_list_name_noduble_a = ProductChar.objects.filter(parent__in=products_all).distinct().values_list('char_value', flat=True).distinct()
+  
+  if request.user.is_authenticated:
+    pass
+  else:
+    favorite_product_ids = Favorites.objects.filter(session_key=request.session.session_key).values_list('product_id', flat=True)
+    print(favorite_product_ids)
+  
+    
+  # Добавляем флаг is_favorite к каждому продукту
+  for product in products:
+    product.is_favorite = product.id in favorite_product_ids
+  
   context = {
     "products": products,
     "chars": chars,
@@ -59,8 +73,6 @@ def category(request):
 
 def category_detail(request, slug):
   category = Category.objects.get(slug=slug)
-  print(f"{category.id} -  id category")
-  print(f"{category.parent} -  parent category")
   
   products = Product.objects.filter(category=category).order_by('price')
   groups = CharGroup.objects.all()
@@ -95,6 +107,18 @@ def category_detail(request, slug):
   chars = ProductChar.objects.filter(char_value__in=chars_list_name_noduble).distinct()
   
   chars_list_name_noduble_a = ProductChar.objects.filter(parent__in=products_all).distinct().values_list('char_value', flat=True).distinct()
+  
+  if request.user.is_authenticated:
+    pass
+  else:
+    favorite_product_ids = Favorites.objects.filter(session_key=request.session.session_key).values_list('product_id', flat=True)
+    print(favorite_product_ids)
+  
+    
+  # Добавляем флаг is_favorite к каждому продукту
+  for product in products:
+    product.is_favorite = product.id in favorite_product_ids
+    print(product.is_favorite)
   
   
   context = {

@@ -1,5 +1,6 @@
 from home.models import BaseSettings, Messanger 
 from home.forms import CallbackForm
+from favorites.models import Favorites
 from reviews.models import Reviews
 from shop.models import Category, Product
  
@@ -29,3 +30,17 @@ def messanger_header(request):
 
 def messanger_footer(request):
     return {"messanger_footer": Messanger.objects.filter(footer_view=True)}
+
+def favorites(request):
+  if request.user.is_authenticated:
+    favorites_count = Favorites.objects.filter(user=request.user).count()
+  else:
+    session_key = request.session.session_key
+    
+    if not session_key:
+      request.session.create()
+      session_key = request.session.session_key
+    favorites_count = Favorites.objects.filter(session_key=session_key).count
+    
+  return {"favorites_count": favorites_count}
+    

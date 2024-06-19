@@ -57,8 +57,6 @@ def order_create(request):
           
           if value:  # Проверка на наличие значения
             setattr(order, field, value)
-          else:
-            print(f"Not such value: {field} - {value}")
         
         # Логические поля (булевые)
         order.pickup = 'pickup' in request.POST

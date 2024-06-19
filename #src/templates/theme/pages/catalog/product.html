@@ -57,7 +57,7 @@
         <div class="product__info info-product">
           <div class="info-product__name-inner">
             <h1 class="info-product__name">{{ product.name }}</h1>
-            <button type="button" class="info-product__favorit-btn">
+            <button type="button" class="info-product__favorit-btn add-to-favorit {% if product.is_favorite %} _active{% endif %}" data-id="{{ product.id }}">
               <svg width="21" height="21" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
                 <path
                   fill-rule="evenodd"

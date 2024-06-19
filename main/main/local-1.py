@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "order",
     "payment",
     "coupons",
+    "favorites",
     # 'django_ckeditor_5',
 ]
 

@@ -229,6 +229,7 @@
   align-items: center;
 }
 
+.middle-header__action a,
 .middle-header__action button {
   padding: 20px;
 }
@@ -270,17 +271,21 @@
 
 .middle-header__cart {
   position: relative;
+
+  img {
+    width: 25px;
+    height: 20px;
+  }
 }
 
 .cart_count {
   position: absolute;
-  top: 7px;
-  right: 7px;
+  top: 3px;
+  right: 5px;
   background-color: rgba($color: $accent, $alpha: 1.0);
   color: rgba($color: $white, $alpha: 1.0);
   font-size: 10px;
-  width: 15px;
-  height: 15px;
+  padding: 3px 6px;
   display: flex;
   align-items: center;
   border-radius: 4px;
@@ -397,10 +402,15 @@
   // .header-mb__favorit
 
   &__favorit {
-    padding: 5px;
+    // padding: 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     img {
       width: 25px;
+      height: 20px;
       // height: 100%;
     }
   }

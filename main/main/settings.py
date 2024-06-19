@@ -61,6 +61,7 @@ TEMPLATES = [
                 "home.context_processors.reviews",
                 "home.context_processors.messanger_header",
                 "home.context_processors.messanger_footer",
+                "home.context_processors.favorites",
             ],
         },
     },

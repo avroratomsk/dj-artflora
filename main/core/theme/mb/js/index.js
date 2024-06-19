@@ -754,4 +754,88 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+/**
+ * Добавление товара в избранное
+ */
+
+const favoriteButton = document.querySelectorAll('.add-to-favorit');
+
+const countFavorite = (csrfToken) => {
+  fetch('/favorites/check/', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrfToken
+    },
+    body: JSON.stringify({})
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error hueror')
+      }
+
+      return response.json()
+    })
+    .then(data => {
+      const countFavorite = document.getElementById('count');
+      console.log(countFavorite);
+      if (!countFavorite) {
+        let favoriteElem = document.getElementById('favorites');
+        favoriteElem.insertAdjacentHTML('afterbegin', '<span class="favorite_count" id="count">' + data.count + '</span>');
+      } else {
+        countFavorite.innerText = data.count;
+      }
+    })
+    .catch(error => {
+      console.log("Error", error);
+    })
+}
+
+const toggleFavorites = (e) => {
+  let btn = e.target.closest('.add-to-favorit');
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+  if (btn) {
+    let dataId = btn.dataset.id;
+    console.log(dataId);
+    fetch('/favorites/favorites-toggle/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      },
+      body: JSON.stringify({ "dataId": dataId })
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Error");
+        }
+
+        return response.json()
+      })
+      .then(data => {
+
+        if (data.status == "added") {
+          btn.classList.add('_active');
+          countFavorite(csrfToken);
+        } else {
+          btn.classList.remove('_active');
+          countFavorite(csrfToken);
+        }
+      })
+      .catch(error => {
+        console.log("Error", error);
+      })
+  }
+}
+
+if (favoriteButton) {
+  favoriteButton.forEach(btn => {
+    btn.addEventListener('click', toggleFavorites)
+  })
+}
+
+
+
+
 

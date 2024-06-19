@@ -1,0 +1,59 @@
+.favorites {
+  padding: 60px 0px;
+
+  // .favorites__container
+
+  &__container {}
+
+  .section__title {
+    margin-bottom: 40px;
+  }
+
+  // .favorites__inner
+
+  &__inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 40px;
+  }
+
+  // .favorites__item
+
+  &__item {
+    display: grid;
+    gap: 10px;
+  }
+
+  // .favorites__image
+
+  &__image {
+    img {
+      width: 100%;
+    }
+  }
+
+  // .favorites__content
+
+  &__content {
+    display: grid;
+    gap: 15px;
+  }
+
+  // .favorites__title
+
+  &__title {
+    font-weight: 600;
+  }
+
+  // .favorites__action
+
+  &__action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  // .favorites__price
+
+  &__price {}
+}

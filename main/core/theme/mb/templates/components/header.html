@@ -46,10 +46,12 @@
             <p>Работаем круглосуточно</p>
           </div>
           <div class="middle-header__action">
-            <button type="button" class="middle-header__favorit">
+            <a href="{% url 'favorites' %}" type="button" class="header-mb__favorit" id="favorites">
+              {% if favorites_count %}
+              <span class="favorite_count" id="count">{{ favorites_count }}</span>
+              {% endif %}
               <img src="{% static 'theme/mb/images/icon/i-favorits.svg' %}" alt="" />
-            </button>
-            
+            </a>
             <button type="button" {% if request.path == "/orders/create/" %}disabled{% endif %} class="middle-header__cart" id="show-cart">
               <img src="{% static 'theme/mb/images/icon/i-cart.svg' %}" alt="" />
               {% user_carts request as carts %} {% if carts %}
@@ -91,7 +93,8 @@
           </a>
         </div>
         <div class="header-mb__right">
-          <button type="button" class="header-mb__favorit">
+          <button type="button" class="header-mb__favorit" id="favorites">
+            <span class="favorite_count">1</span>
             <img src="{% static 'theme/mb/images/icon/i-favorits.svg' %}" alt="" />
           </button>
           <button type="button" class="header-mb__cart" id="show-cart">
