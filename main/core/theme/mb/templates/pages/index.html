@@ -350,14 +350,14 @@
             <img src="{% static 'theme/mb/images/i-email.svg' %}" alt="" />
             <p class="ff">artflora-irk@yandex.ru</p>
           </div>
-          <div class="contact__item">
+          <a href="tel:{{ site_settings.phone }}" class="contact__item">
             <img src="{% static 'theme/mb/images/i-phone.svg' %}" alt="" />
-            <p class="ff">8(999) 999-99-99</p>
-          </div>
-          <div class="contact__item">
+            <p class="ff">{{ site_settings.phone }}</p>
+          </a>
+          <a href="https://wa.me/89236464726" class="contact__item">
             <img src="{% static 'theme/mb/images/i-wa.svg' %}" alt="" />
             <p class="ff">Whatsapp</p>
-          </div>
+          </a>
           <div class="contact__item">
             <img src="{% static 'theme/mb/images/i-faq.svg' %}" alt="" />
             <p class="ff">Частые вопросы</p>
