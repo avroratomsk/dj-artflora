@@ -2903,6 +2903,10 @@ html.lock body::before {
   width: 100%;
 }
 
+.text {
+  padding: 60px 0px;
+}
+
 .text ul,
 .text ol {
   padding: 0px 0px 0px 40px;
