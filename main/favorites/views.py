@@ -15,23 +15,24 @@ def favorites(request):
 
 
 def favorites_toggle(request):
-  # data = json.loads(request.body)
+  data = json.loads(request.body)
   # idProduct = data.get('dataId')
-  # product = get_object_or_404(Product, id=idProduct)
+  idProduct = 263
+  product = get_object_or_404(Product, id=idProduct)
   
-  # if request.user.is_authenticated:
-  #   user = request.user
-  # else:
-  #   user=None
-  #   session_key = request.session.session_key
+  if request.user.is_authenticated:
+    user = request.user
+  else:
+    user=None
+    session_key = request.session.session_key
   
-  # favorites, created = Favorites.objects.get_or_create(user=user, session_key=session_key, product=product)
+  favorites, created = Favorites.objects.get_or_create(user=user, session_key=session_key, product=product)
   
-  # if not created:
-  #   favorites.delete()
-  #   return JsonResponse({"status": "removed"}) 
+  if not created:
+    favorites.delete()
+    return JsonResponse({"status": "removed"}) 
   
-  return JsonResponse({"status": "added"})
+  return JsonResponse({"status": "added", "product":product, "user":user, "session_key": session_key, "favorites": favorites })
 
 
 def favorites_check(request):
