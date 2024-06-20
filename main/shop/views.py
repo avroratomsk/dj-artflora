@@ -76,6 +76,7 @@ def category(request):
 def category_detail(request, slug):
   category = Category.objects.get(slug=slug)
   products = Product.objects.filter(category=category).order_by('price')
+  categories = Category.objects.all()
   
   if request.method == "GET":
     get_filtres = request.GET
@@ -111,7 +112,8 @@ def category_detail(request, slug):
     "category": category,
     "chars": chars,
     "char_name": char_name,
-    "products": products
+    "products": products,
+    "categories": categories
   }
   
   return render(request, "pages/catalog/category-details.html", context)

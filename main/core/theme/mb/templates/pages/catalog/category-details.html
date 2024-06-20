@@ -42,7 +42,7 @@
         <div class="category-details__col {% if char_name %} filter-col {% endif %}" id="filter-category">
           <div class="filter__body">
             <p class="filter__label">Категории:</p>
-            {% for category in categorys %}
+            {% for category in categories %}
             <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
             {% endfor %}
           </div>
