@@ -20,7 +20,7 @@ def slider_category(request):
     return {"slider_category": Category.objects.filter(first_block_home=True)[:2]}
 
 def category(request):
-    return {"categorys": Category.objects.all()}
+    return {"categorys": Category.objects.all()[:8]}
 
 def reviews(request):
     return {"reviews": Reviews.objects.filter(status=True)}

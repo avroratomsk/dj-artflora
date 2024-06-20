@@ -310,13 +310,17 @@ window.addEventListener('DOMContentLoaded', function (e) {
   params.forEach(item => {
     param_mass.push(item.split('=')[0]);
   });
+
   if (param_mass[0] != '') {
     param_mass.forEach(item => {
-      let checkbox = document.querySelector('[name=' + item + ']')
+      let encode = decodeURI(item)
+      console.log(item);
+      console.log(encode);
+      let checkbox = document.querySelector('[name=' + encode + ']')
       checkbox.checked = true;
     })
   } else {
-    console.log('Четко');
+    // console.log('Четко');
   }
 })
 
