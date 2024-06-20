@@ -541,3 +541,56 @@
   color: rgba($color: $white, $alpha: 1.0);
   background-color: rgba($color: $accent, $alpha: 1.0);
 }
+
+.django-ckeditor-widget {
+  width: 100%;
+}
+
+.text {
+  padding: 60px 0px;
+
+  ul,
+  ol {
+    padding: 0px 0px 0px 40px;
+  }
+
+  li {
+    line-height: 150%;
+  }
+
+  a {
+    line-height: 150%;
+  }
+
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 140%;
+  }
+
+  p {
+    line-height: 150%;
+  }
+}
+
+.delivery {
+
+  // .delivery__container
+
+  &__container {}
+
+  // .delivery__content
+
+  &__content {}
+
+  // .delivery__title
+
+  &__title {
+    font-size: 30px;
+    margin-top: 40px;
+  }
+}

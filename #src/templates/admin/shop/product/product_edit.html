@@ -16,7 +16,7 @@
           <button type="button" data-name="char" class="page__head-btn">Характеристики</button>
         </div>
       </div>
-      {{ form.media }} {{ form.as_p }} {% csrf_token %}
+      {% csrf_token %}
       <div class="page-content _show" id="basic">
         <div class="page-content__row">
           <div class="page-content__col">

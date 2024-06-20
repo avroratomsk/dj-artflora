@@ -14,7 +14,7 @@
         <p class="footer__title ff">Компания</p>
         <nav class="footer__nav">
           <a href="{% url 'about' %}">О магазине</a>
-          <a href="#">Доставка и оплата</a>
+          <a href="{% url 'delivery' %}">Доставка и оплата</a>
           <a href="#">Отзывы</a>
         </nav>
       </div>
@@ -39,9 +39,9 @@
       </div>
       <div class="footer__col">
         <p class="footer__title ff">Контакты</p>
-        <a href="tel:89999999999" class="footer__social">8(999) 999-99-99</a>
-        <a href="mailto:artflora-irk@yandex.ru" class="footer__social">artflora-irk@yandex.ru</a>
-        <p class="footer__social">г. Иркутск, ул. Вампилова, д. 2/2;</p>
+        <a href="tel:89999999999" class="footer__social">{{ site_settings.phone }}</a>
+        <a href="mailto:artflora-irk@yandex.ru" class="footer__social">{{ site_settings.email }}</a>
+        <p class="footer__social">г. Иркутск, ул. Вампилова, д. 2/2</p>
         {% if messanger_header %}
         <div class="footer__socials">
           {% for mes in messanger_header %}

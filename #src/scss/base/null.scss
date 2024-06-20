@@ -65,9 +65,7 @@ a:hover {
   text-decoration: none;
 }
 
-ul li {
-  list-style: none;
-}
+
 
 img {
   vertical-align: top;
@@ -79,8 +77,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: inherit;
-  font-size: inherit;
+  // font-weight: inherit;
+  // font-size: inherit;
 }
 
 input::-webkit-outer-spin-button,

@@ -1,0 +1,44 @@
+{% extends 'admin_base.html' %} {% load shop_tags %} {% load static %} {% block body %}
+
+<div class="page">
+  <div class="page__inner">
+    <div class="page__add">
+      <h1 class="page__title">Редактирование страницы</h1>
+    </div>
+    <form action="." method="POST" class="form" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="page-edit__body">
+        <!-- Основные настройки -->
+        <div class="page-edit__item _show">
+          <div class="page-edit__form">
+            <div class="form__group">
+              <label for="{{ form.description.id_for_label }}" class="form__controls-label"><span>*</span>Текст на странице <span>:</span></label>
+              {{ form.description }} {{ form.description.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.meta_h1.id_for_label }}" class="form__controls-label">
+                <span>*</span>
+                Заголовок<span>:</span>
+              </label>
+              {{ form.meta_h1 }} {{ form.meta_h1.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.meta_title.id_for_label }}" class="form__controls-label"> Meta заголовок <span>:</span> </label>
+              {{ form.meta_title }} {{ form.meta_title.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Meta описание <span>:</span> </label>
+              {{ form.meta_description }} {{ form.meta_description.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.meta_keywords.id_for_label }}" class="form__controls-label"> Meta keywords <span>:</span> </label>
+              {{ form.meta_keywords }} {{ form.meta_keywords.errors }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="form__btn">Сохранить</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

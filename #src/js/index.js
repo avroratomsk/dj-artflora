@@ -836,6 +836,19 @@ if (favoriteButton) {
 }
 
 
+/**
+ * Scroll filter
+ */
+
+// const scrollElem = document.getElementById('filter-category');
+
+// if(scrollElem){
+//   scrollElem.addEventListener('scroll', (e) => {
+//     e.target
+//   })
+// }
+
+
 
 
 

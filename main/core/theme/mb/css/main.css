@@ -4433,6 +4433,31 @@ html.lock body::before {
   border-radius: 10px;
   overflow: hidden;
   padding: 30px 20px;
+  max-height: calc(100vh - 20px);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.category-details__col.filter-col::-webkit-scrollbar {
+  width: 4px;
+  display: none;
+  /* ширина всей полосы прокрутки */
+}
+
+.category-details__col.filter-col::-webkit-scrollbar-track {
+  margin: 10px 0;
+  border-radius: 100px;
+  background: rgba(63, 60, 56, 0.1);
+  /* цвет зоны отслеживания */
+}
+
+.category-details__col.filter-col::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background-color: rgba(178, 95, 104, 0.5);
+}
+
+.category-details__col.filter-col:hover::-webkit-scrollbar {
+  display: flex;
 }
 
 .category-details .cards-catalog {
