@@ -27,12 +27,12 @@ shop_settings.meta_description }}{% endblock %} {% block keywords %}{{ shop_sett
           <i class="fa-solid fa-filter"></i>
         </button>
       </div>
+      {% comment %}
       <form method="get">
         {{ filter_form.as_p }}
         <button type="submit">Фильтровать</button>
       </form>
-
-      {% if products %}
+      {% endcomment %} {% if products %}
       <div class="category-details__row">
         {% if char_name %}
         <div class="category-details__col {% if char_name %} filter-col {% endif %}" id="filter-category">
