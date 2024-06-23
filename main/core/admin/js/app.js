@@ -141,4 +141,14 @@ document.addEventListener('click', function (event) {
   }
 });
 
+const menuSideBarButton = document.querySelectorAll('.menu-sidebar__dropdown-title');
+
+if (menuSideBarButton) {
+  menuSideBarButton.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      let parent = btn.closest('.menu-sidebar__dropdown');
+      parent.classList.toggle('_active');
+    })
+  })
+}
 

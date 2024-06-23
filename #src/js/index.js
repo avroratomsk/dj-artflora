@@ -762,6 +762,19 @@ document.addEventListener('DOMContentLoaded', function () {
  * Добавление товара в избранное
  */
 
+const showNotification = (data) => {
+  const notificationModal = document.getElementById('notification-modal');
+  const succesBody = notificationModal.querySelector('.success__body');
+
+  succesBody.innerText = data;
+  notificationModal.classList.add('show');
+
+  setTimeout(function () {
+    notificationModal.classList.remove('show');
+  }, 5000);
+
+}
+
 const favoriteButton = document.querySelectorAll('.add-to-favorit');
 
 const countFavorite = (csrfToken) => {
@@ -818,10 +831,11 @@ const toggleFavorites = (e) => {
         return response.json()
       })
       .then(data => {
-
         if (data.status == "added") {
           btn.classList.add('_active');
           countFavorite(csrfToken);
+          console.log(data);
+          showNotification(data.name);
         } else {
           btn.classList.remove('_active');
           countFavorite(csrfToken);

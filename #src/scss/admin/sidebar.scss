@@ -1,137 +1,149 @@
 .sidebar {
-  width: 15%;
-  min-width: 250px;
-  height: calc(100vh - 0px);
-  border-right: 1px solid rgba($color: #38353c, $alpha: .3);
-  overflow-y: auto;
-  padding: 20px;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba($color: $bodyColor, $alpha: 1.0);
+  min-width: 280px;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 20;
+  background-color: #fff;
+  box-shadow: 0 0 24px 2px rgba(20, 25, 38, .05);
 
-  /* Работает в Chrome, Edge и Safari */
-  &::-webkit-scrollbar {
-    width: 3px;
-  }
+  // .sidebar__top
 
-  &::-webkit-scrollbar-track {
-    background: rgba(37, 55, 70, .1);
-  }
+  &__top {}
 
-  &::-webkit-scrollbar-thumb {
-    background-color: $accent;
-    border-radius: 20px;
-    border: 3px solid rgba(37, 55, 70, .1);
-  }
+  // .sidebar__menu
 
-  // .sidebar__logo
+  &__menu {}
+}
+
+.top-sidebar {
+  padding: 30px 15px;
+  border-bottom: 1px solid rgba($color: $mainColor, $alpha: .1);
+
+  // .top-sidebar__logo
+
   &__logo {
-    width: 150px;
-    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 30px;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 500;
 
-    img {
-      max-width: 100%;
+    img,
+    svg {
+      width: 40px;
+      height: 40px;
     }
   }
+}
 
-  // .sidebar__drop
-  &__drop {}
+.menu-sidebar {
+  padding: 20px 30px;
 
-  // .sidebar__item
-  &__item {
-    display: grid;
-    cursor: pointer;
-    transition: .5s;
+  // .menu-sidebar__item
 
-    &+& {
-      margin-top: 5px;
-    }
+  &__item {}
 
-    svg {
-      fill: rgba($color: $accent, $alpha: 1.0)
-    }
+  &__item+&__item {
+    margin-top: 20px;
+  }
+
+  // .menu-sidebar__item-title
+
+  &__item-title {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba($color: $mainColor, $alpha: .3);
+    margin-bottom: 10px;
+    letter-spacing: .5px;
+  }
+
+  // .menu-sidebar__link-general
+
+  &__link-general {
+    font-size: 16px;
+    padding: 5px 0px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  // .menu-sidebar__dropdown
+
+  &__dropdown {
 
     &._active {
-      .sidebar__title {
+      .menu-sidebar__dropdown-content {
+        display: block;
+      }
 
-        svg,
-        path {
-          fill: #38353c;
+      .menu-sidebar__dropdown-title {
+        img {
+          transform: rotate(180deg);
         }
       }
 
-      .sidebar__subitem {
-        height: 100%;
-      }
-    }
-
-    &:hover {
-      .sidebar__title {
-
-        color: rgba($color: $accent, $alpha: 1.0);
-
-        svg,
-        path {
-          fill: rgba($color: $accent, $alpha: 1.0);
-        }
-      }
     }
   }
 
-  // .sidebar__title
-  &__title {
-    display: grid;
-    align-items: center;
-    grid-template-columns: 30px 1fr;
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 600;
-    color: rgba($color: $linkColor, $alpha: 1);
+  // .menu-sidebar__dropdown-title
 
-    svg,
-    path {
-      fill: rgba($color: $linkColor, $alpha: 1.0);
-    }
-  }
-
-  // .sidebar__subitem
-  &__subitem {
+  &__dropdown-title {
     display: flex;
-    flex-direction: column;
-    // gap: 10px;
-    padding-left: 15px;
-    transition: .3s;
-  }
-
-  // .sidebar__link
-  &__link {
-    display: grid;
     align-items: center;
-    grid-template-columns: 30px 1fr;
-    padding: 10px 10px;
-    font-size: 14px;
-    border-radius: 4px;
-    transition: .5s;
-    color: rgba($color: $linkColor, $alpha: 1.0);
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 5px 0px;
 
-    &:hover {
-      color: rgba($color: $accent, $alpha: 1.0);
+    @media (hover:hover) {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    img {
+      width: 25px;
+      height: 25px;
+      transition: .3s;
     }
   }
-}
 
-.dropdownContent {
-  max-height: 0;
-  overflow: hidden;
-  transition: all 0.5s ease 0s;
-}
+  // .menu-sidebar__dropdow-inner
 
-.hidden {
-  display: none;
+  &__dropdow-inner {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  // .menu-sidebar__dropdown-content
+
+  &__dropdown-content {
+    display: none;
+
+    ul {
+      padding-left: 10px;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 5px 0px 5px 7px;
+
+        &::before {
+          content: '';
+          width: 4px;
+          height: 4px;
+          border: 1px solid rgba($color: $accent, $alpha: 1.0);
+          transform: rotate(-45deg);
+        }
+
+        a {}
+      }
+    }
+  }
 }

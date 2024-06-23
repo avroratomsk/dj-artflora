@@ -1,12 +1,10 @@
 .content {
   display: flex;
-  background-color: #f4f6fa;
+  align-items: flex-start;
+  // gap: 30px;
 
   // .content__inner
   &__inner {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 30px;
+    flex: 1 1 auto;
   }
 }

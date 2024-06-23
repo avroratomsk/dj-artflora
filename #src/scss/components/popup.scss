@@ -154,6 +154,27 @@
   }
 }
 
+#popup-notification {
+  align-items: flex-end;
+
+
+  .popup__close {
+    position: relative;
+    top: auto;
+    right: auto;
+  }
+
+  .popup__content {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 300px;
+    width: 100%;
+    padding: 20px;
+  }
+}
+
 .popup__order {
   display: flex;
 

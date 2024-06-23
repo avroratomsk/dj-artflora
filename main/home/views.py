@@ -96,7 +96,6 @@ def stock_product(request):
   
   return render(request, "pages/stock-product.html", context)
 
-
 def news(request):
   products = Product.objects.filter(latest=True)
   
@@ -134,7 +133,6 @@ def stock_detail(request, slug):
     }
     
     return render(request, "pages/stock/stock_detail.html", context)
-
 
 def delivery(request):
   try:

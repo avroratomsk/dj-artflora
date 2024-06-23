@@ -30,9 +30,9 @@ def favorites_toggle(request):
   
   if not created:
     favorites.delete()
-    return JsonResponse({"status": "removed"}) 
+    return JsonResponse({"status": "removed", "name": favorites.product.name }) 
   
-  return JsonResponse({"status": "added" })
+  return JsonResponse({"status": "added", "name": favorites.product.name })
 
 
 def favorites_check(request):

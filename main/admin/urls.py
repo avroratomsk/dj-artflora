@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     path('', views.admin, name="admin"),
+    path('users', views.admin_users, name="admin_users"),
     
     #URl - отвечающие за загрузку данных
     path('upload-goods/', views.upload_goods, name="upload_goods"),

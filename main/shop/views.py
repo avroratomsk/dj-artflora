@@ -5,6 +5,7 @@ from django.db.models import Q
 import itertools
 
 from favorites.models import Favorites
+from admin.forms import ProductFilterForm
 from .services import *
 from .models import *
 from django.db.models import F
@@ -60,12 +61,22 @@ def category(request):
   
   for product in products:
     product.is_favorite = product.id in favorite_product_ids
+    
+    
+  products = Product.objects.all()
+  filter_form = ProductFilterForm(request.GET)
+
+  if filter_form.is_valid():
+    for name, value_ids in filter_form.cleaned_data.items():
+      if value_ids:
+        products = products.filter(characteristics__id__in=value_ids).distinct()
 
   context = {
     "shop_settings": ShopSettings.objects.get(),
     "products": products,
     "chars": chars,
     "char_name": char_name,
+    "filter_form": filter_form,
     "title": "Каталог",
     "categorys": categorys
   }
@@ -76,7 +87,7 @@ def category(request):
 def category_detail(request, slug):
   category = Category.objects.get(slug=slug)
   products = Product.objects.filter(category=category).order_by('price')
-  categories = Category.objects.all()
+  categories = Category.objects.all()[:10]
   
   if request.method == "GET":
     get_filtres = request.GET
@@ -93,7 +104,7 @@ def category_detail(request, slug):
     id_filter = [pr.parent.id for pr in product]
     
     if id_filter:
-        products = products.filter(id__in=id_filter)
+      products = products.filter(id__in=id_filter)
     
   char_name = chars()
   

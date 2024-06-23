@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% block description %}{% endblock %}
+{% block keywords %}{% endblock %}
+{% load static %} {% load shop_tags %} {% load thumbnail %} {% block content %}
+
+<main class="page">
+  <section class="reviews-add">
+    <div class="reviews-add__container">
+      <div class="reviews-add__row">
+        <div class="reviews-add__col">
+          <img src="{% static 'theme/mb/images/about.jpg' %}" alt="" />
+        </div>
+        <div class="reviews-add__col">
+          <h2 class="reviews-add__title _title">
+            Напишите о нас отзыв
+          </h2>
+          <form action="" method="POST" class="reviews-add__form form">
+            {% csrf_token %}
+            {{ reviewsform.name }}
+            {{ reviewsform.email }}
+            <div class="form-reviews__group">
+              {{ reviewsform.rating }}
+              <div class="form-reviews__stars" data-rating-total="0">
+                <span data-rating="5" class="form-reviews__star"></span>
+                <span data-rating="4" class="form-reviews__star"></span>
+                <span data-rating="3" class="form-reviews__star"></span>
+                <span data-rating="2" class="form-reviews__star"></span>
+                <span data-rating="1" class="form-reviews__star"></span>
+              </div>
+            </div>
+            {{ reviewsform.message }}
+            <button type="submit" class="form__submit">Отправить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews">
+    <div class="reviews__container">
+      <h2 class="reviews__title _title">Отзывы о нас</h2>
+      <div class="reviews__grid">
+        {% if reviews %}
+        {% for review in reviews %}
+        <div class="reviews__slide">
+          <div class="reviews__head">
+            <div class="reviews__name">
+              <p>{{ review.name }}</p>
+            </div>
+            <div class="reviews__rating">
+              <div class="reviews__stars">
+                <img src="{%static 'theme/mb/images/star_full.png' %}" alt="" class="star-img" />
+                <img src="{%static 'theme/mb/images/star_full.png' %}" alt="" class="star-img" />
+                <img src="{%static 'theme/mb/images/star_full.png' %}" alt="" class="star-img" />
+                <img src="{%static 'theme/mb/images/star_full.png' %}" alt="" class="star-img" />
+                <img src="{%static 'theme/mb/images/star_full.png' %}" alt="" class="star-img" />
+              </div>
+            </div>
+          </div>
+          <div class="reviews__content">
+            <div class="reviews__text">
+              {{ review.text }}
+            </div>
+            <button type="button" class="reviews__btn" data-popup="popup-reviews">Показать весь отзыв</button>
+          </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

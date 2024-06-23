@@ -656,3 +656,16 @@ class DeliveryPageForm(forms.ModelForm):
     class Meta:
         model = DeliveryPage
         fields = "__all__"
+        
+class ProductFilterForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        char_names = CharName.objects.filter(filter_add=True)
+        for char_name in char_names:
+            values = ProductChar.objects.filter(char_name=char_name).values_list('char_value', flat=True).distinct()
+            self.fields[char_name.filter_name] = forms.MultipleChoiceField(
+                choices=[(value, value) for value in values],
+                widget=forms.CheckboxSelectMultiple,
+                required=False,
+                label=char_name.text_name
+            )

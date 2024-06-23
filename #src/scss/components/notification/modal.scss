@@ -1,13 +1,14 @@
 .success {
   position: fixed;
   top: 20px;
-  right: -100%;
+  right: 0%;
   padding: 15px 30px;
   background-color: #3c8100;
   min-width: 290px;
   border-radius: 10px;
   transition: $animation_speed;
   z-index: 999;
+  opacity: 0;
 
   // .success__dialog
 
@@ -34,5 +35,5 @@
 }
 
 .show {
-  right: 0;
+  animation: fadeInOut 3s forwards;
 }

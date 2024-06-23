@@ -8,6 +8,7 @@ from admin.forms import CategoryForm, CharGroupForm, CharNameForm, CouponForm, D
 from home.models import BaseSettings, DeliveryPage, HomeTemplate, Messanger, SliderHome, Stock
 from coupons.models import Coupon
 from main.settings import BASE_DIR
+from users.models import User
 from service.models import Service
 from reviews.models import Reviews
 from shop.models import CharGroup, CharName, Product,Category, ProductChar, ProductImage, ShopSettings
@@ -140,11 +141,11 @@ def admin_product(request):
   page = request.GET.get('page', 1)
   
   products = Product.objects.all()
-  paginator = Paginator(products, 10)
+  paginator = Paginator(products, 15)
   current_page = paginator.page(int(page))
   
   context = {
-    "products": current_page
+    "items": current_page
   }
   return render(request, "shop/product/product.html", context)
 
@@ -883,3 +884,9 @@ def admin_delivery(request):
   
   return render(request, "static/delivery_page.html", context)
 
+
+def admin_users(request):
+  users = User.objects.all()
+  
+  return render(request, "users/admin_users.html", {"items": users})
+  

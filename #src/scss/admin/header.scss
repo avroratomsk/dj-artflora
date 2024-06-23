@@ -1,12 +1,19 @@
 .header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100vw - 296px);
   box-shadow: 0px 0px 4px rgba($color: $mainColor, $alpha: .1);
   border: 1px solid rgba($color: $mainColor, $alpha: .1);
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
+  background-color: rgba($color: $white, $alpha: 1.0);
+  height: 80px;
+  display: flex;
+  align-items: center;
 
   // .header__inner
-  &__inner {}
+  &__inner {
+    padding: 0px 20px;
+  }
 
   // .header__action
 
@@ -43,10 +50,7 @@
 
   // .header__search-inner
 
-  &__search-inner {
-    width: 80%;
-    margin: 0 auto;
-  }
+  &__search-inner {}
 
   // .header__search-form
 
