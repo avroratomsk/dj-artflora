@@ -16,8 +16,8 @@ gateway_url = ""
 def create_payment(order, cart, request):
     returnUrl = "http://" + request.META["HTTP_HOST"] + "/orders/success/"
     failUrl = "http://" + request.META["HTTP_HOST"] + "/orders/error/"
-    
     isDelivery = request.session.get('delivery')
+    print(isDelivery)
     if isDelivery == 1:
       delivery = request.session.get('delivery_summ')
       delivery = int("{0:.2f}".format(delivery).replace('.',''))
@@ -57,7 +57,9 @@ def create_payment(order, cart, request):
         sum += int(item["itemAmount"])
         
     sum += delivery
+    print(sum)
     sum = sum - ((sum * coupon_discount) / 100)
+    print(sum)
     
     post_data = {
         "userName": login,

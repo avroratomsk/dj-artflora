@@ -24,7 +24,7 @@ def order_create(request):
     как только пользователь сменит в форме на самовывоз, то доставка перейдет в значение 0 
     и не будет учитываться.
   """
-  request.session['delivery'] = 1
+  # request.session['delivery'] = 1
   
   """
     Получаем корзину в зависимости от авторизации пользователя.
@@ -41,7 +41,6 @@ def order_create(request):
   
   if request.method == "POST":
     if form.is_valid():
-      
       try:
         order = form.save(commit=False)
         
