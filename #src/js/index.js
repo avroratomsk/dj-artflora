@@ -755,6 +755,33 @@ document.addEventListener('DOMContentLoaded', function () {
         // document.getElementById('form-messages').innerHTML = '<p>Произошла ошибка: ' + error + '</p>';
       });
   });
+
+  document.getElementById('contact-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+    const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    fetch(form.action, {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+      body: formData
+    })
+      .then(response => response.json())
+      .then(data => {
+        form.reset();
+        document.getElementById('callback').classList.remove('_open');
+        document.getElementById('success').classList.add('_open');
+        bodyLock();
+      })
+      .catch(error => {
+        console.log(error);
+        // document.getElementById('form-messages').innerHTML = '<p>Произошла ошибка: ' + error + '</p>';
+      });
+  });
 });
 
 

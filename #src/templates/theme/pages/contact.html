@@ -53,13 +53,14 @@
 
 				<div class="contact__form form-contact">
 					<h2 class="form-contact__title">Напишите нам !</h2>
-					<form action="#" class="form-contact__form form">
+					<form action="{% url 'contact_email' %}" method="POST" id="contact-form" class="form-contact__form form">
+						{% csrf_token %}
 						<div class="form-contact__row">
-							<input type="text" name="name" class="form__controls" placeholder="Ваше имя">
-							<input type="text" name="phone" class="form__controls" placeholder="Ваш телефон">
+							{{ form.name }}
+							{{ form.phone }}
 						</div>
 						<div class="form-contact__row">
-							<textarea name="message" placeholder="Ваше сообщение" rows="5" class="form__controls"></textarea>
+							{{ form.message }}
 						</div>
 						<div class="form-contact__row">
 							<div class="form-contact__checkbox">

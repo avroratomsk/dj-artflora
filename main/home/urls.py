@@ -12,6 +12,7 @@ urlpatterns = [
     path('news/', views.news, name="news"),
     path('best-offer/', views.best_offer, name="best_offer"),
     path('callback/', views.callback, name="callback"),
+    path('contact-email/', views.contact_email, name="contact_email"),
     path('callback-success/', views.callback_success, name="callback_success"),
     path('delivery/', views.delivery, name="delivery"),
     # path('uslugi/', views.about, name="about"),

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 
 from home.models import BaseSettings, DeliveryPage, HomeTemplate, SliderHome, Stock
 from cart.models import Cart
-from home.forms import CallbackForm
+from home.forms import CallbackForm, ContactForm
 from home.callback_send import email_callback
 from shop.models import Category, Product
 from reviews.models import Reviews
@@ -17,6 +17,25 @@ def callback(request):
       phone = form.cleaned_data['phone']
       title = 'Заказ обратного звонка'
       messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone) + "\n"
+      
+      email_callback(messages, title)
+      
+      return JsonResponse({"success": "success"})
+  else:
+    return JsonResponse({'status': "error", 'errors': form.errors})
+  
+  return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+def contact_email(request):
+  if request.method == "POST":
+    form = ContactForm(request.POST)
+    if form.is_valid():
+      name  = form.cleaned_data['name']
+      phone = form.cleaned_data['phone']
+      message = form.cleaned_data['message']
+      print(f"{name} - {phone} - {message}")
+      title = 'Напишите нам'
+      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone) + "\n" + "*Сообщение*: " + str(message) + "\n"
       
       email_callback(messages, title)
       
@@ -114,7 +133,14 @@ def about(request):
     return render(request, "pages/about.html", context)
 
 def contact(request):
-    return render(request, "pages/contact.html")
+   
+  form = ContactForm()
+   
+  context = {
+    "form": form
+  }
+  
+  return render(request, "pages/contact.html", context)
 
 def stock(request):
     stocks = Stock.objects.filter(status=True)
