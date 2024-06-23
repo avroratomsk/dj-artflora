@@ -33,7 +33,6 @@ def contact_email(request):
       name  = form.cleaned_data['name']
       phone = form.cleaned_data['phone']
       message = form.cleaned_data['message']
-      print(f"{name} - {phone} - {message}")
       title = 'Напишите нам'
       messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone) + "\n" + "*Сообщение*: " + str(message) + "\n"
       
