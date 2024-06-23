@@ -773,7 +773,6 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(response => response.json())
       .then(data => {
         form.reset();
-        document.getElementById('callback').classList.remove('_open');
         document.getElementById('success').classList.add('_open');
         bodyLock();
       })
