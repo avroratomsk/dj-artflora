@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% load thumbnail %}
-{% block content %}
-{% block title %}Оформление заказа | ArtFlora{%endblock %}
+
+{% block title %}Оформление заказа | ArtFlora {% endblock %}
 {% block description %}Оформление заказа{% endblock %}
 {% block keywords %}{% endblock %}
+{% block content %}
 <main>
   <section class="order-create">
     <div class="order-create__container">
@@ -149,11 +150,11 @@
             <div class="order-create__delivery" id="order-delivery-info"><span>Доставка:</span> от <span
                 id="order-delivery"> {{ delivery }}</span> руб.</div>
 
-            <div class="order-create__delivery"><span>Скидка:</span> <span id="discount"> {% if discount %} {{ discount
-                }}%{% else %}0%{% endif %}</span></div>
+            <div class="order-create__delivery"><span>Скидка:</span> <span id="discount"> {% if discount %}
+                {{ discount }}%{% else %}0%{% endif %}</span></div>
 
-            <div class="order-create__total"><span>Итого:</span> <span id="order-total">{% if total %} {{ total }} {%
-                endif %}</span> руб.</div>
+            <div class="order-create__total"><span>Итого:</span> <span id="order-total">{% if total %} {{ total }}
+                {% endif %}</span> руб.</div>
           </div>
         </div>
       </div>
