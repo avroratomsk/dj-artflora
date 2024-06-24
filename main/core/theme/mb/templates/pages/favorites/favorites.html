@@ -49,8 +49,7 @@
                   </svg>
                 </a>
 
-                <button type="button" class="add-to-favorit {% if favorite.product.is_favorite %} _active{% endif %}"
-                  data-id="{{ favorite.product.id }}">
+                <button type="button" class="add-to-favorit _active" data-id="{{ favorite.product.id }}">
                   {% csrf_token %}
                   <svg width="21" height="21" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
