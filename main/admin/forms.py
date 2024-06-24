@@ -564,17 +564,11 @@ class ServiceForm(forms.ModelForm):
     
 class ShopSettingsForm(forms.ModelForm):
     """ Form, отвечает за создание товара и редактирование товара"""
-    # description = forms.CharField(label='Описание производителя', required=False, widget=CKEditorUploadingWidget)
+    description = forms.CharField(label='Описание страницы', required=False, widget=CKEditorUploadingWidget)
     # description = forms.CharField(widget=TinyMCE())
     class Meta:
         model = ShopSettings
-        fields = [
-            'meta_h1',
-            'meta_title',
-            'meta_description',
-            'meta_keywords',
-            'delivery',
-        ]
+        fields = "__all__"
         labels = {
             'meta_h1':'Заголвок первого уровня',
             'meta_title':'Meta title',

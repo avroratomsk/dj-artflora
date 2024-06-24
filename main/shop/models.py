@@ -21,6 +21,7 @@ class ShopSettings(SingletonModel):
   meta_description = models.TextField(null=True, blank=True, verbose_name="META описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="META keywords")
   delivery = models.IntegerField(null=True, blank=True, verbose_name="Стоимость досткавки")
+  description = models.TextField(null=True, blank=True, verbose_name="Текст на стрнице")
 
 """Поля базы данных для настройки параметров категории"""
 class Category(models.Model):
