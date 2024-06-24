@@ -27,14 +27,19 @@ shop_settings.meta_description }}{% endblock %} {% block keywords %}{{ shop_sett
           <i class="fa-solid fa-filter"></i>
         </button>
       </div>
-      {% comment %}
-      <form method="get">
-        {{ filter_form.as_p }}
-        <button type="submit">Фильтровать</button>
+      <form method="get" class="filter-form">
+        {% for field in filter_form %}
+        <div class="filter-group">
+          <label class="filter-label"><strong>{{ field.label }}</strong></label>
+          <div class="checkbox-group">{{ field }}</div>
+        </div>
+        {% endfor %}
+        <button type="submit" class="filter-submit">Фильтровать</button>
       </form>
-      {% endcomment %} {% if products %}
+
+      {% if products %}
       <div class="category-details__row">
-        {% if char_name %}
+        {% if char_name %} {% comment %}
         <div class="category-details__col {% if char_name %} filter-col {% endif %}" id="filter-category">
           <div class="filter__body category-filter">
             <p class="filter__label">Категории:</p>
@@ -64,7 +69,7 @@ shop_settings.meta_description }}{% endblock %} {% block keywords %}{{ shop_sett
             <button type="submit" class="filter__submit">Применить</button>
           </form>
         </div>
-        {% endif %}
+        {% endcomment %} {% endif %}
         <div class="category-details__col">
           <!-- <form action="" method="GET" class="content-catalog__filter">
             <span>Сортировка:</span>
@@ -143,6 +148,7 @@ shop_settings.meta_description }}{% endblock %} {% block keywords %}{{ shop_sett
       {% endif %}
     </div>
   </section>
+  {% comment %}
   <div class="filter-mobile">
     <div class="filter-mobile__top">
       <p>Фильтры</p>
@@ -170,5 +176,6 @@ shop_settings.meta_description }}{% endblock %} {% block keywords %}{{ shop_sett
       <button type="submit" class="form__submit">Показать товар</button>
     </form>
   </div>
+  {% endcomment %}
 </main>
 {% endblock content %}

@@ -39,49 +39,38 @@ def chars():
     return result_dict
 
 def category(request):
-  products = Product.objects.filter(status=True).order_by('price')
-  categorys = Category.objects.all()
-  if request.method == "GET":
-    get_filtres = request.GET
-    char_filtres_list = list(get_filtres.keys())
-    parametrs_value = [request.GET.getlist(parametr) for parametr in char_filtres_list]
-    merged_array = list(itertools.chain(*parametrs_value))
-    product = ProductChar.objects.filter(char_value__in=merged_array)
-    id_filter = [pr.parent.id for pr in product]
-    
-    if id_filter:
-      products = products.filter(id__in=id_filter)
+    products = Product.objects.filter(status=True).order_by('price')
+    categorys = Category.objects.all()
 
-  char_name = chars()
-  
-  if request.user.is_authenticated:
-    favorite_product_ids = Favorites.objects.filter(user=request.user).values_list('product_id', flat=True)
-  else:
-    favorite_product_ids = Favorites.objects.filter(session_key=request.session.session_key).values_list('product_id', flat=True)
-  
-  for product in products:
-    product.is_favorite = product.id in favorite_product_ids
-    
-    
-  products = Product.objects.all()
-  filter_form = ProductFilterForm(request.GET)
+    filter_form = ProductFilterForm(request.GET)
+    if filter_form.is_valid():
+        q_objects = Q()
+        for char_name in CharName.objects.filter(filter_add=True):
+            value_ids = filter_form.cleaned_data.get(char_name.filter_name)
+            if value_ids:
+                q_objects |= Q(chars__char_name=char_name, chars__char_value__in=value_ids)
+        
+        if q_objects:
+            products = products.filter(q_objects).distinct()
 
-  if filter_form.is_valid():
-    for name, value_ids in filter_form.cleaned_data.items():
-      if value_ids:
-        products = products.filter(characteristics__id__in=value_ids).distinct()
+    # Избранные товары
+    if request.user.is_authenticated:
+        favorite_product_ids = Favorites.objects.filter(user=request.user).values_list('product_id', flat=True)
+    else:
+        favorite_product_ids = Favorites.objects.filter(session_key=request.session.session_key).values_list('product_id', flat=True)
 
-  context = {
-    "shop_settings": ShopSettings.objects.get(),
-    "products": products,
-    "chars": chars,
-    "char_name": char_name,
-    "filter_form": filter_form,
-    "title": "Каталог",
-    "categorys": categorys
-  }
+    for product in products:
+        product.is_favorite = product.id in favorite_product_ids
 
-  return render(request, "pages/catalog/category.html", context)
+    context = {
+        "shop_settings": ShopSettings.objects.get(),
+        "products": products,
+        "filter_form": filter_form,
+        "title": "Каталог",
+        "categorys": categorys
+    }
+
+    return render(request, "pages/catalog/category.html", context)
 
 
 def category_detail(request, slug):
