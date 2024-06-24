@@ -12,7 +12,7 @@ class UploadFileForm(forms.Form):
 
 class GlobalSettingsForm(forms.ModelForm):
   """ Form, глобальные и общие настройки сайта(лого, телефон, email)"""
-  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  description = forms.CharField(label='Полное описание', required=False, widget=CKEditorUploadingWidget())
   class Meta:
     model = BaseSettings
     fields = [
@@ -25,6 +25,7 @@ class GlobalSettingsForm(forms.ModelForm):
         'meta_title',
         'meta_description',
         'meta_keywords',
+        'description',
     ]
     labels = {
         'logo': 'Логотип',
@@ -303,30 +304,11 @@ class CategoryForm(forms.ModelForm):
     
 class HomeTemplateForm(forms.ModelForm):
   """ Form, редактирование главной страницы"""
-  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  about_text = forms.CharField(label='О нас текст на главной стрнице', required=False, widget=CKEditorUploadingWidget())
   
   class Meta:
       model = HomeTemplate
-      fields = [
-          'banner',
-          'meta_h1',
-          'untitle',
-          'meta_title',
-          'meta_description',
-          'meta_keywords',
-          'about_text',
-          'about_image'
-      ]
-      labels = {
-          'banner': 'Изображение банера',
-          'meta_h1':'Заголвок первого уровня',
-          'meta_title':'Meta title',
-          'untitle': 'Надзаголовок',
-          'meta_description':'Мета description',
-          'meta_keywords':'Meta keywords',
-          'about_text':'Текст о нас',
-          'about_image':'Изображение о нас'
-      }
+      fields = "__all__"
       widgets = {
           'name': forms.TextInput(attrs={
               'class': 'form__controls'
@@ -339,16 +321,11 @@ class HomeTemplateForm(forms.ModelForm):
           }),
           'meta_title': forms.TextInput(attrs={
               'class': 'form__controls',
-              # 'placeholder': 'Мета заголовок',
           }),
           'meta_description': forms.TextInput(attrs={
               'class': 'form__controls',
-              # 'placeholder': 'Мета описание',
           }),
           'meta_keywords': forms.TextInput(attrs={
-              'class': 'form__controls',
-          }),
-          'about_text': forms.TextInput(attrs={
               'class': 'form__controls',
           }),
       }
