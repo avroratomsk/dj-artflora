@@ -144,7 +144,7 @@
           </ul>
         </div>
       </div>
-      <div class="menu-sidebar__dropdown" id="attr">
+      <div class="menu-sidebar__dropdown" id="category">
         <div class="menu-sidebar__dropdown-title">
           <div class="menu-sidebar__dropdow-inner">
             <svg xmlns="http://www.w3.org/2000/svg" width="14.91" height="14.288" viewBox="0 0 14.91 14.288">
@@ -241,9 +241,9 @@
         </div>
         <div class="menu-sidebar__dropdown-content">
           <ul>
-            <li><a href="#">Список атрибутов</a></li>
-            <li><a href="#">Добавить группу атрибутов</a></li>
-            <li><a href="#">Добавить атрибут</a></li>
+            <li><a href="{% url 'admin_char' %}">Список атрибутов</a></li>
+            <li><a href="{% url 'char_group_add' %}">Добавить группу атрибутов</a></li>
+            <li><a href="{% url 'char_add' %}">Добавить атрибут</a></li>
           </ul>
         </div>
       </div>

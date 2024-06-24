@@ -781,6 +781,11 @@ ol {
 
 .pagging {
   display: flex;
+  justify-content: flex-end;
+}
+
+.pagging__inner {
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;

@@ -4,6 +4,7 @@ from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from cart.models import Cart
+from favorites.models import Favorites
 from order.models import Order, OrderItem
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
 
@@ -22,6 +23,7 @@ def login(request):
         
         if session_key:
           Cart.objects.filter(session_key=session_key).update(user=user)
+          Favorites.objects.filter(session_key=session_key).update(user=user)
         
         """
         Данное условие проверяет если ли ключ next
