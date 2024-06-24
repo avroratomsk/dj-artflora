@@ -12,8 +12,11 @@
           </nav>
           <div class="top-header__socials">
             {% if messanger_header %} {% for mes in messanger_header %}
-            <a href="{{ mes.link }}"> <img src="{{ mes.icon.url }}" alt="{{ mes.name }}" title="{{ mes.name }}" /></a>
-            {% endfor %} {% endif %} {% if user.is_authenticated %}
+            <a href="{{ mes.link }}" target="_blank">
+              <img src="{{ mes.icon.url }}" alt="{{ mes.name }}" title="{{ mes.name }}" /></a>
+            {% endfor %}
+            {% endif %}
+            {% if user.is_authenticated %}
             <a href="{% url 'user:profile' %}" class="top-header__login">
               <img src="{% static 'theme/mb/images/icon/i-login.svg' %}" alt="" />
               <span>Личный кабинет</span>
@@ -53,7 +56,8 @@
               {% endif %}
               <img src="{% static 'theme/mb/images/icon/i-favorits.svg' %}" alt="" />
             </a>
-            <button type="button" {% if request.path == "/orders/create/" %}disabled{% endif %} class="middle-header__cart" id="show-cart">
+            <button type="button" {% if request.path == '/orders/create/' %}disabled{% endif %}
+              class="middle-header__cart" id="show-cart">
               <img src="{% static 'theme/mb/images/icon/i-cart.svg' %}" alt="" />
               {% user_carts request as carts %} {% if carts %}
               <span class="cart_count">{{ carts.total_quantity }}</span>
@@ -112,7 +116,7 @@
   </div>
 </header>
 
-<div class="hidden-menu">
+<div class="hidden-menu _show">
   <button class="close-menu close" id="close-menu"><span></span></button>
   <form action="{% url 'search' %}" method="GET" class="hidden-menu__search">
     {% csrf_token %}
@@ -121,19 +125,20 @@
       <img src="{% static 'theme/mb/images/icon/i-search.svg' %}" alt="" />
     </button>
   </form>
+  {% comment %} <p class="hidden-menu__title">Каталог</p> {% endcomment %}
   <ul class="hidden-menu__list">
-    {% for item in menu %}
+    {% for category in menu %}
     <li class="hidden-menu__item">
       <div class="hidden-menu__item-inner">
-        <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+        <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
         <button type="button" class="submenu-show"><i class="fa-solid fa-chevron-down"></i></button>
       </div>
       <ul class="hidden-submenu">
-        {% for subitem in menus_pr %} {% if item.name == subitem.category.name %}
+        {% for subitem in category.subcategorys.all %}
         <li class="hidden-submenu__item">
           <a href="{{ subitem.get_absolute_url }}">{{ subitem.name }}</a>
         </li>
-        {% endif %} {% endfor %}
+        {% endfor %}
       </ul>
     </li>
     {% endfor %}

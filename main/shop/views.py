@@ -78,24 +78,16 @@ def category_detail(request, slug):
   products = Product.objects.filter(category=category).order_by('price')
   categories = Category.objects.all()[:10]
   
-  if request.method == "GET":
-    get_filtres = request.GET
+  filter_form = ProductFilterForm(request.GET)
+  if filter_form.is_valid():
+      q_objects = Q()
+      for char_name in CharName.objects.filter(filter_add=True):
+          value_ids = filter_form.cleaned_data.get(char_name.filter_name)
+          if value_ids:
+              q_objects |= Q(chars__char_name=char_name, chars__char_value__in=value_ids)
       
-    
-    char_filtres_list = list(get_filtres.keys())
-    parametrs_value = []
-    for parametr in char_filtres_list:
-      parametrs_value.append(request.GET.getlist(parametr))# [['Малиновый', 'Белый'], ['25']]
-    
-    merged_array = list(itertools.chain(*parametrs_value))
-    product = ProductChar.objects.filter(char_value__in=merged_array)
-    
-    id_filter = [pr.parent.id for pr in product]
-    
-    if id_filter:
-      products = products.filter(id__in=id_filter)
-    
-  char_name = chars()
+      if q_objects:
+          products = products.filter(q_objects).distinct()
   
   if request.user.is_authenticated:
     favorite_product_ids = Favorites.objects.filter(user=request.user).values_list('product_id', flat=True)
@@ -110,8 +102,7 @@ def category_detail(request, slug):
   
   context = {
     "category": category,
-    "chars": chars,
-    "char_name": char_name,
+    "filter_form": filter_form,
     "products": products,
     "categories": categories
   }
@@ -139,50 +130,11 @@ def search(request):
   for token in keywords:
     q_objects |= Q(name__icontains=token)
     q_objects |= Q(category__name__icontains=token)
-    q_objects |= Q(char_value__icontains=token)
-  
-  # char_product = ProductChar.objects.filter(char_value__icontains=query)
   
   products = Product.objects.filter(q_objects).order_by('price')
   
-  # if request.method == "GET":
-  #   get_filtres = request.GET
-      
-    
-  #   char_filtres_list = list(get_filtres.keys())
-  #   parametrs_value = []
-  #   for parametr in char_filtres_list:
-  #     parametrs_value.append(request.GET.getlist(parametr))# [['Малиновый', 'Белый'], ['25']]
-    
-  #   merged_array = list(itertools.chain(*parametrs_value))
-  #   product = ProductChar.objects.filter(char_value__in=merged_array)
-    
-  #   id_filter = [pr.parent.id for pr in product]
-    
-  #   if id_filter:
-  #       products = products.filter(id__in=id_filter)
-    
-  # products_all = Product.objects.filter(status=True)
-  
-  # id_product = []
-  # for id in products_all:
-  #   id_product.append(id.id)
-    
-  # chars_all = ProductChar.objects.filter(parent__in=products_all).distinct()
-  # char_name = CharName.objects.filter(c_chars__in=chars_all, filter_add=True).exclude(filter_name=None).distinct()
-  
-  # chars_list_name_noduble = []
-  # for li in chars_all:
-  #   if li.char_value not in chars_list_name_noduble:
-  #     chars_list_name_noduble.append(li.char_value)
-  # # print(chars_list_name_noduble)
-  
-  # chars = ProductChar.objects.filter(char_value__in=chars_list_name_noduble).distinct()
-  # chars_list_name_noduble_a = ProductChar.objects.filter(parent__in=products_all).distinct().values_list('char_value', flat=True).distinct()
   
   context = {
-    # "char_name":char_name,
-    # "chars": chars,
     "products": products,
     "category": "Страницы поиска",
     "title": "Страница поиска",

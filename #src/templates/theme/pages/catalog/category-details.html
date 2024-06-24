@@ -14,66 +14,46 @@
         </a>
         <a href="{% url 'category' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
           class="breadcrumbs__item">
-          Каталог
+          Категории
           <meta itemprop="position" content="1" />
         </a>
         <span itemprop="name" class="breadcrumbs__item">
           {{ category.name }}
-          <meta itemprop="position" content="3" />
+          <meta itemprop="position" content="2" />
         </span>
       </div>
       <div class="filter-mb">
-        {% comment %}
-        <form action="" method="#" class="">
-          <select name="" id="" class="filter-mb__select">
-            <option value="asc">Сначало недорогие</option>
-            <option value="desc">Сначало дорогие</option>
-          </select>
-        </form>
-        {% endcomment %}
         <button type="button" class="filter-mb__btn" id="filter-btn">
           <span>Фильтры</span>
           <i class="fa-solid fa-filter"></i>
         </button>
       </div>
+
       {% if products %}
       <div class="category-details__row">
-        {% if char_name %}
-        <div class="category-details__col {% if char_name %} filter-col {% endif %}" id="filter-category">
+        <div class="category-details__col filter-col" id="filter-category">
           <div class="filter__body category-filter">
             <p class="filter__label">Категории:</p>
-            {% for category in categories %}
+            {% for category in categorys %}
             <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
             {% endfor %}
           </div>
-
-          <form action="" method="GET" class="filter form">
-            {% for key, values in char_name.items %}
+          <form method="GET" class="filter-form">
+            {% for field in filter_form %}
             <div class="filter__body">
-              <p class="filter__label">{{ key }}:</p>
-              {% for value in values %}
+              <label class="filter__label">{{ field.label }}</label>
+              {% for checkbox in field %}
               <div class="form__group-boolean">
-                <input type="checkbox" name="{{ key }}" class="form__controls-checkbox filter-checkbox"
-                  id="filter-{{ value.1 }}" value="{{ value.1 }}" />
-                <label for="filter-{{ value.1 }}" class="form__boolean-label"> {{ value.0 }}</label>
+                {{ checkbox.tag }}
+                <label class="checkbox-label" for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
               </div>
               {% endfor %}
             </div>
             {% endfor %}
-            <button type="submit" class="filter__submit">Применить</button>
+            <button type=" submit" class="filter__submit">Фильтровать</button>
           </form>
         </div>
-        {% endif %}
         <div class="category-details__col">
-          {% comment %}
-          <div class="content-catalog__filter">
-            <span>Сортировка:</span>
-            <a href="" data-sort="asc">Сначало недорогие</a>
-            <a href="" data-sort="desc">Сначало дорогие</a>
-            <a href="" data-sort="populate">Популярные</a>
-            <a href="" data-sort="stock">Акции</a>
-          </div>
-          {% endcomment %}
           <div class="index-catalog__cards cards-catalog">
             {% for product in products %}
             <div class="section__card card-section">
@@ -130,34 +110,34 @@
       {% endif %}
     </div>
   </section>
-  {% if category.description %}
-
-  <section class="text">
-    <div class="text__container">{{ category.description|safe }}</div>
-  </section>
-  {% endif %}
+  {% comment %}
   <div class="filter-mobile">
     <div class="filter-mobile__top">
       <p>Фильтры</p>
       <button type="reset">Сбросить</button>
       <button class="close-filter close" id="close-filter"><span></span></button>
     </div>
-    <form action="" method="GET" class="filter form">
-      {% for char in char_name %}
+    <div class="filter__body category-filter">
+      <p class="filter__label">Категории:</p>
+      {% for category in categorys %}
+      <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+      {% endfor %}
+    </div>
+    <form method="GET" class="filter-form">
+      {% for field in filter_form %}
       <div class="filter__body">
-        <p class="filter__label">{{ char.text_name }}:</p>
-        {% for char_value in chars %} {% if char_value.char_name.text_name == char.text_name %}
+        <label class="filter__label">{{ field.label }}</label>
+        {% for checkbox in field %}
         <div class="form__group-boolean">
-          <input type="checkbox" name="{{ char_value.char_name.filter_name }}-{{ char_value.id }}"
-            class="form__controls-checkbox filter-checkbox" id="filter-{{ char_value.id }}"
-            value="{{ char_value.char_value }}" />
-          <label for="filter-{{ char_value.id }}" class="form__boolean-label"> {{ char_value.char_value }}</label>
+          {{ checkbox.tag }}
+          <label class="checkbox-label" for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
         </div>
-        {% endif %} {% endfor %}
+        {% endfor %}
       </div>
       {% endfor %}
-      <button type="submit" class="form__submit">Показать товар</button>
+      <button type=" submit" class="filter__submit">Фильтровать</button>
     </form>
   </div>
+  {% endcomment %}
 </main>
 {% endblock content %}
