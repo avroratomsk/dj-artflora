@@ -8,6 +8,19 @@ import json
 def favorites(request):
   favorites = Favorites.objects.all()
   
+  if request.user.is_authenticated:
+    favorite_product_ids = Favorites.objects.filter(user=request.user).values_list('product_id', flat=True)
+  else:
+    favorite_product_ids = Favorites.objects.filter(session_key=request.session.session_key).values_list('product_id', flat=True)
+  
+    
+  # Добавляем флаг is_favorite к каждому продукту
+  for product in favorites:
+    product.is_favorite = product.id in favorite_product_ids
+  
+  for o in favorites:
+    print(o)
+  
   context = {
     "favorites": favorites
   }

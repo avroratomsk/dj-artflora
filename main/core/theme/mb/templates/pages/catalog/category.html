@@ -111,11 +111,10 @@ shop_settings.meta_description }}{% endblock %} {% block keywords %}{{ shop_sett
   <section class="text">
     <div class="text__container">{{ shop_settings.description|safe }}</div>
   </section>
-  {% endif %} {% comment %}
+  {% endif %}
   <div class="filter-mobile">
     <div class="filter-mobile__top">
       <p>Фильтры</p>
-      <button type="reset">Сбросить</button>
       <button class="close-filter close" id="close-filter"><span></span></button>
     </div>
     <div class="filter__body category-filter">
@@ -139,6 +138,5 @@ shop_settings.meta_description }}{% endblock %} {% block keywords %}{{ shop_sett
       <button type=" submit" class="filter__submit">Фильтровать</button>
     </form>
   </div>
-  {% endcomment %}
 </main>
 {% endblock content %}

@@ -3344,6 +3344,15 @@ html.lock body::before {
   justify-content: space-between;
 }
 
+.favorites__action-inner {
+  display: flex;
+  align-items: center;
+}
+
+.favorites__action-inner .add-to-favorit {
+  height: 20px;
+}
+
 @keyframes fadeInOut {
   0% {
     opacity: 0;
@@ -4720,6 +4729,26 @@ html.lock body::before {
   font-weight: 600;
 }
 
+.filter__body {
+  padding-top: 20px;
+}
+
+.category-filter {
+  height: 350px;
+  overflow-y: auto;
+  border-left: 1px solid rgba(63, 60, 56, 0.01);
+  border-right: 1px solid rgba(63, 60, 56, 0.01);
+}
+
+.category-filter::-webkit-scrollbar {
+  width: 0px;
+  /* ширина всей полосы прокрутки */
+}
+
+.category-filter::-webkit-scrollbar-track {
+  /* цвет зоны отслеживания */
+}
+
 .filter::-webkit-scrollbar {
   width: 1px;
 }
@@ -5394,8 +5423,18 @@ html.lock body::before {
     visibility: hidden;
   }
 
+  .cart_count {
+    top: -6px;
+    right: -1px;
+  }
+
   .footer__grid {
     flex-wrap: wrap;
+  }
+
+  #count {
+    top: -12px;
+    right: -6px;
   }
 
   .page-contact {
