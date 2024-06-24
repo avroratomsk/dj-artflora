@@ -1,6 +1,7 @@
-{% extends "base.html" %} {% load shop_tags %} {% load thumbnail %} {% load static %} {% block title %}{{
-shop_settings.meta_title }}{%endblock %} {% block description %}{{
-shop_settings.meta_description }}{% endblock %} {% block keywords %}{{ shop_settings.meta_keywords }}{% endblock %}
+{% extends "base.html" %} {% load shop_tags %} {% load thumbnail %} {% load static %}
+{% block title %}{{ shop_settings.meta_title }}{%endblock %} {% block description %}
+{{ shop_settings.meta_description }}
+{% endblock %} {% block keywords %}{{ shop_settings.meta_keywords }}{% endblock %}
 {% block content %}
 <main class="page">
   <section class="category-details">
@@ -44,15 +45,15 @@ shop_settings.meta_description }}{% endblock %} {% block keywords %}{{ shop_sett
             {% for field in filter_form %}
             <div class="filter__body">
               <label class="filter__label">{{ field.label }}</label>
+              {% for checkbox in field %}
               <div class="form__group-boolean">
-                {% for checkbox in field %}
                 {{ checkbox.tag }}
-                <label class="checkbox-label">{{ checkbox.choice_label }}</label>
-                {% endfor %}
+                <label class="checkbox-label" for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
               </div>
+              {% endfor %}
             </div>
             {% endfor %}
-            <button type="submit" class="filter__submit">Фильтровать</button>
+            <button type=" submit" class="filter__submit">Фильтровать</button>
           </form>
         </div>
         <div class="category-details__col">
