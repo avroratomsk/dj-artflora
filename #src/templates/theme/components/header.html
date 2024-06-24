@@ -84,13 +84,13 @@
       <div class="header-mb__inner">
         <div class="header-mb__left">
           <button type="button" class="header__burger" id="burger"><span></span></button>
-          <a href="" class="header-mb__phone">
-            <img src="{% static 'theme/mb/images/i-phone.svg' %}" alt="" />
+          <a href="tel:{{site_settings.phone}}" class="header-mb__phone">
+            <img src="{% static 'theme/mb/images/i-phone.svg' %}" alt="Телефон" />
           </a>
         </div>
         <div class="header-mb__middle">
           <a href="/" class="header-mb__logo">
-            <img src="{% static 'theme/mb/images/logo.png' %}" alt="" />
+            <img src="{% static 'theme/mb/images/logo.png' %}" alt="Логотип" />
           </a>
         </div>
         <div class="header-mb__right">
@@ -98,10 +98,10 @@
             {% if favorites_count %}
             <span class="favorite_count" id="count">{{ favorites_count }}</span>
             {% endif %}
-            <img src="{% static 'theme/mb/images/icon/i-favorits.svg' %}" alt="" />
+            <img src="{% static 'theme/mb/images/icon/i-favorits.svg' %}" alt="Иконка Избраного" />
           </a>
           <button type="button" class="header-mb__cart" id="show-cart">
-            <img src="{% static 'theme/mb/images/icon/i-cart.svg' %}" alt="" />
+            <img src="{% static 'theme/mb/images/icon/i-cart.svg' %}" alt="Иконка корзины" />
             {% user_carts request as carts %} {% if carts %}
             <span class="cart_count">{{ carts.total_quantity }}</span>
             {% endif %}
@@ -141,17 +141,17 @@
   <ul class="hidden-menu__list">
     <li class="hidden-menu__item">
       <div class="hidden-menu__item-inner">
-        <a href="">Популярные</a>
+        <a href="{% url 'populate' %}">Популярные</a>
       </div>
     </li>
     <li class="hidden-menu__item">
       <div class="hidden-menu__item-inner">
-        <a href="">Контакты</a>
+        <a href="{% url 'contact' %}">Контакты</a>
       </div>
     </li>
     <li class="hidden-menu__item">
       <div class="hidden-menu__item-inner">
-        <a href="">Акции</a>
+        <a href="{% url 'stock' %}">Акции</a>
       </div>
     </li>
     <li class="hidden-menu__item">
@@ -161,12 +161,12 @@
     </li>
     <li class="hidden-menu__item">
       <div class="hidden-menu__item-inner">
-        <a href="">Авторизация</a>
+        <a href="{% url 'user:login' %}">Авторизация</a>
       </div>
     </li>
   </ul>
   <div class="hidden-menu__action">
-    <a href="tel:89999999999">8 (999) 999-99-99</a>
-    <button type="button">Заказть звонок</button>
+    <a href="tel:{{site_settings.phone}}">{{site_settings.phone}}</a>
+    <button type="button" data-popup="callback">Заказть звонок</button>
   </div>
 </div>
