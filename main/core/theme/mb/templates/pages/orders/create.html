@@ -1,4 +1,10 @@
-{% extends "base.html" %} {% load static %} {% load thumbnail %}{% block content %}
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+{% block content %}
+{% block title %}Оформление заказа | ArtFlora{%endblock %}
+{% block description %}Оформление заказа{% endblock %}
+{% block keywords %}{% endblock %}
 <main>
   <section class="order-create">
     <div class="order-create__container">
@@ -10,11 +16,13 @@
             <div class="form__item">
               <p class="form__item-title">Кто получит букет ?</p>
               <div class="form__boolean">
-                <input type="radio" name="who_get_bouqets" class="form__controls-radio who-get" id="id_who_get_bouqets" value="Я сам" checked />
+                <input type="radio" name="who_get_bouqets" class="form__controls-radio who-get" id="id_who_get_bouqets"
+                  value="Я сам" checked />
                 <label for="id_who_get_bouqets" class="form__boolean-label">Я сам</label>
               </div>
               <div class="form__boolean">
-                <input type="radio" name="who_get_bouqets" class="form__controls-radio who-get" id="id_another_man" value="Другой человек" data-id="another" />
+                <input type="radio" name="who_get_bouqets" class="form__controls-radio who-get" id="id_another_man"
+                  value="Другой человек" data-id="another" />
                 <label for="id_another_man" class="form__boolean-label">Другой человек</label>
               </div>
             </div>
@@ -22,29 +30,17 @@
               <p class="form__item-title">Ваши контакты</p>
               <div class="form__group-grid">
                 <div class="form__group">
-                  <input
-                    type="text"
-                    class="form__controls"
-                    id="id_first_name"
-                    value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
-                    name="first_name"
-                    placeholder="Имя*"
-                    required
-                  />
+                  <input type="text" class="form__controls" id="id_first_name"
+                    value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}" name="first_name"
+                    placeholder="Имя*" required />
                 </div>
                 <div class="form__group">
-                  <input
-                    type="text"
-                    class="form__controls"
-                    id="id_email"
-                    name="email"
-                    value="{% if form.email.value %}{{ form.email.value }}{% endif %}"
-                    placeholder="Email*"
-                    required
-                  />
+                  <input type="text" class="form__controls" id="id_email" name="email"
+                    value="{% if form.email.value %}{{ form.email.value }}{% endif %}" placeholder="Email*" required />
                 </div>
                 <div class="form__group">
-                  <input type="text" class="form__controls" id="id_phone_number" name="phone" value="" placeholder="Номер телефона*" required />
+                  <input type="text" class="form__controls" id="id_phone_number" name="phone" value=""
+                    placeholder="Номер телефона*" required />
                 </div>
               </div>
             </div>
@@ -52,10 +48,12 @@
               <p class="form__item-title">Контакты получателя</p>
               <div class="form__group-grid">
                 <div class="form__group">
-                  <input type="text" class="form__controls" id="id_first_name_human" value="" name="first_name_human" placeholder="Имя*" />
+                  <input type="text" class="form__controls" id="id_first_name_human" value="" name="first_name_human"
+                    placeholder="Имя*" />
                 </div>
                 <div class="form__group">
-                  <input type="text" class="form__controls" id="id_phone_number_human" name="phone_number_human" value="" placeholder="Номер телефона *" />
+                  <input type="text" class="form__controls" id="id_phone_number_human" name="phone_number_human"
+                    value="" placeholder="Номер телефона *" />
                 </div>
                 <div class="form__group">
                   <div class="form__group-boolean">
@@ -72,28 +70,33 @@
             <div class="form__item">
               <p class="form__item-title">Адрес доставки</p>
               <div class="form__group" id="id_delivery_address">
-                <input required type="text" data-zones="true" data-city="Иркутск" class="form__controls" placeholder="Улица, дом" id="suggest" name="delivery_address" />
+                <input required type="text" data-zones="true" data-city="Иркутск" class="form__controls"
+                  placeholder="Улица, дом" id="suggest" name="delivery_address" />
                 <div id="addressError" class="address-error"></div>
               </div>
               <div class="form__group-boolean">
                 <input type="checkbox" name="pickup" id="pickup" class="form__controls-checkbox" />
                 <label for="pickup" class="form__boolean-label">Самовывоз</label>
               </div>
+              {% comment %}
               <div class="form__group">
                 <input type="text" name="pickup" id="finaladress" class="form__controls" />
               </div>
+              {% endcomment %}
             </div>
             {% comment %}
             <div class="form__item">
               <p class="form__item-title">Способ оплаты:</p>
               <div class="form__group">
                 <div class="form__group-boolean">
-                  <input class="form__controls-radio" type="radio" name="payment_option" id="id_for_label-1" value="На сайте картой" />
+                  <input class="form__controls-radio" type="radio" name="payment_option" id="id_for_label-1"
+                    value="На сайте картой" />
                   <label class="form__boolean-label" for="id_for_label-1">На сайте картой</label>
                 </div>
 
                 <div class="form__group-boolean">
-                  <input class="form__controls-radio" type="radio" name="payment_option" id="id_for_label-2" value="Курьером при получении" />
+                  <input class="form__controls-radio" type="radio" name="payment_option" id="id_for_label-2"
+                    value="Курьером при получении" />
                   <label class="form__boolean-label" for="id_for_label-2">Курьером при получении</label>
                 </div>
               </div>
@@ -121,9 +124,11 @@
             <div class="order-create__item">
               <div class="order-create__thumb">
                 {% if cart.product.image %} {% thumbnail cart.product.image "50x50" format="WEBP" crop="center" as im %}
-                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ cart.product.name }}" title="{{ cart.product.name  }}" />
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ cart.product.name }}"
+                  title="{{ cart.product.name  }}" />
                 {% endthumbnail %} {% else %}
-                <img src="{% static 'theme/mb/images/no-image.png' %}" alt="{{ cart.product.name }}" title="{{ cart.product.name  }}" />
+                <img src="{% static 'theme/mb/images/no-image.png' %}" alt="{{ cart.product.name }}"
+                  title="{{ cart.product.name  }}" />
                 {% endif %}
               </div>
               <div class="order-create__info">
@@ -138,13 +143,17 @@
                   placeholder="Введите промокод" />
               </form>
             </div> -->
-            <div class="order-create__summ"><span>Сумма:</span> <span id="order-sum">{{ cart.total_price }}</span> руб.</div>
+            <div class="order-create__summ"><span>Сумма:</span> <span id="order-sum">{{ cart.total_price }}</span> руб.
+            </div>
             <div id="delivery-price">{{ delivery }}</div>
-            <div class="order-create__delivery" id="order-delivery-info"><span>Доставка:</span> от <span id="order-delivery"> {{ delivery }}</span> руб.</div>
+            <div class="order-create__delivery" id="order-delivery-info"><span>Доставка:</span> от <span
+                id="order-delivery"> {{ delivery }}</span> руб.</div>
 
-            <div class="order-create__delivery"><span>Скидка:</span> <span id="discount"> {% if discount %} {{ discount }}%{% else %}0%{% endif %}</span></div>
+            <div class="order-create__delivery"><span>Скидка:</span> <span id="discount"> {% if discount %} {{ discount
+                }}%{% else %}0%{% endif %}</span></div>
 
-            <div class="order-create__total"><span>Итого:</span> <span id="order-total">{% if total %} {{ total }} {% endif %}</span> руб.</div>
+            <div class="order-create__total"><span>Итого:</span> <span id="order-total">{% if total %} {{ total }} {%
+                endif %}</span> руб.</div>
           </div>
         </div>
       </div>

@@ -348,20 +348,20 @@
         <div class="contact__grid">
           <div class="contact__item">
             <img src="{% static 'theme/mb/images/i-email.svg' %}" alt="" />
-            <p class="ff">artflora-irk@yandex.ru</p>
+            <p class="ff">{{ site_settings.email }}</p>
           </div>
           <a href="tel:{{ site_settings.phone }}" class="contact__item">
-            <img src="{% static 'theme/mb/images/i-phone.svg' %}" alt="" />
+            <img src="{% static 'theme/mb/images/i-phone.svg' %}" alt="Телефон" />
             <p class="ff">{{ site_settings.phone }}</p>
           </a>
-          <a href="https://wa.me/89236464726" class="contact__item">
-            <img src="{% static 'theme/mb/images/i-wa.svg' %}" alt="" />
+          <a href="https://wa.me/{{ site_settings.phone }}" target="_blank" class="contact__item">
+            <img src="{% static 'theme/mb/images/i-wa.svg' %}" alt="Whatsapp" />
             <p class="ff">Whatsapp</p>
           </a>
-          <div class="contact__item">
-            <img src="{% static 'theme/mb/images/i-faq.svg' %}" alt="" />
+          <a href="" class="contact__item">
+            <img src="{% static 'theme/mb/images/i-faq.svg' %}" alt="Частые вопросы" />
             <p class="ff">Частые вопросы</p>
-          </div>
+          </a>
         </div>
       </div>
     </div>
