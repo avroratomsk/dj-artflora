@@ -46,10 +46,8 @@ shop_settings.meta_description }}{% endblock %} {% block keywords %}{{ shop_sett
               <label class="filter__label">{{ field.label }}</label>
               <div class="form__group-boolean">
                 {% for checkbox in field %}
-                <div class="checkbox-item">
-                  {{ checkbox.tag }}
-                  <label class="checkbox-label">{{ checkbox.choice_label }}</label>
-                </div>
+                {{ checkbox.tag }}
+                <label class="checkbox-label">{{ checkbox.choice_label }}</label>
                 {% endfor %}
               </div>
             </div>
