@@ -527,8 +527,13 @@
   grid-template-columns: repeat(auto-fit, minmax(385px, 1fr));
   gap: 50px;
 
-  @media screen and (max-width: 520px) {
+  @media screen and (max-width: 850px) {
     grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  }
+
+  @media screen and (max-width: 664px) {
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
   }
 }
 

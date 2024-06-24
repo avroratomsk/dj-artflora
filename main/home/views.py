@@ -5,6 +5,7 @@ from home.models import BaseSettings, DeliveryPage, HomeTemplate, SliderHome, St
 from cart.models import Cart
 from home.forms import CallbackForm, ContactForm
 from home.callback_send import email_callback
+from favorites.models import Favorites
 from shop.models import Category, Product
 from reviews.models import Reviews
 from django.http import JsonResponse
@@ -48,8 +49,8 @@ def callback_success(request):
   return render(request, "pages/orders/callback-succes.html")
 
 def index(request):
-  page = request.GET.get('page', 1)
-  products = Product.objects.all()
+  products = Product.objects.filter(status=True)
+  
   try: 
     home_page = HomeTemplate.objects.get()
     settings = BaseSettings.objects.get()
@@ -59,15 +60,29 @@ def index(request):
 
   category = Category.objects.all()[:8]
   
-  # for cat in category:
-  #   cat.product_count = cat.product_set.count() # Получаем количество товаров в каждой категории
-    
   saleProduct = Product.objects.filter(sale_price__gt=0)[:8]
   affordable_products = Product.objects.filter(price__gt=0, price__lt=2500)[:8]
   populate = Product.objects.filter(quantity_purchase__gte=10)[:8]
   novetly = Product.objects.filter(latest=True)[:8]
   reviews = Reviews.objects.filter(status=True)[:8]
   slider = SliderHome.objects.all()
+  
+  if request.user.is_authenticated:
+    favorite_product_ids = Favorites.objects.filter(user=request.user).values_list('product_id', flat=True)
+  else:
+    favorite_product_ids = Favorites.objects.filter(session_key=request.session.session_key).values_list('product_id', flat=True)
+  
+  # Добавляем флаг is_favorite к каждому продукту
+  for product in products:
+    product.is_favorite = product.id in favorite_product_ids
+    
+  # Добавляем флаг is_favorite к каждому продукту
+  for product in populate:
+    product.is_favorite = product.id in favorite_product_ids
+    
+  # Добавляем флаг is_favorite к каждому продукту
+  for product in novetly:
+    product.is_favorite = product.id in favorite_product_ids
   
   context = {
     "categorys": category,
@@ -86,6 +101,15 @@ def index(request):
 
 def populate(request):
   products = Product.objects.filter(quantity_purchase__gte=10)
+  
+  if request.user.is_authenticated:
+    favorite_product_ids = Favorites.objects.filter(user=request.user).values_list('product_id', flat=True)
+  else:
+    favorite_product_ids = Favorites.objects.filter(session_key=request.session.session_key).values_list('product_id', flat=True)
+  
+  # Добавляем флаг is_favorite к каждому продукту
+  for product in products:
+    product.is_favorite = product.id in favorite_product_ids
   
   context = {
     "title": "Популярные товары",

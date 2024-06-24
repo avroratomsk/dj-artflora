@@ -5448,6 +5448,12 @@ html.lock body::before {
   }
 }
 
+@media screen and (max-width: 850px) {
+  .catalog__grid {
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  }
+}
+
 @media screen and (max-width: 768px) {
   .index-slider__slide {
     padding: 40px 40px;
@@ -5489,6 +5495,13 @@ html.lock body::before {
 
   .reviews-add__col:first-child {
     display: none;
+  }
+}
+
+@media screen and (max-width: 664px) {
+  .catalog__grid {
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
   }
 }
 
@@ -5617,10 +5630,6 @@ html.lock body::before {
 }
 
 @media screen and (max-width: 520px) {
-  .catalog__grid {
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  }
-
   .about__btn {
     width: 100%;
   }
