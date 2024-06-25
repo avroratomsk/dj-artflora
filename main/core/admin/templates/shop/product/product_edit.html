@@ -1,20 +1,25 @@
 {% extends 'admin_base.html' %}{% load static %} {% block body %}
 <div class="page">
   <div class="page__inner">
+    <div class="page__top">
+      <h1 class="page__title">Настройки товара</h1>
+      <ul class="admin-breadcrumbs">
+        <li><a href="{% url 'admin' %}">Панель управления</a></li>
+        <li><a href="{% url 'admin_product' %}">Товары</a></li>
+        <li>Настройки товара</li>
+      </ul>
+    </div>
     <form action="." method="POST" class="form" enctype="multipart/form-data">
       <div class="page__head">
-        <div class="page__head-save">
-          <h1 class="page__title">Страница редактирования</h1>
-          <button type="submit" class="form__btn">
-            <img src="{% static 'theme/mb/images/admin/save.svg' %}" alt="" />
-            Сохранить
-          </button>
-        </div>
         <div class="page__head-tab">
           <button type="button" data-name="basic" class="page__head-btn _active">Основные</button>
           <button type="button" data-name="seo" class="page__head-btn">Поля SEO</button>
           <button type="button" data-name="char" class="page__head-btn">Характеристики</button>
         </div>
+        <button type="submit" class="form__btn">
+          <img src="{% static 'theme/mb/images/admin/save.svg' %}" alt="" />
+          Сохранить
+        </button>
       </div>
       {% csrf_token %}
       <div class="page-content _show" id="basic">

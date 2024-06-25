@@ -14,7 +14,14 @@ class BaseSettings(SingletonModel):
   meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
   description = models.TextField(null=True, blank=True, verbose_name="Текс о нас на главной странице")
-  
+
+# class Contact(SingletonModel):
+#   meta_h1 = models.CharField(max_length=350, null=True, blank=True, verbose_name="Заголовок первого уровня")
+#   meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="Мета заголовок")
+#   meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
+#   meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
+
+
 
 class HomeTemplate(SingletonModel):
   banner = models.ImageField(upload_to="home-page", blank=True, null=True, verbose_name="Картинка главной страницы")

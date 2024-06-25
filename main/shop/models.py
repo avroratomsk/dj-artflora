@@ -70,7 +70,7 @@ class Product(models.Model):
   height = models.CharField(max_length=150, blank=True, null=True, verbose_name="Высота")
   quantity_flower = models.CharField(max_length=250, blank=True, null=True, verbose_name="Количество цветков в букете")
   quantity_purchase = models.IntegerField(default=0, verbose_name="Количество покупок")
-  free_shipping = models.BooleanField(default=False, null=True, blank=True, verbose_name="Бесплатная доставка ?")
+  free_shipping = models.BooleanField(default=False, verbose_name="Бесплатная доставка ?")
   latest = models.BooleanField(default=False, verbose_name="Новинка ?")
   status = models.BooleanField(default=True, verbose_name="Опубликовать ?")
   

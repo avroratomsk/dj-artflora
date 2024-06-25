@@ -452,6 +452,36 @@
   &__label {}
 }
 
+.filter__body {
+  padding-top: 20px;
+}
+
+.category-filter {
+  height: 350px;
+  overflow-y: auto;
+  border-left: 1px solid rgba($color: $mainColor, $alpha: .01);
+  border-right: 1px solid rgba($color: $mainColor, $alpha: .01);
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    /* ширина всей полосы прокрутки */
+  }
+
+  &::-webkit-scrollbar-track {
+    // background: orange;
+    /* цвет зоны отслеживания */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    // background-color: blue;
+    // /* цвет бегунка */
+    // border-radius: 20px;
+    // /* округлось бегунка */
+    // border: 3px solid orange;
+    // /* отступ вокруг бегунка */
+  }
+}
+
 .form {
 
   // .form__group-boolean

@@ -889,4 +889,8 @@ def admin_users(request):
   users = User.objects.all()
   
   return render(request, "users/admin_users.html", {"items": users})
+
+
+def admin_contact(request):
+  pass
   

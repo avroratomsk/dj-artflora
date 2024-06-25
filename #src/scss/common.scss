@@ -540,6 +540,11 @@
   font-size: 10px;
   color: rgba($color: $white, $alpha: 1.0);
   background-color: rgba($color: $accent, $alpha: 1.0);
+
+  @media screen and (max-width: 1024px) {
+    top: -12px;
+    right: -6px;
+  }
 }
 
 .django-ckeditor-widget {

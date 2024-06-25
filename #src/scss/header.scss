@@ -290,6 +290,11 @@
   align-items: center;
   border-radius: 4px;
   justify-content: center;
+
+  @media screen and (max-width: 1024px) {
+    top: -6px;
+    right: -1px;
+  }
 }
 
 .header__burger {

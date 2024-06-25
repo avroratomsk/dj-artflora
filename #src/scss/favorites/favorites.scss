@@ -53,6 +53,17 @@
     justify-content: space-between;
   }
 
+  // .favorites__action-inner
+
+  &__action-inner {
+    display: flex;
+    align-items: center;
+
+    .add-to-favorit {
+      height: 20px;
+    }
+  }
+
   // .favorites__price
 
   &__price {}

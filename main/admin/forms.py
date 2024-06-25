@@ -66,7 +66,30 @@ class GlobalSettingsForm(forms.ModelForm):
             'class': 'form__controls'
         })
     }
-    
+ 
+# name
+# slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
+# description = models.TextField(blank=True, null=True, verbose_name="Описание")
+# meta_h1 = models.CharField(max_length=350, null=True, blank=True, verbose_name="Заголовок первого уровня")
+# meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="Мета заголовок")
+# meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
+# meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
+# image = models.ImageField(upload_to="product_iamge", blank=True, null=True, verbose_name="Изображение товара")
+# price = models.DecimalField(default=0, max_digits=10, decimal_places=2, verbose_name="Цена товра")
+# sale_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name="Цена со скидкой")
+# discount = models.DecimalField(default=0, max_digits=10, decimal_places=2, verbose_name="Скидака в %")
+#   quantity = models.PositiveIntegerField(default=0, verbose_name="Количество")
+#   category = models.ManyToManyField(Category, null=True, blank=True, verbose_name="Категории")
+#   composition = models.CharField(max_length=255, blank=True, null=True, verbose_name="Состав")
+#   diameter = models.CharField(max_length=250, blank=True, null=True, verbose_name="Диаметр")
+#   width = models.CharField(max_length=150, blank=True, null=True, verbose_name="Ширина")
+#   height = models.CharField(max_length=150, blank=True, null=True, verbose_name="Высота")
+#   quantity_flower = models.CharField(max_length=250, blank=True, null=True, verbose_name="Количество цветков в букете")
+#   quantity_purchase = models.IntegerField(default=0, verbose_name="Количество покупок")
+#   free_shipping = models.BooleanField(default=False, null=True, blank=True, verbose_name="Бесплатная доставка ?")
+#   latest = models.BooleanField(default=False, verbose_name="Новинка ?")
+#   status
+   
 class ProductForm(forms.ModelForm):
     """ Form, отвечает за создание товара и редактирование товара"""
     description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
@@ -78,13 +101,23 @@ class ProductForm(forms.ModelForm):
             'name': forms.TextInput(attrs={
                 'class': 'form__controls',
                 "id":"name"
-                # 'placeholder': 'Название товара',
                 
             }), 
-            # 'description': forms.Textarea(attrs={
-            #     'class': 'form__controls',
-            #     # 'placeholder': 'Короткое описание товара',
-            # }),
+            'composition': forms.TextInput(attrs={
+                'class': 'form__controls',
+            }),
+            'diameter': forms.TextInput(attrs={
+                'class': 'form__controls',
+            }),
+            'width': forms.TextInput(attrs={
+                'class': 'form__controls',
+            }),
+            'height': forms.TextInput(attrs={
+                'class': 'form__controls',
+            }),
+            'quantity_flower': forms.TextInput(attrs={
+                'class': 'form__controls',
+            }),
             'meta_h1': forms.TextInput(attrs={
                 'class': 'form__controls',
                 # 'placeholder': 'h1',
@@ -130,10 +163,6 @@ class ProductForm(forms.ModelForm):
             'discount': forms.TextInput(attrs={
                 'class': 'form__controls',
                 # 'placeholder': 'Скидка',
-            }),
-            'image': forms.FileInput(attrs={
-                'class': 'submit-file',
-                'accept': 'image/*'
             }),
         }
 

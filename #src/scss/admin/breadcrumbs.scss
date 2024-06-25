@@ -6,6 +6,8 @@
   li {
     display: flex;
     align-items: center;
+    font-size: 14px;
+    color: rgba($color: $mainColor, $alpha: .7);
 
     &:not(:last-child) {
       &::after {

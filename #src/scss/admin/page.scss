@@ -7,6 +7,41 @@
     padding: 0px 20px;
   }
 
+  // .page__head
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba($color: $white, $alpha: 1.0);
+    padding: 15px 20px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 4px rgba(38, 53, 61, 0.1);
+  }
+
+  // .page__head-tab
+
+  &__head-tab {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  // .page__head-btn
+
+  &__head-btn {
+    // background-color: rgba($color: $accent, $alpha: 1.0);
+    color: rgba($color: $accent, $alpha: 1.0);
+    font-weight: 600;
+    padding: 10px 0px;
+    border-bottom: 2px solid rgba($color: $accent, $alpha: .0);
+    cursor: pointer;
+
+    &._active {
+      border-bottom-color: rgba($color: $accent, $alpha: 1.0);
+    }
+  }
+
   // .page__top
 
   &__top {

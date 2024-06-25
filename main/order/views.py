@@ -86,8 +86,7 @@ def order_create(request):
         order.save()
         return redirect(confirmation_url)
       except Exception as e:
-        print(f"Error: {e}")
-  
+        print(f"Error: {e}") 
   
   context = {
     'title': 'Оформление заказа',

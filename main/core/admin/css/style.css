@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 * {
   padding: 0;
   margin: 0;
@@ -49,6 +51,20 @@ ol {
   z-index: 20;
   background-color: #fff;
   box-shadow: 0 0 24px 2px rgba(20, 25, 38, 0.05);
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 2px;
+  /* ширина всей полосы прокрутки */
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(38, 53, 61, 0.1);
+  /* цвет зоны отслеживания */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(38, 53, 61, 0.1);
 }
 
 .top-sidebar {
@@ -318,6 +334,34 @@ ol {
 
 .page__inner {
   padding: 0px 20px;
+}
+
+.page__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 15px 20px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 4px rgba(38, 53, 61, 0.1);
+}
+
+.page__head-tab {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.page__head-btn {
+  color: #5776c4;
+  font-weight: 600;
+  padding: 10px 0px;
+  border-bottom: 2px solid rgba(87, 118, 196, 0);
+  cursor: pointer;
+}
+
+.page__head-btn._active {
+  border-bottom-color: #5776c4;
 }
 
 .page__top {
@@ -590,8 +634,7 @@ ol {
 
 .product-table {
   border: 1px solid rgba(38, 53, 61, 0.1);
-  box-shadow: 0px 0px 4px rgba(38, 53, 61, 0.1);
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
 }
 
@@ -670,46 +713,33 @@ ol {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 15px;
   border-radius: 6px;
-  padding: 15px 15px;
-  box-shadow: 0px 0px 4px rgba(38, 53, 61, 0.1);
   background-color: white;
-}
-
-.body-table::-webkit-scrollbar {
-  width: 3px;
-}
-
-.body-table::-webkit-scrollbar-track {
-  background: rgba(37, 55, 70, 0.1);
-}
-
-.body-table::-webkit-scrollbar-thumb {
-  background-color: #5776c4;
-  border-radius: 20px;
-  border: 3px solid rgba(37, 55, 70, 0.1);
 }
 
 .body-table__row {
   display: grid;
   align-items: center;
   justify-items: center;
-  padding: 5px;
-  border: 1px solid rgba(38, 53, 61, 0.05);
   border-radius: 6px;
+  padding: 10px 5px;
   transition: 0.5s;
 }
 
-.body-table__row:hover {
-  background-color: rgba(120, 130, 135, 0.03);
+.body-table__row:hover,
+.body-table__row:nth-child(odd):hover {
+  background-color: rgba(87, 118, 196, 0.08);
+}
+
+.body-table__row:nth-child(odd) {
+  background-color: rgba(87, 118, 196, 0.03);
 }
 
 .body-table__image {
   justify-self: start;
   position: relative;
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   overflow: hidden;
   border-radius: 4px;
 }
@@ -948,6 +978,8 @@ ol {
 .admin-breadcrumbs li {
   display: flex;
   align-items: center;
+  font-size: 14px;
+  color: rgba(38, 53, 61, 0.7);
 }
 
 .admin-breadcrumbs li:not(:last-child)::after {
