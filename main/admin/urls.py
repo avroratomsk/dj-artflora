@@ -52,7 +52,7 @@ urlpatterns = [
     path('admin-reviews/', views.admin_reviews, name='admin_reviews'),
     path('admin-reviews/add/', views.admin_reviews_add, name='admin_reviews_add'),
     path('admin-reviews/edit/<int:pk>/', views.admin_reviews_edit, name='admin_reviews_edit'),
-    # path('admin_reviews/delete/<int:pk>/', views.admin_reviews_delete, name='admin_reviews_delete'),
+    path('admin_reviews/delete/<int:pk>/', views.admin_reviews_delete, name='admin_reviews_delete'),
     
     #URl - отвечающие за отображение акций, редактирование и удаление акций
     path('stock/', views.admin_stock, name='admin_stock'),

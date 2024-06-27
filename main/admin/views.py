@@ -675,7 +675,7 @@ def admin_reviews(request):
   reviews = Reviews.objects.all()
   
   context = {
-    "reviews": reviews
+    "items": reviews
   }
   
   return render(request, "reviews/reviews.html", context)
@@ -714,6 +714,11 @@ def admin_reviews_add(request):
   }
   
   return render(request, "reviews/reviews_add.html", context)
+
+def admin_reviews_delete(request, pk):
+  review = Reviews.objects.get(id=pk)
+  review.delete()
+  return redirect("admin_reviews")
 
 def admin_stock(request):
   stocks = Stock.objects.all()

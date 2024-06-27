@@ -2,15 +2,26 @@
 
 <div class="page">
   <div class="page__inner">
-    <div class="page__add">
-      <h1 class="page__title">Редактирование акции</h1>
+    <div class="page__top">
+      <h1 class="page__title">Настройки акции</h1>
+      <ul class="admin-breadcrumbs">
+        <li><a href="{% url 'admin' %}">Панель управления</a></li>
+        <li><a href="{% url 'admin_product' %}">Акции</a></li>
+        <li>Настройки акции</li>
+      </ul>
     </div>
     <form action="." method="POST" class="form" enctype="multipart/form-data">
       {% csrf_token %}
-      <div class="page-edit__body">
+      <div class="page__head">
+        <button type="submit" class="form__btn">
+          <img src="{% static 'theme/mb/images/admin/save.svg' %}" alt="" />
+          Сохранить
+        </button>
+      </div>
+      <div class="page-content _show">
         <!-- Основные настройки -->
-        <div class="page-edit__item _show">
-          <div class="page-edit__form">
+        <div class="page-content__row">
+          <div class="page-content__col">
             <div class="form__group">
               <label for="{{ form.title.id_for_label }}" class="form__controls-label"><span>*</span>Заголовок <span>:</span></label>
               {{ form.title }} {{ form.title.errors }}
@@ -29,23 +40,23 @@
               </label>
               {{ form.description }} {{ form.description.errors }}
             </div>
+          </div>
+          <div class="page-content__col">
             <div class="form__group">
-              <label for="{{ form.validity.id_for_label }}" class="form__controls-label"> Срок действия <span>:</span> </label>
               {{ form.validity }} {{ form.validity.errors }}
+              <label for="{{ form.validity.id_for_label }}" class="form__controls-label"> Срок действия <span>:</span> </label>
             </div>
-            <div class="form__group">
+            <div class="form__group-image">
               <label for="{{ form.image.id_for_label }}" class="form__controls-label"> Изображение <span>:</span> </label>
               {{ form.image }} {{ form.image.errors }}
             </div>
-            <div class="form__group">
-              <label for="{{ form.status.id_for_label }}" class="form__controls-label">Статус публикации <span>:</span> </label>
+            <div class="form__group-checkbox">
               {{ form.status }} {{ form.status.errors }}
+              <label for="{{ form.status.id_for_label }}" class="form__controls-label">Статус публикации <span>:</span> </label>
             </div>
           </div>
         </div>
       </div>
-      <button type="submit" class="form__btn">Сохранить</button>
-      <a href="javascript:history.back()"> Назад </a>
     </form>
   </div>
 </div>

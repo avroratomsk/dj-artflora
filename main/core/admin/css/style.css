@@ -998,6 +998,10 @@ ol {
   gap: 10px;
 }
 
+.table-top {
+  margin-top: 30px;
+}
+
 .table-header,
 .table-body {
   display: contents;
@@ -1022,6 +1026,14 @@ ol {
   padding: 12px 15px;
   background-color: #fff;
   text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.table-cell img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
 }
 
 .table-header .table-cell {

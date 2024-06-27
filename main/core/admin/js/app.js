@@ -16,7 +16,7 @@
  * Переключение вкладок на страницах продуктов, категорий
  */
 const tabButton = document.querySelectorAll('[data-name]');
-const pageEditButton = document.querySelectorAll('.page-edit__item');
+const pageEditButton = document.querySelectorAll('.page-content');
 if (tabButton) {
   tabButton.forEach(btn => {
     btn.addEventListener('click', function (e) {
@@ -84,21 +84,21 @@ if (nameField) {
 /**
  * Подсчет и отображение количества символов в meta-полях
  */
-const metaFields = document.querySelectorAll('.meta_field');
-if (metaFields) {
-  metaFields.forEach(item => {
-    let parentItem = item.closest('.form__group').querySelector('.meta-lenght');
-    console.log(item);
-    if (item.value <= 0) {
-      parentItem.innerText = 0;
-    } else {
-      parentItem.innerText = item.value.length;
-    }
-    item.addEventListener('input', function (e) {
-      parentItem.innerText = item.value.length;
-    })
-  })
-}
+// const metaFields = document.querySelectorAll('.meta_field');
+// if (metaFields) {
+//   metaFields.forEach(item => {
+//     let parentItem = item.closest('.form__group').querySelector('.meta-lenght');
+//     console.log(item);
+//     if (item.value <= 0) {
+//       parentItem.innerText = 0;
+//     } else {
+//       parentItem.innerText = item.value.length;
+//     }
+//     item.addEventListener('input', function (e) {
+//       parentItem.innerText = item.value.length;
+//     })
+//   })
+// }
 
 const dropdownButtons = document.querySelectorAll('.dropdownButton');
 

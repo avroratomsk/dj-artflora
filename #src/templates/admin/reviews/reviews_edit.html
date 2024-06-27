@@ -1,74 +1,118 @@
-{% extends 'admin_base.html' %} {% load shop_tags %} {% load static %} {% block body %}
-
+{% extends 'admin_base.html' %}{% load static %} {% block body %}
 <div class="page">
   <div class="page__inner">
-    <div class="page__add">
-      <h1 class="page__title">Редактирование отзыва - {{ review.name }}</h1>
-      <a href="javascript:history.back()"> Назад </a>
-    </div>
-    <div class="page-edit__head">
-      <button type="button" data-name="basic" class="_active">Основные</button>
-      <button type="button" data-name="seo" class="_btn">SEO</button>
+    <div class="page__top">
+      <h1 class="page__title">Настройки отзыва</h1>
+      <ul class="admin-breadcrumbs">
+        <li><a href="{% url 'admin' %}">Панель управления</a></li>
+        <li><a href="{% url 'admin_product' %}">Отзывы</a></li>
+        <li>Настройки отзыва</li>
+      </ul>
     </div>
     <form action="." method="POST" class="form" enctype="multipart/form-data">
+      <div class="page__head">
+        <div class="page__head-tab">
+          <button type="button" data-name="basic" class="page__head-btn _active">Основные</button>
+          <button type="button" data-name="seo" class="page__head-btn">Поля SEO</button>
+        </div>
+        <button type="submit" class="form__btn">
+          <img src="{% static 'theme/mb/images/admin/save.svg' %}" alt="" />
+          Сохранить
+        </button>
+      </div>
       {% csrf_token %}
-      <div class="page-edit__body">
-        <!-- Основные настройки -->
-        <div class="page-edit__item _show" id="basic">
-          <div class="page-edit__form">
+      <div class="page-content _show" id="basic">
+        <div class="page-content__row">
+          <div class="page-content__col">
             <div class="form__group">
-              <label for="{{ form.name.id_for_label }}" class="form__controls-label"><span>*</span>Название <span>:</span></label>
+              <label for="{{ form.name.id_for_label }}" class="form__controls-label"> <span>*</span>Имя : </label>
               {{ form.name }} {{ form.name.errors }}
             </div>
+
+            <div class="form__group">
+              <label for="{{ form.text.id_for_label }}" class="form__controls-label">Текст отзыва : </label>
+              {{ form.text }} {{ form.text.errors }}
+            </div>
+          </div>
+          <div class="page-content__col">
             <div class="form__group">
               <label for="{{ form.slug.id_for_label }}" class="form__controls-label">
                 <span>*</span>
-                URL <span>:</span>
+                URL :
               </label>
               {{ form.slug }} {{ form.slug.errors }}
             </div>
-            <div class="form__group">
-              <label for="{{ form.avatar.id_for_label }}" class="form__controls-label">Аватар <span>:</span></label>
+            <div class="form__group form__group-image">
+              <label for="{{ form.avatar.id_for_label }}" class="form__controls-label">Аватар :</label>
               {{ form.avatar }} {{ form.avatar.errors }}
             </div>
+            {% comment %}
             <div class="form__group">
-              <label for="{{ form.date.id_for_label }}" class="form__controls-label">Дата добавления <span>:</span></label>
+              <label for="{{ form.date.id_for_label }}" class="form__controls-label">Дата создания :</label>
               {{ form.date }} {{ form.date.errors }}
             </div>
-            <div class="form__group">
-              <label for="{{ form.text.id_for_label }}" class="form__controls-label">Текст отзыва <span>:</span></label>
-              {{ form.text }} {{ form.text.errors }}
-            </div>
-            <div class="form__group">
-              <label for="{{ form.status.id_for_label }}" class="form__controls-label">Статус публикации <span>:</span></label>
+            {% endcomment %}
+
+            <div class="form__group-checkbox">
               {{ form.status }} {{ form.status.errors }}
+              <label for="{{ form.status.id_for_label }}" class="form__controls-label"> Опубликовать ? :</label>
             </div>
           </div>
         </div>
+      </div>
+      <div class="page-content" id="seo">
         <!-- SEO страницы -->
-        <div class="page-edit__item" id="seo">
-          <div class="page-edit__form">
+        <div class="page-content__row">
+          <div class="page-content__onecol">
             <div class="form__group">
-              <label for="{{ form.meta_h1.id_for_label }}" class="form__controls-label"> Заголовок h1 </label>
+              <label for="{{ form.meta_h1.id_for_label }}" class="form__controls-label"> Заголовок h1 : </label>
               {{ form.meta_h1 }} {{ form.meta_h1.errors }}
             </div>
             <div class="form__group">
-              <label for="{{ form.meta_title.id_for_label }}" class="form__controls-label"> Мета заголовок </label>
+              <label for="{{ form.meta_title.id_for_label }}" class="form__controls-label"> Мета заголовок : </label>
               {{ form.meta_title }} {{ form.meta_title.errors }}
             </div>
             <div class="form__group">
-              <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Мета описание </label>
+              <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label">
+                Мета описание :
+                <div class="meta-lenght">0</div>
+              </label>
               {{ form.meta_description }} {{ form.meta_description.errors }}
             </div>
             <div class="form__group">
-              <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Мета keywords </label>
+              <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Мета keywords : </label>
               {{ form.meta_keywords }} {{ form.meta_keywords.errors }}
             </div>
           </div>
         </div>
       </div>
-      <button type="submit" class="form__btn">Сохранить</button>
+      <div class="page-content" id="char">
+        <!-- Характеристики товара страницы -->
+        <div class="page-content__row">
+          <div class="page-content__onecol">
+            <div class="page-content__char" id="paste-char">
+              {% for char in chars %}
+              <div class="form__group-char">
+                <input type="text" name="old_char_id" value="{{ char.id }}" hidden />
+                <label for="{{ form.category.id_for_label }}" class="form__controls-label">Название характеристики :</label>
+                <select name="old_text_name" class="form__controls" placeholder="Название характеристики" id="id_name">
+                  <option value="{{ char.char_name.id }}">{{ char.char_name.text_name }}</option>
+                  {% for ch in all_chars %}
+                  <option value="{{ ch.id }}">{{ ch.text_name }}</option>
+                  {% endfor %}
+                </select>
+                <label for="id_char_value" class="form__controls-label">Значение :</label>
+                <input type="text" name="old_char_value" class="form__controls" placeholder="Значение" required="" id="id_char_value" value="{{ char.char_value }}" />
+                <a href="" class="form__remove"> Удалить </a>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <button type="button" id="add-char" class="form__plus">Добавить характеристику</button>
+      </div>
     </form>
+    <div class="select-hide" id="select-hide" style="opacity: 0; position: absolute">{{ option_form.type }} {{ product_char_form.char_name }}</div>
   </div>
 </div>
 
