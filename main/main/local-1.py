@@ -16,8 +16,9 @@ INSTALLED_APPS = [
     "cart",
     "order",
     "payment",
+    'allauth',
+    'allauth.account',
     "coupons",
-    "accounts",
     "favorites",
 ]
 
