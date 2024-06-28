@@ -6,6 +6,7 @@ from admin.singleton_model import SingletonModel
 class BaseSettings(SingletonModel):
   logo  = models.ImageField(upload_to="base-settings", blank=True, null=True, verbose_name="Логотип")
   phone = models.CharField(max_length=50, blank=True, null=True, db_index=True, verbose_name="Номер телефона")
+  phone_city = models.CharField(max_length=50, blank=True, null=True, db_index=True, verbose_name="Номер телефона городской")
   time_work = models.CharField(max_length=250, blank=True, null=True, db_index=True, verbose_name="Время работы")
   email = models.EmailField(max_length=250, blank=True, null=True, db_index=True, verbose_name="Email")
   address = models.CharField(max_length=250, blank=True, null=True, verbose_name="Адрес первого филлиала")
@@ -38,6 +39,7 @@ class SliderHome(models.Model):
   description = models.TextField(null=True, blank=True, verbose_name="Описание слайдера")
   link = models.CharField(max_length=250, null=True, blank=True, verbose_name="Ссылка на страницу")
   image = models.ImageField(upload_to="slider_home", null=True, blank=True, verbose_name="Изображение слайдера")
+  is_active = models.BooleanField(default=True, verbose_name="Отображать ? ")
   
 class Stock(models.Model):
   """Model"""

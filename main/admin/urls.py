@@ -70,8 +70,8 @@ urlpatterns = [
     #URl - отвечающие за отображение Слайдера главной страницы, редактирование и удаление услуг
     path('admin-slider/', views.admin_slider, name='admin_slider'),
     path('admin-slider/add/', views.slider_add, name='slider_add'),
-    # path('serv/edit/<int:pk>/', views.service_edit, name='service_edit'),
-    # path('serv/delete/<int:pk>/', views.service_delete, name='service_delete'),
+    path('admin-slider/edit/<int:pk>/', views.slider_edit, name='slider_edit'),
+    path('admin-slider/delete/<int:pk>/', views.slider_delete, name='slider_delete'),
     
     #URl - Шаблон главной страницы
     path('home/', views.admin_home, name='admin_home'),

@@ -81,6 +81,55 @@ if (nameField) {
   })
 }
 
+// const ctx = document.getElementById('myChart');
+
+// const no_register = document.getElementById('no_register');
+// if(no_register){
+
+// }
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var salesChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
+    datasets: [
+      {
+        label: 'Зарегистрировались и купили',
+        data: [12, 19, 3, 5, 2, 3, 8, 12, 13, 14, 5, 9, 11, 6, 8, 10, 15, 18, 16, 10, 12, 17, 19, 21, 20, 18, 16, 14, 12, 10],
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderWidth: 1
+      },
+      {
+        label: 'Не зарегистрировались',
+        data: [10, 15, 6, 8, 5, 4, 7, 9, 11, 12, 6, 8, 10, 9, 7, 5, 12, 14, 13, 9, 10, 13, 15, 16, 14, 13, 11, 9, 8, 7],
+        borderColor: 'rgba(153, 102, 255, 1)',
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+        borderWidth: 1
+      }
+    ]
+  },
+  options: {
+    scales: {
+      x: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Дни месяца'
+        }
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Количество продаж'
+        }
+      }
+    }
+  }
+});
+
 /**
  * Подсчет и отображение количества символов в meta-полях
  */

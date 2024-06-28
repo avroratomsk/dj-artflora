@@ -7,6 +7,7 @@ from django.contrib import messages
 from admin.forms import CategoryForm, CharGroupForm, CharNameForm, CouponForm, DeliveryPageForm, GlobalSettingsForm, HomeTemplateForm, MessangerForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, ShopSettingsForm, SliderForm, StockForm, UploadFileForm
 from home.models import BaseSettings, DeliveryPage, HomeTemplate, Messanger, SliderHome, Stock
 from coupons.models import Coupon
+from order.models import Order, OrderItem
 from main.settings import BASE_DIR
 from users.models import User
 from service.models import Service
@@ -17,7 +18,7 @@ from django.core.files.images import ImageFile
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 import openpyxl
 import pandas as pd
-# from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test
 
 # @user_passes_test(lambda u: u.is_superuser)
 # def sidebar_show(request): 
@@ -26,11 +27,17 @@ import pandas as pd
     
 #     return redirect('admin')
 
-# @user_passes_test(lambda u: u.is_superuser)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin(request):
+  no_register = OrderItem.objects.all()
+  
   """Данная предстовление отобразает главную страницу админ панели"""
-  return render(request, "page/index.html")
+  
+  context = {
+    "no_register": no_register
+  }
+  return render(request, "page/index.html", context)
 
 def admin_settings(request):
   try:
@@ -534,7 +541,7 @@ def admin_slider(request):
   slider = SliderHome.objects.all()
   
   context ={
-    "slider": slider,
+    "items": slider,
   }
   return render(request, "static/slider-home/slider.html", context)
 
@@ -552,6 +559,26 @@ def slider_add(request):
     "form": form
   }
   return render(request, "static/slider-home/slider_add.html", context)
+
+def slider_edit(request, pk):
+  slide = SliderHome.objects.get(id=pk)
+  if request.method == "POST":
+    form = SliderForm(request.POST, request.FILES, instance=slide)
+    if form.is_valid():
+      form.save()
+      return redirect("admin_slider")
+    else:
+      return render(request, "static/slider-home/slider_edit.html", {"form": form})
+  form = SliderForm(instance=slide)
+  context = {
+    "form": form
+  }
+  return render(request, "static/slider-home/slider_edit.html", context)
+
+def slider_delete(request, pk):
+  slide = SliderHome.objects.get(id=pk)
+  slide.delete()
+  return redirect('admin_slider')
 
 def day_product(request):
   pass
@@ -823,7 +850,7 @@ def service_delete(request, pk):
 def admin_promo(request):
     coupons = Coupon.objects.all()
     context = {
-        'coupons': coupons
+        'items': coupons
     }
 
     return render(request, 'marketing/promo.html', context)

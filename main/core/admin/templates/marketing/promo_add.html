@@ -1,49 +1,43 @@
 {% extends 'admin_base.html' %}{% load static %} {% block body %}
 <div class="page">
   <div class="page__inner">
+    <div class="page__top">
+      <h1 class="page__title">Настройки промокода</h1>
+      <ul class="admin-breadcrumbs">
+        <li><a href="{% url 'admin' %}">Панель управления</a></li>
+        <li><a href="{% url 'admin_product' %}">Промокоды</a></li>
+        <li>Настройки промокода</li>
+      </ul>
+    </div>
     <form action="." method="POST" class="form" enctype="multipart/form-data">
       <div class="page__head">
-        <div class="page__head-save">
-          <h1 class="page__title">Добавить промокод</h1>
-          <button type="submit" class="form__btn">
-            <img src="{% static 'theme/mb/images/admin/save.svg' %}" alt="" />
-            Сохранить
-          </button>
-        </div>
-        <div class="page__head-tab">
-          <button type="button" data-name="basic" class="page__head-btn _active">Основные</button>
-          <button type="button" data-name="seo" class="page__head-btn">Поля SEO</button>
-          <button type="button" data-name="char" class="page__head-btn">Характеристики</button>
-        </div>
+        <div class="page__head-tab"></div>
+        <button type="submit" class="form__btn">
+          <img src="{% static 'theme/mb/images/admin/save.svg' %}" alt="" />
+          Сохранить
+        </button>
       </div>
       {% csrf_token %}
       <div class="page-content _show" id="basic">
         <div class="page-content__row">
-          <div class="page-content__col">
+          <div class="page-content__onecol">
             <div class="form__group">
-              <label for="{{ form.code.id_for_label }}" class="form__controls-label">
-                <span>*</span>Код</label>
+              <label for="{{ form.code.id_for_label }}" class="form__controls-label"> <span>*</span>Код: </label>
               {{ form.code }} {{ form.code.errors }}
             </div>
-
-            <div class="form__group">
-              <label for="{{ form.valid_from.id_for_label }}" class="form__controls-label">начало</label>
-              {{ form.valid_from }} {{ form.valid_from.errors }}
+            <div class="form__grid">
+              <div class="form__group">
+                <label for="{{ form.valid_from.id_for_label }}" class="form__controls-label"> Дата начала : </label>
+                {{ form.valid_from }} {{ form.valid_from.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.valid_to.id_for_label }}" class="form__controls-label"> Дата окончания : </label>
+                {{ form.valid_to }} {{ form.valid_to.errors }}
+              </div>
             </div>
-
-            <div class="form__group">
-              <label for="{{ form.valid_to.id_for_label }}" class="form__controls-label">Конец</label>
-              {{ form.valid_to }} {{ form.valid_to.errors }}
-            </div>
-
-            <div class="form__group">
-              <label for="{{ form.discount.id_for_label }}" class="form__controls-label">Размер скидки</label>
-              {{ form.discount }} {{ form.discount.errors }}
-            </div>
-
-            <div class="form__group">
-              <label for="{{ form.active.id_for_label }}" class="form__controls-label">Активен ? </label>
+            <div class="form__group-checkbox">
               {{ form.active }} {{ form.active.errors }}
+              <label for="{{ form.active.id_for_label }}" class="form__controls-label"> Активировать ? : </label>
             </div>
           </div>
         </div>

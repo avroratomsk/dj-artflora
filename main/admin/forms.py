@@ -18,6 +18,7 @@ class GlobalSettingsForm(forms.ModelForm):
     fields = [
         'logo',
         'phone',
+        'phone_city',
         'time_work',
         'email',
         'address',
@@ -42,6 +43,9 @@ class GlobalSettingsForm(forms.ModelForm):
     }
     widgets = {
         'phone': forms.TextInput(attrs={
+            'class': 'form__controls'
+        }),
+        'phone_city': forms.TextInput(attrs={
             'class': 'form__controls'
         }),
         'time_work': forms.TextInput(attrs={
@@ -365,12 +369,7 @@ class SliderForm(forms.ModelForm):
   
   class Meta:
       model = SliderHome
-      fields = [
-          'title',
-          'description',
-          'link',
-          'image',
-      ]
+      fields = "__all__"
       labels = {
           'title': 'Заголовок',
           'description':'Описание',
@@ -637,12 +636,12 @@ class CouponForm(forms.ModelForm):
                 'placeholder': 'Код купона',
             }),
             'valid_from': forms.DateInput(attrs={
-                'class': 'input',
+                'class': 'form__controls',
                 'type': 'date',
                 
             }),
             'valid_to': forms.DateInput(attrs={
-                'class': 'input',
+                'class': 'form__controls',
                 'type': 'date',
                 
             }),

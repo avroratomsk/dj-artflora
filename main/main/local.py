@@ -19,6 +19,8 @@ INSTALLED_APPS = [
     "order",
     "payment",
     "coupons",
+    'allauth',
+    'allauth.account',
     "favorites",
 ]
 
@@ -32,6 +34,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 DATABASES = {
