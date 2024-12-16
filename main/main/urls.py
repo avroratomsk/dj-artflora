@@ -18,7 +18,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),
     path('admin/', include('admin.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+#     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('home.urls')),
 ]
 

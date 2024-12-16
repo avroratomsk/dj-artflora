@@ -42,6 +42,12 @@ def category(request):
     products = Product.objects.filter(status=True).order_by('price')
     categorys = Category.objects.all()
 
+    try:
+        shop_settings =  ShopSettings.objects.get()
+    except:
+        shop_settings = ShopSettings()
+
+
     filter_form = ProductFilterForm(request.GET)
     if filter_form.is_valid():
         q_objects = Q()
@@ -63,7 +69,7 @@ def category(request):
         product.is_favorite = product.id in favorite_product_ids
 
     context = {
-        "shop_settings": ShopSettings.objects.get(),
+        "shop_settings": shop_settings,
         "products": products,
         "filter_form": filter_form,
         "title": "Каталог",
@@ -112,10 +118,13 @@ def category_detail(request, slug):
 def product(request, slug):
   product = Product.objects.get(slug=slug)
   products = Product.objects.all().exclude(slug=slug)[:4]
+  images = ProductImage.objects.filter(parent_id=product.id)[:3]
+
   context = {
     "title": "Название продукта",
     "product": product,
-    "products":products
+    "products":products,
+    "images": images,
   }
   return render(request, "pages/catalog/product.html", context)
 

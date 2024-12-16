@@ -41,6 +41,10 @@ ol {
   text-align: center;
 }
 
+.product-block__minus svg {
+  width: 20px;
+}
+
 .sidebar {
   position: fixed;
   top: 0;

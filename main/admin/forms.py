@@ -4,15 +4,12 @@ from coupons.models import Coupon
 from service.models import Service
 from reviews.models import Reviews
 from shop.models import Category, CharGroup, CharName, Product, ProductChar, ProductImage, ShopSettings
-from ckeditor_uploader.widgets import CKEditorUploadingWidget
-# from ckeditor.widgets import CKEditorWidget
 class UploadFileForm(forms.Form):
     file = forms.FileField()
 
 
 class GlobalSettingsForm(forms.ModelForm):
   """ Form, глобальные и общие настройки сайта(лого, телефон, email)"""
-  description = forms.CharField(label='Полное описание', required=False, widget=CKEditorUploadingWidget())
   class Meta:
     model = BaseSettings
     fields = [
@@ -96,7 +93,6 @@ class GlobalSettingsForm(forms.ModelForm):
    
 class ProductForm(forms.ModelForm):
     """ Form, отвечает за создание товара и редактирование товара"""
-    description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
     # description = RichTextUploadingField()
     class Meta:
         model = Product
@@ -337,7 +333,6 @@ class CategoryForm(forms.ModelForm):
     
 class HomeTemplateForm(forms.ModelForm):
   """ Form, редактирование главной страницы"""
-  about_text = forms.CharField(label='О нас текст на главной стрнице', required=False, widget=CKEditorUploadingWidget())
   
   class Meta:
       model = HomeTemplate
@@ -365,7 +360,6 @@ class HomeTemplateForm(forms.ModelForm):
       
 class SliderForm(forms.ModelForm):
   """ Form, редактирование слайдера главной страницы """
-  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
   
   class Meta:
       model = SliderHome
@@ -390,7 +384,6 @@ class SliderForm(forms.ModelForm):
            
 class ReviewsForm(forms.ModelForm):
   """ Form, добавление и редактирование отзыва"""
-  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
   
   class Meta:
     model = Reviews
@@ -455,7 +448,6 @@ class ReviewsForm(forms.ModelForm):
     
 class StockForm(forms.ModelForm):
   """ Form, добавление и редактирование акций"""
-  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
   
   class Meta:
     model = Stock
@@ -515,7 +507,6 @@ class StockForm(forms.ModelForm):
       
 class ServiceForm(forms.ModelForm):
   """ Form, добавление и редактирование услуг"""
-  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
   
   class Meta:
     model = Service
@@ -569,7 +560,6 @@ class ServiceForm(forms.ModelForm):
     
 class ShopSettingsForm(forms.ModelForm):
     """ Form, отвечает за создание товара и редактирование товара"""
-    description = forms.CharField(label='Описание страницы', required=False, widget=CKEditorUploadingWidget)
     # description = forms.CharField(widget=TinyMCE())
     class Meta:
         model = ShopSettings
@@ -602,7 +592,6 @@ class ShopSettingsForm(forms.ModelForm):
               
 class MessangerForm(forms.ModelForm):
     """ Form, отвечает за создание товара и редактирование товара"""
-    # description = forms.CharField(label='Описание производителя', required=False, widget=CKEditorUploadingWidget)
     # description = forms.CharField(widget=TinyMCE())
     class Meta:
         model = Messanger

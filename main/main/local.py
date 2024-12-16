@@ -1,3 +1,5 @@
+from .settings import BASE_DIR
+
 INSTALLED_APPS = [
     # "django.contrib.admin",
     "admin",
@@ -6,8 +8,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'ckeditor',
-    'ckeditor_uploader',
+#     'ckeditor',
+#     'ckeditor_uploader',
     "debug_toolbar",
     'sorl.thumbnail',
     "home",
@@ -38,12 +40,8 @@ MIDDLEWARE = [
 ]
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "artflora",
-        "USER": "artflora",
-        "PASSWORD": "1111",
-        "HOST": "localhost",
-        "PORT": "5432",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }

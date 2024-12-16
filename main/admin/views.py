@@ -167,8 +167,9 @@ def product_edit(request, pk):
   product_char_form = ProductCharForm()
   chars = ProductChar.objects.filter(parent_id=pk)
   all_chars = CharName.objects.all()
-  
-  form_new = ProductForm(request.POST, request.FILES, instance=product) 
+  form_new = ProductForm(request.POST, request.FILES, instance=product)
+  images = ProductImage.objects.filter(id=product.id)
+
   if request.method == 'POST':
     if form_new.is_valid():
       form_new.save()
@@ -215,6 +216,7 @@ def product_edit(request, pk):
     "product_char_form": product_char_form,
     "all_chars": all_chars,
     "chars": chars,
+    "images": images,
   }
   return render(request, "shop/product/product_edit.html", context)
 
