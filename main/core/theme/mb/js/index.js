@@ -145,8 +145,8 @@ function openPopup(e) {
 const regNum = document.querySelectorAll(".reg-num");
 if (regNum) {
     regNum.forEach(num => {
-        phoneNumber = num.href.replace("tel:", "");
-        newNumber = clearSimvol(phoneNumber.replace("8", "+7"));
+        let phoneNumber = num.href.replace("tel:", "");
+        let newNumber = clearSimvol(phoneNumber.replace("8", "+7"));
         num.href = newNumber;
     });
 }
@@ -210,12 +210,13 @@ if (whoGetRadio) {
         });
     });
 }
-// $.get("/cart/set_delivery/1/", function () { })
+$.get("/cart/set_delivery/1/", function () { })
 const pickupCheckbox = document.getElementById("pickup");
 if (pickupCheckbox) {
     pickupCheckbox.addEventListener("change", function (e) {
         if (e.target.checked) {
             let sd = parseInt(document.getElementById("order-delivery").innerText);
+            console.log(sd)
             $.get("/cart/set_delivery/0/", function () {
                 document.getElementById("id_delivery_address").style.display = "none";
                 document.getElementById("suggest").required = false;
@@ -229,7 +230,7 @@ if (pickupCheckbox) {
         } else {
             $.get("/cart/set_delivery/1/", function () {
                 let sd = parseInt(document.getElementById("delivery-price").innerText);
-                console.log(sd);
+                console.log(sd)
                 document.getElementById("id_delivery_address").style.display = "flex";
                 document.getElementById("suggest").required = true;
                 let summ = document.getElementById("order-total").innerText;
@@ -243,8 +244,8 @@ if (pickupCheckbox) {
 }
 
 const burgerBtn = document.getElementById("burger");
-if (burger) {
-    burger.addEventListener("click", function (e) {
+if (burgerBtn) {
+    burgerBtn.addEventListener("click", function (e) {
         document.querySelector(".hidden-menu").classList.add("_show");
         bodyLock();
     });
@@ -665,7 +666,7 @@ if (oneClickOrderBtn) {
 async function applyCoupon() {
     const couponCode = document.getElementById("code").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
-    promocodErrorText = document.getElementById("order-create__promocode-error");
+    let promocodErrorText = document.getElementById("order-create__promocode-error");
 
     if (couponCode) {
         const response = await fetch("/coupons/apply-to/", {
@@ -699,8 +700,7 @@ async function applyCoupon() {
 }
 
 async function checkCoupon() {
-    console.log("Зашел сюда");
-    promocodErrorText = document.getElementById("order-create__promocode-error");
+    const promocodErrorText = document.getElementById("order-create__promocode-error");
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     const response = await fetch("/coupons/check-coupons/", {
@@ -727,14 +727,9 @@ async function checkCoupon() {
 
     let totalSum = priceWithShiping - ((priceWithShiping * data.coupon_sum) / 100);
 
-    console.log(`Цена с доставкой - ${priceWithShiping, typeof (priceWithShiping)} - ${totalSum, typeof (totalSum)} - со скидкой - ${data.delivery, typeof (data.delivery)} - Доставка - ${data.coupon_sum, typeof (data.coupon_sum)} - Вот такая скидка`);
-
     delivery.innerText = data.delivery;
     discount.innerText = data.coupon_sum;
-    console.log("Тут");
-
     total.innerText = totalSum;
-
 }
 
 
@@ -890,20 +885,6 @@ if (favoriteButton) {
         btn.addEventListener("click", toggleFavorites);
     });
 }
-
-
-/**
- * Scroll filter
- */
-
-// const scrollElem = document.getElementById('filter-category');
-
-// if(scrollElem){
-//   scrollElem.addEventListener('scroll', (e) => {
-//     e.target
-//   })
-// }
-
 
 
 

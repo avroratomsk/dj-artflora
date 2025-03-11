@@ -94,7 +94,7 @@ def cart_remove(request):
     return JsonResponse(response_data)
 
 
-def set_delivery(request, value): 
+def set_delivery(request, value):
   request.session['delivery'] = value
   return redirect('home')
 
