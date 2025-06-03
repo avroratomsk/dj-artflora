@@ -15,6 +15,8 @@ urlpatterns = [
     path('contact-email/', views.contact_email, name="contact_email"),
     path('callback-success/', views.callback_success, name="callback_success"),
     path('delivery/', views.delivery, name="delivery"),
+    path('privacy/', views.privacy, name="privacy"),
+    path('cookie/', views.cookie, name="cookie"),
     # path('uslugi/', views.about, name="about"),
     # path('valancy/', views.about, name="about"),
     

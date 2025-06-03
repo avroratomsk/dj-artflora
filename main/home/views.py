@@ -48,6 +48,12 @@ def contact_email(request):
 def callback_success(request):
   return render(request, "pages/orders/callback-succes.html")
 
+def privacy(request):
+  return render(request, "pages/privacy.html")
+
+def cookie(request):
+  return render(request, "pages/cookie.html")
+
 def index(request):
   products = Product.objects.filter(status=True)
   

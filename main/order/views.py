@@ -18,86 +18,124 @@ from coupons.models import Coupon
 def order(request):
   ...
 
+from django.db import transaction
+from django.forms import ValidationError
+from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect, render
+from cart.models import Cart
+from order.services import get_cart_and_user
+from payment.alfabank import create_payment, get_status
+from .email_send import email_send
+from order.models import Order, OrderItem
+from order.forms import CreateOrderForm
+from django.contrib.auth.decorators import login_required
+from shop.models import Product, ShopSettings
+import logging
+logger = logging.getLogger(__name__)
+
+from coupons.models import Coupon
+
 def order_create(request):
-  """ 
-    Устанавливаем значение доставки в 1 это значит что доставка нужна
-    как только пользователь сменит в форме на самовывоз, то доставка перейдет в значение 0 
-    и не будет учитываться.
-  """
-  # request.session['delivery'] = 1
-  
-  """
-    Получаем корзину в зависимости от авторизации пользователя.
-    Если не авторизован, то получаем через session_key
-  """
-  cart_items = get_cart_and_user(request)['cart_items']
-  
-  form = CreateOrderForm(request.POST)
-  delivery = request.session.get('delivery_summ', ShopSettings.objects.get().delivery)
-  coupon_discoint = request.session.get('coupon_discoint', 0)
- 
-  amount_delivery = cart_items.total_price() + delivery
-  total = amount_delivery - ((amount_delivery * coupon_discoint) / 100)
-  
-  if request.method == "POST":
-    if form.is_valid():
-      try:
-        order = form.save(commit=False)
-        
-        order.user = get_cart_and_user(request)['user']
-        cart_items = get_cart_and_user(request)['cart_items']
-    
-        fields = [
-            'first_name', 'email', 'first_name_human',
-            'phone_number_human', 'phone', 'delivery_address'
-        ]
-        for field in fields:
-          value = request.POST.get(field)
-          
-          if value:  # Проверка на наличие значения
-            setattr(order, field, value)
-        
-        # Логические поля (булевые)
-        order.pickup = 'pickup' in request.POST
-        order.surprise = 'surprise' in request.POST
-        order.anonymous = 'anonymous' in request.POST
-      
-        order.save()
-        for item in cart_items:
-          product=item.product
-          name=item.product.name
-          price=item.product.sell_price()
-          quantity=item.quantity
-          
-          orderItem  = OrderItem.objects.create(
-            order = order,
-            product=product,
-            name=name,
-            price=price,
-            quantity=quantity
-          )
-        
-        
-        data = create_payment(orderItem, cart_items, request)
-        payment_id = data["id"]
-        confirmation_url = data["confirmation_url"]
-        order.payment_id = payment_id
-        order.payment_dop_info = confirmation_url
-        order.save()
-        return redirect(confirmation_url)
-      except Exception as e:
-        print(f"Error: {e}") 
-  
-  context = {
-    'title': 'Оформление заказа',
-    'orders': True,
-    'discount': coupon_discoint,
-    "cart": cart_items,
-    "delivery": delivery,
-    "total": total
-  }
-  
-  return render(request, "pages/orders/create.html", context)
+    """
+    Создание заказа из корзины, с поддержкой выбора доставки, скидки и способа оплаты
+    """
+    # Получаем корзину и пользователя
+    cart_items = get_cart_and_user(request)['cart_items']
+    form = CreateOrderForm(request.POST)
+
+    # Сумма доставки из сессии или из настроек магазина по умолчанию
+    delivery = request.session.get('delivery_summ', ShopSettings.objects.get().delivery)
+
+    # Скидка из купона (если применён)
+    coupon_discount = request.session.get('coupon_discoint', 0)
+
+    # Общая сумма с доставкой
+    amount_delivery = cart_items.total_price() + delivery
+
+    # Учитываем скидку
+    total = amount_delivery - ((amount_delivery * coupon_discount) / 100)
+
+    if request.method == "POST":
+        if form.is_valid():
+            try:
+                order = form.save(commit=False)
+
+                # Привязываем пользователя (если авторизован)
+                order.user = get_cart_and_user(request)['user']
+                cart_items = get_cart_and_user(request)['cart_items']
+
+                # Заполняем поля из формы (не все есть в модели, часть через request.POST)
+                fields = [
+                    'first_name', 'email', 'first_name_human',
+                    'phone_number_human', 'phone', 'delivery_address'
+                ]
+                for field in fields:
+                    value = request.POST.get(field)
+                    if value:
+                        setattr(order, field, value)
+
+                # Булевые переключатели
+                order.pickup = 'pickup' in request.POST
+                order.surprise = 'surprise' in request.POST
+                order.anonymous = 'anonymous' in request.POST
+                order.date = request.POST.get('date') or None
+                order.message = request.POST.get('message') or ''
+
+                # ⚠️ Новый блок — сохраняем выбранный способ оплаты
+                payment_method = request.POST.get('payment_option', '')
+                order.pay_method = payment_method  # или order.payment_option, если поле так называется в модели
+
+                order.save()
+                # Добавляем товары в заказ
+                for item in cart_items:
+                    product = item.product
+                    name = product.name
+                    price = product.sell_price()
+                    quantity = item.quantity
+
+                    OrderItem.objects.create(
+                        order=order,
+                        product=product,
+                        name=name,
+                        price=price,
+                        quantity=quantity
+                    )
+
+                # ⚠️ Проверяем способ оплаты
+                if payment_method == "На сайте картой":
+                    data = create_payment(order, cart_items, request)
+                    payment_id = data["id"]
+                    confirmation_url = data["confirmation_url"]
+
+                    order.payment_id = payment_id
+                    order.payment_dop_info = confirmation_url
+                    order.save()
+                    return redirect(confirmation_url)
+
+                else:
+                    # Иначе — подтверждаем заказ без оплаты онлайн
+                    email_send(order)
+                    cart_items.delete()
+                    request.session["delivery"] = 1
+                    order.paid = False
+                    order.save()
+                    return redirect('order_succes')
+
+            except Exception as e:
+                print(f"Error: {e}")
+                messages.error(request, "Произошла ошибка при оформлении заказа.")
+
+    context = {
+        'title': 'Оформление заказа',
+        'orders': True,
+        'discount': coupon_discount,
+        "cart": cart_items,
+        "delivery": delivery,
+        "total": total,
+        "form": form
+    }
+
+    return render(request, "pages/orders/create.html", context)
 
 def order_error(request):
     return render(request, "pages/orders/error.html")

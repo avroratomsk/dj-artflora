@@ -1367,6 +1367,46 @@ html.lock body::before {
   color: #fafafa;
 }
 
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+}
+
+.cookie-notice {
+  display: none;
+  width: 60%;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background-color: #384b5a;
+  color: #ffffff;
+  padding: 15px;
+  border-radius: 5px;
+  line-height: 150%;
+  z-index: 1000;
+}
+
+.cookie-notice a {
+  color: #b25f68;
+  text-decoration: underline;
+}
+
+.accept-cookies {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
 .product-page__row {
   display: flex;
   gap: 40px;

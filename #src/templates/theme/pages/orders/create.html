@@ -43,6 +43,13 @@
                   <input type="text" class="form__controls" id="id_phone_number" name="phone" value=""
                     placeholder="Номер телефона*" required />
                 </div>
+                <div class="form__group">
+                  <label for="id_data" class="form__boolean-label">Дата доставки</label>
+                  <input type="date" class="form__controls" id="id_data" name="date" value="" />
+                </div>
+                <div class="form__group">
+                  <textarea placeholder="Комментарий к заказу" id="id_message" name="message" class="form__controls" rows="5"></textarea>
+                </div>
               </div>
             </div>
             <div class="form__item" id="contact-human">
@@ -56,6 +63,7 @@
                   <input type="text" class="form__controls" id="id_phone_number_human" name="phone_number_human"
                     value="" placeholder="Номер телефона *" />
                 </div>
+
                 <div class="form__group">
                   <div class="form__group-boolean">
                     <input type="checkbox" name="surprise" id="surprise" class="form__controls-checkbox" />
@@ -75,15 +83,13 @@
                   placeholder="Улица, дом" id="suggest" name="delivery_address" />
                 <div id="addressError" class="address-error"></div>
               </div>
-              <div class="form__group-boolean">
-                <input type="checkbox" name="pickup" id="pickup" class="form__controls-checkbox" />
-                <label for="pickup" class="form__boolean-label">Самовывоз</label>
-              </div>
-              {% comment %}
+<!--              <div class="form__group-boolean">-->
+<!--                <input type="checkbox" name="pickup" id="pickup" class="form__controls-checkbox" />-->
+<!--                <label for="pickup" class="form__boolean-label">Самовывоз</label>-->
+<!--              </div>-->
               <div class="form__group">
                 <input type="text" name="pickup" id="finaladress" class="form__controls" />
               </div>
-              {% endcomment %}
             </div>
             {% comment %}
             <div class="form__item">
@@ -103,6 +109,12 @@
               </div>
             </div>
             {% endcomment %}
+            <div class="form__row">
+              <input type="checkbox" id="agreement-click" name="agreement" required>
+              <label for="agreement-click" class="form__label">
+                Я согласен с <a href="{% url 'privacy' %}">политикой конфиденциальности</a>.
+              </label>
+            </div>
             <button type="submit" class="form__submit">Оформить заказ</button>
           </form>
         </div>

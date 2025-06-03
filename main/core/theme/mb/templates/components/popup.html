@@ -16,6 +16,12 @@
       <form action="" method="POST" class="popup__product-form form">
         <input type="text" placeholder="Имя" class="form__controls" />
         <input type="text" placeholder="Номер телефона" class="form__controls" />
+        <div class="form__row">
+          <input type="checkbox" id="agreement-click" name="agreement" required>
+          <label for="agreement-click" class="form__label">
+            Я согласен с <a href="{% url 'privacy' %}">политикой конфиденциальности</a>.
+          </label>
+        </div>
         <button type="submit" class="form__submit">Отправить</button>
       </form>
     </div>
@@ -28,6 +34,12 @@
     <button type="button" class="popup__close close-btn"></button>
     <form action="{% url 'callback' %}" class="popup__form form" method="POST" id="callback-form">
       {{ form.as_p }} {% csrf_token %} {{ callback_form.name }} {{ callback_form.phone }}
+      <div class="form__row">
+        <input type="checkbox" id="agreement-callback" name="agreement" required>
+        <label for="agreement-callback" class="form__label">
+          Я согласен с <a href="{% url 'privacy' %}">политикой конфиденциальности</a>.
+        </label>
+      </div>
       <button type="submit" class="form__submit">Отправить</button>
     </form>
   </div>

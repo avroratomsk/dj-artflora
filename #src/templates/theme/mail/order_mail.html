@@ -56,8 +56,16 @@
     <p>{{ order.phone_number_human }}</p>
     {% endif %} {% endif %}
     <br />
+    {% if order.date %}
+    <p>Дата доставки: {{ order.date }}</p>
+    {% endif %}
+    {% if order.message %}
+    <p>Дополнительный комментарий к заказу: {{ order.message }}</p>
+    {% endif %}
     {% if order.anonymous or order.surprise %}
     <h2>Дополнительная информация:</h2>
+
+
     {% if order.anonymous %} Говорить от кого букет: Нет<br />
     {% endif %} {% if order.surprise %} Предупреждать получателя: Нет<br />
     {% endif %} {% endif %}
