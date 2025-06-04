@@ -63,9 +63,11 @@
 							{{ form.message }}
 						</div>
 						<div class="form-contact__row">
-							<div class="form-contact__checkbox">
-								<input type="checkbox" id="agreement" checked>
-								<label for="agreement">Согласие с условиями обработки персональных данных</label>
+							<div class="form__row">
+								<input type="checkbox" id="agreement-callback" name="agreement" required>
+								<label for="agreement-callback" class="form__label">
+									Я согласен с <a href="{% url 'privacy' %}">политикой конфиденциальности</a>.
+								</label>
 							</div>
 							<button type="submit" class="form__submit">Отправить</button>
 						</div>
