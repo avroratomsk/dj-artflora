@@ -47,7 +47,8 @@
         {% comment %} {% if messanger_header %}
         <div class="footer__socials">
           {% for mes in messanger_header %}
-          <a href="{{ mes.link }}" class="social-link"> <img src="{{ mes.icon.url }}" alt="{{ mes.name }}" title="{{ mes.name }}" /></a>
+          <a href="{{ mes.link }}" class="social-link"> <img src="{{ mes.icon.url }}" alt="{{ mes.name }}"
+                                                             title="{{ mes.name }}"/></a>
           {% endfor %}
         </div>
         {% endif %} {% endcomment %}
@@ -57,10 +58,14 @@
   </div>
 </footer>
 <div id="cookie-notice" class="cookie-notice">
-  Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом и делать его лучше. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов
+  Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом и делать его лучше.
+  Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов
   <a href="{% url 'cookie' %}" target="_blank">cookie</a> и
   <a href="{% url 'privacy' %}" target="_blank">политикой конфиденциаьности.</a>
 
 
   <button id="accept-cookies" class="accept-cookies">Я согласен</button>
 </div>
+
+
+
