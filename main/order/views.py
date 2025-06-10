@@ -102,24 +102,24 @@ def order_create(request):
                     )
 
                 # ⚠️ Проверяем способ оплаты
-                if payment_method == "На сайте картой":
-                    data = create_payment(order, cart_items, request)
-                    payment_id = data["id"]
-                    confirmation_url = data["confirmation_url"]
+#                 if payment_method == "На сайте картой":
+                data = create_payment(order, cart_items, request)
+                payment_id = data["id"]
+                confirmation_url = data["confirmation_url"]
 
-                    order.payment_id = payment_id
-                    order.payment_dop_info = confirmation_url
-                    order.save()
-                    return redirect(confirmation_url)
+                order.payment_id = payment_id
+                order.payment_dop_info = confirmation_url
+                order.save()
+                return redirect(confirmation_url)
 
-                else:
-                    # Иначе — подтверждаем заказ без оплаты онлайн
-                    email_send(order)
-                    cart_items.delete()
-                    request.session["delivery"] = 1
-                    order.paid = False
-                    order.save()
-                    return redirect('order_succes')
+#                 else:
+#                     # Иначе — подтверждаем заказ без оплаты онлайн
+#                     email_send(order)
+#                     cart_items.delete()
+#                     request.session["delivery"] = 1
+#                     order.paid = False
+#                     order.save()
+#                     return redirect('order_succes')
 
             except Exception as e:
                 print(f"Error: {e}")
