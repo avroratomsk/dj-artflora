@@ -33,111 +33,110 @@ from django.contrib.auth.decorators import login_required
 from shop.models import Product, ShopSettings
 import logging
 logger = logging.getLogger(__name__)
-
+from datetime import datetime
 from coupons.models import Coupon
 
 def order_create(request):
-    """
-    Создание заказа из корзины, с поддержкой выбора доставки, скидки и способа оплаты
-    """
-    # Получаем корзину и пользователя
-    cart_items = get_cart_and_user(request)['cart_items']
-    form = CreateOrderForm(request.POST)
+      """
+      Создание заказа из корзины, с поддержкой выбора доставки, скидки и способа оплаты
+      """
+      # Получаем корзину и пользователя
+      cart_items = get_cart_and_user(request)['cart_items']
+      form = CreateOrderForm(request.POST)
 
-    # Сумма доставки из сессии или из настроек магазина по умолчанию
-    delivery = request.session.get('delivery_summ', ShopSettings.objects.get().delivery)
+      # Сумма доставки из сессии или из настроек магазина по умолчанию
+      delivery = request.session.get('delivery_summ', ShopSettings.objects.get().delivery)
 
-    # Скидка из купона (если применён)
-    coupon_discount = request.session.get('coupon_discoint', 0)
+      # Скидка из купона (если применён)
+      coupon_discount = request.session.get('coupon_discoint', 0)
 
-    # Общая сумма с доставкой
-    amount_delivery = cart_items.total_price() + delivery
+      # Общая сумма с доставкой
+      amount_delivery = cart_items.total_price() + delivery
 
-    # Учитываем скидку
-    total = amount_delivery - ((amount_delivery * coupon_discount) / 100)
+      # Учитываем скидку
+      total = amount_delivery - ((amount_delivery * coupon_discount) / 100)
 
-    if request.method == "POST":
-        if form.is_valid():
-            try:
-                order = form.save(commit=False)
+      if request.method == "POST":
+          if form.is_valid():
+              try:
+                  order = form.save(commit=False)
 
-                # Привязываем пользователя (если авторизован)
-                order.user = get_cart_and_user(request)['user']
-                cart_items = get_cart_and_user(request)['cart_items']
+                  # Привязываем пользователя (если авторизован)
+                  order.user = get_cart_and_user(request)['user']
+                  cart_items = get_cart_and_user(request)['cart_items']
 
-                # Заполняем поля из формы (не все есть в модели, часть через request.POST)
-                fields = [
-                    'first_name', 'email', 'first_name_human',
-                    'phone_number_human', 'phone', 'delivery_address'
-                ]
-                for field in fields:
-                    value = request.POST.get(field)
-                    if value:
+                  # Заполняем поля из формы (не все есть в модели, часть через request.POST)
+                  fields = [
+                      'first_name', 'email', 'first_name_human',
+                      'phone_number_human', 'phone', 'delivery_address', 'delivery_date', 'delivery_time'
+                  ]
+                  for field in fields:
+                      value = request.POST.get(field)
+                      if value:
                         setattr(order, field, value)
 
-                # Булевые переключатели
-                order.pickup = 'pickup' in request.POST
-                order.surprise = 'surprise' in request.POST
-                order.anonymous = 'anonymous' in request.POST
-                order.date = request.POST.get('date') or None
-                order.message = request.POST.get('message') or ''
+                  # Булевые переключатели
+                  order.pickup = 'pickup' in request.POST
+                  order.surprise = 'surprise' in request.POST
+                  order.anonymous = 'anonymous' in request.POST
+                  order.message = request.POST.get('message') or ''
 
-                # ⚠️ Новый блок — сохраняем выбранный способ оплаты
-                payment_method = request.POST.get('payment_option', '')
-                order.pay_method = payment_method  # или order.payment_option, если поле так называется в модели
 
-                order.save()
-                # Добавляем товары в заказ
-                for item in cart_items:
-                    product = item.product
-                    name = product.name
-                    price = product.sell_price()
-                    quantity = item.quantity
+                  # ⚠️ Новый блок — сохраняем выбранный способ оплаты
+                  payment_method = request.POST.get('payment_option', '')
+                  order.pay_method = payment_method  # или order.payment_option, если поле так называется в модели
 
-                    OrderItem.objects.create(
-                        order=order,
-                        product=product,
-                        name=name,
-                        price=price,
-                        quantity=quantity
-                    )
+                  order.save()
+                  # Добавляем товары в заказ
+                  for item in cart_items:
+                      product = item.product
+                      name = product.name
+                      price = product.sell_price()
+                      quantity = item.quantity
 
-                # ⚠️ Проверяем способ оплаты
-#                 if payment_method == "На сайте картой":
-                data = create_payment(order, cart_items, request)
-                payment_id = data["id"]
-                confirmation_url = data["confirmation_url"]
+                      OrderItem.objects.create(
+                          order=order,
+                          product=product,
+                          name=name,
+                          price=price,
+                          quantity=quantity
+                      )
 
-                order.payment_id = payment_id
-                order.payment_dop_info = confirmation_url
-                order.save()
-                return redirect(confirmation_url)
+                  # ⚠️ Проверяем способ оплаты
+#                   if payment_method == "На сайте картой":
+                  data = create_payment(order, cart_items, request)
+                  payment_id = data["id"]
+                  confirmation_url = data["confirmation_url"]
 
-#                 else:
-#                     # Иначе — подтверждаем заказ без оплаты онлайн
-#                     email_send(order)
-#                     order_telegram(order)
-#                     cart_items.delete()
-#                     request.session["delivery"] = 1
-#                     order.paid = False
-#                     order.save()
-#                     return redirect('order_succes')
+                  order.payment_id = payment_id
+                  order.payment_dop_info = confirmation_url
+                  order.save()
+                  return redirect(confirmation_url)
+#                   else:
+#                       # Иначе — подтверждаем заказ без оплаты онлайн
+#                       email_send(order)
+# #                       order_telegram(order)
+#                       cart_items.delete()
+#                       request.session["delivery"] = 1
+#                       order.is_paid = False
+#                       order.save()
+#                       return redirect('order_succes')
 
-            except Exception as e:
-                print(f"Error: {e}")
-                messages.error(request, "Произошла ошибка при оформлении заказа.")
+              except Exception as e:
+                  print(f"Error: {e}")
+                  messages.error(request, "Произошла ошибка при оформлении заказа.")
 
-    context = {
-        'title': 'Оформление заказа',
-        'orders': True,
-        'discount': coupon_discount,
-        "cart": cart_items,
-        "delivery": delivery,
-        "total": total,
-        "form": form
-    }
+      context = {
+          'title': 'Оформление заказа',
+          'orders': True,
+          'discount': coupon_discount,
+          "cart": cart_items,
+          "delivery": delivery,
+          "total": total,
+          "form": form
+      }
 
-    return render(request, "pages/orders/create.html", context)
+      return render(request, "pages/orders/create.html", context)
 
 def order_error(request):
     return render(request, "pages/orders/error.html")

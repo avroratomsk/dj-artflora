@@ -763,7 +763,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
-    document.getElementById("contact-form").addEventListener("submit", function (event) {
+    document.getElementById("contact-form")?.addEventListener("submit", function (event) {
         event.preventDefault();
 
         const form = event.target;
