@@ -48,6 +48,10 @@
     {% else %} Способ получени: Самовывоз<br />
     {% endif %}
     <br />
+
+    {% if order.delivery_date %} Дата доставки: {{ order.delivery_date }} <br />{% endif %}
+    {% if order.delivery_time %} Время доставки: {{ order.delivery_time }} <br />{% endif %}
+
     {% if order.first_name_human or order.phone_number_human or order.phone_number_human %}
     <h2>Данные получателя:</h2>
     {% if order.first_name_human %}
