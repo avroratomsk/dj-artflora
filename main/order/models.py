@@ -42,7 +42,9 @@ class Order(models.Model):
     verbose_name_plural="Заказы"
     
   def __str__(self) :
-    return f"Заказа № {self.pk} | Покупатель {self.user.first_name} {self.user.last_name}"
+    if self.user:
+      return f"Заказ № {self.pk} | Покупатель {self.user.first_name} {self.user.last_name}"
+    return f"Заказ № {self.pk} | Покупатель не указан"
   
 class OrderItem(models.Model):
   order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="items", verbose_name="Заказ")
@@ -61,7 +63,7 @@ class OrderItem(models.Model):
   
   """Суммарная цена продуктов(обащая цена)"""  
   def products_price(self):
-    return round(self.sell_price() * self.quantity, 2)
+    return round(self.price * self.quantity, 2)
   
   def __str__(self):
     return f"Товар {self.name} | Заказ № {self.pk}"

@@ -5,6 +5,9 @@ from . import views
 
 urlpatterns = [
     path('', views.admin, name="admin"),
+    path('orders/', views.orders, name="orders"),
+    path('order_detail/<int:pk>/', views.order_detail, name='order_detail'),
+#     path('order_delete/<int:pk>/', views.order_delete, name='order_delete'),
     path('users', views.admin_users, name="admin_users"),
     
     #URl - отвечающие за загрузку данных
@@ -41,13 +44,7 @@ urlpatterns = [
     path('char/group/add/', views.char_group_add, name='char_group_add'),
     path('char/group/edit/<int:pk>', views.char_group_edit, name='char_group_edit'),
     path('char/group/delete/<int:pk>', views.char_group_delete, name='char_group_delete'),
-    
-    #URl - отвечающие за отображение филлиалов, редактирование и удаление филлиала
-    path('fillial/', views.admin_fillial, name='admin_fillial'),
-    path('fillial/add/', views.fillial_add, name='fillial_add'),
-    path('fillial/edit/<int:pk>/', views.fillial_edit, name='fillial_edit'),
-    # path('fillial/delete/<int:pk>/', views.fillial_delete, name='fillial_delete'),
-    
+
     #URl - отвечающие за отображение отзывов, редактирование и удаление отзывов
     path('admin-reviews/', views.admin_reviews, name='admin_reviews'),
     path('admin-reviews/add/', views.admin_reviews_add, name='admin_reviews_add'),

@@ -1,0 +1,50 @@
+{% extends 'admin_base.html' %} {% load shop_tags %} {% load thumbnail %} {% load static %} {% block body %}
+
+<div class="page">
+  <div class="page__inner">
+    <div class="page__top">
+      <h1 class="page__title">Заказы</h1>
+      <ul class="admin-breadcrumbs">
+        <li><a href="{% url 'admin' %}">Панель управления</a></li>
+        <li><a href="{% url 'admin_product' %}">Список заказов</a></li>
+      </ul>
+    </div>
+    <div class="page__content content-page">
+      <div class="content-page__action">
+        <div class="content-page__showing showing">
+          <p>Показано</p>
+          <select name="view-elem" id="view-elem">
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="60">60</option>
+            <option value="120">120</option>
+          </select>
+          <p>элементов</p>
+        </div>
+        <a href="{% url 'product_add' %}" class="action-button">Добавить новый</a>
+      </div>
+      <div class="table-4">
+        <div class="head-table table-4__head">
+          <div class="head-table__image">Заказ </div>
+          <div class="head-table__name">Email</div>
+          <div class="head-table__price">Телефон</div>
+          <div class="head-table__action">Действия</div>
+        </div>
+        <div class="body-table table-4__body">
+          {% for item in items %}
+          <div class="body-table__row">
+            <p>№ {{ item.pk }}</p>
+            <p>{{ item.email }}</p>
+            <p>{{ item.phone }}</p>
+            <div class="body-table__action">
+              <a href="{% url 'order_detail' item.pk %}" style="width: 100%; padding: 5px 10px; color: #fff;">Посмотреть</a>
+              {% comment %} <a href="{% url 'product_delete' order.pk %}">Удалить</a>{% endcomment %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

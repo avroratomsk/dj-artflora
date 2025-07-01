@@ -156,6 +156,24 @@ def admin_product(request):
   }
   return render(request, "shop/product/product.html", context)
 
+def orders(request):
+    items = Order.objects.prefetch_related('items').all()
+
+    context = {
+        "items": items,
+    }
+
+    return render(request, "page/statistics.html", context)
+
+def order_detail(request, pk):
+  item = Order.objects.prefetch_related('items').get(id=pk)
+
+  context = {
+      "item": item,
+  }
+
+  return render(request, "page/statistics_detail.html", context)
+
 def product_edit(request, pk):
   """
     View, которая получает данные из формы редактирования товара

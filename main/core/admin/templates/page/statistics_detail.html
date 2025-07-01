@@ -1,0 +1,85 @@
+{% extends 'admin_base.html' %} {% load shop_tags %} {% load thumbnail %} {% load static %} {% block body %}
+
+<div class="page">
+  <div class="page__inner">
+    <div class="page__top">
+      <h1 class="page__title">Заказы</h1>
+      <ul class="admin-breadcrumbs">
+        <li><a href="{% url 'admin' %}">Панель управления</a></li>
+        <li><a href="{% url 'admin_product' %}">Список заказов</a></li>
+      </ul>
+    </div>
+    <div class="page__content content-page">
+      <h2>Детали заказа №{{ item.pk }}</h2>
+
+      <ul>
+        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Пользователь: {{ item.user }}</li>
+        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Email: {{ item.email }}</li>
+        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Телефон: {{ item.phone }}</li>
+        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Дата создания: {{ item.created_timestamp }}</li>
+        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Нужна доставка? {{ item.requires_delivery|yesno:"Да,Нет" }}</li>
+        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Адрес доставки: {{ item.delivery_address }}</li>
+        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Способ оплаты: {{ item.pay_method }}</li>
+        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Оплачен? {{ item.is_paid|yesno:"Да,Нет" }}</li>
+        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Статус заказа: {{ item.order_status }}</li>
+      </ul>
+      <br>
+
+      <h3>Товары:</h3>
+      <br>
+      <table border="1">
+        <thead>
+        <tr>
+          <th style="padding: 10px;">Товар</th>
+          <th style="padding: 10px;">Цена</th>
+          <th style="padding: 10px;">Кол-во</th>
+          <th style="padding: 10px;">Сумма</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in item.items.all %}
+        <tr>
+          <td style="padding: 10px;">{{ item.name }}</td>
+          <td style="padding: 10px;">{{ item.price }}</td>
+          <td style="padding: 10px;">{{ item.quantity }}</td>
+          <td style="padding: 10px;">{{ item.products_price }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" style="padding: 10px;">Нет товаров</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+<!--      <div class="table-4">-->
+<!--        <div class="head-table table-4__head">-->
+<!--          <div class="head-table__image">Заказ </div>-->
+<!--          <div class="head-table__name">Email</div>-->
+<!--          <div class="head-table__price">Телефон</div>-->
+<!--          <div class="head-table__action">Действия</div>-->
+<!--        </div>-->
+<!--        <div class="body-table table-4__body">-->
+<!--          <div class="body-table__row">-->
+<!--            <p>№ {{ item.pk }}</p>-->
+<!--            <p>{{ item.email }}</p>-->
+<!--            <p>{{ item.phone }}</p>-->
+<!--            <p>{{ item.requires_delivery }}</p>-->
+<!--            <p>{{ item.delivery_address }}</p>-->
+<!--            <p>{{ item.payment_id }}</p>-->
+<!--            <p>{{ item.payment_dop_info }}</p>-->
+<!--            <p>{{ item.pay_method }}</p>-->
+<!--            <p>{{ item.is_paid }}</p>-->
+<!--            <p>{{ item.delivery }}</p>-->
+<!--          </div>-->
+
+<!--          <div class="body-table__row">-->
+<!--            <p>№ {{ item.order }}</p>-->
+<!--            <p>{{ item.product }}</p>-->
+<!--            <p>{{ item.name }}</p>-->
+<!--            <p>{{ item.price }}</p>-->
+<!--            <p>{{ item.quantity }}</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+  </div>
+
+  {% endblock %}
