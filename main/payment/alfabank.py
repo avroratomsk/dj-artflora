@@ -93,8 +93,10 @@ def get_status(pay_id):
 
     if orders.count() > 1:
         logger.warning(f"Multiple orders found with same payment_id={pay_id}")
+        for o in orders:
+            logger.warning(f"  - Order ID: {o.id}, is_paid: {o.is_paid}, created: {o.created_at}")
 
-    order = orders.first()
+    order = orders.filter(is_paid=False).first() or orders.latest('id')
 
     post_data = {
         "userName": login,
@@ -103,17 +105,13 @@ def get_status(pay_id):
         "orderNumber": order.id,
     }
 
-    r = requests.post(
-        "https://ecom.alfabank.ru/api/rest/getOrderStatus.do", post_data
-    )
-    # print(r.json())
+    r = requests.post("https://ecom.alfabank.ru/api/rest/getOrderStatus.do", post_data)
 
-    status = r.json()["errorCode"]
-    order_status = r.json()["OrderStatus"]
+    status = r.json().get("errorCode")
+    order_status = r.json().get("OrderStatus")
+
     logger.info(f"[AlfaBank] Order {order.id} — Status: {order_status}, ErrorCode: {status}")
-    # logger.info(status)
-
-    data = {"status": status, "order": order, "order_status":order_status}
+    data = {"status": status, "order": order, "order_status": order_status}
 
     return data
 

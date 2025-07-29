@@ -110,6 +110,12 @@ def order_create(request):
                   payment_id = data["id"]
                   confirmation_url = data["confirmation_url"]
 
+                  if Order.objects.filter(payment_id=payment_id).exists():
+                      logger.error(f"[order_create] Duplicate payment_id detected before saving: {payment_id}")
+                      messages.error(request, "Ошибка при создании платежа. Попробуйте снова.")
+                      order.delete()  # чтобы не оставлять мусорный заказ
+                      return redirect("order_create")  # или другой путь на страницу оформления заказа
+
                   order.payment_id = payment_id
                   order.payment_dop_info = confirmation_url
                   order.save()
