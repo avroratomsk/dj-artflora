@@ -13,17 +13,51 @@
       <h2>Детали заказа №{{ item.pk }}</h2>
 
       <ul>
+        {% if item.user %}
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Пользователь: {{ item.user }}</li>
+        {% endif %}
+
+        {% if item.email %}
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Email: {{ item.email }}</li>
+        {% endif %}
+
+        {% if item.phone %}
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Телефон: {{ item.phone }}</li>
+        {% endif %}
+
+        {% if item.created_timestamp %}
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Дата создания: {{ item.created_timestamp }}</li>
-        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Нужна доставка? {{ item.requires_delivery|yesno:"Да,Нет" }}</li>
+        {% endif %}
+
+        {% if item.requires_delivery %}
+        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">
+          Нужна доставка? {{ item.requires_delivery|yesno:"Да,Нет" }}
+        </li>
+        {% endif %}
+
+        {% if item.delivery_address %}
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Адрес доставки: {{ item.delivery_address }}</li>
+        {% endif %}
+
+        {% if item.pay_method %}
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Способ оплаты: {{ item.pay_method }}</li>
+        {% endif %}
+
+        {% if item.is_paid %}
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Оплачен? {{ item.is_paid|yesno:"Да,Нет" }}</li>
+        {% endif %}
+
+        {% if item.order_status %}
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Статус заказа: {{ item.order_status }}</li>
+        {% endif %}
+
+        {% if item.delivery_date %}
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Дата заказа: {{ item.delivery_date }}</li>
+        {% endif %}
+
+        {% if item.delivery_time %}
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Время заказа: {{ item.delivery_time|time:"H:i" }}</li>
+        {% endif %}
       </ul>
       <br>
 

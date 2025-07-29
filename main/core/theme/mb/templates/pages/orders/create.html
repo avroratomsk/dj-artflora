@@ -45,11 +45,11 @@
                 </div>
                 <div class="form__group">
                   <label for="id_delivery_date" class="form__boolean-label">Дата доставки</label>
-                  <input type="date" class="form__controls" id="id_delivery_date" name="delivery_date" value="" />
+                  <input type="date" class="form__controls" id="id_delivery_date" name="delivery_date" value="" required />
                 </div>
                 <div class="form__group">
                   <label for="id_delivery_time" class="form__boolean-label">Время доставки</label>
-                  <input type="time" class="form__controls" id="id_delivery_time" name="delivery_time" value="" />
+                  <input type="time" class="form__controls" id="id_delivery_time" name="delivery_time" value="" required />
                 </div>
                 <div class="form__group">
                   <textarea placeholder="Комментарий к заказу" id="id_message" name="message" class="form__controls" rows="5"></textarea>
@@ -85,16 +85,16 @@
               <input type="checkbox" name="pickup" id="pickup" class="form__controls-checkbox" />
               <label for="pickup" class="form__boolean-label">Самовывоз</label>
             </div>
-            <div class="form__item" id="delivery-address" style="display: none;">
+            <div class="form__item" id="delivery-address">
               <p class="form__item-title">Адрес доставки</p>
               <div class="form__group" id="id_delivery_address">
                 <input type="text" data-zones="true" data-city="Иркутск" class="form__controls"
                   placeholder="Улица, дом" id="suggest" name="delivery_address" />
                 <div id="addressError" class="address-error"></div>
               </div>
-<!--              <div class="form__group">-->
-<!--                <input type="text" name="pickup" id="finaladress" class="form__controls" />-->
-<!--              </div>-->
+              <div class="form__group">
+                <input type="text" name="pickup" id="finaladress" class="form__controls" />
+              </div>
             </div>
             {% comment %}
             <div class="form__item">
