@@ -213,9 +213,10 @@ if (whoGetRadio) {
 const pickupCheckbox = document.getElementById("pickup");
 if (pickupCheckbox) {
     pickupCheckbox.addEventListener("change", function (e) {
-        if (e.target.checked) {
+
+        if (e.currentTarget.checked) {
             let sd = parseInt(document.getElementById("order-delivery").innerText);
-            console.log(sd);
+
             $.get("/cart/set_delivery/0/", function () {
                 document.getElementById("id_delivery_address").style.display = "none";
                 document.getElementById("suggest").required = false;
