@@ -123,7 +123,6 @@ def order_create(request):
 #                       return redirect('order_succes')
 
               except Exception as e:
-                  print(f"Error: {e}")
                   messages.error(request, "Произошла ошибка при оформлении заказа.")
 
       context = {
@@ -142,31 +141,29 @@ def order_error(request):
     return render(request, "pages/orders/error.html")
 
 def order_success(request):
+  session_key = request.session.session_key
+  cart = Cart.objects.filter(session_key=session_key)
+
+  pay_id = request.GET["orderId"]
+
+  data = get_status(pay_id)
+  if data["status"] == "0" and data["order"]:
+    order = data["order"]
+
+    email_send(order)
+    order_telegram(order)
+
+    text = f"Ваш заказ принят. Ему присвоен № {order.id}."
+
     session_key = request.session.session_key
-    cart = Cart.objects.filter(session_key=session_key)
-
-    pay_id = request.GET["orderId"]
-
-    data = get_status(pay_id)
-    logger.info(data)
-    if data["status"] == "0":
-      order = data["order"]
-
-      email_send(order)
-      order_telegram(order)
-
-      text = f"Ваш заказ принят. Ему присвоен № {order.id}."
-
-      session_key = request.session.session_key
-      cart_items = Cart.objects.filter(session_key=session_key)
-      cart_items.delete()
-      request.session["delivery"] = 1
-      order.is_paid = True
-      order.save()
-      return redirect("/?order=True")
-    else:
-      order.is_paid = False
-      return render(request, "pages/orders/error.html")
+    cart_items = Cart.objects.filter(session_key=session_key)
+    cart_items.delete()
+    request.session["delivery"] = 1
+    order.is_paid = True
+    order.save()
+    return redirect("/?order=True")
+  else:
+    return render(request, "pages/orders/error.html")
 #       order = data["order"]
 #
 #       email_send(order)

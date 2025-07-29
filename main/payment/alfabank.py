@@ -83,6 +83,7 @@ def create_payment(order, cart, request):
     return data
 
 def get_status(pay_id):
+  try:
     order = Order.objects.get(payment_id=pay_id)
 
     post_data = {
@@ -102,4 +103,6 @@ def get_status(pay_id):
     data = {"status": status, "order": order}
 
     return data
+  except Exception as e:
+    return {"status": "error", "order": None}
 
