@@ -14,7 +14,6 @@
 // })
 
 
-
 // end Добавление дополнительных изображений товара
 
 /**
@@ -210,13 +209,13 @@ if (whoGetRadio) {
         });
     });
 }
-$.get("/cart/set_delivery/1/", function () { })
+
 const pickupCheckbox = document.getElementById("pickup");
 if (pickupCheckbox) {
     pickupCheckbox.addEventListener("change", function (e) {
         if (e.target.checked) {
             let sd = parseInt(document.getElementById("order-delivery").innerText);
-            console.log(sd)
+            console.log(sd);
             $.get("/cart/set_delivery/0/", function () {
                 document.getElementById("id_delivery_address").style.display = "none";
                 document.getElementById("suggest").required = false;
@@ -230,7 +229,7 @@ if (pickupCheckbox) {
         } else {
             $.get("/cart/set_delivery/1/", function () {
                 let sd = parseInt(document.getElementById("delivery-price").innerText);
-                console.log(sd)
+                console.log(sd);
                 document.getElementById("id_delivery_address").style.display = "flex";
                 document.getElementById("suggest").required = true;
                 let summ = document.getElementById("order-total").innerText;
@@ -714,9 +713,9 @@ async function checkCoupon() {
     const data = await response.json();
 
     /*
- * Тут изменения которые должны быть визуально применены
- * смена стоимсоти скидки, и стоимость досткавки
- */
+* Тут изменения которые должны быть визуально применены
+* смена стоимсоти скидки, и стоимость досткавки
+*/
 
     let delivery = document.getElementById("order-delivery");
     let discount = document.getElementById("discount");
@@ -887,18 +886,18 @@ if (favoriteButton) {
 }
 
 // Проверяем, установлены ли куки
-if (!document.cookie.split('; ').find(row => row.startsWith('cookie_consent='))) {
+if (!document.cookie.split("; ").find(row => row.startsWith("cookie_consent="))) {
     // Если куки не установлены, показываем уведомление
-    document.getElementById('cookie-notice').style.display = 'block';
+    document.getElementById("cookie-notice").style.display = "block";
 }
 
 // Обработчик для кнопки согласия
-document.getElementById('accept-cookies').addEventListener('click', function() {
-    console.log('click')
+document.getElementById("accept-cookies").addEventListener("click", function () {
+    console.log("click");
     // Устанавливаем куки на 1 год
     document.cookie = "cookie_consent=true; max-age=" + 60 * 60 * 24 * 365 + "; path=/";
     // Скрываем уведомление
-    document.getElementById('cookie-notice').style.display = 'none';
+    document.getElementById("cookie-notice").style.display = "none";
 });
 
 

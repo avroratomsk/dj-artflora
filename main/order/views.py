@@ -145,7 +145,6 @@ def order_success(request):
   cart = Cart.objects.filter(session_key=session_key)
 
   pay_id = request.GET["orderId"]
-
   data = get_status(pay_id)
   if data["status"] == "0" and data["order"]:
     order = data["order"]

@@ -4,6 +4,9 @@ import requests
 from .models import AlfaBank
 from order.models import Order
 from shop.models import Product
+import logging
+
+logger = logging.getLogger(__name__)
 
 login = "i-artflora38_ru-api"
 # password = "i-artflora38*?1"
@@ -97,10 +100,15 @@ def get_status(pay_id):
         "https://ecom.alfabank.ru/api/rest/getOrderStatus.do", post_data
     )
 
-    status = r.json()["errorCode"]
-    # logger.info(status)
+    error_code = r.json()["errorCode"]
+    order_status = r.json()["OrderStatus"]
+    logger.info(f"[AlfaBank] Order {order.id} — Status: {order_status}, ErrorCode: {error_code}")
 
-    data = {"status": status, "order": order}
+    data = {
+         "error": error_code,
+         "status": order_status,
+         "order": order,
+     }
 
     return data
   except Exception as e:
