@@ -109,7 +109,7 @@ def get_status(pay_id):
     # print(r.json())
 
     status = r.json()["errorCode"]
-    sucess_status = r.json()["OrderStatus"]
+    order_status = r.json()["OrderStatus"]
     logger.info(f"[AlfaBank] Order {order.id} — Status: {order_status}, ErrorCode: {status}")
     # logger.info(status)
 
