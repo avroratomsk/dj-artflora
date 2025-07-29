@@ -1,1 +1,17 @@
 INFO 2025-07-29 16:15:18,703 django.utils.autoreload Watching for file changes with StatReloader
+ERROR 2025-07-29 16:15:36,896 django.server You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-07-29 16:15:36,899 django.server You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-07-29 16:15:36,901 django.server code 400, message Bad request version ('T\x87f')
+ERROR 2025-07-29 16:15:36,903 django.server You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-07-29 16:15:36,903 django.server You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-07-29 16:16:19,403 django.server "GET /orders/create/ HTTP/1.1" 200 32926
+INFO 2025-07-29 16:16:19,422 django.server "GET /core/theme/mb/js/index.js HTTP/1.1" 304 0
+INFO 2025-07-29 16:18:13,772 django.server "GET /admin/orders/ HTTP/1.1" 200 48467
+INFO 2025-07-29 16:18:13,783 django.server "GET /core/admin/css/style.css HTTP/1.1" 304 0
+WARNING 2025-07-29 16:18:13,792 django.server "GET /core/ckeditor/ckeditor-init.js HTTP/1.1" 404 1885
+INFO 2025-07-29 16:18:13,794 django.server "GET /core/theme/mb/images/admin/admin-logo.svg HTTP/1.1" 304 0
+WARNING 2025-07-29 16:18:13,796 django.server "GET /core/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 404 1897
+INFO 2025-07-29 16:18:13,796 django.server "GET /core/theme/mb/images/admin/chevron.svg HTTP/1.1" 304 0
+INFO 2025-07-29 16:18:13,798 django.server "GET /core/admin/js/app.js?v09:18:13 HTTP/1.1" 200 6612
+INFO 2025-07-29 16:18:57,611 django.utils.autoreload C:\Users\sania\project\dj-artflora\main\order\views.py changed, reloading.
+INFO 2025-07-29 16:18:58,308 django.utils.autoreload Watching for file changes with StatReloader

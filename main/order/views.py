@@ -146,7 +146,7 @@ def order_success(request):
 
   pay_id = request.GET["orderId"]
   data = get_status(pay_id)
-  if data["status"] == "0" and data["order"]:
+  if data["status"] == 2 and data["order"]:
     order = data["order"]
 
     email_send(order)
