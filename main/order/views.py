@@ -168,6 +168,7 @@ def order_success(request):
       return redirect("/?order=True")
     else:
       order.is_paid = False
+      order.save()
       return render(request, "pages/orders/error.html")
 #       order = data["order"]
 #

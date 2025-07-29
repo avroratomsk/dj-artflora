@@ -85,7 +85,15 @@ def create_payment(order, cart, request):
     return data
 
 def get_status(pay_id):
-    order = Order.objects.get(payment_id=pay_id)
+    orders = Order.objects.filter(payment_id=pay_id)
+    if not orders.exists():
+        logger.error(f"No orders found with payment_id={pay_id}")
+        return {"status": "-1", "order": None}
+
+    if orders.count() > 1:
+        logger.warning(f"Multiple orders found with same payment_id={pay_id}")
+
+    order = orders.first()
 
     post_data = {
         "userName": login,
