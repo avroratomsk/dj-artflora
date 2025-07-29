@@ -72,7 +72,12 @@ LOGGING = {
     'loggers': {
         '': {
             'level': 'INFO',
-            'handlers': ['console', 'file']
-        }
+            'handlers': ['console', 'file'],
+        },
+        'myapp_test': {
+            'level': 'INFO',
+            'handlers': ['console', 'file'],
+            'propagate': False,
+        },
     }
 }

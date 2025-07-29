@@ -38,8 +38,7 @@ def order(request):
 # from coupons.models import Coupon
 
 def order_create(request):
-      logger.info("==== Тест логирования: test_log_view вызван ====")
-      return HttpResponse("Лог должен быть записан.")
+
       """
       Создание заказа из корзины, с поддержкой выбора доставки, скидки и способа оплаты
       """
@@ -106,24 +105,24 @@ def order_create(request):
                       )
 
                     # ⚠️ Проверяем способ оплаты
-                  if payment_method == "На сайте картой":
-                    data = create_payment(order, cart_items, request)
-                    payment_id = data["id"]
-                    confirmation_url = data["confirmation_url"]
+#                   if payment_method == "На сайте картой":
+                  data = create_payment(order, cart_items, request)
+                  payment_id = data["id"]
+                  confirmation_url = data["confirmation_url"]
 
-                    order.payment_id = payment_id
-                    order.payment_dop_info = confirmation_url
-                    order.save()
-                    return redirect(confirmation_url)
-                  else:
+                  order.payment_id = payment_id
+                  order.payment_dop_info = confirmation_url
+                  order.save()
+                  return redirect(confirmation_url)
+#                   else:
                     # Иначе — подтверждаем заказ без оплаты онлайн
-                    email_send(order)
+#                     email_send(order)
 #                       order_telegram(order)
-                    cart_items.delete()
-                    request.session["delivery"] = 1
-                    order.is_paid = True
-                    order.save()
-                    return redirect('order_succes')
+#                     cart_items.delete()
+#                     request.session["delivery"] = 1
+#                     order.is_paid = True
+#                     order.save()
+#                     return redirect('order_succes')
 
               except Exception as e:
                   print(f"Error: {e}")
