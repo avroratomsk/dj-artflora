@@ -9,7 +9,8 @@ login = "i-artflora38_ru-api"
 # password = "i-artflora38*?1"
 password = "D~8Z{3mw"
 # token = AlfaBank.objects.get().token
-
+import logging
+logger = logging.getLogger(__name__)
 
 gateway_url = ""
 
