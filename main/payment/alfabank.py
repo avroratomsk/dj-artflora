@@ -113,7 +113,7 @@ def get_status(pay_id):
     logger.info(f"[AlfaBank] Order {order.id} — Status: {order_status}, ErrorCode: {status}")
     # logger.info(status)
 
-    data = {"status": status, "order": order}
+    data = {"status": status, "order": order, "order_status":order_status}
 
     return data
 

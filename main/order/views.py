@@ -150,7 +150,7 @@ def order_success(request):
     pay_id = request.GET["orderId"]
 
     data = get_status(pay_id)
-    logger.info(data)
+    logger.info(f"Status: {data['order_status']}, ErrorCode: {data['status']}")
     if data["status"] == "0":
       order = data["order"]
 
