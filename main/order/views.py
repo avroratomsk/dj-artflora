@@ -147,43 +147,37 @@ def order_success(request):
     session_key = request.session.session_key
     cart = Cart.objects.filter(session_key=session_key)
 
-    pay_id = request.GET["orderId"]
+    pay_id = request.GET.get("orderId")
+    if not pay_id:
+        logger.error("No orderId in request")
+        return render(request, "pages/orders/error.html")
 
     data = get_status(pay_id)
+    order = data.get("order")
+
+    if not order:
+        logger.error("No order returned from get_status")
+        return render(request, "pages/orders/error.html")
+
     logger.info(f"Status: {data['order_status']}, ErrorCode: {data['status']}")
+
     if data["status"] == "0":
-      order = data["order"]
+        if not order.is_paid:  # только если ещё не оплачен
+            order.is_paid = True
+            order.save()
+            email_send(order)
+            # order_telegram(order)
 
-      email_send(order)
-#       order_telegram(order)
+            cart_items = Cart.objects.filter(session_key=session_key)
+            cart_items.delete()
+            request.session["delivery"] = 1
 
-      text = f"Ваш заказ принят. Ему присвоен № {order.id}."
-
-      session_key = request.session.session_key
-      cart_items = Cart.objects.filter(session_key=session_key)
-      cart_items.delete()
-      request.session["delivery"] = 1
-      order.is_paid = True
-      order.save()
-      return redirect("/?order=True")
+        return redirect("/?order=True")
     else:
-      order.is_paid = False
-      order.save()
-      return render(request, "pages/orders/error.html")
-#       order = data["order"]
-#
-#       email_send(order)
-#       order_telegram(order)
-#
-#       text = f"Ваш заказ принят. Ему присвоен № {order.id}."
-#
-#       session_key = request.session.session_key
-#       cart_items = Cart.objects.filter(session_key=session_key)
-#       cart_items.delete()
-#       request.session["delivery"] = 1
-#       order.paid = True
-#       order.save()
-#       return redirect("/?order=True")
+        logger.warning(f"Payment failed for order {order.id}. Status: {data['status']}")
+        # не перезаписывай order.is_paid = False без надобности
+        return render(request, "pages/orders/error.html")
+
 
 def buy_now(request, product_id):
     product = get_object_or_404(Product, id=product_id)
