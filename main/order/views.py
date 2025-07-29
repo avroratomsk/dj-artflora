@@ -155,7 +155,7 @@ def order_success(request):
       order = data["order"]
 
       email_send(order)
-      order_telegram(order)
+#       order_telegram(order)
 
       text = f"Ваш заказ принят. Ему присвоен № {order.id}."
 
