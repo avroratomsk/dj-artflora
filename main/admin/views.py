@@ -157,7 +157,7 @@ def admin_product(request):
   return render(request, "shop/product/product.html", context)
 
 def orders(request):
-    items = Order.objects.prefetch_related('items').all().order_by('-id')
+    items = Order.objects.prefetch_related('items').filter(is_paid=True).order_by('-id')
 
     context = {
         "items": items,
@@ -457,7 +457,6 @@ def parse_exсel(path):
           slug=category_slug
         )
       else:
-        # print("Ошибка: Имя категории не указано")
         category = Category.objects.filter(name=category_name).first()
     
     composition = row[9]

@@ -19,22 +19,22 @@ from coupons.models import Coupon
 def order(request):
   ...
 
-from django.db import transaction
-from django.forms import ValidationError
-from django.contrib import messages
-from django.shortcuts import get_object_or_404, redirect, render
-from cart.models import Cart
-from order.services import get_cart_and_user
-from payment.alfabank import create_payment, get_status
-from .email_send import email_send
-from order.models import Order, OrderItem
-from order.forms import CreateOrderForm
-from django.contrib.auth.decorators import login_required
-from shop.models import Product, ShopSettings
-import logging
-logger = logging.getLogger(__name__)
-from datetime import datetime
-from coupons.models import Coupon
+# from django.db import transaction
+# from django.forms import ValidationError
+# from django.contrib import messages
+# from django.shortcuts import get_object_or_404, redirect, render
+# from cart.models import Cart
+# from order.services import get_cart_and_user
+# from payment.alfabank import create_payment, get_status
+# from .email_send import email_send
+# from order.models import Order, OrderItem
+# from order.forms import CreateOrderForm
+# from django.contrib.auth.decorators import login_required
+# from shop.models import Product, ShopSettings
+# import logging
+# logger = logging.getLogger(__name__)
+# from datetime import datetime
+# from coupons.models import Coupon
 
 def order_create(request):
       """
@@ -161,24 +161,26 @@ def order_success(request):
       cart_items = Cart.objects.filter(session_key=session_key)
       cart_items.delete()
       request.session["delivery"] = 1
-      order.paid = True
+      order.is_paid = True
       order.save()
       return redirect("/?order=True")
     else:
-      order = data["order"]
-
-      email_send(order)
-      order_telegram(order)
-
-      text = f"Ваш заказ принят. Ему присвоен № {order.id}."
-
-      session_key = request.session.session_key
-      cart_items = Cart.objects.filter(session_key=session_key)
-      cart_items.delete()
-      request.session["delivery"] = 1
-      order.paid = True
-      order.save()
-      return redirect("/?order=True")
+      order.is_paid = False
+      return render(request, "pages/orders/error.html")
+#       order = data["order"]
+#
+#       email_send(order)
+#       order_telegram(order)
+#
+#       text = f"Ваш заказ принят. Ему присвоен № {order.id}."
+#
+#       session_key = request.session.session_key
+#       cart_items = Cart.objects.filter(session_key=session_key)
+#       cart_items.delete()
+#       request.session["delivery"] = 1
+#       order.paid = True
+#       order.save()
+#       return redirect("/?order=True")
 
 def buy_now(request, product_id):
     product = get_object_or_404(Product, id=product_id)
