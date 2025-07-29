@@ -23,7 +23,7 @@ class Order(models.Model):
   delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки")
   delivery_date = models.DateField(null=True, blank=True, verbose_name="Дата доставки")
   delivery_time = models.TimeField(null=True, blank=True, verbose_name="Время доставки")
-  payment_id = models.CharField(max_length=250, verbose_name="ID платежа", null=True, blank=True)
+  payment_id = models.CharField(max_length=250, unique=True, verbose_name="ID платежа", null=True, blank=True)
   payment_dop_info = models.CharField(max_length=550, verbose_name="Информация о платеже (ссылка на плптеж)", null=True, blank=True)
   pay_method = models.CharField(max_length=250, verbose_name="Способ оплаты", null=True, blank=True)
   is_paid = models.BooleanField(default=False, verbose_name="Оплачено ?")
