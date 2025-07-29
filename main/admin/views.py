@@ -157,7 +157,8 @@ def admin_product(request):
   return render(request, "shop/product/product.html", context)
 
 def orders(request):
-    items = Order.objects.prefetch_related('items').filter(is_paid=True).order_by('-id')
+#     items = Order.objects.prefetch_related('items').filter(is_paid=True).order_by('-id')
+    items = Order.objects.all()
 
     context = {
         "items": items,
