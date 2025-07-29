@@ -889,7 +889,6 @@ def promo_add(request):
       form.save()
       return redirect('admin_promo')
     else:
-      print(form)
       return render(request, 'marketing/promo_add.html', {'form':form})
 
   form = CouponForm()
@@ -906,10 +905,8 @@ def promo_edit(request, pk):
     form = CouponForm(request.POST, instance=coupon)
     if form.is_valid():
       form.save()
-      print(f'{form} - if')
       return redirect('admin_promo')
     else:
-      print(f'{form} - else')
       return render(request, 'marketing/promo_edit.html', {'form':form})
   form = CouponForm(instance=coupon)
   context = {
