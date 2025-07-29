@@ -15,3 +15,4 @@ INFO 2025-07-29 16:18:13,796 django.server "GET /core/theme/mb/images/admin/chev
 INFO 2025-07-29 16:18:13,798 django.server "GET /core/admin/js/app.js?v09:18:13 HTTP/1.1" 200 6612
 INFO 2025-07-29 16:18:57,611 django.utils.autoreload C:\Users\sania\project\dj-artflora\main\order\views.py changed, reloading.
 INFO 2025-07-29 16:18:58,308 django.utils.autoreload Watching for file changes with StatReloader
+INFO 2025-07-29 16:30:54,600 django.utils.autoreload C:\Users\sania\project\dj-artflora\main\main\settings.py changed, reloading.
