@@ -23,7 +23,7 @@
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Оплачен? {{ item.is_paid|yesno:"Да,Нет" }}</li>
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Статус заказа: {{ item.order_status }}</li>
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Дата заказа: {{ item.delivery_date }}</li>
-        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Время заказа: {{ item.delivery_time }}</li>
+        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Время заказа: {{ item.delivery_time|time:"H:i" }}</li>
       </ul>
       <br>
 
