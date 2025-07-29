@@ -37,8 +37,8 @@
             <p>{{ item.email }}</p>
             <p>{{ item.phone }}</p>
             <div class="body-table__action">
-              <a href="{% url 'order_detail' item.pk %}" style="width: 100%; padding: 5px 10px; color: #fff;">Посмотреть</a>
-              {% comment %} <a href="{% url 'product_delete' order.pk %}">Удалить</a>{% endcomment %}
+              <a href="{% url 'order_detail' item.pk %}" style="background: #5776c4;width: 100%; padding: 5px 10px; color: #fff;">Посмотреть</a>
+              <a href="{% url 'order_delete' item.pk %}" style="background: #5776c4;width: 100%; padding: 5px 10px; color: #fff;">Удалить</a>
             </div>
           </div>
           {% endfor %}

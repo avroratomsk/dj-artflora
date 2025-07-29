@@ -175,6 +175,12 @@ def order_detail(request, pk):
 
   return render(request, "page/statistics_detail.html", context)
 
+def order_delete(request, pk):
+  item = Order.objects.get(id=pk)
+  item.delete()
+
+  return redirect(request.META.get("HTTP_REFERER", 'admin'))
+
 def product_edit(request, pk):
   """
     View, которая получает данные из формы редактирования товара
@@ -771,7 +777,7 @@ def admin_stock(request):
   stocks = Stock.objects.all()
   
   context = {
-    "stocks": stocks
+    "items": stocks
   }
   
   return render(request, "stock/stock.html", context)
@@ -877,39 +883,41 @@ def admin_promo(request):
 
 
 def promo_add(request):
-    if request.method == 'POST':
-        form = CouponForm(request.POST)
-        if form.is_valid():
-            form.save()
-        return redirect('admin_promo')
+  if request.method == 'POST':
+    form = CouponForm(request.POST)
+    if form.is_valid():
+      form.save()
+      return redirect('admin_promo')
+    else:
+      print(form)
+      return render(request, 'marketing/promo_add.html', {'form':form})
 
-    form = CouponForm()
-    context = {
-        'form': form
-    }
+  form = CouponForm()
+  context = {
+      'form': form
+  }
 
-    return render(request, 'marketing/promo_add.html', context)
+  return render(request, 'marketing/promo_add.html', context)
 
 def promo_edit(request, pk):
-    coupon = Coupon.objects.get(id=pk)
+  coupon = Coupon.objects.get(id=pk)
 
-    if request.method == 'POST':
-        form = CouponForm(request.POST, instance=coupon)
-        if form.is_valid():
-            form.save()
+  if request.method == 'POST':
+    form = CouponForm(request.POST, instance=coupon)
+    if form.is_valid():
+      form.save()
+      print(f'{form} - if')
+      return redirect('admin_promo')
+    else:
+      print(f'{form} - else')
+      return render(request, 'marketing/promo_edit.html', {'form':form})
+  form = CouponForm(instance=coupon)
+  context = {
+    'form': form,
+    'coupon': coupon,
+  }
 
-            return redirect('admin_promo')
-
-        else:
-            return render(request, 'marketing/promo_edit.html', {'form':form})
-
-    form = CouponForm(instance=coupon)
-    context = {
-        'form': form,
-        'coupon': coupon,
-    }
-
-    return render(request, 'marketing/promo_edit.html', context)
+  return render(request, 'marketing/promo_edit.html', context)
 
 
 def promo_delete(request, pk):

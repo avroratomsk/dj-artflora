@@ -451,29 +451,7 @@ class StockForm(forms.ModelForm):
   
   class Meta:
     model = Stock
-    fields = [
-        'title',
-        'slug',
-        'description',
-        'validity',
-        'status',
-        'image',
-        'meta_title',
-        'meta_description',
-        'meta_keywords',
-    ]
-    labels = {
-        'title':'Название акции',
-        'slug': 'URL',
-        'validity':'Срок действия акции',
-        'description':'Текст коментария',
-        'status':'Статус публикации',
-        'image': 'Изображение акции',
-        'meta_title':'Meta title',
-        'untitle': 'Надзаголовок',
-        'meta_description':'Мета description',
-        'meta_keywords':'Meta keywords',
-    }
+    fields = "__all__"
     widgets = {
       'title': forms.TextInput(attrs={
         'class': 'form__controls',
@@ -485,7 +463,9 @@ class StockForm(forms.ModelForm):
       }),
       'validity': forms.DateInput(attrs={
         'class':'form__controls',
-      }),
+        'type': 'date',
+      },
+      format='%Y-%m-%d'),
       'description': forms.Textarea(attrs={
         'class': 'form__controls',
         'rows': 5,
@@ -628,16 +608,14 @@ class CouponForm(forms.ModelForm):
                 'class': 'form__controls',
                 'type': 'date',
                 
-            }),
+            },
+            format='%Y-%m-%d'),
             'valid_to': forms.DateInput(attrs={
                 'class': 'form__controls',
                 'type': 'date',
-                
-            }),
-            'discount': forms.NumberInput(attrs={
-                'class': 'form__controls',
-                'placeholder': 'Скидка',
-            }),
+
+            }, format='%Y-%m-%d'),
+            'discount': forms.NumberInput(attrs={'class': 'form__controls',}),
         }
         
 class DeliveryPageForm(forms.ModelForm):

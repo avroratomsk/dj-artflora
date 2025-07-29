@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.admin, name="admin"),
     path('orders/', views.orders, name="orders"),
     path('order_detail/<int:pk>/', views.order_detail, name='order_detail'),
-#     path('order_delete/<int:pk>/', views.order_delete, name='order_delete'),
+    path('order_delete/<int:pk>/', views.order_delete, name='order_delete'),
     path('users', views.admin_users, name="admin_users"),
     
     #URl - отвечающие за загрузку данных

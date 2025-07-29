@@ -11,10 +11,10 @@
     </div>
     <div class="page__head">
       <div class="page__head-tab">
-        <a href="{% url 'admin_reviews_add' %}" class="action-button">Добавить новую</a>
+        <a href="{% url 'stock_add' %}" class="action-button">Добавить новую</a>
       </div>
     </div>
-    {% if stocks.count > 0 %}
+    {% if items.count > 0 %}
     <div class="page__content content-page table-top">
       <div class="table">
         <div class="table-header">
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="table-body">
-          {% for item in stocks %}
+          {% for item in items %}
           <div class="table-row">
             <div class="table-cell">
               {% if item.image %} {% thumbnail item.image "50x50" format="WEBP" crop="center" as im %}

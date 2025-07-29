@@ -477,6 +477,14 @@ ol {
   color: #eb1a30;
 }
 
+.grid-page__icon {
+  width: 25px;
+}
+
+.grid-page__icon svg {
+  width: 100%;
+}
+
 .form {
   width: 100%;
   display: flex;
@@ -670,6 +678,15 @@ ol {
 
 .table-5__body .body-table__row {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.table-6__head {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  background-color: white;
+}
+
+.table-6__body .body-table__row {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .table-2__head {
