@@ -37,6 +37,8 @@
 
         {% if item.delivery_address %}
         <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Адрес доставки: {{ item.delivery_address }}</li>
+        {% else %}
+        <li style="line-height: 140%; margin-bottom: 5px; padding: 5px 0px; font-size: 16px;">Способ получения: Самовывоз</li>
         {% endif %}
 
         {% if item.pay_method %}
