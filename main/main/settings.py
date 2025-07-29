@@ -88,6 +88,8 @@ WSGI_APPLICATION = "main.wsgi.application"
 
 from .local import DATABASES
 
+from .local import LOGGING
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

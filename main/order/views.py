@@ -2,6 +2,7 @@ from django.db import transaction
 from django.forms import ValidationError
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponse
 from cart.models import Cart
 from order.services import get_cart_and_user
 from payment.alfabank import create_payment, get_status
@@ -37,6 +38,8 @@ def order(request):
 # from coupons.models import Coupon
 
 def order_create(request):
+      logger.info("==== Тест логирования: test_log_view вызван ====")
+      return HttpResponse("Лог должен быть записан.")
       """
       Создание заказа из корзины, с поддержкой выбора доставки, скидки и способа оплаты
       """
@@ -102,27 +105,28 @@ def order_create(request):
                           quantity=quantity
                       )
 
-                  # ⚠️ Проверяем способ оплаты
-#                   if payment_method == "На сайте картой":
-                  data = create_payment(order, cart_items, request)
-                  payment_id = data["id"]
-                  confirmation_url = data["confirmation_url"]
+                    # ⚠️ Проверяем способ оплаты
+                  if payment_method == "На сайте картой":
+                    data = create_payment(order, cart_items, request)
+                    payment_id = data["id"]
+                    confirmation_url = data["confirmation_url"]
 
-                  order.payment_id = payment_id
-                  order.payment_dop_info = confirmation_url
-                  order.save()
-                  return redirect(confirmation_url)
-#                   else:
-#                       # Иначе — подтверждаем заказ без оплаты онлайн
-#                       email_send(order)
-# #                       order_telegram(order)
-#                       cart_items.delete()
-#                       request.session["delivery"] = 1
-#                       order.is_paid = False
-#                       order.save()
-#                       return redirect('order_succes')
+                    order.payment_id = payment_id
+                    order.payment_dop_info = confirmation_url
+                    order.save()
+                    return redirect(confirmation_url)
+                  else:
+                    # Иначе — подтверждаем заказ без оплаты онлайн
+                    email_send(order)
+#                       order_telegram(order)
+                    cart_items.delete()
+                    request.session["delivery"] = 1
+                    order.is_paid = True
+                    order.save()
+                    return redirect('order_succes')
 
               except Exception as e:
+                  print(f"Error: {e}")
                   messages.error(request, "Произошла ошибка при оформлении заказа.")
 
       context = {
@@ -141,28 +145,31 @@ def order_error(request):
     return render(request, "pages/orders/error.html")
 
 def order_success(request):
-  session_key = request.session.session_key
-  cart = Cart.objects.filter(session_key=session_key)
-
-  pay_id = request.GET["orderId"]
-  data = get_status(pay_id)
-  if data["status"] == 2 and data["order"]:
-    order = data["order"]
-
-    email_send(order)
-    order_telegram(order)
-
-    text = f"Ваш заказ принят. Ему присвоен № {order.id}."
-
     session_key = request.session.session_key
-    cart_items = Cart.objects.filter(session_key=session_key)
-    cart_items.delete()
-    request.session["delivery"] = 1
-    order.is_paid = True
-    order.save()
-    return redirect("/?order=True")
-  else:
-    return render(request, "pages/orders/error.html")
+    cart = Cart.objects.filter(session_key=session_key)
+
+    pay_id = request.GET["orderId"]
+
+    data = get_status(pay_id)
+    logger.info(data)
+    if data["status"] == "0":
+      order = data["order"]
+
+      email_send(order)
+      order_telegram(order)
+
+      text = f"Ваш заказ принят. Ему присвоен № {order.id}."
+
+      session_key = request.session.session_key
+      cart_items = Cart.objects.filter(session_key=session_key)
+      cart_items.delete()
+      request.session["delivery"] = 1
+      order.is_paid = True
+      order.save()
+      return redirect("/?order=True")
+    else:
+      order.is_paid = False
+      return render(request, "pages/orders/error.html")
 #       order = data["order"]
 #
 #       email_send(order)

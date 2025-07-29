@@ -4,9 +4,6 @@ import requests
 from .models import AlfaBank
 from order.models import Order
 from shop.models import Product
-import logging
-
-logger = logging.getLogger(__name__)
 
 login = "i-artflora38_ru-api"
 # password = "i-artflora38*?1"
@@ -59,7 +56,9 @@ def create_payment(order, cart, request):
         sum += int(item["itemAmount"])
         
     sum += delivery
+    print(sum)
     sum = sum - ((sum * coupon_discount) / 100)
+    print(sum)
     
     post_data = {
         "userName": login,
@@ -86,7 +85,6 @@ def create_payment(order, cart, request):
     return data
 
 def get_status(pay_id):
-  try:
     order = Order.objects.get(payment_id=pay_id)
 
     post_data = {
@@ -99,18 +97,12 @@ def get_status(pay_id):
     r = requests.post(
         "https://ecom.alfabank.ru/api/rest/getOrderStatus.do", post_data
     )
+    # print(r.json())
 
-    error_code = r.json()["errorCode"]
-    order_status = r.json()["OrderStatus"]
-    logger.info(f"[AlfaBank] Order {order.id} — Status: {order_status}, ErrorCode: {error_code}")
+    status = r.json()["errorCode"]
+    # logger.info(status)
 
-    data = {
-         "error": error_code,
-         "status": order_status,
-         "order": order,
-     }
+    data = {"status": status, "order": order}
 
     return data
-  except Exception as e:
-    return {"status": "error", "order": None}
 
