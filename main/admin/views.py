@@ -511,7 +511,7 @@ def parse_exсel(path):
 # parse_exсel(path)
 
 def admin_category(request):
-  categorys = Category.objects.all()
+  categorys = Category.objects.all().order_by('-id')
   
   context ={
     "categorys": categorys,
