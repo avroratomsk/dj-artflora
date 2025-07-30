@@ -4,6 +4,8 @@ import requests
 from .models import AlfaBank
 from order.models import Order
 from shop.models import Product
+import uuid
+
 
 login = "i-artflora38_ru-api"
 # password = "i-artflora38*?1"
@@ -17,6 +19,13 @@ gateway_url = ""
 def create_payment(order, cart, request):
     returnUrl = "https://" + request.META["HTTP_HOST"] + "/orders/success/"
     failUrl = "http://" + request.META["HTTP_HOST"] + "/orders/error/"
+
+    # Генерируем уникальный UUID для платежа
+    payment_uuid = str(uuid.uuid4())
+
+    # Используем его как часть номера заказа
+    order_number = f"{order.id}-{payment_uuid[:8]}"
+
     isDelivery = request.session.get('delivery')
     if isDelivery == 1:
       delivery = request.session.get('delivery_summ')
@@ -64,7 +73,7 @@ def create_payment(order, cart, request):
     post_data = {
         "userName": login,
         "password": password,
-        "orderNumber": order.id,
+        "orderNumber": order_number,
         "amount": sum,
         "returnUrl": returnUrl,
         "failUrl": failUrl,
