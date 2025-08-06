@@ -735,6 +735,8 @@ html.lock body::before {
 
 .card-section {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-section__image {
@@ -756,12 +758,12 @@ html.lock body::before {
 
 .card-section__name {
   display: flex;
+  flex: 1 1 auto;
   font-size: 25px;
   font-weight: 400;
   font-family: Forum, serif;
   color: #4d6469;
   padding: 20px 0;
-  display: flex;
   transition: 0.5s;
 }
 
@@ -5566,8 +5568,24 @@ td {
 }
 
 @media screen and (max-width: 1300px) {
+  .card-section__image {
+    height: 245px;
+  }
+
+  .card-section__name {
+    font-size: 20px;
+  }
+
+  .card-section__price {
+    font-size: 16px;
+  }
+
   .bottom-header__nav a {
     padding: 15px 10px;
+  }
+
+  .category-details .cards-catalog {
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   }
 }
 
@@ -5754,7 +5772,7 @@ td {
   }
 
   .card-section__name {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .card-section__price {

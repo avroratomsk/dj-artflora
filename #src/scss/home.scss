@@ -391,6 +391,8 @@
 
 .card-section {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-section__image {
@@ -400,6 +402,10 @@
   align-items: center;
   justify-content: center;
   position: relative;
+
+  @media screen and (max-width: 1300px) {
+    height: 245px;
+  }
 
   @media screen and (max-width: 640px) {
     height: 200px;
@@ -416,16 +422,20 @@
 
 .card-section__name {
   display: flex;
+  flex: 1 1 auto;
   font-size: 25px;
   font-weight: 400;
   font-family: Forum, serif;
   color: #4d6469;
   padding: 20px 0;
-  display: flex;
   transition: 0.5s;
 
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 1300px) {
     font-size: 20px;
+  }
+
+  @media screen and (max-width: 640px) {
+    font-size: 18px;
   }
 }
 
@@ -436,6 +446,10 @@
 .card-section__price {
   display: flex;
   font-size: 20px;
+
+  @media screen and (max-width: 1300px) {
+    font-size: 16px;
+  }
 
   @media screen and (max-width: 640px) {
     font-size: 16px;

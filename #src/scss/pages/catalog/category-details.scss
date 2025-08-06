@@ -85,6 +85,9 @@
   .cards-catalog {
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
 
+    @media screen and (max-width: 1300px) {
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    }
 
     @media screen and (max-width: 640px) {
       grid-template-columns: 1fr 1fr;
