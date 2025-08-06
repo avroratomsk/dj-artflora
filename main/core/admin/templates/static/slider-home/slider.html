@@ -8,6 +8,7 @@
         <li><a href="{% url 'admin' %}">Панель управления</a></li>
         <li>Слайды</li>
       </ul>
+      <a href="{% url 'slider_add' %}">Добавить</a>
     </div>
     <div class="table-3">
       <div class="head-table table-3__head">
@@ -16,7 +17,7 @@
         <div class="head-table__action">Действия</div>
       </div>
       <div class="body-table table-3__body">
-        {% for slide in slider %}
+        {% for slide in items %}
         <div class="body-table__row">
           <div class="body-table__image">
             {% if slide.image %} {% thumbnail slide.image "100x100" format="WEBP" crop="center" as im %}
@@ -33,7 +34,7 @@
             {% endif %}
           </div>
           <div class="body-table__action">
-            <a href="" class="edit">
+            <a href="{% url 'slider_edit' slide.pk %}" class="edit">
               <?xml version="1.0" ?><svg
                 id="Layer_1"
                 style="enable-background: new 0 0 24 24"
@@ -51,7 +52,7 @@
                 />
               </svg>
             </a>
-            <a href="" class="remove">
+            <a href="{% url 'slider_delete' slide.pk %}" class="remove">
               <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <style>
