@@ -2986,6 +2986,10 @@ td {
   display: none;
 }
 
+.section__wrapper {
+  height: 100% !important;
+}
+
 .login {
   color: #343434;
 }
