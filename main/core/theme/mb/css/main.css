@@ -843,6 +843,10 @@ html.lock body::before {
   gap: 30px;
 }
 
+.contact {
+  padding: 60px 0px;
+}
+
 .catalog__item {
   min-height: 350px;
   display: -webkit-box;
@@ -4056,6 +4060,12 @@ td {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 20px;
 }
 
 .page-contact .contact {

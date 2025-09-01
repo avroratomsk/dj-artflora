@@ -1,3 +1,10 @@
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 20px;
+}
+
 .page-contact {
   @media screen and (max-width: 1024px) {
     margin-top: 80px;
