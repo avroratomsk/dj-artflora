@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import inlineformset_factory
 from home.models import BaseSettings, DeliveryPage, HomeTemplate, Messanger, SliderHome, Stock
 from coupons.models import Coupon
 from service.models import Service
@@ -182,6 +183,14 @@ class ProductImageForm(forms.ModelForm):
                 'class': 'form__controls', 
             })
         }
+
+ProductImageFormSet = inlineformset_factory(
+    Product,
+    ProductImage,
+    form=ProductImageForm,
+    extra=1,
+    can_delete=True
+)
 
 class ProductCharForm(forms.ModelForm):
     class Meta:

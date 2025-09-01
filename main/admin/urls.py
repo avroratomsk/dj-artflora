@@ -32,7 +32,7 @@ urlpatterns = [
     path('product/add/', views.product_add, name='product_add'),
     path('product/edit/<int:pk>/', views.product_edit, name='product_edit'),
     path('product/delete/<int:pk>/', views.product_delete, name='product_delete'),
-    
+    path("product/image/<int:pk>/delete/", views.product_image_delete, name="product_image_delete"),
     #URl - отвечающие за отображение характиристик, редактирование и удаление характеристик
     #URl - отвечающие за отображение характиристик, редактирование и удаление характеристик
     path('char/', views.admin_char, name='admin_char'),

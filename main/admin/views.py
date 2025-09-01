@@ -4,7 +4,7 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import CategoryForm, CharGroupForm, CharNameForm, CouponForm, DeliveryPageForm, GlobalSettingsForm, HomeTemplateForm, MessangerForm, ProductCharForm, ProductForm, ProductImageForm, ReviewsForm, ServiceForm, ShopSettingsForm, SliderForm, StockForm, UploadFileForm
+from admin.forms import *
 from home.models import BaseSettings, DeliveryPage, HomeTemplate, Messanger, SliderHome, Stock
 from coupons.models import Coupon
 from order.models import Order, OrderItem
@@ -181,68 +181,78 @@ def order_delete(request, pk):
   return redirect(request.META.get("HTTP_REFERER", 'admin'))
 
 def product_edit(request, pk):
-  """
-    View, которая получает данные из формы редактирования товара
-    и изменяет данные внесенные данные товара в базе данных
-  """
-  product = Product.objects.get(id=pk)
-  form = ProductForm(instance=product)
-  image_form = ProductImageForm()
-  product_char_form = ProductCharForm()
-  chars = ProductChar.objects.filter(parent_id=pk)
-  all_chars = CharName.objects.all()
-  form_new = ProductForm(request.POST, request.FILES, instance=product)
-  images = ProductImage.objects.filter(id=product.id)
+    """
+    View для редактирования товара + связанных изображений и характеристик
+    """
+    product = get_object_or_404(Product, id=pk)
 
-  if request.method == 'POST':
-    if form_new.is_valid():
-      form_new.save()
-      product = Product.objects.get(slug=request.POST['slug'])
-      images = request.FILES.getlist('src')
-      # Характеристики 
-      char_name = request.POST.getlist('text_name')
-      char_value = request.POST.getlist('char_value')
-      char_count = 0
+    chars = ProductChar.objects.filter(parent_id=pk)
+    all_chars = CharName.objects.all()
 
-      for char in char_name:
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        formset = ProductImageFormSet(request.POST, request.FILES, instance=product)
+        product_char_form = ProductCharForm(request.POST)
 
-          value = char_value[char_count]
-          product_char = ProductChar(
-              char_name_id = char,
-              parent = product,
-              char_value = value
-          )
-          product_char.save()
-          char_count += 1
+        if form.is_valid() and formset.is_valid():
+            product = form.save()
+            formset.save()
 
-      old_char_id = request.POST.getlist('old_char_id')
-      old_char_name = request.POST.getlist('old_text_name')
-      old_char_value = request.POST.getlist('old_char_value')
-      old_char_count = 0
+            # 🔹 обработка новых характеристик
+            char_name = request.POST.getlist("text_name")
+            char_value = request.POST.getlist("char_value")
+            for name_id, value in zip(char_name, char_value):
+                ProductChar.objects.create(
+                    char_name_id=name_id,
+                    parent=product,
+                    char_value=value,
+                )
 
-      for id in old_char_id:
+            # 🔹 обновление старых характеристик
+            old_char_id = request.POST.getlist("old_char_id")
+            old_char_name = request.POST.getlist("old_text_name")
+            old_char_value = request.POST.getlist("old_char_value")
+            for cid, cname, cval in zip(old_char_id, old_char_name, old_char_value):
+                old_char = ProductChar.objects.get(id=cid)
+                old_char.char_name_id = cname
+                old_char.char_value = cval
+                old_char.save()
 
-          old_char = ProductChar.objects.get(id=id)
-          old_char.char_name_id = old_char_name[old_char_count]
-          old_char.char_value = old_char_value[old_char_count]
-          
-          old_char.save()
-          old_char_count += 1
-      for image in images:
-          img = ProductImage(parent=product, src=image)
-          img.save()
-      return redirect('admin_product')
+            return redirect("admin_product")
+        else:
+            return render(
+                request,
+                "shop/product/product_edit.html",
+                {
+                    "form": form,
+                    "formset": formset,
+                    "product_char_form": product_char_form,
+                    "all_chars": all_chars,
+                    "chars": chars,
+                },
+            )
+
     else:
-      return render(request, 'shop/product/product_edit.html', {'form': form_new, 'image_form': image_form,})
-  context = {
-    "form":form,
-    'image_form': image_form,
-    "product_char_form": product_char_form,
-    "all_chars": all_chars,
-    "chars": chars,
-    "images": images,
-  }
-  return render(request, "shop/product/product_edit.html", context)
+        form = ProductForm(instance=product)
+        formset = ProductImageFormSet(instance=product)
+        product_char_form = ProductCharForm()
+
+    return render(
+        request,
+        "shop/product/product_edit.html",
+        {
+            "form": form,
+            "formset": formset,
+            "product_char_form": product_char_form,
+            "all_chars": all_chars,
+            "chars": chars,
+        },
+    )
+def product_image_delete(request, pk):
+  image = get_object_or_404(ProductImage, pk=pk)
+  product_id = image.parent.id
+  image.delete()
+  return redirect("product_edit", pk=product_id)
 
 def product_add(request):
   form = ProductForm()
