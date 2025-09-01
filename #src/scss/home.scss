@@ -538,12 +538,8 @@
 
 .catalog__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(385px, 1fr));
-  gap: 50px;
-
-  @media screen and (max-width: 850px) {
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  }
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 30px;
 
   @media screen and (max-width: 664px) {
     gap: 20px;
@@ -811,51 +807,7 @@
   font-size: 16px;
 }
 
-.contact {
-  padding: 50px 0;
-  background-color: #fafafa;
-}
-
-.contact__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  justify-items: center;
-  gap: 40px;
-  margin-top: 50px;
-
-  @media screen and (max-width: 600px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px 20px;
-  }
-}
-
-.contact__item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  img {
-    @media screen and (max-width: 600px) {
-      width: 40px;
-    }
-
-    p {
-      font-size: 14px;
-    }
-  }
-}
-
-.contact__map {
-  margin-top: 40px;
-  width: 100%;
-  height: 450px;
-}
-
-.contact__map img {
-  width: 100%;
-
-
-}
+ce
 
 .about {
   padding: 50px 0;

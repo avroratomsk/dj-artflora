@@ -257,7 +257,7 @@
         {% if categorys %} {% for category in categorys %}
         <a href="{{ category.get_absolute_url }}" class="catalog__item item-catalog">
           <img src="{% if category.image %}{{ category.image.url }}{% endif %}" alt="" class="item-catalog__image" />
-          <div class="item-catalog__count">{{ category.product_count }}</div>
+<!--          <div class="item-catalog__count">{{ category.product_count }}</div>-->
           <div class="item-catalog__content">
             <span class="item-catalog__underline">Категория</span>
             <h3 class="item-catalog__name ff">{{ category.name }}</h3>

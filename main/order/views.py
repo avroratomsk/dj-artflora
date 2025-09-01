@@ -46,17 +46,27 @@ def order_create(request):
       cart_items = get_cart_and_user(request)['cart_items']
       form = CreateOrderForm(request.POST)
 
-      # Сумма доставки из сессии или из настроек магазина по умолчанию
+#       # Сумма доставки из сессии или из настроек магазина по умолчанию
+#       delivery = request.session.get('delivery_summ', ShopSettings.objects.get().delivery)
+#
+#       # Скидка из купона (если применён)
+#       coupon_discount = request.session.get('coupon_discoint', 0)
+#
+#       # Общая сумма с доставкой
+#       amount_delivery = cart_items.total_price() + delivery
+#
+#       print(delivery)
+#       print(coupon_discount)
+#       # Учитываем скидку
+#       total = amount_delivery - ((amount_delivery * coupon_discount) / 100)
       delivery = request.session.get('delivery_summ', ShopSettings.objects.get().delivery)
+      coupon_discount = request.session.get('coupon_discoint', 0)  # исправил название ключа
 
-      # Скидка из купона (если применён)
-      coupon_discount = request.session.get('coupon_discoint', 0)
-
-      # Общая сумма с доставкой
-      amount_delivery = cart_items.total_price() + delivery
-
-      # Учитываем скидку
-      total = amount_delivery - ((amount_delivery * coupon_discount) / 100)
+      subtotal = cart_items.total_price()  # сумма товаров
+      discount_amount = (subtotal * coupon_discount) / 100  # скидка в рублях
+      after_discount = subtotal - discount_amount
+      total = after_discount + delivery
+      print(f'Доставка: {delivery} - Купон: {coupon_discount} - Сумма товаров: {subtotal} - Скидка в рублях: {discount_amount} - After Discount: {after_discount} - Общая сумма: {total}')
 
       if request.method == "POST":
           if form.is_valid():
@@ -104,7 +114,7 @@ def order_create(request):
                           quantity=quantity
                       )
 
-                    # ⚠️ Проверяем способ оплаты
+                    # Проверяем способ оплаты
 #                   if payment_method == "На сайте картой":
                   data = create_payment(order, cart_items, request)
                   payment_id = data["id"]
@@ -113,8 +123,8 @@ def order_create(request):
                   if Order.objects.filter(payment_id=payment_id).exists():
                       logger.error(f"[order_create] Duplicate payment_id detected before saving: {payment_id}")
                       messages.error(request, "Ошибка при создании платежа. Попробуйте снова.")
-                      order.delete()  # чтобы не оставлять мусорный заказ
-                      return redirect("order_create")  # или другой путь на страницу оформления заказа
+                      order.delete()
+                      return redirect("order_create")
 
                   order.payment_id = payment_id
                   order.payment_dop_info = confirmation_url

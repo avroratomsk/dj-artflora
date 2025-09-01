@@ -839,8 +839,8 @@ html.lock body::before {
 
 .catalog__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(385px, 1fr));
-  gap: 50px;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 30px;
 }
 
 .catalog__item {
@@ -1083,40 +1083,7 @@ html.lock body::before {
   font-size: 16px;
 }
 
-.contact {
-  padding: 50px 0;
-  background-color: #fafafa;
-}
-
-.contact__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  justify-items: center;
-  gap: 40px;
-  margin-top: 50px;
-}
-
-.contact__item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.contact__item img p {
-  font-size: 14px;
-}
-
-.contact__map {
-  margin-top: 40px;
-  width: 100%;
-  height: 450px;
-}
-
-.contact__map img {
-  width: 100%;
-}
-
-.about {
+ce .about {
   padding: 50px 0;
 }
 
@@ -5699,12 +5666,6 @@ td {
   }
 }
 
-@media screen and (max-width: 850px) {
-  .catalog__grid {
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  }
-}
-
 @media screen and (max-width: 768px) {
   .index-slider__slide {
     padding: 40px 40px;
@@ -5876,15 +5837,6 @@ td {
 
   .index-slider__btn {
     width: 230px;
-  }
-
-  .contact__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px 20px;
-  }
-
-  .contact__item img {
-    width: 40px;
   }
 }
 
