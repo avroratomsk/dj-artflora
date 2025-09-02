@@ -38,6 +38,7 @@ def order(request):
 # from coupons.models import Coupon
 
 def order_create(request):
+      logger.info("➡️ Вошли в order_create, method=%s, session=%s", request.method, dict(request.session))
       if request.method == "GET":
           request.session.pop('delivery_summ', None)
 
