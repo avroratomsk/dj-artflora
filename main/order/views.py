@@ -55,8 +55,6 @@ def order_create(request):
 #       # Общая сумма с доставкой
 #       amount_delivery = cart_items.total_price() + delivery
 #
-#       print(delivery)
-#       print(coupon_discount)
 #       # Учитываем скидку
 #       total = amount_delivery - ((amount_delivery * coupon_discount) / 100)
       delivery = request.session.get('delivery_summ', ShopSettings.objects.get().delivery)
@@ -66,7 +64,7 @@ def order_create(request):
       discount_amount = (subtotal * coupon_discount) / 100  # скидка в рублях
       after_discount = subtotal - discount_amount
       total = after_discount + delivery
-      print(f'Доставка: {delivery} - Купон: {coupon_discount} - Сумма товаров: {subtotal} - Скидка в рублях: {discount_amount} - After Discount: {after_discount} - Общая сумма: {total}')
+
 
       if request.method == "POST":
           if form.is_valid():
