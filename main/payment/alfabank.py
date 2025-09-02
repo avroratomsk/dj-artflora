@@ -26,12 +26,8 @@ def create_payment(order, cart, request):
     # Используем его как часть номера заказа
     order_number = f"{order.id}-{payment_uuid[:8]}"
 
-    isDelivery = request.session.get('delivery')
-    if isDelivery == 1:
-      delivery = request.session.get('delivery_summ')
-      delivery = int("{0:.2f}".format(delivery).replace('.',''))
-    else:
-      delivery = 0
+    delivery = request.session.get('delivery_summ')
+    delivery = int("{0:.2f}".format(delivery).replace('.',''))
 
     isCoupon = request.session.get('coupon_code')
 
