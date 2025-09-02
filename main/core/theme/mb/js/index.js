@@ -473,6 +473,10 @@ ymaps.ready(init);
 
 function init() {
 
+    $("#finaladress").val("");
+    $("#suggest").val("").css("border-color", "");
+    $("#addressError").text("").hide();
+
     var city = $("#suggest").attr("data-city");
     var zones = $("#suggest").attr("data-zones");
 
@@ -631,7 +635,6 @@ function init() {
                                     $("#finaladress").val($("#suggest").val());
                                     myMap.setCenter(obj.geometry._coordinates);
                                     myMap.setZoom(17);
-                                    ы;
                                     $("#suggest").css("border-color", "green");
 
                                 } else {

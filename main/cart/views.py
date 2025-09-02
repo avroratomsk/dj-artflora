@@ -99,5 +99,6 @@ def set_delivery(request, value):
   return redirect('home')
 
 def delivery_summ(request, value): 
-  request.session['delivery_summ'] = value
-  return redirect('home')
+  request.session['delivery_summ'] = int(value)
+  request.session.modified = True
+  return JsonResponse({"status": "ok", "delivery": value})
