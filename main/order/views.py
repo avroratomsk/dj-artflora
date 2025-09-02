@@ -38,7 +38,8 @@ def order(request):
 # from coupons.models import Coupon
 
 def order_create(request):
-      logger.info("➡️ Вошли в order_create, method=%s, session=%s", request.method, dict(request.session))
+      with open("/home/a/avroraweb/irk-artlora.ru/public_html/debug.log", "a", encoding="utf-8") as f:
+          f.write(f"order_create HIT, method={request.method}, session={dict(request.session)}\n")
       if request.method == "GET":
           request.session.pop('delivery_summ', None)
 
