@@ -41,7 +41,9 @@ def order_create(request):
 #       with open("/home/a/avroraweb/irk-artlora.ru/public_html/debug.log", "a", encoding="utf-8") as f:
 #           f.write(f"order_create HIT, method={request.method}, session={dict(request.session)}\n")
       if request.method == "GET":
-          request.session.pop('delivery_summ', None)
+          # Если доставки в сессии нет — ставим по умолчанию
+          if "delivery_summ" not in request.session:
+              request.session["delivery_summ"] = ShopSettings.objects.get().delivery
 
       """
       Создание заказа из корзины, с поддержкой выбора доставки, скидки и способа оплаты
