@@ -230,7 +230,6 @@ if (pickupCheckbox) {
         } else {
             $.get("/cart/set_delivery/1/", function () {
                 let sd = parseInt(document.getElementById("delivery-price").innerText);
-                console.log(sd);
                 document.getElementById("id_delivery_address").style.display = "flex";
                 document.getElementById("suggest").required = true;
                 let summ = document.getElementById("order-total").innerText;
@@ -324,8 +323,6 @@ window.addEventListener("DOMContentLoaded", function (e) {
     if (param_mass[0] != "") {
         param_mass.forEach(item => {
             let encode = decodeURI(item);
-            console.log(item);
-            console.log(encode);
             let checkbox = document.querySelector("[name=" + encode + "]");
             checkbox.checked = true;
         });
@@ -682,7 +679,6 @@ async function applyCoupon() {
         });
 
         const data = await response.json();
-        console.log(data.status);
         if (data.status == 1) {
 
             promocodErrorText.style.display = "block";
@@ -831,7 +827,6 @@ const countFavorite = (csrfToken) => {
         })
         .then(data => {
             const countFavorite = document.getElementById("count");
-            console.log(countFavorite);
             if (!countFavorite) {
                 let favoriteElem = document.getElementById("favorites");
                 favoriteElem.insertAdjacentHTML("afterbegin", "<span class=\"favorite_count\" id=\"count\">" + data.count + "</span>");
@@ -850,7 +845,6 @@ const toggleFavorites = (e) => {
 
     if (btn) {
         let dataId = btn.dataset.id;
-        console.log(dataId);
         fetch("/favorites/favorites-toggle/", {
             method: "POST",
             headers: {
@@ -870,7 +864,6 @@ const toggleFavorites = (e) => {
                 if (data.status == "added") {
                     btn.classList.add("_active");
                     countFavorite(csrfToken);
-                    console.log(data);
                     showNotification(data.name);
                 } else {
                     btn.classList.remove("_active");
@@ -897,7 +890,6 @@ if (!document.cookie.split("; ").find(row => row.startsWith("cookie_consent=")))
 
 // Обработчик для кнопки согласия
 document.getElementById("accept-cookies").addEventListener("click", function () {
-    console.log("click");
     // Устанавливаем куки на 1 год
     document.cookie = "cookie_consent=true; max-age=" + 60 * 60 * 24 * 365 + "; path=/";
     // Скрываем уведомление

@@ -9,7 +9,6 @@ from shop.models import Product
 
 def cart(request):
   product_id = request.POST.get("data")
-  print(product_id)
   # product = Product.objects.get(id=product_id)
   response_data = {
     'message': 'Привет, мир!',

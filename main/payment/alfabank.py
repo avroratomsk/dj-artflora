@@ -66,9 +66,7 @@ def create_payment(order, cart, request):
         sum += int(item["itemAmount"])
 
     sum += delivery
-    print(sum)
     sum = sum - ((sum * coupon_discount) / 100)
-    print(sum)
 
     post_data = {
         "userName": login,
