@@ -95,10 +95,20 @@ def cart_remove(request):
 
 
 def set_delivery(request, value):
-  request.session['delivery'] = value
-  return redirect('home')
+    """
+    Сохраняем доставку в сессию (используем один ключ delivery_summ).
+    Для самовывоза value = 0.
+    """
+    request.session['delivery_summ'] = int(value)
+    request.session.modified = True
+    return JsonResponse({"status": "ok", "delivery": value})
 
-def delivery_summ(request, value): 
-  request.session['delivery_summ'] = int(value)
-  request.session.modified = True
-  return JsonResponse({"status": "ok", "delivery": value})
+
+def delivery_summ(request, value):
+    """
+    Этот метод можно оставить для совместимости с Яндекс.Картами (зоны доставки).
+    Он делает то же самое: кладёт delivery_summ в сессию.
+    """
+    request.session['delivery_summ'] = int(value)
+    request.session.modified = True
+    return JsonResponse({"status": "ok", "delivery": value})

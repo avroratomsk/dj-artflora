@@ -30,16 +30,16 @@ def create_payment(order, cart, request):
     if isDelivery == 1:
       delivery = request.session.get('delivery_summ')
       delivery = int("{0:.2f}".format(delivery).replace('.',''))
-    else: 
+    else:
       delivery = 0
-    
+
     isCoupon = request.session.get('coupon_code')
-    
+
     if isCoupon:
         coupon_discount = request.session.get('coupon_discoint')
     else:
         coupon_discount = 0
-        
+
     def dec_to_cop(price):
         res = str(round(price, 2))
         res_filter = res.replace(",", "").replace(".", "")
@@ -59,17 +59,17 @@ def create_payment(order, cart, request):
         }
         count += 1
         items.append(i)
-    
+
     sum  = 0
-    
+
     for item in items:
         sum += int(item["itemAmount"])
-        
+
     sum += delivery
     print(sum)
     sum = sum - ((sum * coupon_discount) / 100)
     print(sum)
-    
+
     post_data = {
         "userName": login,
         "password": password,
@@ -79,7 +79,7 @@ def create_payment(order, cart, request):
         "failUrl": failUrl,
         "cartItems": items,
     }
-    
+
     r = requests.post("https://ecom.alfabank.ru/api/rest/register.do", post_data)
 
     try:

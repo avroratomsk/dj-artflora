@@ -39,7 +39,7 @@ def order(request):
 
 def order_create(request):
       if request.method == "GET":
-        request.session.pop('delivery_summ', None)
+          request.session.pop('delivery_summ', None)
 
       """
       Создание заказа из корзины, с поддержкой выбора доставки, скидки и способа оплаты
