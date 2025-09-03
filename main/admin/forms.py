@@ -553,13 +553,6 @@ class ShopSettingsForm(forms.ModelForm):
     class Meta:
         model = ShopSettings
         fields = "__all__"
-        labels = {
-            'meta_h1':'Заголвок первого уровня',
-            'meta_title':'Meta title',
-            'meta_description':'Мета description',
-            'meta_keywords':'Meta keywords',
-            'delivery':'Стоимость доставки',
-        }
         widgets = {
             'meta_h1': forms.TextInput(attrs={
                 'class': 'form__controls',
@@ -577,6 +570,21 @@ class ShopSettingsForm(forms.ModelForm):
             'delivery': forms.NumberInput(attrs={
                 'class': 'form__controls',
             }),
+             'zone_one': forms.NumberInput(attrs={
+                'class': 'form__controls',
+             }),
+             'zone_two': forms.NumberInput(attrs={
+               'class': 'form__controls',
+             }),
+             'zone_three': forms.NumberInput(attrs={
+               'class': 'form__controls',
+             }),
+             'zone_four': forms.NumberInput(attrs={
+               'class': 'form__controls',
+             }),
+             'zone_five': forms.NumberInput(attrs={
+               'class': 'form__controls',
+             }),
         }
               
 class MessangerForm(forms.ModelForm):

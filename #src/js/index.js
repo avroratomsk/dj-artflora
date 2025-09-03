@@ -510,7 +510,7 @@ function init() {
 
 
             function getzones() {
-                var flickerAPI = "/core/libs/data-1.json";
+                var flickerAPI = "/category/delivery_zones/";
                 $.getJSON(flickerAPI, {
                     tags: "mount rainier",
                     tagmode: "any",

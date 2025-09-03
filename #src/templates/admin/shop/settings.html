@@ -2,7 +2,7 @@
 <div class="page">
   <div class="page__inner">
     <div class="page__top">
-      <h1 class="page__title">Настройки товара</h1>
+      <h1 class="page__title">Настройки магазина</h1>
       <ul class="admin-breadcrumbs">
         <li><a href="{% url 'admin' %}">Панель управления</a></li>
         <li>Настройки магазина</li>
@@ -43,6 +43,26 @@
             <div class="form__group">
               <label for="{{ form.delivery.id_for_label }}" class="form__controls-label">Минимальная стоимость доставки: </label>
               {{ form.delivery }} {{ form.delivery.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.zone_one.id_for_label }}" class="form__controls-label">Красная зона: </label>
+              {{ form.zone_one }} {{ form.zone_one.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.zone_two.id_for_label }}" class="form__controls-label">Голубая большая зона: </label>
+              {{ form.zone_two }} {{ form.zone_two.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.zone_three.id_for_label }}" class="form__controls-label">Зеленая(зеленая зона внутри с голубой зоной): </label>
+              {{ form.zone_three }} {{ form.zone_three.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.zone_four.id_for_label }}" class="form__controls-label">Голубая(голубая зона внутри зеленой зоной): </label>
+              {{ form.zone_four }} {{ form.zone_four.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.zone_five.id_for_label }}" class="form__controls-label">Светло зеленая зона(центр): </label>
+              {{ form.zone_five }} {{ form.zone_five.errors }}
             </div>
             <div class="form__group">
               <label for="{{ form.description.id_for_label }}" class="form__controls-label">Текст : </label>
