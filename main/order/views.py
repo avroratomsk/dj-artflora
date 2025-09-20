@@ -193,9 +193,12 @@ def order_success(request):
         except Exception as e:
             logger.error(f"[order_success] Email send FAILED for order #{order.id}: {e}")
 
-        # --- ЛОГИ КОРЗИНЫ ---
-        cart_items = Cart.objects.filter(session_key=session_key)
-        logger.info(f"[order_success] Found {cart_items.count()} items in cart for session {session_key}")
+        if request.user.is_authenticated:
+            cart_items = Cart.objects.filter(user=request.user)
+            logger.info(f"[order_success] Found {cart_items.count()} items in cart for user {request.user}")
+        else:
+            cart_items = Cart.objects.filter(session_key=session_key)
+            logger.info(f"[order_success] Found {cart_items.count()} items in cart for session {session_key}")
 
         if cart_items.exists():
             cart_items.delete()
