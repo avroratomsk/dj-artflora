@@ -183,21 +183,28 @@ def order_success(request):
     logger.info(f"[order_success] Order #{order.id}, status: {data.get('order_status')}, code: {data.get('status')}")
 
     if data["status"] == "0":
-#         if not order.is_paid:  # только если ещё не оплачен
         order.is_paid = True
         order.save()
 
         logger.info(f"[order_success] Sending email for order #{order.id}")
         try:
-          email_send(order)
-          logger.info(f"[order_success] Email send completed for order #{order.id}")
-          # order_telegram(order)
+            email_send(order)
+            logger.info(f"[order_success] Email send completed for order #{order.id}")
         except Exception as e:
-          logger.error(f"[order_success] Email send FAILED for order #{order.id}: {e}")
+            logger.error(f"[order_success] Email send FAILED for order #{order.id}: {e}")
 
+        # --- ЛОГИ КОРЗИНЫ ---
         cart_items = Cart.objects.filter(session_key=session_key)
-        cart_items.delete()
+        logger.info(f"[order_success] Found {cart_items.count()} items in cart for session {session_key}")
+
+        if cart_items.exists():
+            cart_items.delete()
+            logger.info(f"[order_success] Cart cleared for session {session_key}")
+        else:
+            logger.warning(f"[order_success] Cart already empty for session {session_key}")
+
         request.session["delivery"] = 1
+        logger.info(f"[order_success] Delivery flag reset for session {session_key}")
 
         return redirect("/?order=True")
     else:
