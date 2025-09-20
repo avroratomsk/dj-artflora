@@ -192,7 +192,7 @@ def order_success(request):
           email_send(order)
           logger.info(f"[order_success] Email send completed for order #{order.id}")
           # order_telegram(order)
-        except:
+        except as e:
           logger.error(f"[order_success] Email send FAILED for order #{order.id}: {e}")
 
         cart_items = Cart.objects.filter(session_key=session_key)
