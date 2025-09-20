@@ -54,7 +54,7 @@
       Способ получения: Самовывоз<br />
     {% endif %}
 
-    Оплачен? {{ item.is_paid|yesno:"Да,Нет" }}
+    Оплачен? {{ order.is_paid|yesno:"Да,Нет" }}<br />
 
     {% if order.delivery_date %} Дата доставки: {{ order.delivery_date }} <br />{% endif %}
     {% if order.delivery_time %} Время доставки: {{ order.delivery_time|time:"H:i" }} <br />{% endif %}
