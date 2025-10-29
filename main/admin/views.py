@@ -188,17 +188,22 @@ def product_edit(request, pk):
 
     chars = ProductChar.objects.filter(parent_id=pk)
     all_chars = CharName.objects.all()
+    images = ProductImage.objects.filter(parent_id=pk)
+
 
     if request.method == "POST":
         form = ProductForm(request.POST, request.FILES, instance=product)
-        formset = ProductImageFormSet(request.POST, request.FILES, instance=product)
+        #formset = ProductImageFormSet(request.POST, request.FILES, instance=product)
         product_char_form = ProductCharForm(request.POST)
 
-        if form.is_valid() and formset.is_valid():
+        if form.is_valid():
             product = form.save()
-            formset.save()
 
-            # 🔹 обработка новых характеристик
+            images = request.FILES.getlist('src')
+            for image in images:
+                img = ProductImage(parent=product, src=image)
+                img.save()
+
             char_name = request.POST.getlist("text_name")
             char_value = request.POST.getlist("char_value")
             for name_id, value in zip(char_name, char_value):
@@ -218,7 +223,7 @@ def product_edit(request, pk):
                 old_char.char_value = cval
                 old_char.save()
 
-            return redirect("admin_product")
+            return redirect(request.META.get('HTTP_REFERER'))
         else:
             return render(
                 request,
@@ -234,7 +239,7 @@ def product_edit(request, pk):
 
     else:
         form = ProductForm(instance=product)
-        formset = ProductImageFormSet(instance=product)
+        #formset = ProductImageFormSet(instance=product)
         product_char_form = ProductCharForm()
 
     return render(
@@ -242,10 +247,11 @@ def product_edit(request, pk):
         "shop/product/product_edit.html",
         {
             "form": form,
-            "formset": formset,
+            #"formset": formset,
             "product_char_form": product_char_form,
             "all_chars": all_chars,
             "chars": chars,
+            'images': images,
         },
     )
 def product_image_delete(request, pk):
@@ -257,12 +263,19 @@ def product_image_delete(request, pk):
 def product_add(request):
   form = ProductForm()
   product_char_form = ProductCharForm()
-  
+  image_form = ProductImageForm()
   if request.method == "POST":
     form_new = ProductForm(request.POST, request.FILES)
     if form_new.is_valid():
       form_new.save()
       product = Product.objects.get(slug=request.POST['slug'])
+
+      images = request.FILES.getlist('src')
+
+      for image in images:
+          img = ProductImage(parent=product, src=image)
+          img.save()
+
       char_name = request.POST.getlist('text_name')
       char_value = request.POST.getlist('char_value')
       char_count = 0
@@ -288,6 +301,7 @@ def product_add(request):
   context = {
     "form": form,
     "product_char_form":product_char_form,
+    'image_form': image_form,
   }
   
   return render(request, 'shop/product/product_add.html', context)

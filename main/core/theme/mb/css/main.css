@@ -5055,6 +5055,11 @@ td {
   justify-content: space-between;
 }
 
+.mini-cart__name {
+  max-width: 210px;
+  margin-bottom: 5px;
+}
+
 .mini-cart__action {
   display: flex;
   flex-direction: column;

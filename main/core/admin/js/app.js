@@ -19,13 +19,22 @@
 let imageAdd = document.querySelector(".product-block__plus");
 
 imageAdd?.addEventListener("click", () => {
-    let image = "<div class=\"product-block__inner\"><p><label for=\"id_src\">Выбрать изображение:</label><input type=\"file\" multiple=\"multiple\" name=\"src\" accept=\"image/*\" required=\"\" id=\"id_src\"></p><div class=\"product-block__minus\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\"><path d=\"M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z\"></path></svg></div></div>";
+    let image = "<div class=\"product-block__image\"><label for=\"id_src\">Выбрать изображение:</label><input type=\"file\"multiple=\"multiple\"name=\"src\"accept=\"image/*\"required=\"\"id=\"id_src\"><button type='button' class=\"product-block__minus\">Удалить</button></div>";
     document.querySelector(".product-block__paste").innerHTML += image;
+});
+
+document.body.addEventListener("click", (e) => {
+    if (e.target.classList.contains("product-block__minus")) {
+        console.log("this");
+        const parentElement = e.target.closest(".product-block__image");
+        parentElement.remove();
+    }
+
 });
 
 
 // $(document).on("click", ".product-block__minus", function () {
-//     $(this).parent(".product-block__inner").remove();
+//     $(this).parent(".product-block__image").remove();
 // });
 
 const tabButton = document.querySelectorAll("[data-name]");
