@@ -17,7 +17,7 @@
           <button type="button" data-name="char" class="page__head-btn">Характеристики</button>
         </div>
         <button type="submit" class="form__btn">
-          <img src="{% static 'theme/mb/images/admin/save.svg' %}" alt="" />
+          <img src="{% static 'theme/mb/images/admin/save.svg' %}" alt=""/>
           Сохранить
         </button>
       </div>
@@ -26,7 +26,8 @@
         <div class="page-content__row">
           <div class="page-content__col">
             <div class="form__group">
-              <label for="{{ form.name.id_for_label }}" class="form__controls-label"> <span>*</span>Название букета : </label>
+              <label for="{{ form.name.id_for_label }}" class="form__controls-label"> <span>*</span>Название букета :
+              </label>
               {{ form.name }} {{ form.name.errors }}
             </div>
 
@@ -39,34 +40,16 @@
               <label for="{{ form.description.id_for_label }}" class="form__controls-label"> Полное описание : </label>
               {{ form.description }} {{ form.description.errors }}
             </div>
-            <div class="form__group form__group-image">
-              <label class="form__controls-label">Дополнительные изображения:</label>
-              {{ formset.management_form }}
-              <div class="product-block__paste">
-                {% for f in formset %}
-                <div class="product-image-item">
-                  {% if f.instance.pk and f.instance.src %}
-                  <img src="{{ f.instance.src.url }}" alt="" style="max-height:100px;">
-                  <div class="grid-item__action">
-                    <a href="{% url 'product_image_delete' f.instance.pk %}">Удалить</a>
-                  </div>
-                  {% endif %}
-                  {{ f.src }}
-                </div>
-                {% endfor %}
-              </div>
-            </div>
 
             <div class="product-field"></div>
             <div class="product-block__plus form__btn">Добавить изрбражение</div>
             <div class="product-block__paste">
               {% for image in images %}
-<!--              <div class="product-block__minus">-->
-<!--                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">-->
-<!--                  <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path>-->
-<!--                </svg>-->
-<!--              </div>-->
-              <img src="{{ image.src.url }}" alt="">
+              <div class="product-block__image">
+                <img src="{{ image.src.url }}" alt="" id="{{image.id}}">
+                <a href="{% url 'product_image_delete' image.pk %}" class="product-block__minus">Удалить</a>
+              </div>
+              
               {% endfor %}
             </div>
             <div class="form__grid">
@@ -86,7 +69,8 @@
               </div>
 
               <div class="form__group">
-                <label for="{{ form.quantity_flower.id_for_label }}" class="form__controls-label"> Количество цветков : </label>
+                <label for="{{ form.quantity_flower.id_for_label }}" class="form__controls-label"> Количество цветков
+                  : </label>
                 {{ form.quantity_flower }} {{ form.quantity_flower.errors }}
               </div>
 
@@ -107,16 +91,19 @@
               </div>
 
               <div class="form__group">
-                <label for="{{ form.quantity_purchase.id_for_label }}" class="form__controls-label"> Количество купленных : </label>
+                <label for="{{ form.quantity_purchase.id_for_label }}" class="form__controls-label"> Количество
+                  купленных : </label>
                 {{ form.quantity_purchase }} {{ form.quantity_purchase.errors }}
               </div>
 
               <div class="form__group">
-                <label for="{{ form.discount.id_for_label }}" class="form__controls-label"> Скидка в (<span>% :</span>) </label>
+                <label for="{{ form.discount.id_for_label }}" class="form__controls-label"> Скидка в (<span>% :</span>)
+                </label>
                 {{ form.discount }} {{ form.discount.errors }}
               </div>
               <div class="form__group">
-                <label for="{{ form.slug.id_for_label }}" class="form__controls-label"> Количество товара в наличии : </label>
+                <label for="{{ form.slug.id_for_label }}" class="form__controls-label"> Количество товара в наличии
+                  : </label>
                 {{ form.quantity }} {{ form.quantity.errors }}
               </div>
             </div>
@@ -143,7 +130,8 @@
             </div>
             <div class="form__group-checkbox">
               {{ form.free_shipping }} {{ form.free_shipping.errors }}
-              <label for="{{ form.free_shipping.id_for_label }}" class="form__controls-label"> Бесплатная доставка ? : </label>
+              <label for="{{ form.free_shipping.id_for_label }}" class="form__controls-label"> Бесплатная доставка ?
+                : </label>
             </div>
 
             <div class="form__group-checkbox">
@@ -173,7 +161,8 @@
               {{ form.meta_description }} {{ form.meta_description.errors }}
             </div>
             <div class="form__group">
-              <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Мета keywords : </label>
+              <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Мета keywords
+                : </label>
               {{ form.meta_keywords }} {{ form.meta_keywords.errors }}
             </div>
           </div>
@@ -186,8 +175,9 @@
             <div class="page-content__char" id="paste-char">
               {% for char in chars %}
               <div class="form__group-char">
-                <input type="text" name="old_char_id" value="{{ char.id }}" hidden />
-                <label for="{{ form.category.id_for_label }}" class="form__controls-label">Название характеристики :</label>
+                <input type="text" name="old_char_id" value="{{ char.id }}" hidden/>
+                <label for="{{ form.category.id_for_label }}" class="form__controls-label">Название характеристики
+                  :</label>
                 <select name="old_text_name" class="form__controls" placeholder="Название характеристики" id="id_name">
                   <option value="{{ char.char_name.id }}">{{ char.char_name.text_name }}</option>
                   {% for ch in all_chars %}
@@ -195,7 +185,8 @@
                   {% endfor %}
                 </select>
                 <label for="id_char_value" class="form__controls-label">Значение :</label>
-                <input type="text" name="old_char_value" class="form__controls" placeholder="Значение" required="" id="id_char_value" value="{{ char.char_value }}" />
+                <input type="text" name="old_char_value" class="form__controls" placeholder="Значение" required=""
+                       id="id_char_value" value="{{ char.char_value }}"/>
                 <a href="" class="form__remove"> Удалить </a>
               </div>
               {% endfor %}
@@ -205,7 +196,9 @@
         <button type="button" id="add-char" class="form__plus">Добавить характеристику</button>
       </div>
     </form>
-    <div class="select-hide" id="select-hide" style="opacity: 0; position: absolute">{{ option_form.type }} {{ product_char_form.char_name }}</div>
+    <div class="select-hide" id="select-hide" style="opacity: 0; position: absolute">{{ option_form.type }} {{
+      product_char_form.char_name }}
+    </div>
   </div>
 </div>
 

@@ -18,9 +18,6 @@ def favorites(request):
   for product in favorites:
     product.is_favorite = product.id in favorite_product_ids
   
-  for o in favorites:
-    print(o)
-  
   context = {
     "favorites": favorites
   }

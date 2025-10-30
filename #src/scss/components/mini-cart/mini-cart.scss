@@ -133,7 +133,10 @@
 
   // .mini-cart__name
 
-  &__name {}
+  &__name {
+    max-width: 210px;
+    margin-bottom: 5px;
+  }
 
   // .mini-cart__price
 
