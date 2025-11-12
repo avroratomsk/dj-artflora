@@ -3306,6 +3306,10 @@ td {
   opacity: 0.9;
 }
 
+.form__submit:disabled {
+  opacity: 0.7;
+}
+
 .form__item {
   display: flex;
   flex-direction: column;

@@ -327,7 +327,7 @@ window.addEventListener("DOMContentLoaded", function (e) {
             checkbox.checked = true;
         });
     } else {
-    // console.log('Четко');
+        // console.log('Четко');
     }
 });
 
@@ -564,22 +564,22 @@ function init() {
                     if (obj) {
                         // Об оценке точности ответа геокодера можно прочитать тут: https://tech.yandex.ru/maps/doc/geocoder/desc/reference/precision-docpage/
                         switch (obj.properties.get("metaDataProperty.GeocoderMetaData.precision")) {
-                        case "exact":
-                            break;
-                        case "number":
-                        case "near":
-                        case "range":
-                            error = "Уточните номер дома";
-                            hint = "Уточните номер дома";
-                            break;
-                        case "street":
-                            error = "Уточните номер дома";
-                            hint = "Уточните номер дома";
-                            break;
-                        case "other":
-                        default:
-                            error = "Уточните адрес";
-                            hint = "Уточните адрес";
+                            case "exact":
+                                break;
+                            case "number":
+                            case "near":
+                            case "range":
+                                error = "Уточните номер дома";
+                                hint = "Уточните номер дома";
+                                break;
+                            case "street":
+                                error = "Уточните номер дома";
+                                hint = "Уточните номер дома";
+                                break;
+                            case "other":
+                            default:
+                                error = "Уточните адрес";
+                                hint = "Уточните адрес";
                         }
                     } else {
                         error = "Адрес не найден";
@@ -895,6 +895,41 @@ document.getElementById("accept-cookies").addEventListener("click", function () 
     // Скрываем уведомление
     document.getElementById("cookie-notice").style.display = "none";
 });
+
+
+const dateInput = document.getElementById("id_delivery_date");
+
+dateInput?.addEventListener("change", function () {
+    const timeInput = document.getElementById("id_delivery_time");
+
+    const now = new Date();
+    const selectedDate = new Date(dateInput.value);
+
+    // Проверяем, выбрана ли сегодняшняя дата
+    const isToday = selectedDate.toDateString() === now.toDateString();
+
+    if (isToday) {
+        // Для сегодня: минимальное время = текущее время + 2 часа
+        const minTime = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+        const minTimeString = minTime.toTimeString().slice(0, 5);
+        console.log(minTime);
+
+        timeInput.min = minTimeString;
+        timeInput.value = minTimeString;
+        console.log(timeInput.min);
+
+        // Показываем подсказку
+        alert(`Доступное время доставки: с ${minTimeString}`);
+
+        document.getElementById("time-hint").innerText = `Доступное время доставки: с ${minTimeString}`;
+
+    } else {
+        // Для других дней - любое время
+        document.getElementById("time-hint").innerText = "";
+    }
+});
+
+
 
 
 
