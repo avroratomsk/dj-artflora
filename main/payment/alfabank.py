@@ -89,32 +89,68 @@ def create_payment(order, cart, request):
     return data
 
 def get_status(pay_id):
+    """
+    Найти заказ по payment_id с fallback-логикой
+    """
+    logger.info(f"[get_status] Searching for payment_id: {pay_id}")
+
+    # Сначала ищем по payment_id (основной способ)
     orders = Order.objects.filter(payment_id=pay_id)
-    if not orders.exists():
-        logger.error(f"No orders found with payment_id={pay_id}")
-        return {"status": "-1", "order": None}
 
-    if orders.count() > 1:
-        logger.warning(f"Multiple orders found with same payment_id={pay_id}")
-        for o in orders:
-            logger.warning(f"  - Order ID: {o.id}, is_paid: {o.is_paid}, created: {o.created_at}")
+    if orders.exists():
+        logger.info(f"[get_status] Found {orders.count()} order(s) by payment_id")
+        order = orders.filter(is_paid=False).first() or orders.latest('id')
+        logger.info(f"[get_status] Selected order ID: {order.id}")
+    else:
+        # FALLBACK: пробуем найти заказ по ID из orderNumber
+        logger.warning(f"[get_status] No orders found by payment_id, trying fallback...")
 
-    order = orders.filter(is_paid=False).first() or orders.latest('id')
+        # Парсим orderNumber (формат: "123-uuid")
+        try:
+            # Получаем статус от Альфа-Банка чтобы узнать orderNumber
+            post_data = {
+                "userName": login,
+                "password": password,
+                "orderId": pay_id,
+            }
+            r = requests.post("https://ecom.alfabank.ru/api/rest/getOrderStatus.do", post_data)
+            response_data = r.json()
 
+            order_number = response_data.get("orderNumber", "")
+            if order_number and "-" in order_number:
+                order_id = int(order_number.split("-")[0])  # Берем часть до дефиса
+                order = Order.objects.filter(id=order_id).first()
+                if order:
+                    logger.info(f"[get_status] Found order by ID fallback: {order.id}")
+                    # Обновляем payment_id для будущих запросов
+                    order.payment_id = pay_id
+                    order.save()
+                    logger.info(f"[get_status] Updated payment_id for order {order.id}")
+                else:
+                    logger.error(f"[get_status] No order found by ID: {order_id}")
+                    return {"status": "-1", "order": None}
+            else:
+                logger.error(f"[get_status] Invalid orderNumber format: {order_number}")
+                return {"status": "-1", "order": None}
+
+        except Exception as e:
+            logger.error(f"[get_status] Fallback search failed: {e}")
+            return {"status": "-1", "order": None}
+
+    # Получаем актуальный статус от банка
     post_data = {
         "userName": login,
         "password": password,
         "orderId": pay_id,
-        "orderNumber": order.id,
     }
 
     r = requests.post("https://ecom.alfabank.ru/api/rest/getOrderStatus.do", post_data)
+    response_data = r.json()
 
-    status = r.json().get("errorCode")
-    order_status = r.json().get("OrderStatus")
+    status = response_data.get("errorCode")
+    order_status = response_data.get("OrderStatus")
 
-    logger.info(f"[AlfaBank] Order {order.id} — Status: {order_status}, ErrorCode: {status}")
+    logger.info(f"[get_status] Order {order.id} — Status: {order_status}, ErrorCode: {status}")
     data = {"status": status, "order": order, "order_status": order_status}
-
     return data
 

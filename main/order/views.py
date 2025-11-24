@@ -217,10 +217,17 @@ def order_success(request):
 def buy_now(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     form = CreateOrderForm(request.POST or None)
-    delivery = ShopSettings.objects.get()
+
+    if request.method == "GET":
+      if "delivery_summ" not in request.session:
+        request.session["delivery_summ"] = ShopSettings.objects.get().delivery
+
+    delivery = request.session.get('delivery_summ', ShopSettings.objects.get().delivery)
+
+    total = product.price + delivery
 
     if request.method == "POST":
-        payment_method = request.POST['payment_option']
+#         payment_method = request.POST['payment_option']
         if form.is_valid():
             try:
                 order = form.save(commit=False)
@@ -229,7 +236,7 @@ def buy_now(request, product_id):
                 order.email = request.POST.get('email', '')
                 order.phone = request.POST.get('phone', '')
                 order.delivery_address = request.POST.get('delivery_address', '')
-                order.pay_method = payment_method
+#                 order.pay_method = payment_method
                 order.save()
 
                 order_item = OrderItem.objects.create(
@@ -259,10 +266,12 @@ def buy_now(request, product_id):
         'title': 'Покупка в один клик',
         'order_form': form,
         'product': product,
-        'delivery': delivery.delivery
+        'delivery': delivery,
+        'total': total,
+        'price': product.price
     }
 
-    return render(request, "pages/orders/checkout.html", context)
+    return render(request, "pages/orders/create.html", context)
 
 
 def order_succes(request):

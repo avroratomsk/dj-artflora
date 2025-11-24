@@ -118,7 +118,8 @@
             <div class="form__row">
               <input type="checkbox" id="agreement-click" name="agreement" required>
               <label for="agreement-click" class="form__label">
-                Я согласен на обработку моих персональных  данных в соответствии с <a href="{% url 'privacy' %}">политикой конфиденциальности</a>
+                Я согласен на обработку моих персональных  данных в соответствии с
+                <a href="{% url 'privacy' %}">политикой конфиденциальности</a>
               </label>
             </div>
             <button type="submit" class="form__submit">Оформить заказ</button>
@@ -126,6 +127,7 @@
         </div>
         <div class="order-create__col">
           <div id="map"></div>
+          {% comment %}
           <div class="order-create__promocode">
             <form action="{% url 'apply' %}" class="form" method="POST">
               {% csrf_token %}
@@ -136,6 +138,7 @@
               <p id="order-create__promocode-error">Промокод недействителен</p>
             </form>
           </div>
+          {% endcomment %}
           <div class="order-create__information">
             {% load carts_tag %}{% user_carts request as carts %}
             <p class="order-create__info-order"><span>Информация о заказе</span><span>{{ carts.quantity }}</span></p>
@@ -162,7 +165,8 @@
                   placeholder="Введите промокод" />
               </form>
             </div> -->
-            <div class="order-create__summ"><span>Сумма:</span> <span id="order-sum">{{ cart.total_price }}</span> руб.
+            <div class="order-create__summ">
+              <span>Сумма:</span> <span id="order-sum">{% if price %}{{ price }}{% endif %}{{ cart.total_price }}</span> руб.
             </div>
             <div id="delivery-price">{{ delivery }}</div>
             <div class="order-create__delivery" id="order-delivery-info"><span>Доставка:</span> от <span
@@ -171,8 +175,8 @@
             <div class="order-create__delivery"><span>Скидка:</span> <span id="discount"> {% if discount %}
                 {{ discount }}%{% else %}0%{% endif %}</span></div>
 
-            <div class="order-create__total"><span>Итого:</span> <span id="order-total">{% if total %} {{ total }}
-                {% endif %}</span> руб.</div>
+            <div class="order-create__total"><span>Итого:</span> <span id="order-total">
+              {% if total %} {{ total }}  {% endif %}</span> руб.</div>
           </div>
         </div>
       </div>
