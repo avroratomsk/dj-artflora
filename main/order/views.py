@@ -116,8 +116,6 @@ def order_create(request):
                           quantity=quantity
                       )
 
-                    # Проверяем способ оплаты
-#                   if payment_method == "На сайте картой":
                   data = create_payment(order, cart_items, request)
                   payment_id = data["id"]
                   confirmation_url = data["confirmation_url"]
@@ -132,15 +130,7 @@ def order_create(request):
                   order.payment_dop_info = confirmation_url
                   order.save()
                   return redirect(confirmation_url)
-#                   else:
-                    # Иначе — подтверждаем заказ без оплаты онлайн
-#                     email_send(order)
-#                       order_telegram(order)
-#                     cart_items.delete()
-#                     request.session["delivery"] = 1
-#                     order.is_paid = True
-#                     order.save()
-#                     return redirect('order_succes')
+
 
               except Exception as e:
                   print(f"Error: {e}")
@@ -247,18 +237,21 @@ def buy_now(request, product_id):
                     quantity=1
                 )
 
-#                 if payment_method == "На сайте картой":
-                data = create_payment(order_item, [order_item], request)
+                data = create_payment(order, cart_items, request)
                 payment_id = data["id"]
                 confirmation_url = data["confirmation_url"]
+
+                if Order.objects.filter(payment_id=payment_id).exists():
+                    logger.error(f"[order_create] Duplicate payment_id detected before saving: {payment_id}")
+                    messages.error(request, "Ошибка при создании платежа. Попробуйте снова.")
+                    order.delete()
+                    return redirect("order_create")
+
                 order.payment_id = payment_id
                 order.payment_dop_info = confirmation_url
                 order.save()
                 return redirect(confirmation_url)
-#                 else:
-#                     email_send(order)
-#                     order_telegram(order)
-#                     return redirect('order_succes')
+
             except Exception as e:
                 print(e)
 
